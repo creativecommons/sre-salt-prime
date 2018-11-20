@@ -1,7 +1,6 @@
 # Bootstrap AWS
 
-
-## macOS Laptop Installation
+## macOS Installation
 
 1. Install SaltStack:
 
@@ -16,6 +15,8 @@
     ```
 
 3. Configure AWS CLI with profile `creativecommons`
+
+   - [Configuring the AWS CLI - AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 
 
 ## Create Core Infrastructure on AWS
