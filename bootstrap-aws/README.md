@@ -6,13 +6,13 @@
 1. Install SaltStack:
 
     ```shell
-brew install salt
+    brew install salt
     ```
 
 2. Install boto and boto3 within SaltStack install:
 
     ```shell
-/usr/local/Cellar/salt/2018.3.2/libexec/bin/pip install boto boto3
+    /usr/local/Cellar/salt/2018.3.2/libexec/bin/pip install boto boto3
     ```
 
 3. Configure AWS CLI with profile `creativecommons`
