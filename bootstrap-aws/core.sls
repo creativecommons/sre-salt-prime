@@ -361,7 +361,7 @@
     - monitoring_enabled: True
     - subnet_name: {{ name_subnet_dmz }}
     - instance_initiated_shutdown_behavior: stop
-    - client_token: {{ name }}
+    - client_token: {{ fqdn }}
     - security_group_names:
         - {{ name_secgroup_pingtrace_all }}
         - {{ name_secgroup_ssh_all }}
