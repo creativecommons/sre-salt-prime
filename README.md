@@ -20,16 +20,26 @@ See bootstrap-aws/[README.md](bootstrap-aws/README.md).
 ## References
 
 
-### SalStack Best Practices
+### SalStack
+
+
+####  Best Practices
 
 - [Salt Formulas](https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html)
 - [Hardening Salt](https://docs.saltstack.com/en/latest/topics/hardening.html)
 - [Salt Best Practices](https://docs.saltstack.com/en/latest/topics/best_practices.html)
 
 
-### SaltStack State Documentation
+#### State Documentation
 
 - [salt.states.boto_vpc](https://docs.saltstack.com/en/latest/ref/states/all/salt.states.boto_vpc.html)
+- [salt.states.boto_secgroup](https://docs.saltstack.com/en/latest/ref/states/all/salt.states.boto_secgroup.html)
+- [salt.states.boto_ec2](https://docs.saltstack.com/en/latest/ref/states/all/salt.states.boto_ec2.html)
+
+
+## AWS
+
+- [AWS Resource Types Reference](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
 
 
 ### SaltStack on AWS
