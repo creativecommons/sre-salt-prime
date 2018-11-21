@@ -25,5 +25,5 @@ salt-call \
     --log-level=${LOG_LEVEL:-info} \
     --output-diff \
     --id=bootstrap-aws \
-    state.apply core test=${TEST:-True}
+    state.apply core test=${TEST:-True} failhard=True
 rm -rf temp-bootstrap
