@@ -33,6 +33,7 @@ See bootstrap-aws/[README.md](bootstrap-aws/README.md).
 #### State Documentation
 
 - [salt.states.boto_vpc](https://docs.saltstack.com/en/latest/ref/states/all/salt.states.boto_vpc.html)
+- [salt.states.boto_kms](https://docs.saltstack.com/en/latest/ref/states/all/salt.states.boto_kms.html)
 - [salt.states.boto_secgroup](https://docs.saltstack.com/en/latest/ref/states/all/salt.states.boto_secgroup.html)
 - [salt.states.boto_ec2](https://docs.saltstack.com/en/latest/ref/states/all/salt.states.boto_ec2.html)
 
