@@ -43,6 +43,7 @@ which all future SaltStack management development can take place).
     LOG_LEVEL=info TEST=True ./bootstrap.sh
     ```
 
+   - Use `TEST=False` after verifying run to effect changes
    - Expected/ignorable errors:
 
    ```
