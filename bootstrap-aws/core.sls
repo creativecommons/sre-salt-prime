@@ -389,8 +389,8 @@
     - size: 10
     - volume_type: gp2
     - encrypted: True
-    - kms_key_id: |
-        'arn:aws:kms::{{ ACCOUNT_ID }}:alias/{{ name_kmskey_storage }}'
+    # The region must *not* be omitted from the kms_key_id
+    - kms_key_id: 'arn:aws:kms:us-east-2:{{ ACCOUNT_ID }}:alias/{{ name_kmskey_storage }}'
     - require:
         - boto_ec2: {{ name_ec2_bastion_useast2 }}
         - boto_kms: {{ name_kmskey_storage }}
