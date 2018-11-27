@@ -1,11 +1,18 @@
 # Parameters
-{% set REGION = "us-east-2" -%}
+{% set DEPLOY_SSH = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxkavD5saowkf1ZW/dzsLxJguYMKE8Y+YTKY2NHCNhGQSg9XPX3k+fgD3aFvgBnTL5qWPL52DA6TUnoCdcRbeNTBLceoLXbIpG27xkkQ6MFB+Fdk8jk0KprLs/SIsIeOZcukp47G5L7joKaqcflULFuF6DUeJxOmxPKMEPnYBLUDZuQ0Pe8QWgh98dx+n0TSlWkoSCLUnHuFPLjQeg9N/++kdd3KST5R4h651KoH8sZOOboE69HPHbf/JtpHQDC9JhRBVekScrrzGP4B0DA+ircTl5XBXWl4+IQkVQfisvbOtR8OWUmy9xzdKzGm6H4q5raLAUt1WHgzwgkMS3fy5K/hUaJnS1guvmLD0vD6CrsINZkGBsIUv2HqWQtddKO5o+RXLlVkt3NN44cwf4hqMgIaMbKs8fEAXcz/sGNHWvca3pO5oVY32G0ZBIzCGahuHNXtbuUSF4BbYkOr7QJnpg1h+dEzsdgoGMAnRc7ozFmO383GR6jyn4V7rf+SL5BfkhVe/XrwVY6NceQ8vZuHHppULyuLNNrK/W5dnYux65JgpiiPDu30Ng13JJHJ7UVbBgPps7aAA5noV03WqVlCOMqZkbkp0pbT1zQHYwvJ0ezK3BhEa1tDpKlPPeBEP013rAMEu0cV/VYXNsom6t/kDHKKRhhCuijxXE208y7zHVdQ== rsa_creativecommons_20181018" -%}
+{% set IMAGE_NAME = "debian-stretch-hvm-x86_64-gp2-2018-11-10-63975" -%}
 {% set POD = "core" -%}
+{% set REGION = "us-east-2" -%}
 {% set VPC_CIDR = "10.22.10.0/16" -%}
 {% set dmz = {"az": "us-east-2a", "cidr": "10.22.10.0/24"} -%}
 {% set pr1 = {"az": "us-east-2b", "cidr": "10.22.11.0/24"} -%}
 {% set pr2 = {"az": "us-east-2c", "cidr": "10.22.12.0/24"} -%}
-{% set DEPLOYSSH = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxkavD5saowkf1ZW/dzsLxJguYMKE8Y+YTKY2NHCNhGQSg9XPX3k+fgD3aFvgBnTL5qWPL52DA6TUnoCdcRbeNTBLceoLXbIpG27xkkQ6MFB+Fdk8jk0KprLs/SIsIeOZcukp47G5L7joKaqcflULFuF6DUeJxOmxPKMEPnYBLUDZuQ0Pe8QWgh98dx+n0TSlWkoSCLUnHuFPLjQeg9N/++kdd3KST5R4h651KoH8sZOOboE69HPHbf/JtpHQDC9JhRBVekScrrzGP4B0DA+ircTl5XBXWl4+IQkVQfisvbOtR8OWUmy9xzdKzGm6H4q5raLAUt1WHgzwgkMS3fy5K/hUaJnS1guvmLD0vD6CrsINZkGBsIUv2HqWQtddKO5o+RXLlVkt3NN44cwf4hqMgIaMbKs8fEAXcz/sGNHWvca3pO5oVY32G0ZBIzCGahuHNXtbuUSF4BbYkOr7QJnpg1h+dEzsdgoGMAnRc7ozFmO383GR6jyn4V7rf+SL5BfkhVe/XrwVY6NceQ8vZuHHppULyuLNNrK/W5dnYux65JgpiiPDu30Ng13JJHJ7UVbBgPps7aAA5noV03WqVlCOMqZkbkp0pbT1zQHYwvJ0ezK3BhEa1tDpKlPPeBEP013rAMEu0cV/VYXNsom6t/kDHKKRhhCuijxXE208y7zHVdQ== rsa_creativecommons_20181018" -%}
+
+
+###############################################################################
+# You shouldn't need to edit anything below this line #########################
+###############################################################################
+
 
 # Variables
 {% set ACCESS_KEY = salt['environ.get']('AWS_ACCESS_KEY') -%}
@@ -27,8 +34,6 @@
         Name: {{ name }}
         Pod: {{ pod }}
 {%- endmacro %}
-
-{# environment.filters['b64decode'] = base64.b64decode #}
 
 
 ### VPC
@@ -67,7 +72,7 @@
 
 {% set ident = ["private-one", POD, "subnet"] -%}
 {% set name = ident|join("_") -%}
-{% set name_subnet_private_one = name -%}
+{% set name_subnet_pr1 = name -%}
 {{ name }}:
   boto_vpc.subnet_present:
     {{ profile() }}
@@ -83,7 +88,7 @@
 
 {% set ident = ["private-two", POD, "subnet"] -%}
 {% set name = ident|join("_") -%}
-{% set name_subnet_private_two = name -%}
+{% set name_subnet_pr2 = name -%}
 {{ name }}:
   boto_vpc.subnet_present:
     {{ profile() }}
@@ -146,8 +151,8 @@
     - subnet_name: {{ name_subnet_dmz }}
     - require:
         - boto_vpc: {{ name_internet_route }}
-        - boto_vpc: {{ name_subnet_private_one }}
-        - boto_vpc: {{ name_subnet_private_two }}
+        - boto_vpc: {{ name_subnet_pr1 }}
+        - boto_vpc: {{ name_subnet_pr2 }}
 
 
 {% set ident = ["nat", POD, "route-table"] -%}
@@ -162,13 +167,13 @@
         - destination_cidr_block: 0.0.0.0/0
           nat_gateway_subnet_name: {{ name_subnet_dmz }}
     - subnet_names:
-        - {{ name_subnet_private_one }}
-        - {{ name_subnet_private_two }}
+        - {{ name_subnet_pr1 }}
+        - {{ name_subnet_pr2 }}
     {{ tags(ident) }}
     - require:
         - boto_vpc: {{ name_nat_gateway }}
-        - boto_vpc: {{ name_subnet_private_one }}
-        - boto_vpc: {{ name_subnet_private_two }}
+        - boto_vpc: {{ name_subnet_pr1 }}
+        - boto_vpc: {{ name_subnet_pr2 }}
 
 
 ### KMS
@@ -234,6 +239,7 @@
 
 
 ### IAM Roles
+
 
 {% set ident = ["ec2", POD, "iam_role"] -%}
 {% set name = ident|join("_") -%}
@@ -307,7 +313,40 @@
         - boto_vpc: {{ name_vpc }}
 
 
-### Bastion EC2 Instance
+{% set ident = ["ssh-localnets", POD, "secgroup"] -%}
+{% set name = ident|join("_") -%}
+{% set name_secgroup_ssh_localnets = name -%}
+{{ name }}:
+  boto_secgroup.present:
+    {{ profile() }}
+    - name: {{ name }}
+    - description: Allow SSH from local networks
+    - vpc_name: {{ name_vpc }}
+    - rules:
+        - ip_protocol: tcp
+          from_port: 22
+          to_port: 22
+          cidr_ip:
+            - {{ SUBNET["dmz"]["cidr"] }}
+        - ip_protocol: tcp
+          from_port: 22
+          to_port: 22
+          cidr_ip:
+            - {{ SUBNET["private-one"]["cidr"] }}
+        - ip_protocol: tcp
+          from_port: 22
+          to_port: 22
+          cidr_ip:
+            - {{ SUBNET["private-two"]["cidr"] }}
+    {{ tags(ident) }}
+    - require:
+        - boto_vpc: {{ name_subnet_dmz }}
+        - boto_vpc: {{ name_subnet_pr1 }}
+        - boto_vpc: {{ name_subnet_pr2 }}
+
+
+### EC2 SSH Key
+
 
 {% set ident = ["deployssh", POD, "ec2key"] -%}
 {% set name = ident|join("_") -%}
@@ -316,8 +355,10 @@
   boto_ec2.key_present:
     {{ profile() }}
     - name: {{ name }}
-    - upload_public: '{{ DEPLOYSSH }}'
+    - upload_public: '{{ DEPLOY_SSH }}'
 
+
+### Bastion EC2 Instance
 
 {% set ident = ["bastion-us-east-2", POD, "eni"] -%}
 {% set name = ident|join("_") -%}
@@ -348,31 +389,33 @@
     {{ profile() }}
     - name: {{ name }}
     - instance_name: {{ fqdn }}
-    - image_name: debian-stretch-hvm-x86_64-gp2-2018-11-10-63975
+    - image_name: {{ IMAGE_NAME }}
     - key_name: {{ name_ec2key_deployssh }}
     - user_data: {{ salt.hashutil.base64_b64encode(
         "#cloud-config" ~
         "\nhostname: " ~ hostname ~
         "\nfqdn: " ~ fqdn ~
-        "\nmanage_etc_hosts: localhost\n") }}
-    - instance_type: t2.nano
+        "\nmanage_etc_hosts: localhost"
+        "\n") }}
+    - instance_type: t3.nano
     - placement: {{ SUBNET["dmz"]["az"] }}
     - vpc_name: {{ name_vpc }}
     - monitoring_enabled: True
     - subnet_name: {{ name_subnet_dmz }}
     - instance_initiated_shutdown_behavior: stop
-    - client_token: {{ fqdn }}
+    - client_token: {{ name }}v02
     - security_group_names:
         - {{ name_secgroup_pingtrace_all }}
         - {{ name_secgroup_ssh_all }}
     - instance_profile_name: {{ name_iam_role_ec2 }}
     - network_interface_name: {{ name_eni_bastion_useast2 }}
-    #- allocate_eip: True
     {{ tags(ident) }}
     - require:
         - boto_ec2: {{ name_ec2key_deployssh }}
         - boto_ec2: {{ name_eni_bastion_useast2 }}
         - boto_kms: {{ name_kmskey_storage }}
+        - boto_secgroup: {{ name_secgroup_pingtrace_all }}
+        - boto_secgroup: {{ name_secgroup_ssh_all }}
         - boto_vpc: {{ name_internet_route }}
 
 
@@ -393,6 +436,67 @@
     - kms_key_id: 'arn:aws:kms:us-east-2:{{ ACCOUNT_ID }}:alias/{{ name_kmskey_storage }}'
     - require:
         - boto_ec2: {{ name_ec2_bastion_useast2 }}
+        - boto_kms: {{ name_kmskey_storage }}
+
+
+### Salt Prime EC2 Instance
+
+
+{% set hostname = "salt-prime" -%}
+{% set fqdn = (hostname, "creativecommons.org")|join(".") -%}
+{% set ident = [hostname, POD, "ec2_instance"] -%}
+{% set name = ident|join("_") -%}
+{% set name_ec2_salt_prime = name -%}
+{{ name }}:
+  boto_ec2.instance_present:
+    {{ profile() }}
+    - name: {{ name }}
+    - instance_name: {{ fqdn }}
+    - image_name: {{ IMAGE_NAME }}
+    - key_name: {{ name_ec2key_deployssh }}
+    - user_data: {{ salt.hashutil.base64_b64encode(
+        "#cloud-config" ~
+        "\nhostname: " ~ hostname ~
+        "\nfqdn: " ~ fqdn ~
+        "\nmanage_etc_hosts: localhost"
+        "\n") }}
+    - instance_type: t3.small
+    - placement: {{ SUBNET["private-one"]["az"] }}
+    - vpc_name: {{ name_vpc }}
+    - monitoring_enabled: True
+    - subnet_name: {{ name_subnet_pr1 }}
+    - instance_initiated_shutdown_behavior: stop
+    - client_token: {{ name }}v02
+    - security_group_names:
+        - {{ name_secgroup_pingtrace_all }}
+        - {{ name_secgroup_ssh_localnets }}
+    - instance_profile_name: {{ name_iam_role_ec2 }}
+    {{ tags(ident) }}
+    - require:
+        - boto_ec2: {{ name_ec2key_deployssh }}
+        - boto_kms: {{ name_kmskey_storage }}
+        - boto_secgroup: {{ name_secgroup_pingtrace_all }}
+        - boto_secgroup: {{ name_secgroup_ssh_localnets }}
+        - boto_vpc: {{ name_nat_route }}
+
+
+{% set ident = ["salt-prime-srv", POD, "ebs"] -%}
+{% set name = ident|join("_") -%}
+{% set name_ebs_salt_prime_srv = name -%}
+{{ name }}:
+  boto_ec2.volume_present:
+    {{ profile() }}
+    - name: {{ name }}
+    - volume_name: {{ name }}
+    - instance_name: {{ name_ec2_salt_prime }}
+    - device: /dev/xvdf
+    - size: 10
+    - volume_type: gp2
+    - encrypted: True
+    # The region must *not* be omitted from the kms_key_id
+    - kms_key_id: 'arn:aws:kms:us-east-2:{{ ACCOUNT_ID }}:alias/{{ name_kmskey_storage }}'
+    - require:
+        - boto_ec2: {{ name_ec2_salt_prime }}
         - boto_kms: {{ name_kmskey_storage }}
 
 
