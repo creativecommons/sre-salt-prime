@@ -18,7 +18,7 @@
 
 # Variables
 {% set ACCESS_KEY = salt['environ.get']('AWS_ACCESS_KEY') -%}
-{% set KEY_ID = salt['environ.get']('AWS_KEY_ID')-%}
+{% set KEY_ID = salt['environ.get']('AWS_KEY_ID') -%}
 {% set SUBNET = {"dmz": dmz, "private-one": pr1, "private-two": pr2} -%}
 {% set PROFILE = {"region": REGION, "key": ACCESS_KEY, "keyid": KEY_ID} -%}
 {% set ACCOUNT_ID = salt.boto_iam.get_account_id(**PROFILE) -%}
