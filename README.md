@@ -38,6 +38,12 @@ See bootstrap-aws/[README.md](bootstrap-aws/README.md).
 - [salt.states.boto_ec2](https://docs.saltstack.com/en/latest/ref/states/all/salt.states.boto_ec2.html)
 
 
+#### State Examples
+
+- [pedrohdz.com/vpc-bootstrap.sls at bf4df62f63fd5885e60e9fccf71ea69cee749c68 · pedrohdz/pedrohdz.com](https://github.com/pedrohdz/pedrohdz.com/blob/bf4df62f63fd5885e60e9fccf71ea69cee749c68/content/posts/DevOps/2016-10-14_managing-aws-vpc-saltstack/vpc-bootstrap.sls)
+- [confidant/confidant.sls at a652892b3664d25216d1b396205bd103eced1360 · lyft/confidant](https://github.com/lyft/confidant/blob/a652892b3664d25216d1b396205bd103eced1360/salt/orchestration/confidant.sls)
+
+
 ## AWS
 
 - [AWS Resource Types Reference](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
@@ -62,6 +68,11 @@ See bootstrap-aws/[README.md](bootstrap-aws/README.md).
 - [Save yourself a lot of pain (and money) by choosing your AWS Region wisely - Concurrency Labs](https://www.concurrencylabs.com/blog/choose-your-aws-region-wisely/)
 
 
-### Creative Commons Terraform
+## Miscellaneous
+
+- [Cloud config examples — Cloud-Init 18.4 documentation](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
+
+
+## Creative Commons Terraform
 
 - [cccatalog-api/deployment at master · creativecommons/cccatalog-api](https://github.com/creativecommons/cccatalog-api/tree/master/deployment)
