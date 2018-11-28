@@ -1,6 +1,8 @@
 # Parameters
 {% set DEPLOY_SSH = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxkavD5saowkf1ZW/dzsLxJguYMKE8Y+YTKY2NHCNhGQSg9XPX3k+fgD3aFvgBnTL5qWPL52DA6TUnoCdcRbeNTBLceoLXbIpG27xkkQ6MFB+Fdk8jk0KprLs/SIsIeOZcukp47G5L7joKaqcflULFuF6DUeJxOmxPKMEPnYBLUDZuQ0Pe8QWgh98dx+n0TSlWkoSCLUnHuFPLjQeg9N/++kdd3KST5R4h651KoH8sZOOboE69HPHbf/JtpHQDC9JhRBVekScrrzGP4B0DA+ircTl5XBXWl4+IQkVQfisvbOtR8OWUmy9xzdKzGm6H4q5raLAUt1WHgzwgkMS3fy5K/hUaJnS1guvmLD0vD6CrsINZkGBsIUv2HqWQtddKO5o+RXLlVkt3NN44cwf4hqMgIaMbKs8fEAXcz/sGNHWvca3pO5oVY32G0ZBIzCGahuHNXtbuUSF4BbYkOr7QJnpg1h+dEzsdgoGMAnRc7ozFmO383GR6jyn4V7rf+SL5BfkhVe/XrwVY6NceQ8vZuHHppULyuLNNrK/W5dnYux65JgpiiPDu30Ng13JJHJ7UVbBgPps7aAA5noV03WqVlCOMqZkbkp0pbT1zQHYwvJ0ezK3BhEa1tDpKlPPeBEP013rAMEu0cV/VYXNsom6t/kDHKKRhhCuijxXE208y7zHVdQ== rsa_creativecommons_20181018" -%}
 {% set IMAGE_NAME = "debian-stretch-hvm-x86_64-gp2-2018-11-10-63975" -%}
+{% set IP_BASTION = "10.22.10.10" -%}
+{% set IP_SALT_PRIME = "10.22.11.11" -%}
 {% set POD = "core" -%}
 {% set REGION = "us-east-2" -%}
 {% set VPC_CIDR = "10.22.10.0/16" -%}
@@ -47,6 +49,7 @@
     {{ profile() }}
     - name: {{ name }}
     - cidr_block: {{ VPC_CIDR }}
+    - dns_support: True
     - dns_hostnames: True
     {{ tags(ident) }}
 
@@ -293,14 +296,14 @@
         - boto_vpc: {{ name_vpc }}
 
 
-{% set ident = ["ssh-all", POD, "secgroup"] -%}
+{% set ident = ["ssh-to-bastion", POD, "secgroup"] -%}
 {% set name = ident|join("_") -%}
-{% set name_secgroup_ssh_all = name -%}
+{% set name_secgroup_ssh_to_bastion = name -%}
 {{ name }}:
   boto_secgroup.present:
     {{ profile() }}
     - name: {{ name }}
-    - description: Allow SSH from anyone
+    - description: 'Bastion: Allow SSH from anyone'
     - vpc_name: {{ name_vpc }}
     - rules:
         - ip_protocol: tcp
@@ -313,36 +316,23 @@
         - boto_vpc: {{ name_vpc }}
 
 
-{% set ident = ["ssh-localnets", POD, "secgroup"] -%}
+{% set ident = ["ssh-from-bastion", POD, "secgroup"] -%}
 {% set name = ident|join("_") -%}
-{% set name_secgroup_ssh_localnets = name -%}
+{% set name_secgroup_ssh_from_bastion = name -%}
 {{ name }}:
   boto_secgroup.present:
     {{ profile() }}
     - name: {{ name }}
-    - description: Allow SSH from local networks
+    - description: 'Allow SSH from bastion'
     - vpc_name: {{ name_vpc }}
     - rules:
         - ip_protocol: tcp
           from_port: 22
           to_port: 22
-          cidr_ip:
-            - {{ SUBNET["dmz"]["cidr"] }}
-        - ip_protocol: tcp
-          from_port: 22
-          to_port: 22
-          cidr_ip:
-            - {{ SUBNET["private-one"]["cidr"] }}
-        - ip_protocol: tcp
-          from_port: 22
-          to_port: 22
-          cidr_ip:
-            - {{ SUBNET["private-two"]["cidr"] }}
+          source_group_name: {{ name_secgroup_ssh_to_bastion }}
     {{ tags(ident) }}
     - require:
-        - boto_vpc: {{ name_subnet_dmz }}
-        - boto_vpc: {{ name_subnet_pr1 }}
-        - boto_vpc: {{ name_subnet_pr2 }}
+        - boto_secgroup: {{ name_secgroup_ssh_to_bastion }}
 
 
 ### EC2 SSH Key
@@ -369,13 +359,14 @@
     - name: {{ name }}
     - description: Core Bastion ENI in us-east-2
     - subnet_name: {{ name_subnet_dmz }}
+    - private_ip_address: {{ IP_BASTION }}
     - groups:
         - {{ name_secgroup_pingtrace_all }}
-        - {{ name_secgroup_ssh_all }}
+        - {{ name_secgroup_ssh_to_bastion }}
     - allocate_eip: vpc
     - require:
         - boto_secgroup: {{ name_secgroup_pingtrace_all }}
-        - boto_secgroup: {{ name_secgroup_ssh_all }}
+        - boto_secgroup: {{ name_secgroup_ssh_to_bastion }}
         - boto_vpc: {{ name_internet_route }}
 
 
@@ -391,55 +382,46 @@
     - instance_name: {{ fqdn }}
     - image_name: {{ IMAGE_NAME }}
     - key_name: {{ name_ec2key_deployssh }}
-    - user_data: {{ salt.hashutil.base64_b64encode(
-        "#cloud-config" ~
-        "\nhostname: " ~ hostname ~
-        "\nfqdn: " ~ fqdn ~
-        "\nmanage_etc_hosts: localhost"
-        "\n") }}
+    - user_data: |
+        #cloud-config
+        hostname: {{ hostname }}
+        fqdn: {{ fqdn }}
+        manage_etc_hosts: localhost
+        package_update: True
     - instance_type: t3.nano
     - placement: {{ SUBNET["dmz"]["az"] }}
     - vpc_name: {{ name_vpc }}
     - monitoring_enabled: True
     - subnet_name: {{ name_subnet_dmz }}
     - instance_initiated_shutdown_behavior: stop
-    - client_token: {{ name }}v02
-    - security_group_names:
-        - {{ name_secgroup_pingtrace_all }}
-        - {{ name_secgroup_ssh_all }}
+    - client_token: {{ name }}v7
     - instance_profile_name: {{ name_iam_role_ec2 }}
     - network_interface_name: {{ name_eni_bastion_useast2 }}
     {{ tags(ident) }}
     - require:
         - boto_ec2: {{ name_ec2key_deployssh }}
         - boto_ec2: {{ name_eni_bastion_useast2 }}
-        - boto_kms: {{ name_kmskey_storage }}
-        - boto_secgroup: {{ name_secgroup_pingtrace_all }}
-        - boto_secgroup: {{ name_secgroup_ssh_all }}
-        - boto_vpc: {{ name_internet_route }}
-
-
-{% set ident = ["bastion-home", POD, "ebs"] -%}
-{% set name = ident|join("_") -%}
-{% set name_ebs_bastion_home = name -%}
-{{ name }}:
-  boto_ec2.volume_present:
-    {{ profile() }}
-    - name: {{ name }}
-    - volume_name: {{ name }}
-    - instance_name: {{ name_ec2_bastion_useast2 }}
-    - device: /dev/xvdf
-    - size: 10
-    - volume_type: gp2
-    - encrypted: True
-    # The region must *not* be omitted from the kms_key_id
-    - kms_key_id: 'arn:aws:kms:us-east-2:{{ ACCOUNT_ID }}:alias/{{ name_kmskey_storage }}'
-    - require:
-        - boto_ec2: {{ name_ec2_bastion_useast2 }}
-        - boto_kms: {{ name_kmskey_storage }}
 
 
 ### Salt Prime EC2 Instance
+
+{% set ident = ["salt-prime", POD, "eni"] -%}
+{% set name = ident|join("_") -%}
+{% set name_eni_salt_prime = name -%}
+{{ name }}:
+  boto_ec2.eni_present:
+    {{ profile() }}
+    - name: {{ name }}
+    - description: Core Salt Prime ENI in us-east-2
+    - subnet_name: {{ name_subnet_pr1 }}
+    - private_ip_address: {{ IP_SALT_PRIME }}
+    - groups:
+        - {{ name_secgroup_pingtrace_all }}
+        - {{ name_secgroup_ssh_from_bastion }}
+    - require:
+        - boto_secgroup: {{ name_secgroup_pingtrace_all }}
+        - boto_secgroup: {{ name_secgroup_ssh_from_bastion }}
+        - boto_vpc: {{ name_nat_route }}
 
 
 {% set hostname = "salt-prime" -%}
@@ -454,30 +436,26 @@
     - instance_name: {{ fqdn }}
     - image_name: {{ IMAGE_NAME }}
     - key_name: {{ name_ec2key_deployssh }}
-    - user_data: {{ salt.hashutil.base64_b64encode(
-        "#cloud-config" ~
-        "\nhostname: " ~ hostname ~
-        "\nfqdn: " ~ fqdn ~
-        "\nmanage_etc_hosts: localhost"
-        "\n") }}
+    - user_data: |
+        #cloud-config
+        hostname: {{ hostname }}
+        fqdn: {{ fqdn }}
+        manage_etc_hosts: localhost
+        package_update: True
+        mounts:
+          - [ /dev/nvme1n1, /srv, ext4 ]
     - instance_type: t3.small
     - placement: {{ SUBNET["private-one"]["az"] }}
     - vpc_name: {{ name_vpc }}
     - monitoring_enabled: True
-    - subnet_name: {{ name_subnet_pr1 }}
     - instance_initiated_shutdown_behavior: stop
-    - client_token: {{ name }}v02
-    - security_group_names:
-        - {{ name_secgroup_pingtrace_all }}
-        - {{ name_secgroup_ssh_localnets }}
+    - client_token: {{ name }}v7
     - instance_profile_name: {{ name_iam_role_ec2 }}
+    - network_interface_name: {{ name_eni_salt_prime }}
     {{ tags(ident) }}
     - require:
         - boto_ec2: {{ name_ec2key_deployssh }}
-        - boto_kms: {{ name_kmskey_storage }}
-        - boto_secgroup: {{ name_secgroup_pingtrace_all }}
-        - boto_secgroup: {{ name_secgroup_ssh_localnets }}
-        - boto_vpc: {{ name_nat_route }}
+        - boto_ec2: {{ name_eni_salt_prime }}
 
 
 {% set ident = ["salt-prime-srv", POD, "ebs"] -%}
@@ -498,5 +476,4 @@
     - require:
         - boto_ec2: {{ name_ec2_salt_prime }}
         - boto_kms: {{ name_kmskey_storage }}
-
 
