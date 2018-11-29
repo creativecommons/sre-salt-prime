@@ -487,7 +487,7 @@
         package_update: True
         packages:
           - git
-          - make
+          - git-crypt
           - python-boto
           - python-boto3
           - python3-boto

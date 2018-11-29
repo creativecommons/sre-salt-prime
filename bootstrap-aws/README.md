@@ -69,17 +69,6 @@ A few manual steps are necessary to prepare the salt-prime server.
 3. `sudo chmod 2770 /srv`
 
 
-### Install Blackbox
-
-1. `cd /srv`
-2. `git clone https://github.com/StackExchange/blackbox.git`
-3. `sudo find blackbox -type d -exec chmod 2775 {} +`
-4. `sudo find blackbox -type f -exec chmod g+w {} +`
-5. `cd blackbox`
-6. `git checkout v1.20180618`
-7. `sudo make symlinks-install`
-
-
 ### Checkout sre-salt-prime
 
 1. `cd /srv`
