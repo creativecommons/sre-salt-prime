@@ -42,7 +42,7 @@
 
 ## Bootstrap
 
-See `bootstrap-aws/README.md` ([README.md](bootstrap-aws/README.md)).
+See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
 
 
 ## References
@@ -121,13 +121,13 @@ SaltStack in Debian Stretch is 2016.11.2.
 
 ## Code of Conduct
 
-Please note that this project is released with a
-[Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this
+Please note that this project is released with a Contributor Code of Conduct
+([`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)). By participating in this
 project you agree to abide by its terms.
 
 
 ## License
 
-- [LICENSE](LICENSE) (Expat/[MIT License][MIT])
+- [`LICENSE`](LICENSE) (Expat/[MIT License][MIT])
 
 [MIT]: http://www.opensource.org/licenses/MIT "The MIT License (MIT)"
