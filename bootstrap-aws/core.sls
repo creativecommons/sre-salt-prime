@@ -127,6 +127,23 @@
         - boto_iam: {{ name_iam_policy_ec2_perms }}
 
 
+{% set ident = ["ec2-salt-prime", POD, "iam_role"] -%}
+{% set name = ident|join("_") -%}
+{% set name_iam_role_ec2_salt_prime = name -%}
+{{ name }}:
+  boto_iam_role.present:
+    {{ profile() }}
+    - name: {{ name }}
+    - path: /
+    - policies:
+        {{ name }}:
+          Statement:
+            - Action: '*'
+              Effect: Allow
+              Resource: '*'
+    - create_instance_profile: True
+
+
 ### VPC
 
 
@@ -401,6 +418,7 @@
     - require:
         - boto_ec2: {{ name_ec2key_deployssh }}
         - boto_ec2: {{ name_eni_bastion_useast2 }}
+        - boto_iam_role: {{ name_iam_role_ec2 }}
 
 
 ### Salt Prime EC2 Instance
@@ -442,6 +460,20 @@
         fqdn: {{ fqdn }}
         manage_etc_hosts: localhost
         package_update: True
+        packages:
+          - git
+          - make
+          - python-boto
+          - python-boto3
+          - python3-boto
+          - python3-boto3
+          - salt-doc
+          - salt-master
+          - vim-nox
+        # This adds a mountpoint with "nofail". The volume won't mount properly
+        # until it is formatted.
+        #
+        # sudo mkfs.ext4 -L salt-prime-srv /dev/nvme1n1
         mounts:
           - [ /dev/nvme1n1, /srv, ext4 ]
     - instance_type: t3.small
@@ -449,13 +481,14 @@
     - vpc_name: {{ name_vpc }}
     - monitoring_enabled: True
     - instance_initiated_shutdown_behavior: stop
-    - client_token: {{ name }}v7
-    - instance_profile_name: {{ name_iam_role_ec2 }}
+    - client_token: {{ name }}v8
+    - instance_profile_name: {{ name_iam_role_ec2_salt_prime }}
     - network_interface_name: {{ name_eni_salt_prime }}
     {{ tags(ident) }}
     - require:
         - boto_ec2: {{ name_ec2key_deployssh }}
         - boto_ec2: {{ name_eni_salt_prime }}
+        - boto_iam_role: {{ name_iam_role_ec2_salt_prime }}
 
 
 {% set ident = ["salt-prime-srv", POD, "ebs"] -%}
