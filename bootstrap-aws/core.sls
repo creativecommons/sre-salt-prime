@@ -49,6 +49,7 @@
     - name: {{ name }}
     - description: Core Storage key
     - policy:
+        # Note: Policy keys are title case
         Version: '2012-10-17'
         Id: key-policy-1
         Statement:
@@ -100,6 +101,24 @@
         - boto_kms: {{ name_kmskey_storage }}
 
 
+{% set ident = ["salt-prime", POD, "iam_policy"] -%}
+{% set name = ident|join("_") -%}
+{% set name_iam_policy_salt_prime = name -%}
+{{ name }}:
+  boto_iam.policy_present:
+    {{ profile() }}
+    - name: {{ name }}
+    - policy_document:
+        # Note: Policy Document keys are title case
+        Version: '2012-10-17'
+        Statement:
+          - Action: '*'
+            Effect: Allow
+            Resource: '*'
+    - require:
+        - boto_kms: {{ name_kmskey_storage }}
+
+
 ### IAM Roles
 
 
@@ -135,13 +154,19 @@
     {{ profile() }}
     - name: {{ name }}
     - path: /
-    - policies:
-        {{ name }}:
-          Statement:
-            - Action: '*'
-              Effect: Allow
-              Resource: '*'
+    - policy_document:
+        # Note: Policy Document keys are title case
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: 'sts:AssumeRole'
+            Principal:
+              Service: ec2.amazonaws.com
+    - managed_policies:
+        - {{ name_iam_policy_salt_prime }}
     - create_instance_profile: True
+    - require:
+        - boto_iam: {{ name_iam_policy_salt_prime }}
 
 
 ### VPC
