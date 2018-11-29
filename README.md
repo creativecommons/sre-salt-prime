@@ -4,14 +4,22 @@
   Confidant)
 - Salt Prime must not contain any exclusive data (use Git)
 - Git repository must not contain any unencrypted secrets
+- A compromised minion must not be able to escalate access
+  - SysAdmins must not forward their SSH agent
+  - Must not reuse application passwords (ex. Prod and Dev databases must have
+    different passwords)
+  - *The only grain which can be safely used is `grains['id']` which contains the Minion ID.* ([FAQ Q.21][FAQ21])
+
+
+[FAQ21]: https://docs.saltstack.com/en/latest/faq.html#is-targeting-using-grain-data-secure
 
 
 ## Decisions
 
 - Amazon Web Services (AWS)
   - Creative Commons is already using it and staff are familiar with it
-  - Feature set allows security (ex. screened subnets, security groups policies)
-  - Feature set allows Infrastructure as Code
+  - Features allow security (ex. screened subnets, security groups policies)
+  - Features allows Infrastructure as Code
   - `us-east-2`
     - cost effective
     - avoid conflict/collision over region limited resources (ex. ElasticIPs)
@@ -87,9 +95,12 @@ SaltStack in Debian Stretch is 2016.11.2.
 
 ####  Best Practices
 
-- [Salt Formulas](https://docs.saltstack.com/en/2016.11/topics/development/conventions/formulas.html)
 - [Hardening Salt](https://docs.saltstack.com/en/2016.11/topics/hardening.html)
+  - *The only grain which can be safely used is `grains['id']` which contains
+    the Minion ID.* ([FAQ Q.21][FAQ21])
+    - Create roles by matching minion id: [salt.modules.match.html](https://docs.saltstack.com/en/2016.11/ref/modules/all/salt.modules.match.html)
 - [Salt Best Practices](https://docs.saltstack.com/en/2016.11/topics/best_practices.html)
+- [Salt Formulas](https://docs.saltstack.com/en/2016.11/topics/development/conventions/formulas.html)
 
 
 #### State Documentation
