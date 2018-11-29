@@ -1,14 +1,14 @@
 # Bootstrap AWS
 
 
-## Overview
+## Laptop Bootstrap
 
 The `bootstrap.sh` script uses a local salt install to bootstrap an AWS
-VPC environment with a Salt Manager EC instance (minimum infrastructure on
+VPC environment with a Salt Prime EC instance (minimum infrastructure on
 which all future SaltStack management development can take place).
 
 
-## macOS Installation
+### macOS Installation
 
 1. Install SaltStack:
 
@@ -35,7 +35,7 @@ which all future SaltStack management development can take place).
 5. Verify Parameters at top of `core.sls`
 
 
-## Create Core Infrastructure on AWS
+### Create Core Infrastructure on AWS
 
 6. Create VPC and related resources:
 
@@ -55,13 +55,16 @@ which all future SaltStack management development can take place).
 ## salt-prime Setup
 
 
+A few manual steps are necessary to prepare the salt-prime server.
+
+
 ### /srv Prep
 
-1. Verify `/dev/nvme1n1` is formatted and mounted on `/srv`. Be **careful** not to
-   overwrite data
-   A. `sudo mkfs.ext4 -L salt-prime-srv /dev/nvme1n1`
-   B. `sudo mount -av`
-   C. `sudo mount`
+1. Verify `/dev/nvme1n1` is formatted and mounted on `/srv`. Be **careful** not
+   to overwrite data:
+   1. `sudo mkfs.ext4 -L salt-prime-srv /dev/nvme1n1`
+   2. `sudo mount -av`
+   3. `sudo mount`
 2. `sudo chgrp sudo /srv`
 3. `sudo chmod 2770 /srv`
 
@@ -83,4 +86,3 @@ which all future SaltStack management development can take place).
 2. `git clone git@github.com:creativecommons/sre-salt-prime.git`
 3. `sudo find sre-salt-prime -type d -exec chmod 2775 {} +`
 4. `sudo find sre-salt-prime -type f -exec chmod g+w {} +`
-
