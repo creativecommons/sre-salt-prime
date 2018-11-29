@@ -7,12 +7,18 @@
 
 ## Decisions
 
+- SaltStack
+  - [StackExchange/blackbox][blockbox]: Safely store secrets in
+    Git/Mercurial/Subversion
 - AWS
   - We are already using it and I (Timid Robot) already know how to use it
     well
 - `us-east-2`
   - cost effective
   - avoid conflict/collision over region limited resoruces (ex. ElasticIPs)
+
+
+[blackbox]: https://github.com/StackExchange/blackbox
 
 
 ## Bootstrap
@@ -87,3 +93,9 @@ See `bootstrap-aws/README.md` ([README.md](bootstrap-aws/README.md)).
 - [pedrohdz.com/vpc-bootstrap.sls at bf4df62f63fd5885e60e9fccf71ea69cee749c68 · pedrohdz/pedrohdz.com](https://github.com/pedrohdz/pedrohdz.com/blob/bf4df62f63fd5885e60e9fccf71ea69cee749c68/content/posts/DevOps/2016-10-14_managing-aws-vpc-saltstack/vpc-bootstrap.sls)
 - [confidant/confidant.sls at a652892b3664d25216d1b396205bd103eced1360 · lyft/confidant](https://github.com/lyft/confidant/blob/a652892b3664d25216d1b396205bd103eced1360/salt/orchestration/confidant.sls)
 
+
+## License
+
+- [LICENSE](LICENSE) (Expat/[MIT License][MIT])
+
+[MIT]: http://www.opensource.org/licenses/MIT "The MIT License (MIT)"
