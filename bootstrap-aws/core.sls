@@ -38,6 +38,95 @@
 {%- endmacro %}
 
 
+### KMS
+
+{% set ident = ["storage", POD, "kmskey"] -%}
+{% set name = ident|join("_") -%}
+{% set name_kmskey_storage = name -%}
+{{ name }}:
+  boto_kms.key_present:
+    {{ profile() }}
+    - name: {{ name }}
+    - description: Core Storage key
+    - policy:
+        Version: '2012-10-17'
+        Id: key-policy-1
+        Statement:
+          - Effect: Allow
+            Action: 'kms:*'
+            Principal:
+              AWS: 'arn:aws:iam::{{ ACCOUNT_ID }}:root'
+            Resource: '*'
+            Sid: Enable IAM User Permissions
+    - key_rotation: True
+
+
+### IAM Policies
+
+{% set ident = ["ec2_perms", POD, "iam_policy"] -%}
+{% set name = ident|join("_") -%}
+{% set name_iam_policy_ec2_perms = name -%}
+{{ name }}:
+  boto_iam.policy_present:
+    {{ profile() }}
+    - name: {{ name }}
+    - policy_document:
+        # Note: Policy Document keys are title case
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - 'cloudwatch:DeleteDashboard'
+              - 'cloudwatch:GetMetricStatistics'
+              - 'cloudwatch:ListDashboards'
+              - 'cloudwatch:ListMetrics'
+              - 'cloudwatch:PutDashboard'
+              - 'cloudwatch:PutMetricData'
+              - 'ec2:DescribeTags'
+            Resource: '*'
+          - Effect: Allow
+            Action:
+              - 'kms:DescribeKey'
+              - 'kms:GenerateDataKey*'
+              - 'kms:Encrypt'
+              - 'kms:ReEncrypt*'
+              - 'kms:Decrypt'
+              - 'kms:ListGrants'
+              - 'kms:CreateGrant'
+              - 'kms:RevokeGrant'
+            Resource: |
+              'arn:aws:kms::{{ ACCOUNT_ID }}:alias/{{ name_kmskey_storage }}'
+    - require:
+        - boto_kms: {{ name_kmskey_storage }}
+
+
+### IAM Roles
+
+
+{% set ident = ["ec2", POD, "iam_role"] -%}
+{% set name = ident|join("_") -%}
+{% set name_iam_role_ec2 = name -%}
+{{ name }}:
+  boto_iam_role.present:
+    {{ profile() }}
+    - name: {{ name }}
+    - path: /
+    - policy_document:
+        # Note: Policy Document keys are title case
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: 'sts:AssumeRole'
+            Principal:
+              Service: ec2.amazonaws.com
+    - delete_policies: True
+    - managed_policies:
+        - {{ name_iam_policy_ec2_perms }}
+    - create_instance_profile: True
+    - require:
+        - boto_iam: {{ name_iam_policy_ec2_perms }}
+
+
 ### VPC
 
 
@@ -177,95 +266,6 @@
         - boto_vpc: {{ name_nat_gateway }}
         - boto_vpc: {{ name_subnet_pr1 }}
         - boto_vpc: {{ name_subnet_pr2 }}
-
-
-### KMS
-
-{% set ident = ["storage", POD, "kmskey"] -%}
-{% set name = ident|join("_") -%}
-{% set name_kmskey_storage = name -%}
-{{ name }}:
-  boto_kms.key_present:
-    {{ profile() }}
-    - name: {{ name }}
-    - description: Core Storage key
-    - policy:
-        Version: '2012-10-17'
-        Id: key-policy-1
-        Statement:
-          - Effect: Allow
-            Action: 'kms:*'
-            Principal:
-              AWS: 'arn:aws:iam::{{ ACCOUNT_ID }}:root'
-            Resource: '*'
-            Sid: Enable IAM User Permissions
-    - key_rotation: True
-
-
-### IAM Policies
-
-{% set ident = ["ec2_perms", POD, "iam_policy"] -%}
-{% set name = ident|join("_") -%}
-{% set name_iam_policy_ec2_perms = name -%}
-{{ name }}:
-  boto_iam.policy_present:
-    {{ profile() }}
-    - name: {{ name }}
-    - policy_document:
-        # Note: Policy Document keys are title case
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Action:
-              - 'cloudwatch:DeleteDashboard'
-              - 'cloudwatch:GetMetricStatistics'
-              - 'cloudwatch:ListDashboards'
-              - 'cloudwatch:ListMetrics'
-              - 'cloudwatch:PutDashboard'
-              - 'cloudwatch:PutMetricData'
-              - 'ec2:DescribeTags'
-            Resource: '*'
-          - Effect: Allow
-            Action:
-              - 'kms:DescribeKey'
-              - 'kms:GenerateDataKey*'
-              - 'kms:Encrypt'
-              - 'kms:ReEncrypt*'
-              - 'kms:Decrypt'
-              - 'kms:ListGrants'
-              - 'kms:CreateGrant'
-              - 'kms:RevokeGrant'
-            Resource: |
-              'arn:aws:kms::{{ ACCOUNT_ID }}:alias/{{ name_kmskey_storage }}'
-    - require:
-        - boto_kms: {{ name_kmskey_storage }}
-
-
-### IAM Roles
-
-
-{% set ident = ["ec2", POD, "iam_role"] -%}
-{% set name = ident|join("_") -%}
-{% set name_iam_role_ec2 = name -%}
-{{ name }}:
-  boto_iam_role.present:
-    {{ profile() }}
-    - name: {{ name }}
-    - path: /
-    - policy_document:
-        # Note: Policy Document keys are title case
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Action: 'sts:AssumeRole'
-            Principal:
-              Service: ec2.amazonaws.com
-    - delete_policies: True
-    - managed_policies:
-        - {{ name_iam_policy_ec2_perms }}
-    - create_instance_profile: True
-    - require:
-        - boto_iam: {{ name_iam_policy_ec2_perms }}
 
 
 ### Security Groups
