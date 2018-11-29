@@ -115,8 +115,8 @@ SaltStack in Debian Stretch is 2016.11.2.
 
 #### Boto State Examples
 
-- [pedrohdz.com/vpc-bootstrap.sls at bf4df62f63fd5885e60e9fccf71ea69cee749c68 · pedrohdz/pedrohdz.com](https://github.com/pedrohdz/pedrohdz.com/blob/bf4df62f63fd5885e60e9fccf71ea69cee749c68/content/posts/DevOps/2016-10-14_managing-aws-vpc-saltstack/vpc-bootstrap.sls)
-- [confidant/confidant.sls at a652892b3664d25216d1b396205bd103eced1360 · lyft/confidant](https://github.com/lyft/confidant/blob/a652892b3664d25216d1b396205bd103eced1360/salt/orchestration/confidant.sls)
+- [pedrohdz.com/vpc-bootstrap.sls at master · pedrohdz/pedrohdz.com](https://github.com/pedrohdz/pedrohdz.com/blob/master/content/posts/DevOps/2016-10-14_managing-aws-vpc-saltstack/vpc-bootstrap.sls)
+- [confidant/confidant.sls at master · lyft/confidant](https://github.com/lyft/confidant/blob/master/salt/orchestration/confidant.sls)
 
 
 ## Code of Conduct
