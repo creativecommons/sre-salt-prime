@@ -44,9 +44,9 @@ which all future SaltStack management development can take place).
     ```
 
    - Use `TEST=False` after verifying run to effect changes
-   - Expected/ignorable errors:
+   - Expected/ignorable warning:
 
-   ```
-    [ERROR   ] Failed to create dirs to minion_id file: [Errno 13] Permission denied: '/etc/salt'
-    [ERROR   ] Could not cache minion ID: [Errno 2] No such file or directory: u'/etc/salt/minion_id'
+    ```
+    [WARNING ] /usr/local/Cellar/salt/2018.3.2/libexec/lib/python2.7/site-packages/salt/modules/boto_vpc.py:2487: DeprecationWarning: The 'describe_route_table' method has been deprecated and replaced by 'describe_route_tables'.
+
     ```

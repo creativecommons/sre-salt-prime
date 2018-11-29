@@ -14,16 +14,23 @@ export AWS_KEY_ID=$(aws configure get aws_access_key_id \
                     --profile creativecommons)
 export AWS_ACCESS_KEY=$(aws configure get aws_secret_access_key \
                         --profile creativecommons)
-mkdir -p temp-bootstrap/cache
-mkdir -p temp-bootstrap/config
+
+mkdir -p temp-bootstrap/etc/salt
+echo "
+# Minion
+root_dir: ${PWD}/temp-bootstrap/
+conf_file: ${PWD}/temp-bootstrap/etc/salt/minion
+id: bootstrap-aws
+file_roots:
+  base:
+    - ${PWD}/
+state_output_diff: True
+file_client: local
+failhard: True
+" > temp-bootstrap/etc/salt/minion
+
 salt-call \
-    --config-dir=temp-bootstrap/config \
-    --cachedir=temp-bootstrap/cache \
-    --local \
-    --file-root=. \
-    --log-file=temp-bootstrap/salt-call.log \
+    --config-dir=${PWD}/temp-bootstrap/etc/salt \
     --log-level=${LOG_LEVEL:-info} \
-    --output-diff \
-    --id=bootstrap-aws \
-    state.apply core test=${TEST:-True} failhard=True
+    state.apply core test=${TEST:-True}
 rm -rf temp-bootstrap
