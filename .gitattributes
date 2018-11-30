@@ -1,2 +1,2 @@
-secretfile filter=git-crypt diff=git-crypt
 *.key filter=git-crypt diff=git-crypt
+*passw* filter=git-crypt diff=git-crypt
