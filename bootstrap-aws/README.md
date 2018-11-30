@@ -75,3 +75,5 @@ A few manual steps are necessary to prepare the salt-prime server.
 2. `git clone git@github.com:creativecommons/sre-salt-prime.git`
 3. `sudo find sre-salt-prime -type d -exec chmod 2775 {} +`
 4. `sudo find sre-salt-prime -type f -exec chmod g+w {} +`
+5. `cd /srv/sre-salt-prime`
+6. `git config core.sharedRepository group`
