@@ -9,7 +9,7 @@ import crypt
 import getpass
 
 # Third-party
-import yaml
+import ruamel.yaml
 
 
 newpass = getpass.getpass("Enter new password: ")
@@ -19,7 +19,7 @@ if newpass == getpass.getpass("Retype new password: "):
     hashedpass = crypt.crypt(newpass, crypt.METHOD_SHA512)
     data = {"user": {"passwords": {username: hashedpass}}}
     with open(passpath, "w") as passfile:
-        yaml.dump(data, passfile, default_flow_style=False)
+        ruamel.yaml.dump(data, passfile, default_flow_style=False)
     print()
     print("REMINDER: you still need to update hosts and commit changes.")
 else:
