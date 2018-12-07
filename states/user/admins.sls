@@ -27,7 +27,7 @@ timidrobot-ed25519:
     - present
     - user: timidrobot
     - enc: ed25519
-    - source: salt://users/files/timidrobot_ed25519_creativecommons_20181121.pub
+    - source: salt://user/files/timidrobot_ed25519_creativecommons_20181121.pub
     - require:
       - user: timidrobot
 {% else %}
@@ -36,7 +36,7 @@ timidrobot-rsa:
     - present
     - user: timidrobot
     - enc: rsa
-    - source: salt://users/files/timidrobot_rsa_creativecommons_20181018.pub
+    - source: salt://user/files/timidrobot_rsa_creativecommons_20181018.pub
     - require:
       - user: timidrobot
 {% endif %}
