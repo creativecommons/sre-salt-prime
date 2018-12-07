@@ -11,12 +11,12 @@
     - fullname: {{ userdata["fullname"] }}
     - shell: {{ userdata["shell"] }}
     - groups:
-{% for group in pillar["user"]["admin_groups"] %}
-        - {{ group }}
+{%- for group in pillar["user"]["admin_groups"] %}
+        - {{ group -}}
 {% endfor %}
     - password: '{{ pillar["user"]["passwords"][username] }}'
     - require:
-        - group: {{ username }}
+        - group: {{ username -}}
 {% endfor %}
 
 
