@@ -65,15 +65,10 @@ A few manual steps are necessary to prepare the salt-prime server.
    1. `sudo mkfs.ext4 -L salt-prime-srv /dev/nvme1n1`
    2. `sudo mount -av`
    3. `sudo mount`
-2. `sudo chgrp sudo /srv`
-3. `sudo chmod 2770 /srv`
 
 
 ### Checkout sre-salt-prime
 
 1. `cd /srv`
 2. `git clone git@github.com:creativecommons/sre-salt-prime.git`
-3. `sudo find sre-salt-prime -type d -exec chmod 2775 {} +`
-4. `sudo find sre-salt-prime -type f -exec chmod g+w {} +`
-5. `cd /srv/sre-salt-prime`
-6. `git config core.sharedRepository group`
+3. `sudo sre-salt-prime/bin/repair_srv_permissions.sh`
