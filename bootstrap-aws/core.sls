@@ -5,7 +5,7 @@
 {% set IP_SALT_PRIME = "10.22.11.11" -%}
 {% set POD = "core" -%}
 {% set REGION = "us-east-2" -%}
-{% set VPC_CIDR = "10.22.10.0/16" -%}
+{% set VPC_CIDR = "10.22.0.0/16" -%}
 {% set dmz = {"az": "us-east-2a", "cidr": "10.22.10.0/24"} -%}
 {% set pr1 = {"az": "us-east-2b", "cidr": "10.22.11.0/24"} -%}
 {% set pr2 = {"az": "us-east-2c", "cidr": "10.22.12.0/24"} -%}
@@ -377,6 +377,26 @@
         - boto_secgroup: {{ name_secgroup_ssh_to_bastion }}
 
 
+{% set ident = ["salt-vpc", POD, "secgroup"] -%}
+{% set name = ident|join("_") -%}
+{% set name_secgroup_salt_vpc = name -%}
+{{ name }}:
+  boto_secgroup.present:
+    {{ profile() }}
+    - name: {{ name }}
+    - description: Allow salt from VPC
+    - vpc_name: {{ name_vpc }}
+    - rules:
+        - ip_protocol: tcp
+          from_port: 4505
+          to_port: 4506
+          cidr_ip:
+            - {{ VPC_CIDR }}
+    {{ tags(ident) }}
+    - require:
+        - boto_vpc: {{ name_vpc }}
+
+
 ### EC2 SSH Key
 
 
@@ -460,9 +480,11 @@
     - private_ip_address: {{ IP_SALT_PRIME }}
     - groups:
         - {{ name_secgroup_pingtrace_all }}
+        - {{ name_secgroup_salt_vpc }}
         - {{ name_secgroup_ssh_from_bastion }}
     - require:
         - boto_secgroup: {{ name_secgroup_pingtrace_all }}
+        - boto_secgroup: {{ name_secgroup_salt_vpc }}
         - boto_secgroup: {{ name_secgroup_ssh_from_bastion }}
         - boto_vpc: {{ name_nat_route }}
 
