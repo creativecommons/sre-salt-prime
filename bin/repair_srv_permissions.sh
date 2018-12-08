@@ -14,7 +14,7 @@ trap '_es=${?};
 
 
 configure_git_shared_repo() {
-    header 'Configure git repositories to be shared repositories'
+    headerone 'Configure git repositories to be shared repositories'
     for _git in $(find /srv -type d -name .git -prune)
     do
         local _repo=${_git%/*}
@@ -27,34 +27,34 @@ configure_git_shared_repo() {
         fi
         popd >/dev/null
     done
-    echo '### DONE.'
+    headertwo DONE
     echo
 }
 
 
 ensure_all_are_group_writeable() {
-    header 'Ensure all user writeable dirs/files are also group writeable'
+    headerone 'Ensure all user writeable dirs/files are also group writeable'
     find /srv -not -name 'lost+found' -perm /u+w -not -perm /g+w \
         -exec chmod -v g+w {} +
-    echo '### DONE.'
+    headertwo DONE
     echo
 }
 
 
 ensure_all_grouped_by_sudo() {
-    header 'Ensure all files have sudo group'
+    headerone 'Ensure all files have sudo group'
     find /srv -not -group sudo -not -name 'lost+found' \
         -exec chgrp -v sudo {} +
-    echo '### DONE.'
+    headertwo DONE
     echo
 }
 
 
 ensure_dirs_have_set_group_id() {
-    header 'Ensure all directories have set-group-iD'
+    headerone 'Ensure all directories have set-group-iD'
     find /srv -type d -not -name 'lost+found' -not -perm /g+s \
         -exec chmod -v g+s {} +
-    echo '### DONE.'
+    headertwo DONE
     echo
 }
 
@@ -69,17 +69,27 @@ error_exit() {
 }
 
 
-header() {
-    local _msg=${1}
-    echo '############################################################'
-    echo "### ${_msg}"
+
+headerone() {
+    printf '\e[107m\e[30m'
+    printf '### %-75s' "${1}"
+    printf '\e[0m'
+    echo
+}
+
+
+headertwo() {
+    printf '\e[47m\e[30m'
+    printf "# ${1}"
+    printf '\e[0m'
+    echo
 }
 
 
 replace_admin() {
-    header "Replace admin owner with current user (${SUDO_USER})"
+    headerone "Replace admin owner with current user (${SUDO_USER})"
     find /srv -user admin -exec chown -v ${SUDO_USER} {} +
-    echo '### DONE.'
+    headertwo DONE
     echo
 }
 
@@ -94,10 +104,10 @@ require_sudo() {
 
 
 strip_other_permissions_for_within_srv() {
-    header 'Strip other permissions for/within /srv'
+    headerone 'Strip other permissions for/within /srv'
     find /srv -maxdepth 1 \( -perm -o+r -o -perm -o+w -o -perm -o+x \) \
         -exec chmod -v o-rwx {} +
-    echo '### DONE.'
+    headertwo DONE
     echo
 }
 
