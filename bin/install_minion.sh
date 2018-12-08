@@ -1,4 +1,10 @@
 #!/bin/bash
+# https://docs.saltstack.com/en/latest/topics/tutorials/preseed_key.html
+#
+# TO DO:
+# - add -h/--help
+# - add argument validation
+
 set -o errexit
 set -o errtrace
 set -o nounset
