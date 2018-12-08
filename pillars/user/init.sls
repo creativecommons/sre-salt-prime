@@ -15,3 +15,7 @@ user:
       id: 2000
       fullname: Timid Robot Zheta
       shell: /bin/bash
+    alden:
+      id: 2001
+      fullname: Alden Page
+      shell: /bin/bash

@@ -20,6 +20,15 @@
 {% endfor %}
 
 
+alden-rsa:
+  ssh_auth:
+    - present
+    - user: alden
+    - enc: rsa
+    - source: salt://user/files/alden_rsa_creativecommons.org.pub
+    - require:
+      - user: alden
+
 {% if (grains["saltversioninfo"][0] > 2014 and
        grains["osrelease_info"][0] > 7) -%}
 timidrobot-ed25519:
