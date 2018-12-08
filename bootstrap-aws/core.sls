@@ -313,6 +313,26 @@
 ### Security Groups
 
 
+{% set ident = ["ntp-vpc", POD, "secgroup"] -%}
+{% set name = ident|join("_") -%}
+{% set name_secgroup_ntp_vpc = name -%}
+{{ name }}:
+  boto_secgroup.present:
+    {{ profile() }}
+    - name: {{ name }}
+    - description: Allow NTP from VPC ({{ name_vpc}})
+    - vpc_name: {{ name_vpc }}
+    - rules:
+        - ip_protocol: udp
+          from_port: 123
+          to_port: 123
+          cidr_ip:
+            - {{ VPC_CIDR }}
+    {{ tags(ident) }}
+    - require:
+        - boto_vpc: {{ name_vpc }}
+
+
 {% set ident = ["pingtrace-all", POD, "secgroup"] -%}
 {% set name = ident|join("_") -%}
 {% set name_secgroup_pingtrace_all = name -%}
@@ -333,6 +353,46 @@
           to_port: 33534
           cidr_ip:
             - 0.0.0.0/0
+    {{ tags(ident) }}
+    - require:
+        - boto_vpc: {{ name_vpc }}
+
+
+{% set ident = ["salt-all", POD, "secgroup"] -%}
+{% set name = ident|join("_") -%}
+{% set name_secgroup_salt_all = name -%}
+{{ name }}:
+  boto_secgroup.present:
+    {{ profile() }}
+    - name: {{ name }}
+    - description: Allow salt from anyone
+    - vpc_name: {{ name_vpc }}
+    - rules:
+        - ip_protocol: tcp
+          from_port: 4505
+          to_port: 4506
+          cidr_ip:
+            - 0.0.0.0/0
+    {{ tags(ident) }}
+    - require:
+        - boto_vpc: {{ name_vpc }}
+
+
+{% set ident = ["salt-vpc", POD, "secgroup"] -%}
+{% set name = ident|join("_") -%}
+{% set name_secgroup_salt_vpc = name -%}
+{{ name }}:
+  boto_secgroup.present:
+    {{ profile() }}
+    - name: {{ name }}
+    - description: Allow salt from VPC ({{ name_vpc}})
+    - vpc_name: {{ name_vpc }}
+    - rules:
+        - ip_protocol: tcp
+          from_port: 4505
+          to_port: 4506
+          cidr_ip:
+            - {{ VPC_CIDR }}
     {{ tags(ident) }}
     - require:
         - boto_vpc: {{ name_vpc }}
@@ -377,26 +437,6 @@
         - boto_secgroup: {{ name_secgroup_ssh_to_bastion }}
 
 
-{% set ident = ["salt-vpc", POD, "secgroup"] -%}
-{% set name = ident|join("_") -%}
-{% set name_secgroup_salt_vpc = name -%}
-{{ name }}:
-  boto_secgroup.present:
-    {{ profile() }}
-    - name: {{ name }}
-    - description: Allow salt from VPC
-    - vpc_name: {{ name_vpc }}
-    - rules:
-        - ip_protocol: tcp
-          from_port: 4505
-          to_port: 4506
-          cidr_ip:
-            - {{ VPC_CIDR }}
-    {{ tags(ident) }}
-    - require:
-        - boto_vpc: {{ name_vpc }}
-
-
 ### EC2 SSH Key
 
 
@@ -423,11 +463,15 @@
     - subnet_name: {{ name_subnet_dmz }}
     - private_ip_address: {{ IP_BASTION }}
     - groups:
+        - {{ name_secgroup_ntp_vpc }}
         - {{ name_secgroup_pingtrace_all }}
+        - {{ name_secgroup_salt_all }}
         - {{ name_secgroup_ssh_to_bastion }}
     - allocate_eip: vpc
     - require:
+        - boto_secgroup: {{ name_secgroup_ntp_vpc }}
         - boto_secgroup: {{ name_secgroup_pingtrace_all }}
+        - boto_secgroup: {{ name_secgroup_salt_all }}
         - boto_secgroup: {{ name_secgroup_ssh_to_bastion }}
         - boto_vpc: {{ name_internet_route }}
 
