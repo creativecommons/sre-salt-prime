@@ -6,3 +6,6 @@ base:
   'roles:salt-prime':
     - match: pillar
     - salt.prime
+  'virtual:kvm':
+    - match: grain
+    - common.virtual
