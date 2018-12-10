@@ -103,7 +103,7 @@ As of 2018-12-10, Debian Stretch's SaltStack packages are at version 2016.11.2.
 - Salt Formulas ([latest][formulaslatest], [2016.11][formulas2016])
 
 [hardenlatest]: https://docs.saltstack.com/en/latest/topics/hardening.html
-[harden20161]: https://docs.saltstack.com/en/2016.11/topics/hardening.html
+[harden2016]: https://docs.saltstack.com/en/2016.11/topics/hardening.html
 [matchlatest]: https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.match.html
 [match20161]: https://docs.saltstack.com/en/2016.11/ref/modules/all/salt.modules.match.html
 [bestlatest]: https://docs.saltstack.com/en/latest/topics/best_practices.html
@@ -123,8 +123,8 @@ As of 2018-12-10, Debian Stretch's SaltStack packages are at version 2016.11.2.
 
 [modulelatest]: https://docs.saltstack.com/en/latest/ref/index.html
 [module2016]: https://docs.saltstack.com/en/2016.11/ref/index.html
-[statelastest]: https://docs.saltstack.com/en/latest/ref/states/all/index.html)
-[state2016]: https://docs.saltstack.com/en/2016.11/ref/states/all/index.html)
+[statelastest]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
+[state2016]: https://docs.saltstack.com/en/2016.11/ref/states/all/index.html
 
 
 ## Code of Conduct
