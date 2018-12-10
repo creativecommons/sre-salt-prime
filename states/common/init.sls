@@ -5,4 +5,5 @@
       - htop
       - rsync
       - salt-doc
+      - tree
       - vim-nox
