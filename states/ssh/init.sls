@@ -1,9 +1,17 @@
 # This state assumes Debian 9 (Stretch). For each section below, the stanzas
 # are in order they appear in /etc/ssh/sshd_config.
 
-ssh_service:
+{{ sls }} install packages:
+  pkg.installed:
+    - pkgs:
+        - openssh-server
+
+service_ssh:
   service.running:
     - name: ssh
+    - enable: True
+    - require:
+        - pkg: {{ sls }} install packages
 
 
 ### Changes
@@ -20,7 +28,7 @@ ssh_service:
     # The default is 120 seconds.
     - append_if_not_found: True
     - watch_in:
-        - service: ssh_service
+        - service: service_ssh
 
 {{ sls }} disable PermitRootLogin:
   file.replace:
@@ -33,7 +41,7 @@ ssh_service:
     # The default is prohibit-password.
     - append_if_not_found: True
     - watch_in:
-        - service: ssh_service
+        - service: service_ssh
 
 # TCPKeepAlive is disabled in favor of ClientAliveInterval and
 # ClientAliveCountMax. TCPKeepAlive too often results in disruption due to
@@ -49,7 +57,7 @@ ssh_service:
     # The default is yes
     - append_if_not_found: True
     - watch_in:
-        - service: ssh_service
+        - service: service_ssh
 
 # A ClientAliveInterval of 30s combined with a ClientAliveCountMax of 60 will
 # result in disconnections of unresponsive clients after half an hour.
@@ -69,7 +77,7 @@ ssh_service:
     # The default is 0
     - append_if_not_found: True
     - watch_in:
-        - service: ssh_service
+        - service: service_ssh
     - require:
         - file: {{ sls }} remove 1st trailing ClientAliveInterval
         - file: {{ sls }} remove 2nd trailing ClientAliveInterval
@@ -85,7 +93,7 @@ ssh_service:
     # The default is 3
     - append_if_not_found: True
     - watch_in:
-        - service: ssh_service
+        - service: service_ssh
 
 {{ sls }} remove 1st trailing ClientAliveInterval:
   file.line:
@@ -93,7 +101,7 @@ ssh_service:
     - content: ClientAliveInterval 420
     - mode: delete
     - watch_in:
-        - service: ssh_service
+        - service: service_ssh
 
 {{ sls }} remove 2nd trailing ClientAliveInterval:
   file.line:
@@ -101,7 +109,7 @@ ssh_service:
     - content: ClientAliveInterval 120
     - mode: delete
     - watch_in:
-        - service: ssh_service
+        - service: service_ssh
 
 
 ### Ensure Authentication Defaults
@@ -118,7 +126,7 @@ ssh_service:
     # The default is yes.
     - append_if_not_found: False
     - watch_in:
-        - service: ssh_service
+        - service: service_ssh
 
 {{ sls }} ensure PasswordAuthentication is disabled:
   file.replace:
@@ -131,7 +139,7 @@ ssh_service:
     # The default is no.
     - append_if_not_found: False
     - watch_in:
-        - service: ssh_service
+        - service: service_ssh
 
 {{ sls }} ensure ChallengeResponseAuthentication is disabled:
   file.replace:
@@ -144,4 +152,4 @@ ssh_service:
     # The default is no.
     - append_if_not_found: False
     - watch_in:
-        - service: ssh_service
+        - service: service_ssh
