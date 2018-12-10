@@ -19,3 +19,9 @@
       - file: /usr/local/sbin/minion_upgraded_needed.sh
       - file: /usr/local/sbin/upgrade_minion.sh
     - order: last
+
+salt-doc:
+  pkg:
+    - purged
+    - require:
+        - cmd: {{ sls }} upgrade minion

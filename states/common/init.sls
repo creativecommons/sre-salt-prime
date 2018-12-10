@@ -11,7 +11,6 @@ include:
         - htop
         - python-apt
         - rsync
-        - salt-doc
         - silversearcher-ag
         - tree
         - vim-nox

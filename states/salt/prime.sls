@@ -8,7 +8,6 @@
       - python-boto3
       - python3-boto
       - python3-boto3
-      - salt-doc
       - salt-master
 
 service_salt-master:
