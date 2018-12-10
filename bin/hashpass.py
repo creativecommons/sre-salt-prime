@@ -26,7 +26,13 @@ if newpass == getpass.getpass("Retype new password: "):
     with open(path_passwords, "w") as passfile:
         ruamel.yaml.dump(data, passfile, default_flow_style=False)
     print()
-    print("REMINDER: you still need to update hosts and commit changes.")
+    print("REMINDER: you still need to commit changes and apply the new"
+          " password on all hosts. To update hosts, first preview changes:")
+    print()
+    print("sudo salt \* state.apply user.admins test=True")
+    print()
+    print("If there are no unexpected changes, simply run again with"
+          " test=False")
 else:
     print()
     print("ERROR: New password entries did not match.")
