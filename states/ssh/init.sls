@@ -1,7 +1,7 @@
 # This state assumes Debian 9 (Stretch). For each section below, the stanzas
 # are in order they appear in /etc/ssh/sshd_config.
 
-{{ sls }} install packages:
+{{ sls }} installed packages:
   pkg.installed:
     - pkgs:
         - openssh-server
@@ -11,7 +11,7 @@ service_ssh:
     - name: ssh
     - enable: True
     - require:
-        - pkg: {{ sls }} install packages
+        - pkg: {{ sls }} installed packages
 
 
 ### Changes
