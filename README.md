@@ -106,12 +106,8 @@ SaltStack in Debian Stretch is 2016.11.2.
 
 #### State Documentation
 
-- [salt.states.boto_ec2](https://docs.saltstack.com/en/2016.11/ref/states/all/salt.states.boto_ec2.html)
-- [salt.states.boto_iam](https://docs.saltstack.com/en/2016.11/ref/states/all/salt.states.boto_iam.html)
-- [salt.states.boto_iam_role](https://docs.saltstack.com/en/2016.11/ref/states/all/salt.states.boto_iam_role.html)
-- [salt.states.boto_kms](https://docs.saltstack.com/en/2016.11/ref/states/all/salt.states.boto_kms.html)
-- [salt.states.boto_secgroup](https://docs.saltstack.com/en/2016.11/ref/states/all/salt.states.boto_secgroup.html)
-- [salt.states.boto_vpc](https://docs.saltstack.com/en/2016.11/ref/states/all/salt.states.boto_vpc.html)
+- [state modules](https://docs.saltstack.com/en/2016.11/ref/states/all/index.html)
+  - For Bootstrap and Orchestration, see boto modules
 
 
 #### Boto State Examples
