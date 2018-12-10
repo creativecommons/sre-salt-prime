@@ -105,7 +105,7 @@ As of 2018-12-10, Debian Stretch's SaltStack packages are at version 2016.11.2.
 [hardenlatest]: https://docs.saltstack.com/en/latest/topics/hardening.html
 [harden2016]: https://docs.saltstack.com/en/2016.11/topics/hardening.html
 [matchlatest]: https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.match.html
-[match20161]: https://docs.saltstack.com/en/2016.11/ref/modules/all/salt.modules.match.html
+[match2016]: https://docs.saltstack.com/en/2016.11/ref/modules/all/salt.modules.match.html
 [bestlatest]: https://docs.saltstack.com/en/latest/topics/best_practices.html
 [best2016]: https://docs.saltstack.com/en/2016.11/topics/best_practices.html
 [formulaslatest]: https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html
@@ -123,7 +123,7 @@ As of 2018-12-10, Debian Stretch's SaltStack packages are at version 2016.11.2.
 
 [modulelatest]: https://docs.saltstack.com/en/latest/ref/index.html
 [module2016]: https://docs.saltstack.com/en/2016.11/ref/index.html
-[statelastest]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
+[statelatest]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
 [state2016]: https://docs.saltstack.com/en/2016.11/ref/states/all/index.html
 
 
