@@ -98,14 +98,11 @@ As of 2018-12-10, Debian Stretch's SaltStack packages are at version 2016.11.2.
 - Hardening Salt ([latest][hardenlatest], [2016.11][harden2016])
   - *The only grain which can be safely used is `grains['id']` which contains
     the Minion ID.* ([FAQ Q.21][FAQ21])
-    - Create roles by matching minion id: salt.modules.match ([latest][matchlatest], [2016.11][match2016])
 - Salt Best Practices ([latest][bestlatest], [2016.11][best2016])
 - Salt Formulas ([latest][formulaslatest], [2016.11][formulas2016])
 
 [hardenlatest]: https://docs.saltstack.com/en/latest/topics/hardening.html
 [harden2016]: https://docs.saltstack.com/en/2016.11/topics/hardening.html
-[matchlatest]: https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.match.html
-[match2016]: https://docs.saltstack.com/en/2016.11/ref/modules/all/salt.modules.match.html
 [bestlatest]: https://docs.saltstack.com/en/latest/topics/best_practices.html
 [best2016]: https://docs.saltstack.com/en/2016.11/topics/best_practices.html
 [formulaslatest]: https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html

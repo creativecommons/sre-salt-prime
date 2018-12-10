@@ -1,5 +1,5 @@
 include:
-{% if "salt-prime" in pillar["roles"] %}
+{% if salt.match.glob("salt-prime__*") %}
   - .prime
 {% else %}
   # Not included on the salt-prime server. On the salt-prime server the salt
@@ -18,7 +18,7 @@ include:
     - require:
         - pkg: common installed packages
     - require_in:
-{% if "salt-prime" in pillar["roles"] %}
+{% if salt.match.glob("salt-prime__*") %}
         - pkg: salt.prime installed packages
 {% else %}
         - pkg: salt.minion upgrade minion
