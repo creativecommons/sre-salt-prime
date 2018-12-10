@@ -104,16 +104,14 @@ SaltStack in Debian Stretch is 2016.11.2.
 - [Salt Formulas](https://docs.saltstack.com/en/2016.11/topics/development/conventions/formulas.html)
 
 
-#### State Documentation
+#### Module Documentation
 
-- [state modules](https://docs.saltstack.com/en/2016.11/ref/states/all/index.html)
-  - For Bootstrap and Orchestration, see boto modules
-
-
-#### Boto State Examples
-
-- [pedrohdz.com/vpc-bootstrap.sls at master · pedrohdz/pedrohdz.com](https://github.com/pedrohdz/pedrohdz.com/blob/master/content/posts/DevOps/2016-10-14_managing-aws-vpc-saltstack/vpc-bootstrap.sls)
-- [confidant/confidant.sls at master · lyft/confidant](https://github.com/lyft/confidant/blob/master/salt/orchestration/confidant.sls)
+- [Salt Module Reference](https://docs.saltstack.com/en/2016.11/ref/index.html)
+  - [state modules](https://docs.saltstack.com/en/2016.11/ref/states/all/index.html)
+    - For AWS Bootstrap and Orchestration, see boto modules
+    - Boto State Examples:
+      - [pedrohdz.com/vpc-bootstrap.sls at master · pedrohdz/pedrohdz.com](https://github.com/pedrohdz/pedrohdz.com/blob/master/content/posts/DevOps/2016-10-14_managing-aws-vpc-saltstack/vpc-bootstrap.sls)
+      - [confidant/confidant.sls at master · lyft/confidant](https://github.com/lyft/confidant/blob/master/salt/orchestration/confidant.sls)
 
 
 ## Code of Conduct
