@@ -1,4 +1,5 @@
 base:
   '*':
-    - user
     - roles
+    - user
+    - user.passwords.*

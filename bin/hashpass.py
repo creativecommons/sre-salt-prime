@@ -17,8 +17,8 @@ import ruamel.yaml
 username = getpass.getuser()
 path_script = os.path.dirname(os.path.abspath(inspect.stack()[0][1]))
 path_repo = os.path.dirname(path_script)
-path_passwords = os.path.join(path_repo, "stacks", "01-common",
-                              "user_passwords", "{}.yaml".format(username))
+path_passwords = os.path.join(path_repo, "pillars", "user", "passwords",
+                              "{}.sls".format(username))
 newpass = getpass.getpass("Enter new password: ")
 if newpass == getpass.getpass("Retype new password: "):
     hashedpass = crypt.crypt(newpass, crypt.METHOD_SHA512)
