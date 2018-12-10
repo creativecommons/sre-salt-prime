@@ -90,28 +90,41 @@ See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
 
 ### SalStack
 
-The links below use documentation version 2016.11 as the current version of
-SaltStack in Debian Stretch is 2016.11.2.
+As of 2018-12-10, Debian Stretch's SaltStack packages are at version 2016.11.2.
 
 
 ####  Best Practices
 
-- [Hardening Salt](https://docs.saltstack.com/en/2016.11/topics/hardening.html)
+- Hardening Salt ([latest][hardenlatest], [2016.11][harden2016])
   - *The only grain which can be safely used is `grains['id']` which contains
     the Minion ID.* ([FAQ Q.21][FAQ21])
-    - Create roles by matching minion id: [salt.modules.match.html](https://docs.saltstack.com/en/2016.11/ref/modules/all/salt.modules.match.html)
-- [Salt Best Practices](https://docs.saltstack.com/en/2016.11/topics/best_practices.html)
-- [Salt Formulas](https://docs.saltstack.com/en/2016.11/topics/development/conventions/formulas.html)
+    - Create roles by matching minion id: salt.modules.match ([latest][matchlatest], [2016.11][match2016])
+- Salt Best Practices ([latest][bestlatest], [2016.11][best2016])
+- Salt Formulas ([latest][formulaslatest], [2016.11][formulas2016])
+
+[hardenlatest]: https://docs.saltstack.com/en/latest/topics/hardening.html
+[harden20161]: https://docs.saltstack.com/en/2016.11/topics/hardening.html
+[matchlatest]: https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.match.html
+[match20161]: https://docs.saltstack.com/en/2016.11/ref/modules/all/salt.modules.match.html
+[bestlatest]: https://docs.saltstack.com/en/latest/topics/best_practices.html
+[best2016]: https://docs.saltstack.com/en/2016.11/topics/best_practices.html
+[formulaslatest]: https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html
+[formulas2016]: https://docs.saltstack.com/en/2016.11/topics/development/conventions/formulas.html
 
 
 #### Module Documentation
 
-- [Salt Module Reference](https://docs.saltstack.com/en/2016.11/ref/index.html)
-  - [state modules](https://docs.saltstack.com/en/2016.11/ref/states/all/index.html)
+- Salt Module Reference ([latest][modulelatest], [2016.11][module2016])
+  - state modules ([latest][statelatest], [2016.11][state2016])
     - For AWS Bootstrap and Orchestration, see boto modules
     - Boto State Examples:
       - [pedrohdz.com/vpc-bootstrap.sls at master · pedrohdz/pedrohdz.com](https://github.com/pedrohdz/pedrohdz.com/blob/master/content/posts/DevOps/2016-10-14_managing-aws-vpc-saltstack/vpc-bootstrap.sls)
       - [confidant/confidant.sls at master · lyft/confidant](https://github.com/lyft/confidant/blob/master/salt/orchestration/confidant.sls)
+
+[modulelatest]: https://docs.saltstack.com/en/latest/ref/index.html
+[module2016]: https://docs.saltstack.com/en/2016.11/ref/index.html
+[statelastest]: https://docs.saltstack.com/en/latest/ref/states/all/index.html)
+[state2016]: https://docs.saltstack.com/en/2016.11/ref/states/all/index.html)
 
 
 ## Code of Conduct
