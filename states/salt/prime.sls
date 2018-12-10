@@ -1,4 +1,4 @@
-salt prime packages:
+{{ sls }} install packages:
   pkg.installed:
     - pkgs:
       - git

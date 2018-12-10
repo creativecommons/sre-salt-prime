@@ -1,4 +1,4 @@
-common packages:
+{{ sls }} install packages:
   pkg.installed:
     - pkgs:
       - dnsutils

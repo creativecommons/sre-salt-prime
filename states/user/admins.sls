@@ -1,11 +1,9 @@
 {% for username in pillar["user"]["admins"].keys() %}
 {% set userdata = pillar["user"]["admins"][username] %}
 {{ username }}:
-  group:
-    - present
+  group.present:
     - gid: {{ userdata["id"] }}
-  user:
-    - present
+  user.present:
     - uid: {{ userdata["id"] }}
     - gid_from_name: True
     - fullname: {{ userdata["fullname"] }}
@@ -20,7 +18,7 @@
 {% endfor %}
 
 
-alden-rsa:
+{{ sls }} alden-rsa:
   ssh_auth:
     - present
     - user: alden
@@ -31,7 +29,7 @@ alden-rsa:
 
 {% if (grains["saltversioninfo"][0] > 2014 and
        grains["osrelease_info"][0] > 7) -%}
-timidrobot-ed25519:
+{{ sls }} timidrobot-ed25519:
   ssh_auth:
     - present
     - user: timidrobot
@@ -40,7 +38,7 @@ timidrobot-ed25519:
     - require:
       - user: timidrobot
 {% else %}
-timidrobot-rsa:
+{{ sls }} timidrobot-rsa:
   ssh_auth:
     - present
     - user: timidrobot

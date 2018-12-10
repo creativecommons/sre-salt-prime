@@ -9,7 +9,7 @@ ssh_service:
 ### Changes
 
 
-sshd decrease LoginGraceTime:
+{{ sls }} decrease LoginGraceTime:
   file.replace:
     - name: /etc/ssh/sshd_config
     - pattern: ^[# ]*LoginGraceTime .*
@@ -19,11 +19,10 @@ sshd decrease LoginGraceTime:
         - MULTILINE
     # The default is 120 seconds.
     - append_if_not_found: True
-    - backup: False
     - watch_in:
         - service: ssh_service
 
-sshd disable PermitRootLogin:
+{{ sls }} disable PermitRootLogin:
   file.replace:
     - name: /etc/ssh/sshd_config
     - pattern: ^[# ]*PermitRootLogin .*
@@ -33,14 +32,13 @@ sshd disable PermitRootLogin:
         - MULTILINE
     # The default is prohibit-password.
     - append_if_not_found: True
-    - backup: False
     - watch_in:
         - service: ssh_service
 
 # TCPKeepAlive is disabled in favor of ClientAliveInterval and
 # ClientAliveCountMax. TCPKeepAlive too often results in disruption due to
 # WiFi roaming and route flaps.
-sshd disable TCPKeepAlive:
+{{ sls }} disable TCPKeepAlive:
   file.replace:
     - name: /etc/ssh/sshd_config
     - pattern: ^[# ]*TCPKeepAlive .*
@@ -50,7 +48,6 @@ sshd disable TCPKeepAlive:
         - MULTILINE
     # The default is yes
     - append_if_not_found: True
-    - backup: False
     - watch_in:
         - service: ssh_service
 
@@ -60,7 +57,7 @@ sshd disable TCPKeepAlive:
 # The relatively short ClientAliveInterval should ensure aggresive TTLs do not
 # severe connections. The larger ClientAliveCountMax should allow brief
 # interruptions without disrupting work.
-sshd set ClientAliveInterval:
+{{ sls }} set ClientAliveInterval:
   file.replace:
     - name: /etc/ssh/sshd_config
     - pattern: ^[# ]*ClientAliveInterval .*
@@ -71,14 +68,13 @@ sshd set ClientAliveInterval:
         - MULTILINE
     # The default is 0
     - append_if_not_found: True
-    - backup: False
     - watch_in:
         - service: ssh_service
     - require:
-        - file: sshd remove 1st trailing ClientAliveInterval
-        - file: sshd remove 2nd trailing ClientAliveInterval
+        - file: {{ sls }} remove 1st trailing ClientAliveInterval
+        - file: {{ sls }} remove 2nd trailing ClientAliveInterval
 
-sshd set ClientAliveCountMax:
+{{ sls }} set ClientAliveCountMax:
   file.replace:
     - name: /etc/ssh/sshd_config
     - pattern: ^[# ]*ClientAliveCountMax .*
@@ -88,25 +84,22 @@ sshd set ClientAliveCountMax:
         - MULTILINE
     # The default is 3
     - append_if_not_found: True
-    - backup: False
     - watch_in:
         - service: ssh_service
 
-sshd remove 1st trailing ClientAliveInterval:
+{{ sls }} remove 1st trailing ClientAliveInterval:
   file.line:
     - name: /etc/ssh/sshd_config
     - content: ClientAliveInterval 420
     - mode: delete
-    - backup: False
     - watch_in:
         - service: ssh_service
 
-sshd remove 2nd trailing ClientAliveInterval:
+{{ sls }} remove 2nd trailing ClientAliveInterval:
   file.line:
     - name: /etc/ssh/sshd_config
     - content: ClientAliveInterval 120
     - mode: delete
-    - backup: False
     - watch_in:
         - service: ssh_service
 
@@ -114,7 +107,7 @@ sshd remove 2nd trailing ClientAliveInterval:
 ### Ensure Authentication Defaults
 
 
-sshd ensure PubkeyAuthentication is enabled:
+{{ sls }} ensure PubkeyAuthentication is enabled:
   file.replace:
     - name: /etc/ssh/sshd_config
     - pattern: ^ *PubkeyAuthentication .*
@@ -124,11 +117,10 @@ sshd ensure PubkeyAuthentication is enabled:
         - MULTILINE
     # The default is yes.
     - append_if_not_found: False
-    - backup: False
     - watch_in:
         - service: ssh_service
 
-sshd ensure PasswordAuthentication is disabled:
+{{ sls }} ensure PasswordAuthentication is disabled:
   file.replace:
     - name: /etc/ssh/sshd_config
     - pattern: ^ *PasswordAuthentication .*
@@ -138,11 +130,10 @@ sshd ensure PasswordAuthentication is disabled:
         - MULTILINE
     # The default is no.
     - append_if_not_found: False
-    - backup: False
     - watch_in:
         - service: ssh_service
 
-sshd ensure ChallengeResponseAuthentication is disabled:
+{{ sls }} ensure ChallengeResponseAuthentication is disabled:
   file.replace:
     - name: /etc/ssh/sshd_config
     - pattern: ^ *ChallengeResponseAuthentication .*
@@ -152,6 +143,5 @@ sshd ensure ChallengeResponseAuthentication is disabled:
         - MULTILINE
     # The default is no.
     - append_if_not_found: False
-    - backup: False
     - watch_in:
         - service: ssh_service
