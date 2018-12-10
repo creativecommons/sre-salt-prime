@@ -536,7 +536,6 @@
           - python-boto3
           - python3-boto
           - python3-boto3
-          - salt-doc
           - salt-master
           - vim-nox
         # This adds a mountpoint with "nofail". The volume won't mount properly
