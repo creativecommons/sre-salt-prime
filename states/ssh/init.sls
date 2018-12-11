@@ -111,6 +111,16 @@ service_ssh:
     - watch_in:
         - service: service_ssh
 
+{{ sls }} append group sudo StreamLocalBindUnlink:
+  file.append:
+    - name: /etc/ssh/sshd_config
+    - text: |
+
+        Match Group sudo
+            StreamLocalBindUnlink yes
+    - watch_in:
+        - service: service_ssh
+
 
 ### Ensure Authentication Defaults
 
