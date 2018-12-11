@@ -16,12 +16,12 @@ include:
     - key_url: {{ repo_url }}/SALTSTACK-GPG-KEY.pub
     - clean_file: True
     - require:
-        - pkg: common installed packages
+      - pkg: common installed packages
     - require_in:
 {% if salt.match.glob("salt-prime__*") %}
-        - pkg: salt.prime installed packages
+      - pkg: salt.prime installed packages
 {% else %}
-        - pkg: salt.minion upgrade minion
+      - pkg: salt.minion upgrade minion
 {% endif %}
 
 /etc/apt/sources.list.d/saltstack.list:
@@ -29,4 +29,4 @@ include:
     - mode: '0444'
     - replace: False
     - require:
-        - pkgrepo: {{ sls }} SaltStack Package Repo
+      - pkgrepo: {{ sls }} SaltStack Package Repo

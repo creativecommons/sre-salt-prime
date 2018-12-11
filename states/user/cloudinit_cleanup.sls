@@ -10,7 +10,7 @@
   file.absent:
     - name: /home/admin
     - require:
-        - user: {{ sls }} remove admin user
+      - user: {{ sls }} remove admin user
 
 {{ sls }} remove root ssh authorized_keys:
   file.absent:

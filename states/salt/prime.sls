@@ -15,7 +15,7 @@ service_salt-master:
     - name: salt-master
     - enable: True
     - require:
-        - pkg: {{ sls }} installed packages
+      - pkg: {{ sls }} installed packages
 
 /etc/salt/master.d/salt-prime.conf:
   file.managed:

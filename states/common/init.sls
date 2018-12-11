@@ -6,11 +6,11 @@ include:
 {{ sls }} installed packages:
   pkg.installed:
     - pkgs:
-        - apt-transport-https
-        - dnsutils
-        - htop
-        - python-apt
-        - rsync
-        - silversearcher-ag
-        - tree
-        - vim-nox
+      - apt-transport-https
+      - dnsutils
+      - htop
+      - python-apt
+      - rsync
+      - silversearcher-ag
+      - tree
+      - vim-nox

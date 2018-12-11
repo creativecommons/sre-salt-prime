@@ -24,4 +24,4 @@ salt-doc:
   pkg:
     - purged
     - require:
-        - cmd: {{ sls }} upgrade minion
+      - cmd: {{ sls }} upgrade minion

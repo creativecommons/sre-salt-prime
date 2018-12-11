@@ -4,14 +4,14 @@
 {{ sls }} installed packages:
   pkg.installed:
     - pkgs:
-        - openssh-server
+      - openssh-server
 
 service_ssh:
   service.running:
     - name: ssh
     - enable: True
     - require:
-        - pkg: {{ sls }} installed packages
+      - pkg: {{ sls }} installed packages
 
 
 ### Changes
@@ -23,12 +23,12 @@ service_ssh:
     - pattern: ^[# ]*LoginGraceTime .*
     - repl: LoginGraceTime 30s
     - flags:
-        - IGNORECASE
-        - MULTILINE
+      - IGNORECASE
+      - MULTILINE
     # The default is 120 seconds.
     - append_if_not_found: True
     - watch_in:
-        - service: service_ssh
+      - service: service_ssh
 
 {{ sls }} disable PermitRootLogin:
   file.replace:
@@ -36,12 +36,12 @@ service_ssh:
     - pattern: ^[# ]*PermitRootLogin .*
     - repl: PermitRootLogin no
     - flags:
-        - IGNORECASE
-        - MULTILINE
+      - IGNORECASE
+      - MULTILINE
     # The default is prohibit-password.
     - append_if_not_found: True
     - watch_in:
-        - service: service_ssh
+      - service: service_ssh
 
 # TCPKeepAlive is disabled in favor of ClientAliveInterval and
 # ClientAliveCountMax. TCPKeepAlive too often results in disruption due to
@@ -52,12 +52,12 @@ service_ssh:
     - pattern: ^[# ]*TCPKeepAlive .*
     - repl: TCPKeepAlive no
     - flags:
-        - IGNORECASE
-        - MULTILINE
+      - IGNORECASE
+      - MULTILINE
     # The default is yes
     - append_if_not_found: True
     - watch_in:
-        - service: service_ssh
+      - service: service_ssh
 
 # A ClientAliveInterval of 30s combined with a ClientAliveCountMax of 60 will
 # result in disconnections of unresponsive clients after half an hour.
@@ -72,15 +72,15 @@ service_ssh:
     - repl: ClientAliveInterval 30s
     - count: 1
     - flags:
-        - IGNORECASE
-        - MULTILINE
+      - IGNORECASE
+      - MULTILINE
     # The default is 0
     - append_if_not_found: True
     - watch_in:
-        - service: service_ssh
+      - service: service_ssh
     - require:
-        - file: {{ sls }} remove 1st trailing ClientAliveInterval
-        - file: {{ sls }} remove 2nd trailing ClientAliveInterval
+      - file: {{ sls }} remove 1st trailing ClientAliveInterval
+      - file: {{ sls }} remove 2nd trailing ClientAliveInterval
 
 {{ sls }} set ClientAliveCountMax:
   file.replace:
@@ -88,12 +88,12 @@ service_ssh:
     - pattern: ^[# ]*ClientAliveCountMax .*
     - repl: ClientAliveCountMax 60
     - flags:
-        - IGNORECASE
-        - MULTILINE
+      - IGNORECASE
+      - MULTILINE
     # The default is 3
     - append_if_not_found: True
     - watch_in:
-        - service: service_ssh
+      - service: service_ssh
 
 {{ sls }} remove 1st trailing ClientAliveInterval:
   file.line:
@@ -101,7 +101,7 @@ service_ssh:
     - content: ClientAliveInterval 420
     - mode: delete
     - watch_in:
-        - service: service_ssh
+      - service: service_ssh
 
 {{ sls }} remove 2nd trailing ClientAliveInterval:
   file.line:
@@ -109,7 +109,7 @@ service_ssh:
     - content: ClientAliveInterval 120
     - mode: delete
     - watch_in:
-        - service: service_ssh
+      - service: service_ssh
 
 {{ sls }} append group sudo StreamLocalBindUnlink:
   file.append:
@@ -119,7 +119,7 @@ service_ssh:
         Match Group sudo
             StreamLocalBindUnlink yes
     - watch_in:
-        - service: service_ssh
+      - service: service_ssh
 
 
 ### Ensure Authentication Defaults
@@ -131,12 +131,12 @@ service_ssh:
     - pattern: ^ *PubkeyAuthentication .*
     - repl: '#PubkeyAuthentication yes'
     - flags:
-        - IGNORECASE
-        - MULTILINE
+      - IGNORECASE
+      - MULTILINE
     # The default is yes.
     - append_if_not_found: False
     - watch_in:
-        - service: service_ssh
+      - service: service_ssh
 
 {{ sls }} ensure PasswordAuthentication is disabled:
   file.replace:
@@ -144,12 +144,12 @@ service_ssh:
     - pattern: ^ *PasswordAuthentication .*
     - repl: PasswordAuthentication no
     - flags:
-        - IGNORECASE
-        - MULTILINE
+      - IGNORECASE
+      - MULTILINE
     # The default is no.
     - append_if_not_found: False
     - watch_in:
-        - service: service_ssh
+      - service: service_ssh
 
 {{ sls }} ensure ChallengeResponseAuthentication is disabled:
   file.replace:
@@ -157,9 +157,9 @@ service_ssh:
     - pattern: ^ *ChallengeResponseAuthentication .*
     - repl: ChallengeResponseAuthentication no
     - flags:
-        - IGNORECASE
-        - MULTILINE
+      - IGNORECASE
+      - MULTILINE
     # The default is no.
     - append_if_not_found: False
     - watch_in:
-        - service: service_ssh
+      - service: service_ssh
