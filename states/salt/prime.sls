@@ -1,6 +1,7 @@
 {{ sls }} installed packages:
   pkg.installed:
     - pkgs:
+      - awscli
       - git
       - git-crypt
       - git-doc
