@@ -1,4 +1,23 @@
-## Goals
+# sre-salt-prime
+
+Site Reliability Engineering / DevOps SaltStack configuration files - NEW!
+(This will eventually completely replace `sre-salt`.)
+
+
+## Code of Conduct
+
+Please note that this project is released with a Contributor Code of Conduct
+([`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)). By participating in this
+project you agree to abide by its terms.
+
+
+## Development Notes
+
+- **Avoid insecure repository clones:** This repository includes encrypted
+  secrets that decrypt automatically with a corresponding GnuPG key.
+
+
+### Goals
 
 - Use AWS well, but avoid technologies that are create AWS lock-in (ex.
   Confidant)
@@ -14,7 +33,7 @@
 [FAQ21]: https://docs.saltstack.com/en/latest/faq.html#is-targeting-using-grain-data-secure
 
 
-## Decisions
+### Decisions
 
 - Amazon Web Services (AWS)
   - Creative Commons is already using it and staff are familiar with it
@@ -39,11 +58,6 @@
 
 
 [gitcrypt]: https://www.agwa.name/projects/git-crypt/
-
-
-## Bootstrap
-
-See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
 
 
 ## References
@@ -101,6 +115,7 @@ As of 2018-12-10, Debian Stretch's SaltStack packages are at version 2016.11.2.
 - Salt Best Practices ([latest][bestlatest], [2016.11][best2016])
 - Salt Formulas ([latest][formulaslatest], [2016.11][formulas2016])
 
+
 [hardenlatest]: https://docs.saltstack.com/en/latest/topics/hardening.html
 [harden2016]: https://docs.saltstack.com/en/2016.11/topics/hardening.html
 [bestlatest]: https://docs.saltstack.com/en/latest/topics/best_practices.html
@@ -118,17 +133,28 @@ As of 2018-12-10, Debian Stretch's SaltStack packages are at version 2016.11.2.
       - [pedrohdz.com/vpc-bootstrap.sls at master · pedrohdz/pedrohdz.com](https://github.com/pedrohdz/pedrohdz.com/blob/master/content/posts/DevOps/2016-10-14_managing-aws-vpc-saltstack/vpc-bootstrap.sls)
       - [confidant/confidant.sls at master · lyft/confidant](https://github.com/lyft/confidant/blob/master/salt/orchestration/confidant.sls)
 
+
 [modulelatest]: https://docs.saltstack.com/en/latest/ref/index.html
 [module2016]: https://docs.saltstack.com/en/2016.11/ref/index.html
 [statelatest]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
 [state2016]: https://docs.saltstack.com/en/2016.11/ref/states/all/index.html
 
 
-## Code of Conduct
+#### Orchestration Documentation
 
-Please note that this project is released with a Contributor Code of Conduct
-([`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)). By participating in this
-project you agree to abide by its terms.
+- Orchestrate Runner ([latest][orchlatest], [2016.11][orch2016])
+  - Examples:
+    - [An example of a complex, multi-host Salt Orchestrate state that performs status checks as it goes](https://gist.github.com/whiteinge/1bf3b1fa525c2e883b805f271ec6f7d7)
+    - [Dynamic Test Servers with Salt | Lincoln Loop](https://lincolnloop.com/blog/dynamic-test-servers-salt/)
+
+
+[orchlatest]: https://docs.saltstack.com/en/latest/topics/orchestrate/orchestrate_runner.html
+[orch2016]: https://docs.saltstack.com/en/2016.11/topics/orchestrate/orchestrate_runner.html
+
+
+## Bootstrap
+
+See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
 
 
 ## License
