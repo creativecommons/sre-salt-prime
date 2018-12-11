@@ -24,3 +24,11 @@ service_salt-master:
     - follow_symlinks: False
     - watch_in:
         service: service_salt-master
+
+# Symlink master config to minion to allow `salt-call --local` to work with
+# sre-salt-prime repository.
+/etc/salt/minion.d/salt-prime.conf:
+  file.symlink:
+    - target: /etc/salt/master.d/salt-prime.conf
+    - require:
+      - file: /etc/salt/master.d/salt-prime.conf
