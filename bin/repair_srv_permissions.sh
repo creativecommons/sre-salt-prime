@@ -88,7 +88,7 @@ headertwo() {
 
 replace_admin() {
     headerone "Replace admin owner with current user (${SUDO_USER})"
-    find /srv -user admin -exec chown -v ${SUDO_USER} {} +
+    find /srv -user admin -exec chown -v ${SUDO_USER} {} + || true
     headertwo DONE
     echo
 }
