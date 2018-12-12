@@ -71,8 +71,8 @@ def main():
         pt("Then preview changes (assuming \"{}\" environment):"
            .format(username))
         print()
-        print("sudo salt \* state.apply user.admins pillarenv={} saltenv={}"
-              " test=True".format(username, username))
+        print("sudo salt \* state.apply user.admins saltenv={} test=True"
+              .format(username))
         print()
         pt("Last, if there are no unexpected changes, simply run again with"
            " \"test=False\" and")
