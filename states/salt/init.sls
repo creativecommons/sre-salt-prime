@@ -1,15 +1,12 @@
 include:
+  - .minion
 {% if salt.match.glob("salt-prime__*") %}
   - .prime
-{% else %}
-  # Not included on the salt-prime server. On the salt-prime server the salt
-  # packages should be upgraded manually (and then minion_target_version pillar
-  # updated).
-  - .minion
 {% endif %}
 
+
 {% set repo_url = "https://repo.saltstack.com/apt/debian/9/amd64/latest" -%}
-{{ sls }} SaltStack Package Repo:
+{{ sls }} SaltStack Repository:
   pkgrepo.managed:
     - name: deb {{ repo_url }}  stretch main
     - file: /etc/apt/sources.list.d/saltstack.list
@@ -24,9 +21,11 @@ include:
       - pkg: salt.minion upgrade minion
 {% endif %}
 
-/etc/apt/sources.list.d/saltstack.list:
+
+{{ sls }} manage SaltStack Repository file mode:
   file.managed:
+    - name: /etc/apt/sources.list.d/saltstack.list
     - mode: '0444'
     - replace: False
     - require:
-      - pkgrepo: {{ sls }} SaltStack Package Repo
+      - pkgrepo: {{ sls }} SaltStack Repository
