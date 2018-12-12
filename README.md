@@ -1,6 +1,7 @@
 # sre-salt-prime
 
 Site Reliability Engineering / DevOps SaltStack configuration files - NEW!
+
 (This will eventually completely replace `sre-salt`.)
 
 
@@ -16,9 +17,9 @@ project you agree to abide by its terms.
 - **Avoid insecure repository clones:** This repository includes encrypted
   secrets. Do not run `git-crypt unlock` on clones that are not otherwise
   secured (ex. strong login password, disk encryption).
-- **Avoid editing base enviornment:** The base environment has an invalid
-  push url. Instead make changes in your development environment and pull
-  the changes to base.
+- **Avoid editing base environment:** The base environment is configured to
+  prevent commit and push actions. Please use your development environment and
+  pull the changes to base.
 - **Sign your commits**
 - Development is supported on `salt-prime`
   1. Clone repository to `/srv` with your username. For example:
@@ -126,7 +127,7 @@ project you agree to abide by its terms.
 - [Cloud/AmazonEC2Image/Stretch - Debian Wiki](https://wiki.debian.org/Cloud/AmazonEC2Image/Stretch)
 
 
-### SalStack
+### SaltStack
 
 As of 2018-12-10, Debian Stretch's SaltStack packages are at version 2016.11.2.
 
