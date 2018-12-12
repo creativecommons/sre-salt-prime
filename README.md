@@ -14,7 +14,31 @@ project you agree to abide by its terms.
 ## Development Notes
 
 - **Avoid insecure repository clones:** This repository includes encrypted
-  secrets that decrypt automatically with a corresponding GnuPG key.
+  secrets. Do not run `git-crypt unlock` on clones that are not otherwise
+  secured (ex. strong login password, disk encryption).
+- **Avoid editing base enviornment:** The base environment has an invalid
+  push url. Instead make changes in your development environment and pull
+  the changes to base.
+- **Sign your commits**
+- Development is supported on `salt-prime`
+  1. Clone repository to `/srv` with your username. For example:
+     ```shell
+     git clone git@github.com:creativecommons/sre-salt-prime.git ${USER}
+     ```
+  2. Ask Timid Robot to configure the server to support it
+  3. Ensure you are configured to forward your gpg-agent to the server
+     (Timid Robot is happy to assist)
+  4. Setup your repo
+     ```shell
+     git config user.email YOUR_EMAIL
+     git config user.gpgsign true
+     git config user.signingkey YOUR_GPG_ID
+     git-crypt unlock
+     ```
+  5. Specify the environment when you test changes. For example:
+     ```shell
+     sudo salt \* state.highstate saltenv=${USER} test=True
+     ```
 
 
 ### Goals
