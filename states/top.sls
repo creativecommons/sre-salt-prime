@@ -1,4 +1,4 @@
-base:
+{{ saltenv }}:
   '*':
     - common
     - salt

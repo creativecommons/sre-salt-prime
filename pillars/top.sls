@@ -1,4 +1,4 @@
-base:
+{{ saltenv }}:
   '*':
     - salt
     - user
