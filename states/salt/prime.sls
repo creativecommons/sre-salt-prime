@@ -23,8 +23,6 @@ service_salt-master:
     - source: salt://salt/files/salt-prime.conf
     - mode: '0444'
     - follow_symlinks: False
-    - watch_in:
-        service: service_salt-master
 
 # Symlink master config to minion to allow `salt-call --local` to work with
 # sre-salt-prime repository.
