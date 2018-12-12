@@ -1,4 +1,7 @@
 #!/bin/sh
+# To disable commit and push:
+# 1. git remote set-url --push origin '###-COMMIT/PUSH-DISABLED-###'
+# 2. ln -s ../../bin/git_hooks_pre-commit .git/hooks/pre-commit
 PUSH_URL="$(git remote get-url --push origin)"
 if [ "${PUSH_URL}" = "###-COMMIT/PUSH-DISABLED-###" ]
 then
