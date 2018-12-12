@@ -67,8 +67,10 @@ A few manual steps are necessary to prepare the salt-prime server.
    3. `sudo mount`
 
 
-### Checkout sre-salt-prime
+### Clone sre-salt-prime as base
 
 1. `cd /srv`
-2. `git clone git@github.com:creativecommons/sre-salt-prime.git`
-3. `sudo sre-salt-prime/bin/repair_srv_permissions.sh`
+2. `git clone git@github.com:creativecommons/sre-salt-prime.git base`
+3. `sudo base/bin/repair_srv_permissions.sh`
+4. `cd /base`
+5. `git remote set-url --push origin '###-COMMIT/PUSH-DISABLED-###'`
