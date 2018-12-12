@@ -1,0 +1,7 @@
+#!/bin/sh
+PUSH_URL="$(git remote get-url --push origin)"
+if [ "${PUSH_URL}" = "###-COMMIT/PUSH-DISABLED-###" ]
+then
+    echo "${PUSH_URL}"
+    exit 1
+fi
