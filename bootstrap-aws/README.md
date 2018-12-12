@@ -74,3 +74,4 @@ A few manual steps are necessary to prepare the salt-prime server.
 3. `sudo base/bin/repair_srv_permissions.sh`
 4. `cd /base`
 5. `git remote set-url --push origin '###-COMMIT/PUSH-DISABLED-###'`
+6. `ln -s ../../bin/git_hooks_pre-commit .git/hooks/pre-commit`
