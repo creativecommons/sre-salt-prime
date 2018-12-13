@@ -40,6 +40,8 @@ project you agree to abide by its terms.
      ```shell
      sudo salt \* state.highstate saltenv=${USER} test=True
      ```
+     - use `--state-verbose=True` to see successes
+     - use `--state-output=full_id` to see full detail of successes
 
 
 ### Goals
