@@ -60,10 +60,10 @@ def print_reminder(args):
     print("sudo salt \* saltutil.refresh_pillar")
     print()
     pt("Then preview changes (assuming \"{}\" environment):"
-       .format(args.script_user))
+       .format(args.saltenv))
     print()
     print("sudo salt \* state.apply user.admins saltenv={} test=True"
-          .format(args.script_user))
+          .format(args.saltenv))
     print()
     pt("Last, if there are no unexpected changes, simply run again with"
        " \"test=False\" and")
@@ -99,6 +99,7 @@ def setup():
     args = ap.parse_args()
     path_script = os.path.dirname(os.path.abspath(inspect.stack()[0][1]))
     path_repo = os.path.dirname(path_script)
+    args.saltenv = os.path.basename(path_repo)
     args.path_passwords = os.path.join(path_repo, "pillars", "user",
                                        "passwords", "{}.sls"
                                        .format(args.username))
