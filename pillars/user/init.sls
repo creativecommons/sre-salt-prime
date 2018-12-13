@@ -19,3 +19,7 @@ user:
       id: 2001
       fullname: Alden Page
       shell: /bin/bash
+    kdogey:
+      id: 2002
+      fullname: Kriti Godey
+      shell: /bin/bash
