@@ -65,6 +65,7 @@
     - name: /etc/salt/minion.d/salt_minion.conf
     - source: salt://salt/files/salt_minion.conf
     - mode: '0444'
+    - template: jinja
     - follow_symlinks: False
 
 

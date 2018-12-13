@@ -10,3 +10,5 @@
     - aws.us-east-2.core
   '*__gnwp__us-east-2':
     - aws.us-east-2.gnwp
+  'salt-prime__*':
+    - salt.prime
