@@ -3,6 +3,7 @@ include:
   - .virtual
 {% endif %}
 
+
 {{ sls }} installed packages:
   pkg.installed:
     - pkgs:

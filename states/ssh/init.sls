@@ -1,10 +1,12 @@
 # This state assumes Debian 9 (Stretch). For each section below, the stanzas
 # are in order they appear in /etc/ssh/sshd_config.
 
+
 {{ sls }} installed packages:
   pkg.installed:
     - pkgs:
       - openssh-server
+
 
 service_ssh:
   service.running:
@@ -30,6 +32,7 @@ service_ssh:
     - watch_in:
       - service: service_ssh
 
+
 {{ sls }} disable PermitRootLogin:
   file.replace:
     - name: /etc/ssh/sshd_config
@@ -42,6 +45,7 @@ service_ssh:
     - append_if_not_found: True
     - watch_in:
       - service: service_ssh
+
 
 # TCPKeepAlive is disabled in favor of ClientAliveInterval and
 # ClientAliveCountMax. TCPKeepAlive too often results in disruption due to
@@ -58,6 +62,7 @@ service_ssh:
     - append_if_not_found: True
     - watch_in:
       - service: service_ssh
+
 
 # A ClientAliveInterval of 30s combined with a ClientAliveCountMax of 60 will
 # result in disconnections of unresponsive clients after half an hour.
@@ -82,6 +87,7 @@ service_ssh:
       - file: {{ sls }} remove 1st trailing ClientAliveInterval
       - file: {{ sls }} remove 2nd trailing ClientAliveInterval
 
+
 {{ sls }} set ClientAliveCountMax:
   file.replace:
     - name: /etc/ssh/sshd_config
@@ -95,6 +101,7 @@ service_ssh:
     - watch_in:
       - service: service_ssh
 
+
 {{ sls }} remove 1st trailing ClientAliveInterval:
   file.line:
     - name: /etc/ssh/sshd_config
@@ -103,6 +110,7 @@ service_ssh:
     - watch_in:
       - service: service_ssh
 
+
 {{ sls }} remove 2nd trailing ClientAliveInterval:
   file.line:
     - name: /etc/ssh/sshd_config
@@ -110,6 +118,7 @@ service_ssh:
     - mode: delete
     - watch_in:
       - service: service_ssh
+
 
 {{ sls }} append group sudo StreamLocalBindUnlink:
   file.append:
@@ -138,6 +147,7 @@ service_ssh:
     - watch_in:
       - service: service_ssh
 
+
 {{ sls }} ensure PasswordAuthentication is disabled:
   file.replace:
     - name: /etc/ssh/sshd_config
@@ -150,6 +160,7 @@ service_ssh:
     - append_if_not_found: False
     - watch_in:
       - service: service_ssh
+
 
 {{ sls }} ensure ChallengeResponseAuthentication is disabled:
   file.replace:
