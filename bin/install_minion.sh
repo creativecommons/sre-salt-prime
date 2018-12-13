@@ -43,27 +43,8 @@ apt_update() {
 }
 
 
-configure_etc_hosts() {
-    local _hosts_entry
-    (( local_minion == 0 )) || return 0
-    (( local_subnet == 1 )) || return 0
-    headerone 'Configure /etc/hosts For Local Salt Prime'
-    if _hosts_entry=$(ssh -qt ${minion_ssh} "grep '^10.22.11.11' /etc/hosts")
-    then
-        headertwo '/etc/hosts already configured for local salt-prime'
-        echo "${_hosts_entry}"
-        echo
-    else
-        headertwo 'Add line'
-        echo '10.22.11.11	salt-prime.creativecommons.org' \
-            | ssh -qt ${minion_ssh} 'sudo tee -a /etc/hosts'
-        echo
-    fi
-}
-
-
 configure_prime_server() {
-    local _file=/etc/salt/minion.d/prime_server.conf
+    local _file=/etc/salt/minion.d/salt_minion.conf
     headerone 'Configure Prime Server on Salt Minion'
     headertwo 'File'
     echo ${_file}
@@ -153,22 +134,7 @@ create_minion_keys() {
 }
 
 
-get_local_subnet_status() {
-    (( local_minion == 0 )) || return 0
-    headerone 'Is Remote Salt Minion On a Local Subnet'
-    if ssh -qt ${minion_ssh} 'echo ${SSH_CLIENT}' | grep -q '^10[.]'
-    then
-        echo 'Yes'
-        local_subnet=1
-    else
-        echo 'No'
-        local_subnet=0
-    fi
-    echo
-}
-
-
-get_localhost_or_remote() {
+determine_salt_prime_server() {
     if [[ "${minion_ssh}" == '127.0.0.1' ]] || \
         [[ "${minion_ssh}" == 'localhost' ]]
     then
@@ -176,7 +142,12 @@ get_localhost_or_remote() {
         salt_prime_server=localhost
     else
         local_minion=0
-        salt_prime_server=salt-prime.creativecommons.org
+        if ssh -qt ${minion_ssh} 'echo ${SSH_CLIENT}' | grep -q '^10[.]22[.]'
+        then
+            salt_prime_server=10.22.11.11
+        else
+            salt_prime_server=salt-prime.creativecommons.org
+        fi
     fi
 }
 
@@ -271,13 +242,11 @@ minion_pod=${3}
 minion_location=${4}
 minion_id="${minion_name}__${minion_pod}__${minion_location}"
 require_sudo
-get_localhost_or_remote
+determine_salt_prime_server
 get_salt_prime_key
-get_local_subnet_status
 apt_update
 apt_install_salt_minion
 minion_service_stop
-configure_etc_hosts
 configure_minion_id
 configure_prime_server
 create_minion_keys
