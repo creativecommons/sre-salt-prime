@@ -27,6 +27,17 @@
     - require:
       - user: alden
 
+
+{{ sls }} kgodey-rsa:
+  ssh_auth:
+    - present
+    - user: kgodey
+    - enc: rsa
+    - source: salt://user/files/kgodey_rsa_kdogey_mayo.hilia.us.pub
+    - require:
+      - user: kgodey
+
+
 {% if (grains["saltversioninfo"][0] > 2014 and
        grains["osrelease_info"][0] > 7) -%}
 {{ sls }} timidrobot-ed25519:
