@@ -42,6 +42,9 @@ project you agree to abide by its terms.
      ```
      - use `--state-verbose=True` to see successes
      - use `--state-output=full_id` to see full detail of successes
+     - use `--log-level=debug --log-file-level=warning` to see debug messages
+       (without logging those debug messages, which may contain secrets, to the
+       log file)
 
 
 ### Goals
