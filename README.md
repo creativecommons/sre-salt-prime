@@ -29,11 +29,11 @@ project you agree to abide by its terms.
   2. Ask Timid Robot to configure the server to support it
   3. Ensure you are configured to forward your gpg-agent to the server
      (Timid Robot is happy to assist)
-  4. Setup your repo
+  4. Setup your newly cloned repository
      ```shell
      git config user.email YOUR_EMAIL
-     git config user.gpgsign true
      git config user.signingkey YOUR_GPG_ID
+     git config commit.gpgsign true
      git-crypt unlock
      ```
   5. Specify the environment when you test changes. For example:
