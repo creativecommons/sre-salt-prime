@@ -67,7 +67,7 @@ service_ssh:
 # A ClientAliveInterval of 30s combined with a ClientAliveCountMax of 60 will
 # result in disconnections of unresponsive clients after half an hour.
 #
-# The relatively short ClientAliveInterval should ensure aggresive TTLs do not
+# The relatively short ClientAliveInterval should ensure aggressive TTLs do not
 # severe connections. The larger ClientAliveCountMax should allow brief
 # interruptions without disrupting work.
 {{ sls }} set ClientAliveInterval:
