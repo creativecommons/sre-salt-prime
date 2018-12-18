@@ -83,11 +83,14 @@ project you agree to abide by its terms.
   Confidant)
 - Salt Prime must not contain any exclusive data (use Git)
 - Git repository must not contain any unencrypted secrets
+- Git repository commits must be signed
 - A compromised minion must not be able to escalate access
   - SysAdmins must not forward their SSH agent
   - Must not reuse application passwords (ex. Prod and Dev databases must have
     different passwords)
-  - *The only grain which can be safely used is `grains['id']` which contains the Minion ID.* ([FAQ Q.21][FAQ21])
+  - Pillar data must be restricted by Minion ID based classification
+    - *The only grain which can be safely used is `grains['id']` which contains
+      the Minion ID.* ([FAQ Q.21][FAQ21])
 
 
 [FAQ21]: https://docs.saltstack.com/en/latest/faq.html#is-targeting-using-grain-data-secure
@@ -219,6 +222,7 @@ See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
 
 ## License
 
-- [`LICENSE`](LICENSE) (Expat/[MIT License][MIT])
+- [`LICENSE`](LICENSE) (Expat/[MIT][mit] License)
 
-[MIT]: http://www.opensource.org/licenses/MIT "The MIT License (MIT)"
+
+[mit]: http://www.opensource.org/licenses/MIT "The MIT License | Open Source Initiative"
