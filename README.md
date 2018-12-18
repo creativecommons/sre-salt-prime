@@ -58,12 +58,17 @@ project you agree to abide by its terms.
         cd /srv
         git clone git@github.com:creativecommons/sre-salt-prime.git ${USER}
         ```
-  2. Setup your newly cloned repository. For example:
+  2. Setup your newly cloned repository.
+     1. Configure commit signing:
         ```shell
         cd /srv/${USER}
         git config user.email YOUR_EMAIL
         git config user.signingkey YOUR_GPG_ID
         git config commit.gpgsign true
+        ```
+     1. Unlock encrypted secrets:
+        ```shell
+        cd /srv/${USER}
         git-crypt unlock
         ```
   3. Specify the environment when you test changes. For example:
@@ -121,6 +126,18 @@ project you agree to abide by its terms.
 
 
 [gitcrypt]: https://www.agwa.name/projects/git-crypt/
+
+
+
+## Host Classification
+
+Minions are added and configured from `salt-prime` with the following Minion ID
+schema: **`name__pod__location`**. Examples:
+- `bastion__core__us-east-2`
+- `salt-prime__core__us-east-2`
+
+Glob patterns are used in [`pillar/top.sls`](pillar/top.sls) to ensure pillar
+data is scoped appropriately (as narrowly as possible).
 
 
 ## References
