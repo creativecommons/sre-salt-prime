@@ -136,7 +136,7 @@ schema: **`name__pod__location`**. Examples:
 - `bastion__core__us-east-2`
 - `salt-prime__core__us-east-2`
 
-Glob patterns are used in [`pillar/top.sls`](pillar/top.sls) to ensure pillar
+Glob patterns are used in [`pillars/top.sls`](pillars/top.sls) to ensure pillar
 data is scoped appropriately (as narrowly as possible).
 
 
