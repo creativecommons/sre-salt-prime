@@ -21,11 +21,17 @@ project you agree to abide by its terms.
   prevent commit and push actions. Please use your development environment and
   pull the changes to base.
 - **Sign your commits:**
+  - The master branch has the Require signed commits (Include administrators)
+    GitHub branch protection enabled.
+    - [About required commit signing - User Documentation][signing]
   - Ensure you are using `RemoteForward` in your SSH configuration to forward
     your GnuPG agent to `salt-prime` (see the example configurationi, under
     [Setup](#Setup), below).
   - Ensure you have configured your newly cloned repository to sign commits
     (see the `git config` command, under [Setup](#Setup), below).
+
+
+[signing]:https://help.github.com/articles/about-required-commit-signing/
 
 
 ### Setup
