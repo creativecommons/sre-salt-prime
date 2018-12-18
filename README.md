@@ -17,29 +17,59 @@ project you agree to abide by its terms.
 - **Avoid insecure repository clones:** This repository includes encrypted
   secrets. Do not run `git-crypt unlock` on clones that are not otherwise
   secured (ex. strong login password, disk encryption).
-- **Avoid editing base environment:** The base environment is configured to
+- **Avoid editing the base environment:** The base environment is configured to
   prevent commit and push actions. Please use your development environment and
   pull the changes to base.
-- **Sign your commits**
-- Development is supported on `salt-prime`
+- **Sign your commits:**
+  - Ensure you are using `RemoteForward` in your SSH configuration to forward
+    your GnuPG agent to `salt-prime` (see the example configurationi, under
+    [Setup](#Setup), below).
+  - Ensure you have configured your newly cloned repository to sign commits
+    (see the `git config` command, under [Setup](#Setup), below).
+
+
+### Setup
+
+- **SSH connection information:** example local/laptop `~/.ssh/config`
+  configugration:
+    ```
+    Host bastion-us-east-2
+        HostName bastion-us-east-2.creativecommons.org
+        User ARTHUR
+
+    Host salt-prime
+        HostName 10.22.11.11
+        ProxyJump bastion-us-east-2
+        RemoteForward /run/user/4242/gnupg/S.gpg-agent /Users/ARTHUR/.gnupg/S.gpg-agent.extra
+        User ARTHUR
+
+    Host *
+        ServerAliveCountMax 60
+        ServerAliveInterval 30
+        TCPKeepAlive no
+    ```
+    - Assumes remote username ARTHUR and remote uid 4242. Replace these values
+      in your own local/laptop configuration.
+    - ProxyJump allows you to `ssh salt-prime` from your local/laptop.
+    - RemoteForward allows you to sign your commits.
+- **Setup your development repository** on `salt-prime`:
   1. Clone repository to `/srv` with your username. For example:
-     ```shell
-     git clone git@github.com:creativecommons/sre-salt-prime.git ${USER}
-     ```
-  2. Ask Timid Robot to configure the server to support it
-  3. Ensure you are configured to forward your gpg-agent to the server
-     (Timid Robot is happy to assist)
-  4. Setup your newly cloned repository
-     ```shell
-     git config user.email YOUR_EMAIL
-     git config user.signingkey YOUR_GPG_ID
-     git config commit.gpgsign true
-     git-crypt unlock
-     ```
-  5. Specify the environment when you test changes. For example:
-     ```shell
-     sudo salt \* state.highstate saltenv=${USER} test=True
-     ```
+        ```shell
+        cd /srv
+        git clone git@github.com:creativecommons/sre-salt-prime.git ${USER}
+        ```
+  2. Setup your newly cloned repository. For example:
+        ```shell
+        cd /srv/${USER}
+        git config user.email YOUR_EMAIL
+        git config user.signingkey YOUR_GPG_ID
+        git config commit.gpgsign true
+        git-crypt unlock
+        ```
+  3. Specify the environment when you test changes. For example:
+        ```shell
+        sudo salt \* state.highstate saltenv=${USER} test=True
+        ```
      - use `--state-verbose=True` to see successes
      - use `--state-output=full_id` to see full detail of successes
      - use `--log-level=debug --log-file-level=warning` to see debug messages
