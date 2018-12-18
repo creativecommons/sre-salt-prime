@@ -1,3 +1,8 @@
+{% raw %}
+# The following {{ saltenv }} together with the pillarenv_from_saltenv: True
+# configuration value allows the use of development environments without
+# impacting/destabilizing the base environment
+{% endraw %}
 {{ saltenv }}:
   '*':
     - salt
