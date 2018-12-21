@@ -165,14 +165,6 @@ See [`orch/README.md`](orch/README.md).
 - [Save yourself a lot of pain (and money) by choosing your AWS Region wisely - Concurrency Labs](https://www.concurrencylabs.com/blog/choose-your-aws-region-wisely/)
 
 
-#### SaltStack on AWS
-
-- [How to Build AWS VPCs with SaltStack Formulas — Six Feet Up](https://sixfeetup.com/blog/build-aws-vpc-with-saltstack) (2017-09-19, Salt 2017.7.1 was stable version)
-- [SaltStack as an Alternative to Terraform for AWS Orchestration](https://eng.lyft.com/saltstack-as-an-alternative-to-terraform-for-aws-orchestration-cd2ceb06bf8c) (2017-08-30, Salt 2017.7.1 was stable version)
-- [Running Salt States Using Amazon EC2 Systems Manager | AWS Management Tools Blog](https://aws.amazon.com/blogs/mt/running-salt-states-using-amazon-ec2-systems-manager/) (2017-07-16, Salt 2016.11.5 was stable version)
-- [Using Salt to boss your clouds around – Anthony Shaw – Medium](https://medium.com/@anthonypjshaw/using-salt-to-boss-your-clouds-around-de2edb2f793d) (2017-05-02, Salt 2016.11.4 was stable version)
-
-
 #### WordPress on AWS
 
 - [Build a WordPress Website - AWS](https://aws.amazon.com/getting-started/projects/build-wordpress-website/) (version: last modified 2018-10-19)
@@ -182,11 +174,6 @@ See [`orch/README.md`](orch/README.md).
 ### Cloud-Init
 
 - [Cloud config examples — Cloud-Init 18.4 documentation](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
-
-
-### Creative Commons Terraform
-
-- [cccatalog-api/deployment at master · creativecommons/cccatalog-api](https://github.com/creativecommons/cccatalog-api/tree/master/deployment)
 
 
 ### Debian
@@ -230,6 +217,11 @@ As of 2018-12-10, Debian Stretch's SaltStack packages are at version 2016.11.2.
 [module2016]: https://docs.saltstack.com/en/2016.11/ref/index.html
 [statelatest]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
 [state2016]: https://docs.saltstack.com/en/2016.11/ref/states/all/index.html
+
+
+#### Orchestration Documentation
+
+See [`orch/README.md`](orch/README.md).
 
 
 ## Bootstrap

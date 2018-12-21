@@ -28,7 +28,7 @@ sudo salt-call --log-level=debug --log-file-level=warning --local state.apply \
     aws.instance_pmwiki pillar='{"tgt_pod":"core", "tgt_reg":"us-east-2"}' \
     saltenv=timidrobot test=True
 ```
-- Using `salt-call` to run individual states can aid troubleshooting of
+- Using `salt-call` to run individual states can aid in the troubleshooting of
   orchestration. The `salt-call` command above is very verbose and allows
   errors to be seen in the compiled pillar and state files.
 
@@ -46,6 +46,32 @@ sudo salt-call --log-level=debug --log-file-level=warning --local state.apply \
 
 [orchlatest]: https://docs.saltstack.com/en/latest/topics/orchestrate/orchestrate_runner.html
 [orch2016]: https://docs.saltstack.com/en/2016.11/topics/orchestrate/orchestrate_runner.html
+
+
+### Orchestration Examples
+
+- ~~[How to Build AWS VPCs with SaltStack Formulas — Six Feet Up][sixfeet]
+  (2017-09-19, Salt 2017.7.1 was stable version)~~
+  - Uses saltstack-formulas/aws-formula, which only adds a layer above a few
+    salt boto states.
+- [SaltStack as an Alternative to Terraform for AWS Orchestration][terraform]
+  (2017-08-30, Salt 2017.7.1 was stable version)
+- [Running Salt States Using Amazon EC2 Systems Manager | AWS Management Tools Blog][sysmgr] (2017-07-16, Salt 2016.11.5 was stable version)
+- [Using Salt to boss your clouds around – Anthony Shaw – Medium][boss]
+  (2017-05-02, Salt 2016.11.4 was stable version)
+
+
+[sixfeet]:https://sixfeetup.com/blog/build-aws-vpc-with-saltstack
+[terraform]:https://eng.lyft.com/saltstack-as-an-alternative-to-terraform-for-aws-orchestration-cd2ceb06bf8c)
+[sysmgmr]:https://aws.amazon.com/blogs/mt/running-salt-states-using-amazon-ec2-systems-manager/
+[boss]:https://medium.com/@anthonypjshaw/using-salt-to-boss-your-clouds-around-de2edb2f793d
+
+
+### Creative Commons Terraform
+
+Creative Commons is exploring both SaltStack and Terraform for
+provisioning/orchestration. Also see:
+- [cccatalog-api/deployment at master · creativecommons/cccatalog-api](https://github.com/creativecommons/cccatalog-api/tree/master/deployment)
 
 
 ## Related
