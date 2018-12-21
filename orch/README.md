@@ -39,9 +39,6 @@ sudo salt-call --log-level=debug --log-file-level=warning --local state.apply \
 ### Orchestration Documentation
 
 - Orchestrate Runner ([latest][orchlatest], [2016.11][orch2016])
-  - Examples:
-    - [An example of a complex, multi-host Salt Orchestrate state that performs status checks as it goes](https://gist.github.com/whiteinge/1bf3b1fa525c2e883b805f271ec6f7d7)
-    - [Dynamic Test Servers with Salt | Lincoln Loop](https://lincolnloop.com/blog/dynamic-test-servers-salt/)
 
 
 [orchlatest]: https://docs.saltstack.com/en/latest/topics/orchestrate/orchestrate_runner.html
@@ -50,21 +47,26 @@ sudo salt-call --log-level=debug --log-file-level=warning --local state.apply \
 
 ### Orchestration Examples
 
-- ~~[How to Build AWS VPCs with SaltStack Formulas — Six Feet Up][sixfeet]
-  (2017-09-19, Salt 2017.7.1 was stable version)~~
-  - Uses saltstack-formulas/aws-formula, which only adds a layer above a few
-    salt boto states.
+- [An example of a complex, multi-host Salt Orchestrate state that performs status checks as it goes][statechecks] (2017-08-11)
+- [Dynamic Test Servers with Salt | Lincoln Loop][lincoln]a (2017-09-12)
 - [SaltStack as an Alternative to Terraform for AWS Orchestration][terraform]
   (2017-08-30, Salt 2017.7.1 was stable version)
 - [Running Salt States Using Amazon EC2 Systems Manager | AWS Management Tools Blog][sysmgr] (2017-07-16, Salt 2016.11.5 was stable version)
-- [Using Salt to boss your clouds around – Anthony Shaw – Medium][boss]
-  (2017-05-02, Salt 2016.11.4 was stable version)
+- ~~[Using Salt to boss your clouds around – Anthony Shaw – Medium][boss]
+  (2017-05-02, Salt 2016.11.4 was stable version)~~
+  - Uses salt-cloud, which has far fewer features than the state boto modules
+- ~~[How to Build AWS VPCs with SaltStack Formulas — Six Feet Up][sixfeet]
+  (2017-09-19, Salt 2017.7.1 was stable version)~~
+  - Uses saltstack-formulas/aws-formula, which only adds a layer above a few
+    salt boto state modules.
 
 
-[sixfeet]:https://sixfeetup.com/blog/build-aws-vpc-with-saltstack
+[lincoln]:https://lincolnloop.com/blog/dynamic-test-servers-salt/
+[statechecks]:https://gist.github.com/whiteinge/1bf3b1fa525c2e883b805f271ec6f7d7
 [terraform]:https://eng.lyft.com/saltstack-as-an-alternative-to-terraform-for-aws-orchestration-cd2ceb06bf8c)
 [sysmgmr]:https://aws.amazon.com/blogs/mt/running-salt-states-using-amazon-ec2-systems-manager/
 [boss]:https://medium.com/@anthonypjshaw/using-salt-to-boss-your-clouds-around-de2edb2f793d
+[sixfeet]:https://sixfeetup.com/blog/build-aws-vpc-with-saltstack
 
 
 ### Creative Commons Terraform
