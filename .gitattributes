@@ -1,2 +1,10 @@
+# Encryption filters
 *.key filter=git-crypt diff=git-crypt
+*_ed25519_* filter=git-crypt diff=git-crypt
+*_rsa_* filter=git-crypt diff=git-crypt
 *passw* filter=git-crypt diff=git-crypt
+
+# Encryption exceptions
+*.pub !filter !diff
+
+# vim: ft=conf:
