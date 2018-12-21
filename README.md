@@ -146,6 +146,12 @@ Glob patterns are used in [`pillars/top.sls`](pillars/top.sls) to ensure pillar
 data is scoped appropriately (as narrowly as possible).
 
 
+
+## Orchestration
+
+See [`orch/README.md`](orch/README.md).
+
+
 ## References
 
 
@@ -224,18 +230,6 @@ As of 2018-12-10, Debian Stretch's SaltStack packages are at version 2016.11.2.
 [module2016]: https://docs.saltstack.com/en/2016.11/ref/index.html
 [statelatest]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
 [state2016]: https://docs.saltstack.com/en/2016.11/ref/states/all/index.html
-
-
-#### Orchestration Documentation
-
-- Orchestrate Runner ([latest][orchlatest], [2016.11][orch2016])
-  - Examples:
-    - [An example of a complex, multi-host Salt Orchestrate state that performs status checks as it goes](https://gist.github.com/whiteinge/1bf3b1fa525c2e883b805f271ec6f7d7)
-    - [Dynamic Test Servers with Salt | Lincoln Loop](https://lincolnloop.com/blog/dynamic-test-servers-salt/)
-
-
-[orchlatest]: https://docs.saltstack.com/en/latest/topics/orchestrate/orchestrate_runner.html
-[orch2016]: https://docs.saltstack.com/en/2016.11/topics/orchestrate/orchestrate_runner.html
 
 
 ## Bootstrap
