@@ -10,6 +10,7 @@
       - python3-boto
       - python3-boto3
       - salt-master
+      - salt-ssh
 
 
 {{ sls }} service salt-master:
