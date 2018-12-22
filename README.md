@@ -129,10 +129,12 @@ project you agree to abide by its terms.
   - Free/Open Source
   - Performance
   - Creative Commons is already using it and staff are familiar with it
+  - Version: `2018.3`
+    - For current targeted minion version, see `minion_target_version` in
+     [`pillars/salt/init.sls`](pillars/salt/init.sls)
 
 
 [gitcrypt]: https://www.agwa.name/projects/git-crypt/
-
 
 
 ## Host Classification
