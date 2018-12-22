@@ -1,29 +1,46 @@
-# Invoke with:
-# POD=podname; REG=region; sudo salt-call --id=xxx__${POD}__${REG} \
-#   --local state.apply aws.pod_wordpress_simple test=True
+{% FAIL__work_in_progress__do_not_use %}
+{#
+
+WORK IN PROGRESS - DO NOT USE
+
+Need to determine CDN/DNS configa before moving forward.
+
+sudo salt-run --state-output=full_id --state-verbose=True --log-level=debug --log-file-level=warning state.orchestrate aws.pod_wordpress_simple pillar='{"tgt_pod":"gnwp", "tgt_loc":"us-east-2"}' saltenv=timidrobot test=True
+
+#}
 {% import "aws/jinja2.yaml" as aws with context -%}
-{% set VPC_NAME = pillar["infra"]["vpc"]["name"] -%}
+{% set ACCOUNT_ID = salt.boto_iam.get_account_id() -%}
+{% set POD = pillar.tgt_pod -%}
+{% set LOC = pillar.tgt_loc -%}
+
+{% set P_LOC = pillar["infra"][LOC] -%}
+{% set P_POD = P_LOC[POD] -%}
+
+
+# The region must NOT be omitted from the KMS Key ID
+{% set KMS_KEY_STORAGE = ["arn:aws:kms:us-east-2:", ACCOUNT_ID, ":alias/",
+                          P_LOC.kms_key_id_storage]|join("") -%}
 
 
 # Security Groups
 
 
-{% set ident = ["mysql-private", pillar["pod"], "secgroup"] -%}
+{% set ident = ["mysql-private", POD, "secgroup"] -%}
 {% set name = ident|join("_") -%}
 {{ name }}:
   boto_secgroup.present:
-    - region: {{ pillar["infra"]["region"] }}
+    - region: {{ LOC }}
     - name: {{ name }}
     - description: Allow MySQL from private subnets
-    - vpc_name: {{ VPC_NAME }}
+    - vpc_name: {{ P_LOC.vpc.name }}
     - rules: {# (correct jinja whitespace) -#}
-{% for subnet, data in pillar["infra"]["subnets"].items() -%}
+{% for subnet, data in P_POD.subnets.items() -%}
 {% if subnet.startswith("private-") %}
       - ip_protocol: tcp
         from_port: 3306
         to_port: 3306
         cidr_ip:
-          - {{ data["cidr"] -}}
+          - {{ data.cidr -}}
 {% endif %}
 {%- endfor %}
     {{ aws.tags(ident) }}
@@ -32,19 +49,19 @@
 # Subnets
 
 
-{% for subnet, data in pillar["infra"]["subnets"].items() -%}
-{% set ident = [subnet, pillar["pod"], "subnet"] -%}
+{% for subnet, data in P_POD.subnets.items() -%}
+{% set ident = [subnet, POD, "subnet"] -%}
 {% set name = ident|join("_") -%}
 {{ name }}:
   boto_vpc.subnet_present:
-    - region: {{ pillar["infra"]["region"] }}
+    - region: {{ LOC }}
     - name: {{ name }}
-    - vpc_name: {{ VPC_NAME }}
-    - availability_zone: {{ data["az"] }}
-    - cidr_block: {{ data["cidr"] }}
-    - route_table_name: {{ data["route_table"] }}
+    - vpc_name: {{ P_LOC.vpc.name }}
+    - availability_zone: {{ data.az }}
+    - cidr_block: {{ data.cidr }}
+    - route_table_name: {{ data.route_table }}
     {{ aws.tags(ident) }}
-        Routing: {{ data["tag_routing"] }}
+        Routing: {{ data.tag_routing }}
 
 {% endfor %}
 
@@ -52,42 +69,41 @@
 # WordPress Host
 
 
-# Whoops this is not publically accessible. Need to determine CDN/DNS issues
-# before moving forward.
+{% set hostname = "gnwordpress" -%}
 
-{#
-{% set ident = ["wordpress", pillar["pod"], "secgroup"] -%}
+
+{% set ident = [hostname, POD, "secgroup"] -%}
 {% set name = ident|join("_") -%}
-{% set subnet_name = ["private-one", pillar["pod"], "subnet"]|join("_") -%}
+{% set name_eni = name -%}
+{% set subnet_name = ["private-one", POD, "subnet"]|join("_") -%}
 {{ name }}:
   boto_ec2.eni_present:
-    - region: {{ pillar["infra"]["region"] }}
+    - region: {{ LOC }}
     - name: {{ name }}
-    - description: >-
-        {{ pillar["pod"] }} WordPress ENI in {{ pillar["infra"]["region"] }}
+    - description: {{ POD }} WordPress ENI in {{ LOC }}
     - subnet_name: {{ subnet_name }}
-    - private_ip_address: {{ pillar["infra"]["hosts"]["wordpress"]["ip"] }}
+    - private_ip_address: {{ P_LOC.hosts_ips.wordpress }}
     - groups:
+        - pingtrace-all_core_secgroup
         - ssh-from-bastion_core_secgroup
+# (?) should this only allow web traffic from CDN?
+#     or from VPC (to allow testing)?
         - web-all_core_secgroup
     - require:
         - boto_vpc: {{ subnet_name }}
-#}
 
 
-{#
-{% set hostname = "gn-wordpress" -%}
 {% set fqdn = (hostname, "creativecommons.org")|join(".") -%}
 {% set ident = [hostname, POD, "ec2_instance"] -%}
 {% set name = ident|join("_") -%}
-{% set name_ec2_salt_prime = name -%}
+{% set name_instance = name -%}
 {{ name }}:
   boto_ec2.instance_present:
-    {{ profile() }}
+    - region: {{ LOC }}
     - name: {{ name }}
-    - instance_name: {{ fqdn }}
-    - image_name: {{ IMAGE_NAME }}
-    - key_name: {{ name_ec2key_deployssh }}
+    - instance_name: {{ name }}
+    - image_name: {{ P_LOC.debian_ami_name }}
+    - key_name: {{ pillar.infra.provisioning.ssh_key.aws_name }}
     - user_data: |
         #cloud-config
         hostname: {{ hostname }}
@@ -96,27 +112,33 @@
         # This adds a mountpoint with "nofail". The volume won't mount properly
         # until it is formatted.
         #
-        # sudo mkfs.ext4 -L salt-prime-srv /dev/nvme1n1
+        # sudo mkfs.ext4 -L gnwordpress-var-www /dev/nvme1n1
         mounts:
-          - [ /dev/nvme1n1, /srv, ext4 ]
+          - [ /dev/nvme1n1, /var/www, ext4 ]
     - instance_type: t3.small
-    - placement: {{ SUBNET["private-one"]["az"] }}
-    - vpc_name: {{ name_vpc }}
+    - placement: {{ P_POD.subnets.private-one.az }}
+    - vpc_name: {{ P_LOC.vpc.name }}
     - monitoring_enabled: True
     - instance_initiated_shutdown_behavior: stop
-    - client_token: {{ name }}v8
-    - instance_profile_name: {{ name_iam_role_ec2_salt_prime }}
-    - network_interface_name: {{ name_eni_salt_prime }}
+    - instance_profile_name: {{ P_LOC.instance_iam_role }}
+    - network_interface_name: {{ name_eni }}
     {{ tags(ident) }}
     - require:
-        - boto_ec2: {{ name_ec2key_deployssh }}
-        - boto_ec2: {{ name_eni_salt_prime }}
-        - boto_iam_role: {{ name_iam_role_ec2_salt_prime }}
-
-#}
+        - boto_ec2: {{ name_eni }}
 
 
-# RDS
-
-
-# TODO
+{% set ident = ["gnwordpress-var-www", POD, "ebs"] -%}
+{% set name = ident|join("_") -%}
+{{ name }}:
+  boto_ec2.volume_present:
+    - region: {{ LOC }}
+    - name: {{ name }}
+    - volume_name: {{ name }}
+    - instance_name: {{ name_instance }}
+    - device: xvdf
+    - size: 10
+    - volume_type: gp2
+    - encrypted: True
+    - kms_key_id: {{ KMS_KEY_STORAGE }}
+    - require:
+        - boto_ec2: {{ name_instance }}
