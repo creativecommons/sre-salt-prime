@@ -13,13 +13,16 @@ sudo salt-run state.orchestrate pod_pmwiki \
     pillar='{"tgt_pod":"core", "tgt_loc":"us-east-2"}' saltenv=timidrobot \
     test=True
 ```
-- `pillar=` is required. Infrastructure creation is targeted with CLI pillar
-  (`pillar='{"tgt_pod":"core", "tgt_loc":"us-east-2"}'`)
-- `saltenv=` is optional. The command above uses Pillars and States from a 
-  development environment (`saltenv=timidrobot`). Remove or change to `base`
-  to use production environment.
-- `test=` is optional. The cmmand above performs a dry run (`test=True`).
-  Remove or changed to `False` to apply changes.
+- `pillar=` is required
+  - Infrastructure creation is targeted with CLI pillar
+    (`pillar='{"tgt_pod":"core", "tgt_loc":"us-east-2"}'`)
+- `saltenv=` is optional
+  - The command above uses Pillars and States from a development environment
+    (`saltenv=timidrobot`). Remove or change to `base` to use production
+    environment.
+- `test=` is optional
+  - The cmmand above performs a dry run (`test=True`). Remove or changed to
+    `False` to apply changes.
 
 
 ### Troubleshooting with Salt-Call
