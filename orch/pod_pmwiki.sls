@@ -5,7 +5,7 @@
 
 {{ sls }} aws.common:
   salt.state:
-    - tgt: {{ pillar.primary }}
+    - tgt: {{ pillar.infra.salt_primary_id }}
     - sls: aws.common
     - saltenv: {{ saltenv }}
     - kwarg:
@@ -16,7 +16,7 @@
 
 {{ sls }} aws.instance_pmwiki:
   salt.state:
-    - tgt: {{ pillar.primary }}
+    - tgt: {{ pillar.infra.salt_primary_id }}
     - sls: aws.instance_pmwiki
     - saltenv: {{ saltenv }}
     - kwarg:

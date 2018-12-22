@@ -1,4 +1,5 @@
 infra:
+  salt_primary_id: salt-prime__core__us-east-2
   provisioning:
     ssh_key:
       aws_name: saltstack-rsa-provisioning-20181221_core_ec2key
