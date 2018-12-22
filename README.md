@@ -216,10 +216,6 @@ As of 2018-12-22, Debian Stretch's SaltStack packages are at version 2016.11.2.
 
 - Salt Module Reference (**[latest][modulelatest]**, [2016.11][module2016])
   - state modules (**[latest][statelatest]**, [2016.11][state2016])
-    - For AWS Bootstrap and Orchestration, see boto modules
-    - Boto State Examples:
-      - [pedrohdz.com/vpc-bootstrap.sls at master · pedrohdz/pedrohdz.com](https://github.com/pedrohdz/pedrohdz.com/blob/master/content/posts/DevOps/2016-10-14_managing-aws-vpc-saltstack/vpc-bootstrap.sls)
-      - [confidant/confidant.sls at master · lyft/confidant](https://github.com/lyft/confidant/blob/master/salt/orchestration/confidant.sls)
 
 
 [modulelatest]: https://docs.saltstack.com/en/latest/ref/index.html

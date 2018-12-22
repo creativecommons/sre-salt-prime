@@ -1,10 +1,10 @@
 # Orchestration
 
 
-# Execuation Examples
+## Execuation Examples
 
 
-## Orchestration Run
+### Orchestration Run
 
 The following command does a test orchestration run of
 [`pod_pmwiki.sls`](pod_pmwiki.sls):
@@ -22,7 +22,7 @@ sudo salt-run state.orchestrate pod_pmwiki \
   Remove or changed to `False` to apply changes.
 
 
-## Troubleshooting with Salt-Call
+### Troubleshooting with Salt-Call
 
 The following command does a local test run of
 [`aws/instance_pmwiki`](aws/instance_pmwiki.sls):
@@ -72,6 +72,30 @@ See [`../README.md`](..README.md) for information on SaltStack versions.
 [sysmgmr]:https://aws.amazon.com/blogs/mt/running-salt-states-using-amazon-ec2-systems-manager/
 [boss]:https://medium.com/@anthonypjshaw/using-salt-to-boss-your-clouds-around-de2edb2f793d
 [sixfeet]:https://sixfeetup.com/blog/build-aws-vpc-with-saltstack
+
+
+### Module Documentation
+
+AWS orchestration (including bootstrap) makes use of the boto and boto3 state
+modules:
+- Salt Module Reference (**[latest][modulelatest]**, [2016.11][module2016])
+  - state modules (**[latest][statelatest]**, [2016.11][state2016])
+
+
+[modulelatest]: https://docs.saltstack.com/en/latest/ref/index.html
+[module2016]: https://docs.saltstack.com/en/2016.11/ref/index.html
+[statelatest]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
+[state2016]: https://docs.saltstack.com/en/2016.11/ref/states/all/index.html
+
+
+#### Boto State Module Examples
+
+- [pedrohdz.com/vpc-bootstrap.sls at master · pedrohdz/pedrohdz.com][pedrohdz]
+- [confidant/confidant.sls at master · lyft/confidant][conidant]
+
+
+[pedrohdz]:https://github.com/pedrohdz/pedrohdz.com/blob/master/content/posts/DevOps/2016-10-14_managing-aws-vpc-saltstack/vpc-bootstrap.sls
+[confidant]:https://github.com/lyft/confidant/blob/master/salt/orchestration/confidant.sls
 
 
 ### Creative Commons Terraform
