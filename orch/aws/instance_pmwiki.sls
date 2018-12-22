@@ -53,7 +53,7 @@
         # This adds a mountpoint with "nofail". The volume won't mount properly
         # until it is formatted.
         #
-        # sudo mkfs.ext4 -L salt-prime-srv /dev/nvme1n1
+        # sudo mkfs.ext4 -L pmwiki-var-www /dev/nvme1n1
         mounts:
           - [ /dev/nvme1n1, /var/www, ext4 ]
     - instance_type: t3.small
