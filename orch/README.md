@@ -68,7 +68,7 @@ See [`../README.md`](..README.md) for information on SaltStack versions.
 
 [lincoln]:https://lincolnloop.com/blog/dynamic-test-servers-salt/
 [statechecks]:https://gist.github.com/whiteinge/1bf3b1fa525c2e883b805f271ec6f7d7
-[terraform]:https://eng.lyft.com/saltstack-as-an-alternative-to-terraform-for-aws-orchestration-cd2ceb06bf8c)
+[terraform]:https://eng.lyft.com/saltstack-as-an-alternative-to-terraform-for-aws-orchestration-cd2ceb06bf8c
 [sysmgmr]:https://aws.amazon.com/blogs/mt/running-salt-states-using-amazon-ec2-systems-manager/
 [boss]:https://medium.com/@anthonypjshaw/using-salt-to-boss-your-clouds-around-de2edb2f793d
 [sixfeet]:https://sixfeetup.com/blog/build-aws-vpc-with-saltstack
@@ -91,7 +91,7 @@ modules:
 #### Boto State Module Examples
 
 - [pedrohdz.com/vpc-bootstrap.sls at master · pedrohdz/pedrohdz.com][pedrohdz]
-- [confidant/confidant.sls at master · lyft/confidant][conidant]
+- [confidant/confidant.sls at master · lyft/confidant][confidant]
 
 
 [pedrohdz]:https://github.com/pedrohdz/pedrohdz.com/blob/master/content/posts/DevOps/2016-10-14_managing-aws-vpc-saltstack/vpc-bootstrap.sls
