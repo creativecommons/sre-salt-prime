@@ -9,7 +9,6 @@ sudo salt-run --state-output=full_id --state-verbose=True --log-level=debug --lo
 
 #}
 {% import "aws/jinja2.yaml" as aws with context -%}
-{% set ACCOUNT_ID = salt.boto_iam.get_account_id() -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
 
@@ -18,8 +17,8 @@ sudo salt-run --state-output=full_id --state-verbose=True --log-level=debug --lo
 
 
 # The region must NOT be omitted from the KMS Key ID
-{% set KMS_KEY_STORAGE = ["arn:aws:kms:us-east-2:", ACCOUNT_ID, ":alias/",
-                          P_LOC.kms_key_id_storage]|join("") -%}
+{% set KMS_KEY_STORAGE = ["arn:aws:kms:us-east-2:", pillar.aws_account_id,
+                          ":alias/", P_LOC.kms_key_id_storage]|join("") -%}
 
 
 # Security Groups
