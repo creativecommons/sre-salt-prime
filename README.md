@@ -185,16 +185,23 @@ See [`orch/README.md`](orch/README.md).
 
 ### SaltStack
 
-As of 2018-12-10, Debian Stretch's SaltStack packages are at version 2016.11.2.
+As of 2018-12-22, Debian Stretch's SaltStack packages are at version 2016.11.2.
+- For the SaltStack version that this repository is developed on, see
+  [Decisions](#Decisions), above.
+- For current version of SaltStack in Debian Stretch, see
+  [Debian -- Package Search Results -- salt-master][pkgsearch]
+
+
+[pkgsearch]:https://packages.debian.org/search?suite=default&section=all&arch=any&searchon=names&keywords=salt-master
 
 
 ####  Best Practices
 
-- Hardening Salt ([latest][hardenlatest], [2016.11][harden2016])
+- Hardening Salt (**[latest][hardenlatest]**, [2016.11][harden2016])
   - *The only grain which can be safely used is `grains['id']` which contains
     the Minion ID.* ([FAQ Q.21][FAQ21])
-- Salt Best Practices ([latest][bestlatest], [2016.11][best2016])
-- Salt Formulas ([latest][formulaslatest], [2016.11][formulas2016])
+- Salt Best Practices (**[latest][bestlatest]**, [2016.11][best2016])
+- Salt Formulas (**[latest][formulaslatest]**, [2016.11][formulas2016])
 
 
 [hardenlatest]: https://docs.saltstack.com/en/latest/topics/hardening.html
@@ -207,8 +214,8 @@ As of 2018-12-10, Debian Stretch's SaltStack packages are at version 2016.11.2.
 
 #### Module Documentation
 
-- Salt Module Reference ([latest][modulelatest], [2016.11][module2016])
-  - state modules ([latest][statelatest], [2016.11][state2016])
+- Salt Module Reference (**[latest][modulelatest]**, [2016.11][module2016])
+  - state modules (**[latest][statelatest]**, [2016.11][state2016])
     - For AWS Bootstrap and Orchestration, see boto modules
     - Boto State Examples:
       - [pedrohdz.com/vpc-bootstrap.sls at master · pedrohdz/pedrohdz.com](https://github.com/pedrohdz/pedrohdz.com/blob/master/content/posts/DevOps/2016-10-14_managing-aws-vpc-saltstack/vpc-bootstrap.sls)

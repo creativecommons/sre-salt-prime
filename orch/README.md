@@ -1,7 +1,10 @@
 # Orchestration
 
 
-# Example execuation
+# Execuation Examples
+
+
+## Orchestration Run
 
 The following command does a test orchestration run of
 [`pod_pmwiki.sls`](pod_pmwiki.sls):
@@ -19,7 +22,7 @@ sudo salt-run state.orchestrate pod_pmwiki \
   Remove or changed to `False` to apply changes.
 
 
-# Example troubleshooting
+## Troubleshooting with Salt-Call
 
 The following command does a local test run of
 [`aws/instance_pmwiki`](aws/instance_pmwiki.sls):
@@ -35,10 +38,12 @@ sudo salt-call --log-level=debug --log-file-level=warning --local state.apply \
 
 ## References
 
+See [`../README.md`](..README.md) for information on SaltStack versions.
+
 
 ### Orchestration Documentation
 
-- Orchestrate Runner ([latest][orchlatest], [2016.11][orch2016])
+- Orchestrate Runner (**[latest][orchlatest]**, [2016.11][orch2016])
 
 
 [orchlatest]: https://docs.saltstack.com/en/latest/topics/orchestrate/orchestrate_runner.html
