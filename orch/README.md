@@ -1,7 +1,7 @@
 # Orchestration
 
 
-## Execuation Examples
+## Execution Examples
 
 
 ### Orchestration Run
@@ -21,7 +21,7 @@ sudo salt-run state.orchestrate pod_pmwiki \
     (`saltenv=timidrobot`). Remove or change to `base` to use production
     environment.
 - `test=` is optional
-  - The cmmand above performs a dry run (`test=True`). Remove or changed to
+  - The command above performs a dry run (`test=True`). Remove or changed to
     `False` to apply changes.
 
 
@@ -79,7 +79,7 @@ See [`../README.md`](..README.md) for information on SaltStack versions.
 
 ### Module Documentation
 
-AWS orchestration (including bootstrap) makes use of the boto and boto3 state
+AWS orchestration (including bootstrap) makes use of the boto/boto3 state
 modules:
 - Salt Module Reference (**[latest][modulelatest]**, [2016.11][module2016])
   - state modules (**[latest][statelatest]**, [2016.11][state2016])
