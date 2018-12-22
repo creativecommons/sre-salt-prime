@@ -1,3 +1,8 @@
+# Required command line pillar data:
+#   tgt_pod: Targeted Pod
+#   tgt_loc: Targeted Location
+
+
 {{ sls }} aws.common:
   salt.state:
     - tgt: {{ pillar.primary }}
@@ -6,7 +11,7 @@
     - kwarg:
       pillar:
         tgt_pod: {{ pillar.tgt_pod }}
-        tgt_reg: {{ pillar.tgt_reg }}
+        tgt_loc: {{ pillar.tgt_loc }}
 
 
 {{ sls }} aws.instance_pmwiki:
@@ -17,4 +22,4 @@
     - kwarg:
       pillar:
         tgt_pod: {{ pillar.tgt_pod }}
-        tgt_reg: {{ pillar.tgt_reg }}
+        tgt_loc: {{ pillar.tgt_loc }}

@@ -7,11 +7,11 @@ The following command does a test orchestration run of
 [`pod_pmwiki.sls`](pod_pmwiki.sls):
 ```shell
 sudo salt-run state.orchestrate pod_pmwiki \
-    pillar='{"tgt_pod":"core", "tgt_reg":"us-east-2"}' saltenv=timidrobot \
+    pillar='{"tgt_pod":"core", "tgt_loc":"us-east-2"}' saltenv=timidrobot \
     test=True
 ```
 - `pillar=` is required. Infrastructure creation is targeted with CLI pillar
-  (`pillar='{"tgt_pod":"core", "tgt_reg":"us-east-2"}'`)
+  (`pillar='{"tgt_pod":"core", "tgt_loc":"us-east-2"}'`)
 - `saltenv=` is optional. The command above uses Pillars and States from a 
   development environment (`saltenv=timidrobot`). Remove or change to `base`
   to use production environment.
@@ -25,7 +25,7 @@ The following command does a local test run of
 [`aws/instance_pmwiki`](aws/instance_pmwiki.sls):
 ```shell
 sudo salt-call --log-level=debug --log-file-level=warning --local state.apply \
-    aws.instance_pmwiki pillar='{"tgt_pod":"core", "tgt_reg":"us-east-2"}' \
+    aws.instance_pmwiki pillar='{"tgt_pod":"core", "tgt_loc":"us-east-2"}' \
     saltenv=timidrobot test=True
 ```
 - Using `salt-call` to run individual states can aid in the troubleshooting of

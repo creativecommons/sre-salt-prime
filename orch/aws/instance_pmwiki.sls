@@ -1,15 +1,14 @@
 {% import "aws/jinja2.yaml" as aws with context -%}
 {% set ACCOUNT_ID = salt.boto_iam.get_account_id() -%}
 {% set POD = pillar.tgt_pod -%}
-{% set REG = pillar.tgt_reg -%}
+{% set LOC = pillar.tgt_loc -%}
 
-{% set P_AWS = pillar.infra.aws -%}
-{% set P_REG = P_AWS[REG] -%}
-{% set P_POD = P_REG[POD] -%}
+{% set P_LOC = pillar["infra"][LOC] -%}
+{% set P_POD = P_LOC[POD] -%}
 
 # The region must NOT be omitted from the KMS Key ID
 {% set KMS_KEY_STORAGE = ["arn:aws:kms:us-east-2:", ACCOUNT_ID, ":alias/",
-                          P_REG.kms_key_id_storage]|join("") -%}
+                          P_LOC.kms_key_id_storage]|join("") -%}
 
 
 ### EC2 Instance: PmWiki
@@ -24,9 +23,9 @@
 {% set subnet_name = ["dmz", POD, "subnet"]|join("_") -%}
 {{ name }}:
   boto_ec2.eni_present:
-    - region: {{ REG }}
+    - region: {{ LOC }}
     - name: {{ name }}
-    - description: {{ POD }} PmWiki ENI in {{ REG }}
+    - description: {{ POD }} PmWiki ENI in {{ LOC }}
     - subnet_name: {{ subnet_name }}
     - private_ip_address: {{ P_POD["host_ips"][hostname] }}
     - groups:
@@ -36,15 +35,15 @@
 
 
 {% set fqdn = (hostname, "creativecommons.org")|join(".") -%}
-{% set ident = [hostname, POD, REG] -%}
+{% set ident = [hostname, POD, LOC] -%}
 {% set name = ident|join("_") -%}
 {% set name_instance = name -%}
 {{ name }}:
   boto_ec2.instance_present:
-    - region: {{ REG }}
+    - region: {{ LOC }}
     - name: {{ name }}
     - instance_name: {{ name }}
-    - image_name: {{ P_REG.debian_ami_name }}
+    - image_name: {{ P_LOC.debian_ami_name }}
     - key_name: {{ pillar.infra.provisioning.ssh_key.aws_name }}
     - user_data: |
         #cloud-config
@@ -59,10 +58,10 @@
           - [ /dev/nvme1n1, /var/www, ext4 ]
     - instance_type: t3.small
     - placement: {{ P_POD.subnets.dmz.az }}
-    - vpc_name: {{ P_REG.vpc.name }}
+    - vpc_name: {{ P_LOC.vpc.name }}
     - monitoring_enabled: True
     - instance_initiated_shutdown_behavior: stop
-    - instance_profile_name: {{  P_REG.instance_iam_role }}
+    - instance_profile_name: {{  P_LOC.instance_iam_role }}
     - network_interface_name: {{ name_eni }}
     {{ aws.tags(ident) }}
     - require:
@@ -73,7 +72,7 @@
 {% set name = ident|join("_") -%}
 {{ name }}:
   boto_ec2.volume_present:
-    - region: {{ REG }}
+    - region: {{ LOC }}
     - name: {{ name }}
     - volume_name: {{ name }}
     - instance_name: {{ name_instance }}
