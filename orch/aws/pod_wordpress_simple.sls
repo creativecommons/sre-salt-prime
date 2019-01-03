@@ -8,7 +8,7 @@ Need to determine CDN/DNS configa before moving forward.
 sudo salt-run --state-output=full_id --state-verbose=True --log-level=debug --log-file-level=warning state.orchestrate aws.pod_wordpress_simple pillar='{"tgt_pod":"gnwp", "tgt_loc":"us-east-2"}' saltenv=timidrobot test=True
 
 #}
-{% import "aws/jinja2.yaml" as aws with context -%}
+{% import "aws/jinja2.sls" as aws with context -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
 
