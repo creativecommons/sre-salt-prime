@@ -29,6 +29,7 @@
     - private_ip_address: {{ P_POD["host_ips"][hostname] }}
     - groups:
         - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all_core_secgroup
 

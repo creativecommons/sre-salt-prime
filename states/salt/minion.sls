@@ -1,7 +1,15 @@
 # Minion restart is not included on the salt-prime server. On the salt-prime
 # server the salt packages should be upgraded manually (and then
 # minion_target_version pillar updated).
-{% if not (salt.match.glob("salt-prime__*")) %}
+
+
+{{ sls }} installed packages:
+  pkg.installed:
+    - pkgs:
+      - salt-minion
+
+
+{% if not (salt.match.glob("salt-prime__*")) -%}
 
 {{ sls }} minion_upgraded_needed.sh script:
   file.managed:
@@ -35,6 +43,7 @@
     - require:
       - file: {{ sls }} minion_upgraded_needed.sh script
       - file: {{ sls }} upgrade_minion.sh script
+      - pkg: {{ sls }} installed packages
     - order: last
 
 
@@ -53,7 +62,7 @@
 
 {{ sls }} salt-doc:
   pkg:
-    - purged
+    - purged  {# fix whitespace -#}
 {% if not (salt.match.glob("salt-prime__*")) %}
     - require:
       - cmd: {{ sls }} upgrade minion
@@ -67,6 +76,8 @@
     - mode: '0444'
     - template: jinja
     - follow_symlinks: False
+    - require:
+      - pkg: {{ sls }} installed packages
 
 
 {{ sls }} file/pillar roots config file:
@@ -75,3 +86,5 @@
     - source: salt://salt/files/file-pillar_roots.conf
     - mode: '0444'
     - follow_symlinks: False
+    - require:
+      - pkg: {{ sls }} installed packages

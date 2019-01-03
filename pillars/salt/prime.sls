@@ -1,2 +1,2 @@
 location:
-  salt_prime: 127.0.0.1
+  salt_prime_ip: 127.0.0.1

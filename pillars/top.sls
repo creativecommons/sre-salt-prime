@@ -10,7 +10,7 @@
     - user
     - user.passwords.*
   # Location
-  '*__*__us-east-2':
+  '*__*__us-east-2 or *__*__us-east-2_master':
     - location.us-east-2
   # Pod
   '*__core__*':

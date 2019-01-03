@@ -31,6 +31,22 @@
     {{ aws.tags(ident) }}
 
 
+{% set ident = ["ssh-from-salt-prime", POD, "secgroup"] -%}
+{% set name = ident|join("_") -%}
+{{ name }}:
+  boto_secgroup.present:
+    - region: {{ LOC }}
+    - name: {{ name }}
+    - description: Allow SSH) from salt-prime
+    - vpc_name: {{ P_LOC.vpc.name }}
+    - rules:
+      - ip_protocol: tcp
+        from_port: 22
+        to_port: 22
+        source_group_name: salt-vpc_core_secgroup
+    {{ aws.tags(ident) }}
+
+
 ### EC2 SSH Key
 
 

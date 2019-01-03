@@ -5,6 +5,12 @@ include:
 {% endif %}
 
 
+{{ sls }} dependencies:
+  pkg.installed:
+    - pkgs:
+      - python-apt
+
+
 {% set repo_url = "https://repo.saltstack.com/apt/debian/9/amd64/latest" -%}
 {{ sls }} SaltStack Repository:
   pkgrepo.managed:
@@ -13,13 +19,14 @@ include:
     - key_url: {{ repo_url }}/SALTSTACK-GPG-KEY.pub
     - clean_file: True
     - require:
-      - pkg: common installed packages
-    - require_in:
+      - pkg: {{ sls }} dependencies
+    - require_in:   {# fix whitespace -#}
 {% if salt.match.glob("salt-prime__*") %}
       - pkg: salt.prime installed packages
 {% else %}
-      - pkg: salt.minion upgrade minion
-{% endif %}
+      - pkg: salt.minion installed packages
+      - cmd: salt.minion upgrade minion
+{% endif -%}
 
 
 {{ sls }} manage SaltStack Repository file mode:

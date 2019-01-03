@@ -10,12 +10,17 @@
 set -o errexit
 set -o nounset
 TARGET=${1}
-CURRENT="$(dpkg-query -f '${Version}\n' -W salt-minion)"
-if [ "${CURRENT}" = "${TARGET}" ]
+if CURRENT="$(dpkg-query -f '${Version}\n' -W salt-minion)"
 then
-    # Exit False - Upgrade is not needed
-    exit 1
+    if [ "${CURRENT}" = "${TARGET}" ]
+    then
+        # Exit False - Upgrade is not needed (salt-minion is current)
+        exit 1
+    else
+        # Exit True - Upgrade is needed (older salt-minion installed)
+        exit 0
+    fi
 else
-    # Exit True - Upgrade is needed
+    # Exit True - Upgrade is needed (salt-minion not yet installed)
     exit 0
 fi
