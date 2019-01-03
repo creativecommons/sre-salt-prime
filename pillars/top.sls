@@ -24,3 +24,5 @@
     - infra
     - infra.*
     - infra.us-east-2.*
+  'pmwiki__*':
+    - mounts.pmwiki

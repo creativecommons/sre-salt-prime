@@ -8,6 +8,8 @@
   pkg.installed:
     - pkgs:
       - apache2
+    - require:
+      - mount: mount mount /var/www
 
 
 service_apache2:
