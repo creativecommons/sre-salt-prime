@@ -4,6 +4,7 @@
     - salt
     - ssh
     - user
-  bastion__core__us-east-2:
-    - match: glob
+  'bastion__core__us-east-2':
     - salt.proxy
+  'pmwiki__*__*':
+    - apache2
