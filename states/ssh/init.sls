@@ -84,8 +84,7 @@ service_ssh:
     - watch_in:
       - service: service_ssh
     - require:
-      - file: {{ sls }} remove 1st trailing ClientAliveInterval
-      - file: {{ sls }} remove 2nd trailing ClientAliveInterval
+      - file: {{ sls }} remove duplicate ClientAliveInterval
 
 
 {{ sls }} set ClientAliveCountMax:
@@ -102,20 +101,14 @@ service_ssh:
       - service: service_ssh
 
 
-{{ sls }} remove 1st trailing ClientAliveInterval:
-  file.line:
+{{ sls }} remove duplicate ClientAliveInterval:
+  file.replace:
     - name: /etc/ssh/sshd_config
-    - content: ClientAliveInterval 420
-    - mode: delete
-    - watch_in:
-      - service: service_ssh
-
-
-{{ sls }} remove 2nd trailing ClientAliveInterval:
-  file.line:
-    - name: /etc/ssh/sshd_config
-    - content: ClientAliveInterval 120
-    - mode: delete
+    - pattern: ClientAliveInterval 420\nClientAliveInterval 120\n
+    - repl: ""
+    - flags:
+      - IGNORECASE
+    - append_if_not_found: False
     - watch_in:
       - service: service_ssh
 
