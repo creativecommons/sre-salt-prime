@@ -7,9 +7,9 @@
 ### Orchestration Run
 
 The following command does a test orchestration run of
-[`pod_pmwiki.sls`](pod_pmwiki.sls):
+[`pmwiki.sls`](pmwiki.sls):
 ```shell
-sudo salt-run state.orchestrate pod_pmwiki \
+sudo salt-run state.orchestrate pmwiki \
     pillar='{"tgt_pod":"core", "tgt_loc":"us-east-2"}' saltenv=timidrobot \
     test=True
 ```

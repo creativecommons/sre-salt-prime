@@ -91,9 +91,8 @@
     - kwarg:
       pillar:
         tgt_mid: {{ MINION_ID }}
-        tgt_ip: {{ P_POD.host_ips.pmwiki }}
-    # onfail and onfail_any do NOT work here :(
-    # TO DO: create test case and file issue
+    # NOTE: onfail_any requires failhard: False
+    #       See: https://github.com/saltstack/salt/issues/20496
     - onfail_any:
       - salt: {{ sls }} salt-prime minion bootstrap prep
       - salt: {{ sls }} bootstrap minion
@@ -110,7 +109,7 @@
         tgt_ip: {{ P_POD.host_ips.pmwiki }}
 
 
-# Following fails sometimes. Add sleep between salt-ssh and highstate?
+# Following fails sometimes. Add sleep between minion bootstrap and complete?
 
 
 {{ sls }} complete minion configuration:
