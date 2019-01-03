@@ -3,9 +3,8 @@
 
 
 {{ sls }} delete previous minion key backup on prime :
-  cmd.run:
-    - name: rm -f {{ MID }}.BAK
-    - cwd: /etc/salt/pki/master/minions/
+  file.absent:
+    - name: /etc/salt/pki/master/minions/{{ MID }}.BAK
 
 
 {{ sls }} cleanup tmpdir:
@@ -23,5 +22,6 @@
 
 
 {{ sls }} remove ssh known host entry:
-  cmd.run:
-    - name: sudo ssh-keygen -R {{ IP }}
+  ssh_known_hosts.absent:
+    - name: {{ IP }}
+    - user: root

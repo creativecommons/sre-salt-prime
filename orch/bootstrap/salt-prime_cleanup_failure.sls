@@ -2,6 +2,7 @@
 
 
 {{ sls }} restore previous minion key on prime :
-  cmd.run:
-    - name: mv {{ MID }}.BAK {{ MID }}
-    - cwd: /etc/salt/pki/master/minions/
+  file.rename:
+    - name: /etc/salt/pki/master/minions/{{ MID }}
+    - source: /etc/salt/pki/master/minions/{{ MID }}.BAK
+    - force: True

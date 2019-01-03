@@ -4,10 +4,20 @@
 {% set ACCOUNT_ID = salt.boto_iam.get_account_id() -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
+{% set MID = ["pmwiki", POD, LOC]|join("__") -%}
+{% set TEMP = "/srv/{}/orch/bootstrap/TEMP__{}".format(saltenv, MID) -%}
 
 {% set P_LOC = pillar["infra"][LOC] -%}
 {% set P_POD = P_LOC[POD] -%}
-{% set MINION_ID = ["pmwiki", POD, LOC]|join("__") -%}
+
+
+# Phases:
+# One: AWS Provisioning
+# Two: Bootstrap (skipped if minion is already live)
+# Three: Highstate
+
+
+# Phase One: AWS Provisioning
 
 
 {{ sls }} aws.common:
@@ -34,9 +44,25 @@
         aws_account_id: {{ ACCOUNT_ID }}
         tgt_pod: {{ POD }}
         tgt_loc: {{ LOC }}
+    - require:
+      - salt: {{ sls }} aws.common
     - retry:
         attempts: 3
         interval: 5
+
+
+# Phase Two: Bootstrap (skipped if minion is already live)
+
+
+{{ sls }} minion already up:
+  salt.function:
+    - name: test.ping
+    - tgt: {{ MID }}
+    - retry:
+        attempts: 3
+        interval: 5
+    - require:
+      - salt: {{ sls }} aws.instance_pmwiki
 
 
 {{ sls }} salt-prime minion bootstrap prep:
@@ -48,39 +74,25 @@
       pillar:
         tgt_pod: {{ POD }}
         tgt_loc: {{ LOC }}
-        tgt_mid: {{ MINION_ID }}
-
-
-{{ sls }} verify minion is reachable:
-  salt.function:
-    - name: cmd.run
-    - tgt: {{ pillar.location.salt_prime_id }}
-    - arg:
-      - ping -qc1 {{ P_POD.host_ips.pmwiki }}
-    - retry:
-        attempts: 12
-        interval: 5
-
-
-{{ sls }} accept minion ssh host key:
-  salt.function:
-    - name: cmd.run
-    - tgt: {{ pillar.location.salt_prime_id }}
-    - arg:
-      - >-
-        ssh-keyscan -t ed25519 -T 3 -H {{ P_POD.host_ips.pmwiki }} >>
-        /root/.ssh/known_hosts
+        tgt_mid: {{ MID }}
+        tgt_ip: {{ P_POD.host_ips.pmwiki }}
+    - onfail:
+      - salt: {{ sls }} minion already up
 
 
 {{ sls }} bootstrap minion:
   salt.state:
-    - tgt: {{ MINION_ID }}
+    - tgt: {{ MID }}
     - sls: bootstrap.minion
     - saltenv: {{ saltenv }}
     - ssh: True
     - kwarg:
       pillar:
-        tgt_mid: {{ MINION_ID }}
+        tgt_mid: {{ MID }}
+    - require:
+      - salt: {{ sls }} salt-prime minion bootstrap prep
+    - onlyif:
+      - test -d {{ TEMP }}
 
 
 {{ sls }} salt-prime minion bootstrap cleanup failure:
@@ -90,7 +102,7 @@
     - saltenv: {{ saltenv }}
     - kwarg:
       pillar:
-        tgt_mid: {{ MINION_ID }}
+        tgt_mid: {{ MID }}
     # NOTE: onfail_any requires failhard: False
     #       See: https://github.com/saltstack/salt/issues/20496
     - onfail_any:
@@ -105,15 +117,30 @@
     - saltenv: {{ saltenv }}
     - kwarg:
       pillar:
-        tgt_mid: {{ MINION_ID }}
+        tgt_mid: {{ MID }}
         tgt_ip: {{ P_POD.host_ips.pmwiki }}
+    - onlyif:
+      - test -d {{ TEMP }}
 
 
-# Following fails sometimes. Add sleep between minion bootstrap and complete?
+# Phase Three: Highstate
+
+
+{{ sls }} verify minion:
+  salt.function:
+    - name: test.ping
+    - tgt: {{ MID }}
+    - retry:
+        attempts: 6
+        interval: 5
+    - require:
+      - salt: {{ sls }} aws.instance_pmwiki 
 
 
 {{ sls }} complete minion configuration:
   salt.state:
-    - tgt: {{ MINION_ID }}
+    - tgt: {{ MID }}
     - saltenv: {{ saltenv }}
     - highstate: True
+    - require:
+      - salt: {{ sls }} verify minion

@@ -1,17 +1,35 @@
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
 {% set MID = pillar.tgt_mid -%}
+{% set TEMP = "/srv/{}/orch/bootstrap/TEMP__{}".format(saltenv, MID) -%}
+{% set IP = pillar.tgt_ip -%}
 
 {% set P_LOC = pillar["infra"][LOC] -%}
 {% set P_POD = P_LOC[POD] -%}
 {#{% set TEMP = salt.temp.dir() %} -#}
-{% set TEMP = "/srv/{}/orch/bootstrap/TEMP__{}".format(saltenv, MID) -%}
+
+
+{{ sls }} verify host is reachable:
+  module.run:
+    - name: network.ping
+    - m_name: {{ P_POD.host_ips.pmwiki }}
+    - host: {{ P_POD.host_ips.pmwiki }}
+    - timeout: 15
+
+
+{{ sls }} add ssh known host entry:
+  ssh_known_hosts.present:
+    - name: {{ IP }}
+    - user: root
+    - enc: ed25519
+    - require:
+      - module: {{ sls }} verify host is reachable
 
 
 {{ sls }} backup previous minion key on prime :
-  cmd.run:
-    - name: cp -a {{ MID }} {{ MID }}.BAK
-    - cwd: /etc/salt/pki/master/minions/
+  file.copy:
+    - name: /etc/salt/pki/master/minions/{{ MID }}.BAK
+    - source: /etc/salt/pki/master/minions/{{ MID }}
 
 
 {{ sls }} ensure tmpdir exists:
@@ -29,9 +47,9 @@
 
 
 {{ sls }} install minion key on prime :
-  cmd.run:
-    - name: cp -a minion.pub /etc/salt/pki/master/minions/{{ MID }}
-    - cwd: {{ TEMP }}
+  file.copy:
+    - name: /etc/salt/pki/master/minions/{{ MID }}
+    - source: {{ TEMP }}/minion.pub
 
 
 {{ sls }} write minion roster:
