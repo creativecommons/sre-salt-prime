@@ -1,8 +1,9 @@
 {% import "apache2/jinja2.sls" as a2 with context -%}
 
-{% set CONFS_INSTALL = ["denied_to_all", "harden"] -%}
-{% set MODS_ENABLE = ["rewrite", "ssl"] -%}
-{% set CONFS_DISABLE = ["serve-cgi-bin"] -%}
+{% set CONFS_INSTALL = ["zzz_denied_to_all", "zzz_harden"] -%}
+{% set CONFS_DISABLE = ["other-vhosts-access-log", "security",
+                        "serve-cgi-bin"] -%}
+{% set MODS_ENABLE = salt["pillar.get"]("apache2:mods:enable", []) -%}
 
 
 {{ sls }} installed packages:

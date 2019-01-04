@@ -4,8 +4,8 @@ $WikiTitle = 'Creative Commons PmWiki';
 
 ##  $ScriptUrl is your preferred URL for accessing wiki pages
 ##  $PubDirUrl is the URL for the pub directory.
-# $ScriptUrl = 'http://www.mydomain.com/path/to/pmwiki.php';
-# $PubDirUrl = 'http://www.mydomain.com/path/to/pub';
+$ScriptUrl = 'https://pmwiki.creativecommons.org';
+$PubDirUrl = 'https://pmwiki.creativecommons.org/pmwiki/pub';
 
 ##  If you want to use URLs of the form .../pmwiki.php/Group/PageName
 ##  instead of .../pmwiki.php?p=Group.PageName, try setting
@@ -13,7 +13,7 @@ $WikiTitle = 'Creative Commons PmWiki';
 ##  it depends on your webserver and PHP configuration.  You might also 
 ##  want to check http://www.pmwiki.org/wiki/Cookbook/CleanUrls more
 ##  details about this setting and other ways to create nicer-looking urls.
-# $EnablePathInfo = 1;
+$EnablePathInfo = 1;
 
 ## $PageLogoUrl is the URL for a logo image -- you can change this
 ## to your own logo if you wish.
@@ -22,14 +22,15 @@ $WikiTitle = 'Creative Commons PmWiki';
 ## If you want to have a custom skin, then set $Skin to the name
 ## of the directory (in pub/skins/) that contains your skin files.
 ## See PmWiki.Skins and Cookbook.Skins.
-# $Skin = 'pmwiki-responsive';
+$Skin = 'pmwiki-responsive';
 
 ## You'll probably want to set an administrative password that you
 ## can use to get into password-protected pages.  Also, by default 
 ## the "attr" passwords for the PmWiki and Main groups are locked, so
 ## an admin password is a good way to unlock those.  See PmWiki.Passwords
 ## and PmWiki.PasswordsAdmin.
-# $DefaultPasswords['admin'] = pmcrypt('secret');
+$DefaultPasswords['admin'] = pmcrypt('{{ pillar.pmwiki.admin_password }}');
+$DefaultPasswords['edit'] = pmcrypt('{{ pillar.pmwiki.admin_password }}');
 
 ## Unicode (UTF-8) allows the display of all languages and all alphabets.
 ## Highly recommended for new wikis.
@@ -99,7 +100,7 @@ include_once("scripts/xlpage-utf-8.php");
 
 ##  The refcount.php script enables ?action=refcount, which helps to
 ##  find missing and orphaned pages.  See PmWiki.RefCount.
-# if ($action == 'refcount') include_once("scripts/refcount.php");
+if ($action == 'refcount') include_once("scripts/refcount.php");
 
 ##  The feeds.php script enables ?action=rss, ?action=atom, ?action=rdf,
 ##  and ?action=dc, for generation of syndication feeds in various formats.
@@ -153,3 +154,4 @@ include_once("scripts/xlpage-utf-8.php");
 # $GUIButtons['table'] = array(600,
 #                       '||border=1 width=80%\\n||!Hdr ||!Hdr ||!Hdr ||\\n||     ||     ||     ||\\n||     ||     ||     ||\\n', '', '', 
 #                     '$GUIButtonDirUrlFmt/table.gif"$[Table]"');
+$TimeFmt='%F %R %Z';

@@ -5,7 +5,7 @@
   apache_conf.disabled:
     - name: {{ conf }}
     - require:
-      - pkg: {{ sls }} installed packages
+      - pkg: apache2 installed packages
     - watch_in:
       - service: service_apache2
 {% endfor -%}
@@ -21,7 +21,7 @@
     - source: salt://apache2/files/{{ conf }}.conf
     - mode: '0444'
     - require:
-      - pkg: {{ sls }} installed packages
+      - pkg: apache2 installed packages
     - watch_in:
       - service: service_apache2
 
@@ -44,7 +44,7 @@
   apache_module.disabled:
     - name: {{ mod }}
     - require:
-      - pkg: {{ sls }} installed packages
+      - pkg: apache2 installed packages
     - watch_in:
       - service: service_apache2
 {% endfor -%}
@@ -58,7 +58,35 @@
   apache_module.enabled:
     - name: {{ mod }}
     - require:
-      - pkg: {{ sls }} installed packages
+      - pkg: apache2 installed packages
+    - watch_in:
+      - service: service_apache2
+{% endfor -%}
+{% endmacro -%}
+
+
+{# Disable Apache2 sites -#}
+{% macro disable_sites(sls, sites) -%}
+{% for site in sites -%}
+{{ sls }} disable site {{ site }}:
+  apache_site.disabled:
+    - name: {{ site }}
+    - require:
+      - pkg: apache2 installed packages
+    - watch_in:
+      - service: service_apache2
+{% endfor -%}
+{% endmacro -%}
+
+
+{# Enable Apache2 sites -#}
+{% macro enable_sites(sls, sites) -%}
+{% for site in sites -%}
+{{ sls }} enable site {{ site }}:
+  apache_site.enabled:
+    - name: {{ site }}
+    - require:
+      - pkg: apache2 installed packages
     - watch_in:
       - service: service_apache2
 {% endfor -%}

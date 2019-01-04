@@ -26,5 +26,7 @@
     - infra.*
     - infra.us-east-2.*
   'pmwiki__*':
-    - mounts.pmwiki
+    - apache2.pmwiki
     - letsencrypt.pmwiki
+    - mounts.pmwiki
+    - pmwiki.admin_password
