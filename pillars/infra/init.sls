@@ -1,4 +1,7 @@
 infra:
+  github:
+    ssh_key:
+      comment: saltstack_rsa_github_deploy_20190104
   provisioning:
     ssh_key:
       aws_name: saltstack-rsa-provisioning-20181221_core_ec2key
