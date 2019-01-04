@@ -111,4 +111,4 @@ provisioning/orchestration. Also see:
 
 ## Related
 
-- [`../README.md`](..README.md)
+- [`../../README.md`](../../README.md)
