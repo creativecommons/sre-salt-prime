@@ -234,6 +234,15 @@ See [`states/orch/README.md`](states/orch/README.md).
 See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
 
 
+## Formula Repositories
+
+- [creativecommons/letsencrypt-formula: Saltstack formula for letsencrypt
+  service][letsencrypt]
+
+
+[letsencrypt]:https://github.com/creativecommons/letsencrypt-formula
+
+
 ## License
 
 - [`LICENSE`](LICENSE) (Expat/[MIT][mit] License)
