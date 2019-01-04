@@ -6,6 +6,7 @@
 {{ saltenv }}:
   # Global (all Minions)
   '*':
+    - letsencrypt
     - salt
     - user
     - user.passwords.*
@@ -26,3 +27,4 @@
     - infra.us-east-2.*
   'pmwiki__*':
     - mounts.pmwiki
+    - letsencrypt.pmwiki

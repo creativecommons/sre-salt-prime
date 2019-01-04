@@ -8,5 +8,6 @@
     - salt.proxy
   'pmwiki__*__*':
     - apache2
+    - lencrypt
     - mount
     #- pmwiki
