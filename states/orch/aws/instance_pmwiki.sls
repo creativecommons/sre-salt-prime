@@ -1,4 +1,4 @@
-{% import "aws/jinja2.sls" as aws with context -%}
+{% import "orch/aws/jinja2.sls" as aws with context -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
 

@@ -151,7 +151,7 @@ data is scoped appropriately (as narrowly as possible).
 
 ## Orchestration
 
-See [`orch/README.md`](orch/README.md).
+See [`states/orch/README.md`](states/orch/README.md).
 
 
 ## References
@@ -226,7 +226,7 @@ As of 2018-12-22, Debian Stretch's SaltStack packages are at version 2016.11.2.
 
 #### Orchestration Documentation
 
-See [`orch/README.md`](orch/README.md).
+See [`states/orch/README.md`](states/orch/README.md).
 
 
 ## Bootstrap

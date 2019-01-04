@@ -9,7 +9,7 @@
 The following command does a test orchestration run of
 [`pmwiki.sls`](pmwiki.sls):
 ```shell
-sudo salt-run state.orchestrate pmwiki \
+sudo salt-run state.orchestrate orch.pmwiki \
     pillar='{"tgt_pod":"core", "tgt_loc":"us-east-2"}' saltenv=timidrobot \
     test=True
 ```
@@ -31,7 +31,8 @@ The following command does a local test run of
 [`aws/instance_pmwiki`](aws/instance_pmwiki.sls):
 ```shell
 sudo salt-call --log-level=debug --log-file-level=warning --local state.apply \
-    aws.instance_pmwiki pillar='{"tgt_pod":"core", "tgt_loc":"us-east-2"}' \
+    orch.aws.instance_pmwiki \
+    pillar='{"tgt_pod":"core", "tgt_loc":"us-east-2"}' \
     saltenv=timidrobot test=True
 ```
 - Using `salt-call` to run individual states can aid in the troubleshooting of

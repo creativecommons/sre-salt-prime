@@ -23,7 +23,7 @@
 {{ sls }} aws.common:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: aws.common
+    - sls: orch.aws.common
     - saltenv: {{ saltenv }}
     - kwarg:
       pillar:
@@ -37,7 +37,7 @@
 {{ sls }} aws.instance_pmwiki:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: aws.instance_pmwiki
+    - sls: orch.aws.instance_pmwiki
     - saltenv: {{ saltenv }}
     - kwarg:
       pillar:
@@ -68,7 +68,7 @@
 {{ sls }} salt-prime minion bootstrap prep:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: bootstrap.salt-prime_prep
+    - sls: orch.bootstrap.salt-prime_prep
     - saltenv: {{ saltenv }}
     - kwarg:
       pillar:
@@ -83,7 +83,7 @@
 {{ sls }} bootstrap minion:
   salt.state:
     - tgt: {{ MID }}
-    - sls: bootstrap.minion
+    - sls: orch.bootstrap.minion
     - saltenv: {{ saltenv }}
     - ssh: True
     - kwarg:
@@ -98,7 +98,7 @@
 {{ sls }} salt-prime minion bootstrap cleanup failure:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: bootstrap.salt-prime_cleanup_failure
+    - sls: orch.bootstrap.salt-prime_cleanup_failure
     - saltenv: {{ saltenv }}
     - kwarg:
       pillar:
@@ -113,7 +113,7 @@
 {{ sls }} salt-prime minion bootstrap cleanup success:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: bootstrap.salt-prime_cleanup_success
+    - sls: orch.bootstrap.salt-prime_cleanup_success
     - saltenv: {{ saltenv }}
     - kwarg:
       pillar:
