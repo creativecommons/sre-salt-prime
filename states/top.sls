@@ -9,3 +9,4 @@
   'pmwiki__*__*':
     - apache2
     - mount
+    #- pmwiki
