@@ -1,3 +1,17 @@
+{# Disable Apache2 configs -#}
+{% macro disable_confs(sls, confs) -%}
+{% for conf in confs -%}
+{{ sls }} disable conf {{ conf }}:
+  apache_conf.disabled:
+    - name: {{ conf }}
+    - require:
+      - pkg: {{ sls }} installed packages
+    - watch_in:
+      - service: service_apache2
+{% endfor -%}
+{% endmacro -%}
+
+
 {# Install and Enable Apache2 configs -#}
 {% macro install_confs(sls, confs) -%}
 {% for conf in confs -%}
@@ -23,7 +37,21 @@
 {% endmacro -%}
 
 
-{# Enable Apache2 module -#}
+{# Disable Apache2 modules -#}
+{% macro disable_mods(sls, mods) -%}
+{% for mod in mods -%}
+{{ sls }} disable mod {{ mod }}:
+  apache_module.disabled:
+    - name: {{ mod }}
+    - require:
+      - pkg: {{ sls }} installed packages
+    - watch_in:
+      - service: service_apache2
+{% endfor -%}
+{% endmacro -%}
+
+
+{# Enable Apache2 modules -#}
 {% macro enable_mods(sls, mods) -%}
 {% for mod in mods -%}
 {{ sls }} enable mod {{ mod }}:

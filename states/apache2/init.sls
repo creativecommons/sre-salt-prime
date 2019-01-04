@@ -1,7 +1,8 @@
 {% import "apache2/jinja2.sls" as a2 with context -%}
 
-{% set confs = ["denied_to_all", "harden"] -%}
-{% set mods = ["rewrite", "ssl"] -%}
+{% set CONFS_INSTALL = ["denied_to_all", "harden"] -%}
+{% set MODS_ENABLE = ["rewrite", "ssl"] -%}
+{% set CONFS_DISABLE = ["serve-cgi-bin"] -%}
 
 
 {{ sls }} installed packages:
@@ -20,7 +21,10 @@ service_apache2:
       - pkg: {{ sls }} installed packages
 
 
-{{ a2.install_confs(sls, confs) }}
+{{ a2.disable_confs(sls, CONFS_DISABLE) }}
 
 
-{{ a2.enable_mods(sls, mods) }}
+{{ a2.install_confs(sls, CONFS_INSTALL) }}
+
+
+{{ a2.enable_mods(sls, MODS_ENABLE) }}
