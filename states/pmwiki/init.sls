@@ -53,6 +53,15 @@
       - archive: {{ sls }} extract archive
 
 
+{{ sls }} cc logo:
+  file.managed:
+    - name: {{ PATH }}/pub/cc.logo.32.png
+    - source: salt://pmwiki/files/cc.logo.32.png
+    - mode: '0444'
+    - require:
+      - archive: {{ sls }} extract archive
+
+
 {{ sls }} config.php file:
   file.managed:
     - name: {{ PATH }}/local/config.php
@@ -64,7 +73,7 @@
         SCRIPT_URL: {{ SCRIPT_URL }}
         PUB_URL: {{ PUB_URL }}
     - require:
-      - archive: {{ sls }} extract archive
+      - file: {{ sls }} cc logo
 
 
 {{ sls }} symlink pmwiki dir:
