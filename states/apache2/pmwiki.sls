@@ -8,11 +8,6 @@
 {{ a2.disable_sites(sls, SITES_DISABLE) }}
 
 
-{{ sls }} remove default index.html:
-  file.absent:
-    - name: /var/www/html/index.html
-
-
 {{ sls }} pmwiki site config file:
   file.managed:
     - name: /etc/apache2/sites-available/{{ SERVER_NAME }}.conf

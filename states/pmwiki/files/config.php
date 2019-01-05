@@ -1,11 +1,11 @@
 <?php if (!defined('PmWiki')) exit();
 ##  $WikiTitle is the name that appears in the browser's title bar.
-$WikiTitle = 'Creative Commons PmWiki';
+$WikiTitle = '{{ TITLE }}';
 
 ##  $ScriptUrl is your preferred URL for accessing wiki pages
 ##  $PubDirUrl is the URL for the pub directory.
-$ScriptUrl = 'https://pmwiki.creativecommons.org';
-$PubDirUrl = 'https://pmwiki.creativecommons.org/pmwiki/pub';
+$ScriptUrl = '{{ SCRIPT_URL }}';
+$PubDirUrl = '{{ PUB_URL }}';
 
 ##  If you want to use URLs of the form .../pmwiki.php/Group/PageName
 ##  instead of .../pmwiki.php?p=Group.PageName, try setting
