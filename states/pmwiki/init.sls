@@ -71,7 +71,7 @@
 {{ sls }} symlink pmwiki dir:
   file.symlink:
     - name: /var/www/html/pmwiki
-    - target: {{ PMWIKI_PATH }}
+    - target: {{ PMWIKI_VER }}
     - force: True
     - backupname: /var/www/html/pmwiki.PREVIOUS
     - require:
