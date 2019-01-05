@@ -9,7 +9,7 @@ include:
     - recurse:
       - group
       - mode
-    - dir_mode: '0710'
+    - dir_mode: '2710'
     - file_mode: '0640'
 
 
@@ -20,5 +20,5 @@ include:
     - recurse:
       - group
       - mode
-    - dir_mode: '0710'
+    - dir_mode: '2710'
     - file_mode: '0640'
