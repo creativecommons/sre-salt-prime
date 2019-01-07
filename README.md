@@ -244,7 +244,7 @@ See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
 
 
 [letsencrypt]:https://github.com/creativecommons/letsencrypt-formula
-[cerbot]:https://github.com/certbot/certbot
+[certbot]:https://github.com/certbot/certbot
 
 
 ## License
