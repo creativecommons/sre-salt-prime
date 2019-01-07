@@ -1,6 +1,4 @@
 letsencrypt:
-  version: v0.30.0
-  use_package: false
   config: |
     server = https://acme-v02.api.letsencrypt.org/directory
     email = webmaster@creativecommons.org
@@ -8,3 +6,5 @@ letsencrypt:
     webroot-path = /var/www/html
     agree-tos = True
     renew-by-default = True
+  use_package: false
+  version: 0.30.x
