@@ -134,7 +134,8 @@ include:
     - name: {{ PATH }}/local/config.php
     - source: salt://pmwiki/files/config.php
     - template: jinja
-    - mode: '0444'
+    - group: www-data
+    - mode: '0440'
     - defaults:
         TITLE: {{ TITLE }}
         SCRIPT_URL: {{ SCRIPT_URL }}
@@ -158,3 +159,10 @@ include:
       - file: {{ sls }} uploads directory
       - file: {{ sls }} wiki.d directory
       - file: {{ sls }} config.php file
+
+
+{{ sls }} install test_google_ldap.sh:
+  file.managed:
+    - name: /usr/local/sbin/test_google_ldap.sh
+    - source: salt://pmwiki/files/test_google_ldap.sh
+    - mode: '0555'
