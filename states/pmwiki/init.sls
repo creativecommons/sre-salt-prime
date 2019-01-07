@@ -45,8 +45,7 @@ include:
 {% endfor -%}
 
 
-# Remove .htaccess files (AllowOverride None -- all restrictions must be in
-# VirtualHost configuration)
+# Replace .htaccess files
 {% for file in ["cookbook/.htaccess", "docs/.htaccess", "local/.htaccess",
                 "scripts/.htaccess", "wiki.d/.htaccess"] -%}
 {{ sls }} replace {{ file }}:
