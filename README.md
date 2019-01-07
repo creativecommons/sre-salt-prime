@@ -238,9 +238,13 @@ See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
 
 - [creativecommons/letsencrypt-formula: Saltstack formula for letsencrypt
   service][letsencrypt]
+  - Configured to use [certbot][certbot]. See
+    [`pillars/letsencrypt/init.sls`](pillars/letsencrypt/init.sls) for exact
+    version.
 
 
 [letsencrypt]:https://github.com/creativecommons/letsencrypt-formula
+[cerbot]:https://github.com/certbot/certbot
 
 
 ## License
