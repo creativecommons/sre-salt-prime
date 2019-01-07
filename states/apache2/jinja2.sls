@@ -7,7 +7,7 @@
     - require:
       - pkg: apache2 installed packages
     - watch_in:
-      - service: service_apache2
+      - service: apache2 service
 {% endfor -%}
 {% endmacro -%}
 
@@ -23,7 +23,7 @@
     - require:
       - pkg: apache2 installed packages
     - watch_in:
-      - service: service_apache2
+      - service: apache2 service
 
 
 {{ sls }} enable conf {{ conf }}:
@@ -32,7 +32,7 @@
     - require:
       - file: {{ sls }} install conf {{ conf }}
     - watch_in:
-      - service: service_apache2
+      - service: apache2 service
 {% endfor -%}
 {% endmacro -%}
 
@@ -46,7 +46,7 @@
     - require:
       - pkg: apache2 installed packages
     - watch_in:
-      - service: service_apache2
+      - service: apache2 service
 {% endfor -%}
 {% endmacro -%}
 
@@ -60,7 +60,7 @@
     - require:
       - pkg: apache2 installed packages
     - watch_in:
-      - service: service_apache2
+      - service: apache2 service
 {% endfor -%}
 {% endmacro -%}
 
@@ -74,7 +74,7 @@
     - require:
       - pkg: apache2 installed packages
     - watch_in:
-      - service: service_apache2
+      - service: apache2 service
 {% endfor -%}
 {% endmacro -%}
 
@@ -88,6 +88,6 @@
     - require:
       - pkg: apache2 installed packages
     - watch_in:
-      - service: service_apache2
+      - service: apache2 service
 {% endfor -%}
 {% endmacro -%}

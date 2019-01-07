@@ -29,4 +29,5 @@
     - apache2.pmwiki
     - letsencrypt.pmwiki
     - mounts.pmwiki
-    - pmwiki.admin_password
+    - pmwiki
+    - pmwiki.passwords

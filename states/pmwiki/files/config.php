@@ -1,16 +1,55 @@
 <?php if (!defined('PmWiki')) exit();
+$EnableCookieSecure = 1;
+@ini_set('session.cookie_secure', true);
 $WikiTitle = '{{ TITLE }}';
 $ScriptUrl = '{{ SCRIPT_URL }}';
 $PubDirUrl = '{{ PUB_URL }}';
 $EnablePathInfo = 1;
 $PageLogoUrl = "$PubDirUrl/cc.logo.32.png";
 $Skin = 'pmwiki-responsive';
-$DefaultPasswords['admin'] = pmcrypt('{{ pillar.pmwiki.admin_password }}');
-$DefaultPasswords['edit'] = pmcrypt('{{ pillar.pmwiki.admin_password }}');
-include_once("scripts/xlpage-utf-8.php");
-# $EnableUpload = 1;
+$AuthUser['@admins'] = array('alden@creativecommons.org',
+                             'krithi@creativecommons.org',
+                             'timid@creativecommons.org');
+$DefaultPasswords['admin'] = array(
+    pmcrypt('{{ pillar.pmwiki.admin_password }}'), '@admins');
 # $UploadPermAdd = 0;
-# $DefaultPasswords['upload'] = pmcrypt('secret');
+$AuthLDAPBindDN = '{{ pillar.pmwiki.gsuite_ldap_user }}';
+$AuthLDAPBindPassword = '{{ pillar.pmwiki.gsuite_ldap_pass }}';
+$AuthUser['ldap'] = 'ldap://127.0.0.1:1636/ou=Users,dc=creativecommons,dc=org?mail?sub';
+$DefaultPasswords['edit'] = 'id:*';
+$DefaultPasswords['read'] = 'id:*';
+$HandleAuth['delete'] = 'edit';
+$HandleAuth['diff'] = 'edit';
+$HandleAuth['source'] = 'edit';
+$HandleAuth['upload'] = 'edit';
+$EnableUpload = 1;
+$EnableDirectDownload = 0;
+$MarkdownMarkupMarkdownExtraEnabled = true;
+$MarkdownMarkupParserOptions = array(
+    "no_markup" => true);
+## AllGroupHeader
+##   http://www.pmwiki.org/wiki/Cookbook/AllGroupHeader
+##   This includes {$SiteGroup}.AllGroupHeader for all pages, and then, 
+##   in addition, includes {*$Group}.GroupHeader if such exists, and 
+##   {$SiteGroup}.DefaultGroupHeader otherwise.
+$GroupHeaderFmt =
+    '(:include {$SiteGroup}.AllGroupHeader:)(:nl:)'
+    .'(:include {*$Group}.GroupHeader {$SiteGroup}.DefaultGroupHeader:)(:nl:)';
+##   This includes {*$Group}.GroupFooter if such exists, and 
+##   {$SiteGroup}.DefaultGroupFooter otherwise; and then, in addition,
+##   includes {$SiteGroup}.AllGroupFooter for all pages.
+$GroupFooterFmt =
+    '(:include {*$Group}.GroupFooter {$SiteGroup}.DefaultGroupFooter:)(:nl:)'
+    .'(:include {$SiteGroup}.AllGroupFooter:)(:nl:)';
+
+include_once("$FarmD/scripts/authuser.php");
+$Author = explode("@", $AuthId)[0];
+if ($action == 'refcount') include_once("$FarmD/scripts/refcount.php");
+include_once("$FarmD/scripts/xlpage-utf-8.php");
+# cookbook
+include_once("$FarmD/cookbook/markdownpmw.php");
+include_once("$FarmD/cookbook/pagetoc.php");
+
 ##  Set $EnableWikiWords if you want to allow WikiWord links.
 ##  For more options with WikiWords, see scripts/wikiwords.php .
 # $EnableWikiWords = 1;                    # enable WikiWord links
@@ -22,7 +61,6 @@ include_once("scripts/xlpage-utf-8.php");
 ## viewers may learn of the existence of read-protected pages.
 ## (It does not enable them to access the contents of the pages.)
 # $EnablePageListProtect = 0;
-if ($action == 'refcount') include_once("scripts/refcount.php");
 ##  By default, pages in the Category group are manually created.
 ##  Uncomment the following line to have blank category pages
 ##  automatically created whenever a link to a non-existent

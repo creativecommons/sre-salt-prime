@@ -14,7 +14,7 @@
       - mount: mount mount /var/www
 
 
-service_apache2:
+{{ sls }} service:
   service.running:
     - name: apache2
     - enable: True
