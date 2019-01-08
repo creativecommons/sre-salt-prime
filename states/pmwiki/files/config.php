@@ -1,6 +1,8 @@
 <?php if (!defined('PmWiki')) exit();
 $EnableCookieSecure = 1;
 @ini_set('session.cookie_secure', true);
+include_once("$FarmD/scripts/xlpage-utf-8.php");
+
 $WikiTitle = '{{ TITLE }}';
 $ScriptUrl = '{{ SCRIPT_URL }}';
 $PubDirUrl = '{{ PUB_URL }}';
@@ -45,10 +47,25 @@ $GroupFooterFmt =
 include_once("$FarmD/scripts/authuser.php");
 $Author = explode("@", $AuthId)[0];
 if ($action == 'refcount') include_once("$FarmD/scripts/refcount.php");
-include_once("$FarmD/scripts/xlpage-utf-8.php");
 # cookbook
 include_once("$FarmD/cookbook/markdownpmw.php");
-include_once("$FarmD/cookbook/pagetoc.php");
+#include_once("$FarmD/cookbook/pagetoc.php");
+#include_once("$FarmD/cookbook/worse.php");
+##$DefaultPageTextFmt = "(:worse:)(:worseend:)\n";
+#$Worse['EditForm'] = "<form class='notoc' id='worseform'>
+#    <trix-editor input='worsetext' class='trix-content' placeholder=\"$[Type your text here]\"></trix-editor>
+#    <input type='hidden' id='worsetext' name='worsetext' value=\"{worsehtml}\" />
+#    <div class='pmsave'>
+#      <span>$[Summary]: <input type='text' name='worsecsum' id='worsecsum' size='21' placeholder=\"$[Change summary]\" /></span>
+#      <span><input type='hidden' name='worseauthor' id='worseauthor' size='7' placeholder=\"$[Author]\" value=\"{author}\" /></span>
+#      <span>
+#        <input type='button' name='worsesave' id='worsesave' value=\"$[Save]\" />
+#        <input type='reset' name='worsecancel' id='worsecancel' value=\"$[Cancel]\" />
+#      </span>
+#    </div>
+#    </form>";
+
+
 
 ##  Set $EnableWikiWords if you want to allow WikiWord links.
 ##  For more options with WikiWords, see scripts/wikiwords.php .

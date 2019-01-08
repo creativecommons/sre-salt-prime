@@ -10,6 +10,7 @@
 include:
   - .ldap
   - .markdown
+  - .worse
 
 
 {{ sls }} installed packages:
@@ -70,7 +71,7 @@ include:
       - archive: {{ sls }} extract archive
 
 
-{% for dir in ["docs", "local", "pub", "scripts", "wikilib.d"] -%}
+{% for dir in ["docs", "local", "scripts", "wikilib.d"] -%}
 {{ sls }} update {{ dir }} permissions:
   file.directory:
     - name: {{ PATH }}/{{ dir }}
@@ -80,6 +81,29 @@ include:
       - mode
     - require:
       - archive: {{ sls }} extract archive
+
+
+{% endfor -%}
+
+
+{{ sls }} update pub permissions:
+  file.directory:
+    - name: {{ PATH }}/pub
+    - mode: '0555'
+    - require:
+      - archive: {{ sls }} extract archive
+
+
+{% for dir in ["css", "guiedit", "skins"] -%}
+{{ sls }} update pub/{{ dir }} permissions:
+  file.directory:
+    - name: {{ PATH }}/pub/{{ dir }}
+    - dir_mode: '0555'
+    - file_mode: '0444'
+    - recurse:
+      - mode
+    - require:
+      - file: {{ sls }} update pub permissions
 
 
 {% endfor -%}
@@ -120,6 +144,8 @@ include:
       - archive: {{ sls }} extract archive
 
 
+# PmWiki | Cookbook / PageTableOfContents
+# https://www.pmwiki.org/wiki/Cookbook/PageTableOfContents
 {{ sls }} download cookbook/pagetoc.php:
   file.managed:
     - name: {{ PATH }}/cookbook/pagetoc.php
@@ -144,6 +170,7 @@ include:
       - file: {{ sls }} cc logo
       - file: {{ sls }} download cookbook/pagetoc.php
       - file: pmwiki.markdown symlink Michelf into cookbook
+      - file: pmwiki.worse symlink into pub
     - watch_in:
       - service: apache2 service
 

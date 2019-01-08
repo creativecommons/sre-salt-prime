@@ -15,6 +15,8 @@
     - source_hash: >-
         sha256=e3b9c595f3c552447b14708ac8b8d367e534a742520b53a1cd2ded066d254f75
     - mode: '0444'
+    - require:
+      - file: pmwiki update cookbook permissions
 
 
 {{ sls }} extract {{ MD_LIB }} archive:
