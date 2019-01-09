@@ -8,7 +8,7 @@
       - openssh-server
 
 
-service_ssh:
+{{ sls }} service:
   service.running:
     - name: ssh
     - enable: True
@@ -30,7 +30,7 @@ service_ssh:
     # The default is 120 seconds.
     - append_if_not_found: True
     - watch_in:
-      - service: service_ssh
+      - service: {{ sls }} service
 
 
 {{ sls }} disable PermitRootLogin:
@@ -44,7 +44,7 @@ service_ssh:
     # The default is prohibit-password.
     - append_if_not_found: True
     - watch_in:
-      - service: service_ssh
+      - service: {{ sls }} service
 
 
 # TCPKeepAlive is disabled in favor of ClientAliveInterval and
@@ -61,7 +61,7 @@ service_ssh:
     # The default is yes
     - append_if_not_found: True
     - watch_in:
-      - service: service_ssh
+      - service: {{ sls }} service
 
 
 # A ClientAliveInterval of 30s combined with a ClientAliveCountMax of 60 will
@@ -82,7 +82,7 @@ service_ssh:
     # The default is 0
     - append_if_not_found: True
     - watch_in:
-      - service: service_ssh
+      - service: {{ sls }} service
     - require:
       - file: {{ sls }} remove duplicate ClientAliveInterval
 
@@ -98,7 +98,7 @@ service_ssh:
     # The default is 3
     - append_if_not_found: True
     - watch_in:
-      - service: service_ssh
+      - service: {{ sls }} service
 
 
 {{ sls }} remove duplicate ClientAliveInterval:
@@ -110,7 +110,7 @@ service_ssh:
       - IGNORECASE
     - append_if_not_found: False
     - watch_in:
-      - service: service_ssh
+      - service: {{ sls }} service
 
 
 {{ sls }} append group sudo StreamLocalBindUnlink:
@@ -121,7 +121,7 @@ service_ssh:
         Match Group sudo
             StreamLocalBindUnlink yes
     - watch_in:
-      - service: service_ssh
+      - service: {{ sls }} service
 
 
 ### Ensure Authentication Defaults
@@ -138,7 +138,7 @@ service_ssh:
     # The default is yes.
     - append_if_not_found: False
     - watch_in:
-      - service: service_ssh
+      - service: {{ sls }} service
 
 
 {{ sls }} ensure PasswordAuthentication is disabled:
@@ -152,7 +152,7 @@ service_ssh:
     # The default is no.
     - append_if_not_found: False
     - watch_in:
-      - service: service_ssh
+      - service: {{ sls }} service
 
 
 {{ sls }} ensure ChallengeResponseAuthentication is disabled:
@@ -166,4 +166,4 @@ service_ssh:
     # The default is no.
     - append_if_not_found: False
     - watch_in:
-      - service: service_ssh
+      - service: {{ sls }} service
