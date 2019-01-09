@@ -75,7 +75,7 @@
 {{ sls }} salt-prime minion bootstrap prep:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: orch.bootstrap.salt-prime_prep
+    - sls: orch.bootstrap.prime_prep
     - saltenv: {{ saltenv }}
     - kwarg:
       pillar:
@@ -106,7 +106,7 @@
 {{ sls }} salt-prime minion bootstrap cleanup failure:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: orch.bootstrap.salt-prime_cleanup_failure
+    - sls: orch.bootstrap.prime_cleanup_failure
     - saltenv: {{ saltenv }}
     - kwarg:
       pillar:
@@ -121,7 +121,7 @@
 {{ sls }} salt-prime minion bootstrap cleanup success:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: orch.bootstrap.salt-prime_cleanup_success
+    - sls: orch.bootstrap.prime_cleanup_success
     - saltenv: {{ saltenv }}
     - kwarg:
       pillar:

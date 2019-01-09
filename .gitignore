@@ -1,5 +1,6 @@
-# Bootstrap AWS
+# Temporary directories
 bootstrap-aws/temp-bootstrap/
+states/orch/bootstrap/TEMP__*
 
 # Vim
 *.swp

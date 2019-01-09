@@ -1,5 +1,6 @@
 {% set MID = pillar.tgt_mid -%}
 {% set IP = pillar.tgt_ip -%}
+{% set TMP = pillar.tgt_tmp -%}
 
 
 {{ sls }} delete previous minion key backup on prime :
