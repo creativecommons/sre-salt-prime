@@ -14,4 +14,3 @@ include:
       - rsync
       - silversearcher-ag
       - tree
-      - vim-nox
