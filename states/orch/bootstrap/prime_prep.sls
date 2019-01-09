@@ -1,12 +1,11 @@
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
 {% set MID = pillar.tgt_mid -%}
-{% set TMP = pillar.tgt_tmp -%}
 {% set IP = pillar.tgt_ip -%}
+{% set TMP = pillar.tgt_tmp -%}
 
 {% set P_LOC = pillar["infra"][LOC] -%}
 {% set P_POD = P_LOC[POD] -%}
-{#{% set TEMP = salt.temp.dir() %} -#}
 
 
 {{ sls }} verify host is reachable:
@@ -65,5 +64,5 @@
     - contents:
       - "# Temporary salt-ssh roster file written by {{ sls }}"
       - "{{ MID }}:"
-      - "  host: {{ P_POD.host_ips.pmwiki }}"
+      - "  host: {{ IP }}"
     - mode: '0444'
