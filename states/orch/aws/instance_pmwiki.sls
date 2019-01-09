@@ -1,6 +1,7 @@
 {% import "orch/aws/jinja2.sls" as aws with context -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
+{% set HOST = pillar.tgt_host -%}
 
 {% set P_LOC = pillar["infra"][LOC] -%}
 {% set P_POD = P_LOC[POD] -%}
@@ -10,13 +11,10 @@
                           ":alias/", P_LOC.kms_key_id_storage]|join("") -%}
 
 
-### EC2 Instance: PmWiki
+### EC2 Instance
 
 
-{% set hostname = "pmwiki" -%}
-
-
-{% set ident = [hostname, POD, "secgroup"] -%}
+{% set ident = [HOST, POD, "secgroup"] -%}
 {% set name = ident|join("_") -%}
 {% set name_eni = name -%}
 {% set subnet_name = ["dmz", POD, "subnet"]|join("_") -%}
@@ -26,7 +24,7 @@
     - name: {{ name }}
     - description: {{ POD }} PmWiki ENI in {{ LOC }}
     - subnet_name: {{ subnet_name }}
-    - private_ip_address: {{ P_POD["host_ips"][hostname] }}
+    - private_ip_address: {{ P_POD["host_ips"][HOST] }}
     - groups:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
@@ -34,8 +32,8 @@
         - web-all_core_secgroup
 
 
-{% set fqdn = (hostname, "creativecommons.org")|join(".") -%}
-{% set ident = [hostname, POD, LOC] -%}
+{% set fqdn = (HOST, "creativecommons.org")|join(".") -%}
+{% set ident = [HOST, POD, LOC] -%}
 {% set name = ident|join("_") -%}
 {% set name_instance = name -%}
 {{ name }}:
@@ -47,7 +45,7 @@
     - key_name: {{ pillar.infra.provisioning.ssh_key.aws_name }}
     - user_data: |
         #cloud-config
-        hostname: {{ hostname }}
+        hostname: {{ HOST }}
         fqdn: {{ fqdn }}
         manage_etc_hosts: localhost
         # This adds a mountpoint with "nofail". The volume won't mount properly

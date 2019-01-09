@@ -4,7 +4,8 @@
 {% set ACCOUNT_ID = salt.boto_iam.get_account_id() -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
-{% set MID = ["pmwiki", POD, LOC]|join("__") -%}
+{% set HOST = "pmwiki" -%}
+{% set MID = [HOST, POD, LOC]|join("__") -%}
 {% set TEMP = "/srv/{}/orch/bootstrap/TEMP__{}".format(saltenv, MID) -%}
 
 {% set P_LOC = pillar["infra"][LOC] -%}
@@ -20,7 +21,7 @@
 # Phase One: AWS Provisioning
 
 
-{{ sls }} aws.common:
+{{ sls }} orch.aws.common:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
     - sls: orch.aws.common
@@ -34,7 +35,7 @@
         interval: 5
 
 
-{{ sls }} aws.instance_pmwiki:
+{{ sls }} orch.aws.instance_pmwiki:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
     - sls: orch.aws.instance_pmwiki
@@ -44,8 +45,9 @@
         aws_account_id: {{ ACCOUNT_ID }}
         tgt_pod: {{ POD }}
         tgt_loc: {{ LOC }}
+        tgt_host: {{ HOST }}
     - require:
-      - salt: {{ sls }} aws.common
+      - salt: {{ sls }} orch.aws.common
     - retry:
         attempts: 3
         interval: 5
@@ -62,7 +64,7 @@
         attempts: 3
         interval: 5
     - require:
-      - salt: {{ sls }} aws.instance_pmwiki
+      - salt: {{ sls }} orch.aws.instance_pmwiki
 
 
 {{ sls }} salt-prime minion bootstrap prep:
@@ -134,7 +136,7 @@
         attempts: 6
         interval: 5
     - require:
-      - salt: {{ sls }} aws.instance_pmwiki 
+      - salt: {{ sls }} orch.aws.instance_pmwiki 
 
 
 {{ sls }} complete minion configuration:
