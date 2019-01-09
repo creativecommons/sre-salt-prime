@@ -1,11 +1,13 @@
 infra:
   us-east-2:
-    core: {# sort host_ips with the following external vim command:
+    core:
+      host_ips:
+{#- sort host_ips with the following external vim command:
 !sort -n -t . -k 2,2 -k 3,3 -k 4,4 -k 5,5
 #}
-      host_ips:
         bastion:    10.22.10.10
         pmwiki:     10.22.10.11
+        wikijs:     10.22.10.12
         salt-prime: 10.22.11.11
       subnets:
         dmz:
