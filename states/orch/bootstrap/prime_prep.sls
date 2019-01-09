@@ -29,6 +29,8 @@
   file.copy:
     - name: /etc/salt/pki/master/minions/{{ MID }}.BAK
     - source: /etc/salt/pki/master/minions/{{ MID }}
+    - onlyif:
+      - test -f /etc/salt/pki/master/minions/{{ MID }}
 
 
 {{ sls }} ensure tmpdir exists:
