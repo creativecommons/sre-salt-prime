@@ -1,16 +1,21 @@
 # Required command line pillar data:
+#   tgt_hst: Targeted Hostname and Wiki
 #   tgt_pod: Targeted Pod
 #   tgt_loc: Targeted Location
-{% set ACCOUNT_ID = salt.boto_iam.get_account_id() -%}
+{% set HST = pillar.tgt_hst -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
-{% set HOST = "pmwiki" -%}
-{% set MID = [HOST, POD, LOC]|join("__") -%}
-{% set TEMP = "/srv/{}/orch/bootstrap/TEMP__{}".format(saltenv, MID) -%}
+{% set MID = [HST, POD, LOC]|join("__") -%}
+{% set TMP = "/srv/{}/states/orch/bootstrap/TEMP__{}".format(saltenv, MID) -%}
 
 {% set P_LOC = pillar["infra"][LOC] -%}
 {% set P_POD = P_LOC[POD] -%}
 
+{% set IP = P_POD["host_ips"][HST] -%}
+
+{% set ACCOUNT_ID = salt.boto_iam.get_account_id() -%}
+{% set KMS_KEY_STORAGE = ["arn:aws:kms:us-east-2:", ACCOUNT_ID,
+                          ":alias/", P_LOC.kms_key_id_storage]|join("") -%}
 
 # Phases:
 # One: AWS Provisioning
@@ -35,17 +40,17 @@
         interval: 5
 
 
-{{ sls }} orch.aws.instance_pmwiki:
+{{ sls }} orch.aws.ec2_instance_web:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: orch.aws.instance_pmwiki
+    - sls: orch.aws.ec2_instance_web
     - saltenv: {{ saltenv }}
     - kwarg:
       pillar:
-        aws_account_id: {{ ACCOUNT_ID }}
+        tgt_hst: {{ HST }}
         tgt_pod: {{ POD }}
         tgt_loc: {{ LOC }}
-        tgt_host: {{ HOST }}
+        kms_key_storage: {{ KMS_KEY_STORAGE }}
     - require:
       - salt: {{ sls }} orch.aws.common
     - retry:
@@ -64,7 +69,7 @@
         attempts: 3
         interval: 5
     - require:
-      - salt: {{ sls }} orch.aws.instance_pmwiki
+      - salt: {{ sls }} orch.aws.ec2_instance_web
 
 
 {{ sls }} salt-prime minion bootstrap prep:
@@ -77,7 +82,8 @@
         tgt_pod: {{ POD }}
         tgt_loc: {{ LOC }}
         tgt_mid: {{ MID }}
-        tgt_ip: {{ P_POD.host_ips.pmwiki }}
+        tgt_tmp: {{ TMP }}
+        tgt_ip: {{ IP }}
     - onfail:
       - salt: {{ sls }} minion already up
 
@@ -94,7 +100,7 @@
     - require:
       - salt: {{ sls }} salt-prime minion bootstrap prep
     - onlyif:
-      - test -d {{ TEMP }}
+      - test -d {{ TMP }}
 
 
 {{ sls }} salt-prime minion bootstrap cleanup failure:
@@ -120,9 +126,10 @@
     - kwarg:
       pillar:
         tgt_mid: {{ MID }}
-        tgt_ip: {{ P_POD.host_ips.pmwiki }}
+        tgt_ip: {{ IP }}
+        tgt_tmp: {{ TMP }}
     - onlyif:
-      - test -d {{ TEMP }}
+      - test -d {{ TMP }}
 
 
 # Phase Three: Highstate
@@ -136,7 +143,7 @@
         attempts: 6
         interval: 5
     - require:
-      - salt: {{ sls }} orch.aws.instance_pmwiki 
+      - salt: {{ sls }} orch.aws.ec2_instance_web 
 
 
 {{ sls }} complete minion configuration:

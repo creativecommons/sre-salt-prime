@@ -1,20 +1,31 @@
+# Required command line pillar data:
+#   tgt_hst: Targeted Hostname and Wiki
+#   tgt_pod: Targeted Pod
+#   tgt_loc: Targeted Location
+# optional command line pillar data:
+#   kms_key_storage: KMS Key ID ARN
 {% import "orch/aws/jinja2.sls" as aws with context -%}
+{% set HST = pillar.tgt_hst -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
-{% set HOST = pillar.tgt_host -%}
 
 {% set P_LOC = pillar["infra"][LOC] -%}
 {% set P_POD = P_LOC[POD] -%}
 
+{% if pillar.kms_key_storage -%}
+{% set KMS_KEY_STORAGE = pillar.kms_key_storage -%}
+{% else -%}
+{% set ACCOUNT_ID = salt.boto_iam.get_account_id() -%}
 # The region must NOT be omitted from the KMS Key ID
-{% set KMS_KEY_STORAGE = ["arn:aws:kms:us-east-2:", pillar.aws_account_id,
+{% set KMS_KEY_STORAGE = ["arn:aws:kms:us-east-2:", ACCOUNT_ID,
                           ":alias/", P_LOC.kms_key_id_storage]|join("") -%}
+{% endif -%}
 
 
 ### EC2 Instance
 
 
-{% set ident = [HOST, POD, "secgroup"] -%}
+{% set ident = [HST, POD, "secgroup"] -%}
 {% set name = ident|join("_") -%}
 {% set name_eni = name -%}
 {% set subnet_name = ["dmz", POD, "subnet"]|join("_") -%}
@@ -24,7 +35,7 @@
     - name: {{ name }}
     - description: {{ POD }} PmWiki ENI in {{ LOC }}
     - subnet_name: {{ subnet_name }}
-    - private_ip_address: {{ P_POD["host_ips"][HOST] }}
+    - private_ip_address: {{ P_POD["host_ips"][HST] }}
     - groups:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
@@ -32,8 +43,8 @@
         - web-all_core_secgroup
 
 
-{% set fqdn = (HOST, "creativecommons.org")|join(".") -%}
-{% set ident = [HOST, POD, LOC] -%}
+{% set fqdn = (HST, "creativecommons.org")|join(".") -%}
+{% set ident = [HST, POD, LOC] -%}
 {% set name = ident|join("_") -%}
 {% set name_instance = name -%}
 {{ name }}:
@@ -45,13 +56,11 @@
     - key_name: {{ pillar.infra.provisioning.ssh_key.aws_name }}
     - user_data: |
         #cloud-config
-        hostname: {{ HOST }}
+        hostname: {{ HST }}
         fqdn: {{ fqdn }}
         manage_etc_hosts: localhost
         # This adds a mountpoint with "nofail". The volume won't mount properly
         # until it is formatted.
-        #
-        # sudo mkfs.ext4 -L pmwiki-var-www /dev/nvme1n1
         mounts:
           - [ /dev/nvme1n1, /var/www, ext4 ]
     - instance_type: t3.small
@@ -66,7 +75,7 @@
         - boto_ec2: {{ name_eni }}
 
 
-{% set ident = ["pmwiki-var-www", POD, "ebs"] -%}
+{% set ident = ["{}-var-www".format(HST), POD, "ebs"] -%}
 {% set name = ident|join("_") -%}
 {{ name }}:
   boto_ec2.volume_present:

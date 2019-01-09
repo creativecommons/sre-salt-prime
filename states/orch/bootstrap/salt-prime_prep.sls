@@ -1,7 +1,7 @@
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
 {% set MID = pillar.tgt_mid -%}
-{% set TEMP = "/srv/{}/orch/bootstrap/TEMP__{}".format(saltenv, MID) -%}
+{% set TMP = pillar.tgt_tmp -%}
 {% set IP = pillar.tgt_ip -%}
 
 {% set P_LOC = pillar["infra"][LOC] -%}
@@ -34,22 +34,24 @@
 
 {{ sls }} ensure tmpdir exists:
   file.directory:
-    - name: {{ TEMP }}
+    - name: {{ TMP }}
     - mode: '0770'
 
 
 {{ sls }} create minion key pair:
   cmd.run:
     - name: salt-key --gen-keys=minion --no-color | tail -n1 | xargs
-    - cwd: {{ TEMP }}
+    - cwd: {{ TMP }}
+    - require:
+      - file: {{ sls }} ensure tmpdir exists
     - unless:
-      - test -f {{ TEMP }}/minion.pem
+      - test -f {{ TMP }}/minion.pem
 
 
 {{ sls }} install minion key on prime :
   file.copy:
     - name: /etc/salt/pki/master/minions/{{ MID }}
-    - source: {{ TEMP }}/minion.pub
+    - source: {{ TMP }}/minion.pub
 
 
 {{ sls }} write minion roster:

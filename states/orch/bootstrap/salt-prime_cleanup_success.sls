@@ -9,7 +9,7 @@
 
 {{ sls }} cleanup tmpdir:
   file.absent:
-    - name: /srv/{{ saltenv }}/orch/bootstrap/TEMP__{{ MID }}
+    - name: {{ TMP }}
 
 
 {{ sls }} cleanup minion roster:
