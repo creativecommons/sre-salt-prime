@@ -1,0 +1,7 @@
+# vim: ft=sudoers noexpandtab:
+# This file must be edited with visudo. For example:
+# /usr/sbin/visudo -s -f FILENAME
+
+Defaults	passwd_timeout=3
+Defaults	timestamp_timeout=30
+Defaults	use_pty
