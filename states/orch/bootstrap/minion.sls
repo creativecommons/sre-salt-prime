@@ -16,7 +16,7 @@ include:
 {{ sls }} install public key:
   file.managed:
     - name: /etc/salt/pki/minion/minion.pub
-    - source: salt://bootstrap/TEMP__{{ MID }}/minion.pub
+    - source: salt://orch/bootstrap/TEMP__{{ MID }}/minion.pub
     - mode: '0444'
     - require:
       - cmd: salt.minion upgrade minion
@@ -25,7 +25,7 @@ include:
 {{ sls }} install private key:
   file.managed:
     - name: /etc/salt/pki/minion/minion.pem
-    - source: salt://bootstrap/TEMP__{{ MID }}/minion.pem
+    - source: salt://orch/bootstrap/TEMP__{{ MID }}/minion.pem
     - mode: '0400'
     - require:
       - cmd: salt.minion upgrade minion
