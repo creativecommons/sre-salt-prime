@@ -7,6 +7,7 @@
 {% set LOC = pillar.tgt_loc -%}
 {% set MID = [HST, POD, LOC]|join("__") -%}
 {% set TMP = "/srv/{}/states/orch/bootstrap/TEMP__{}".format(saltenv, MID) -%}
+{#{% set TMP = salt.temp.dir() %} -#}
 
 {% set P_LOC = pillar["infra"][LOC] -%}
 {% set P_POD = P_LOC[POD] -%}
@@ -84,6 +85,8 @@
         tgt_mid: {{ MID }}
         tgt_tmp: {{ TMP }}
         tgt_ip: {{ IP }}
+    # NOTE: onfail requires failhard: False
+    #       See: https://github.com/saltstack/salt/issues/20496
     - onfail:
       - salt: {{ sls }} minion already up
 
