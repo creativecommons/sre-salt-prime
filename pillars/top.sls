@@ -27,4 +27,7 @@
     - infra.us-east-2.*
   'pmwiki__*':
     - pmwiki
-    - pmwiki.passwords
+    - pmwiki.secrets
+  'wikijs__*':
+    - wikijs
+    - wikijs.secrets
