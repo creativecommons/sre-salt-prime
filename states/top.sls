@@ -14,3 +14,5 @@
 #    - lencrypt
 #    - mount
 #    - pmwiki
+  'wikijs__*__*':
+    - nodejs
