@@ -3,6 +3,7 @@
 *_ed25519_* filter=git-crypt diff=git-crypt
 *_rsa_* filter=git-crypt diff=git-crypt
 *passw* filter=git-crypt diff=git-crypt
+*secret* filter=git-crypt diff=git-crypt
 
 # Encryption exceptions
 *.pub !filter !diff
