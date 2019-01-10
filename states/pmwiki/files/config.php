@@ -31,13 +31,13 @@ $MarkdownMarkupParserOptions = array(
     "no_markup" => true);
 ## AllGroupHeader
 ##   http://www.pmwiki.org/wiki/Cookbook/AllGroupHeader
-##   This includes {$SiteGroup}.AllGroupHeader for all pages, and then, 
-##   in addition, includes {*$Group}.GroupHeader if such exists, and 
+##   This includes {$SiteGroup}.AllGroupHeader for all pages, and then,
+##   in addition, includes {*$Group}.GroupHeader if such exists, and
 ##   {$SiteGroup}.DefaultGroupHeader otherwise.
 $GroupHeaderFmt =
     '(:include {$SiteGroup}.AllGroupHeader:)(:nl:)'
     .'(:include {*$Group}.GroupHeader {$SiteGroup}.DefaultGroupHeader:)(:nl:)';
-##   This includes {*$Group}.GroupFooter if such exists, and 
+##   This includes {*$Group}.GroupFooter if such exists, and
 ##   {$SiteGroup}.DefaultGroupFooter otherwise; and then, in addition,
 ##   includes {$SiteGroup}.AllGroupFooter for all pages.
 $GroupFooterFmt =
@@ -101,7 +101,7 @@ include_once("$FarmD/cookbook/markdownpmw.php");
 # $GUIButtons['hr'] = array(540, '\\n----\\n', '', '',
 #                     '$GUIButtonDirUrlFmt/hr.gif"$[Horizontal rule]"');
 # $GUIButtons['table'] = array(600,
-#                       '||border=1 width=80%\\n||!Hdr ||!Hdr ||!Hdr ||\\n||     ||     ||     ||\\n||     ||     ||     ||\\n', '', '', 
+#                       '||border=1 width=80%\\n||!Hdr ||!Hdr ||!Hdr ||\\n||     ||     ||     ||\\n||     ||     ||     ||\\n', '', '',
 #                     '$GUIButtonDirUrlFmt/table.gif"$[Table]"');
 date_default_timezone_set('UTC');
 $TimeFmt='%F %R %Z';
