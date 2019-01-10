@@ -11,8 +11,8 @@
 {{ sls }} verify host is reachable:
   module.run:
     - name: network.ping
-    - m_name: {{ P_POD.host_ips.pmwiki }}
-    - host: {{ P_POD.host_ips.pmwiki }}
+    - m_name: {{ IP }}
+    - host: {{ IP }}
     - timeout: 15
 
 
@@ -20,7 +20,6 @@
   ssh_known_hosts.present:
     - name: {{ IP }}
     - user: root
-    - enc: ed25519
     - require:
       - module: {{ sls }} verify host is reachable
 
@@ -49,10 +48,25 @@
       - test -f {{ TMP }}/minion.pem
 
 
-{{ sls }} install minion key on prime :
+{{ sls }} digest of minion pub in TEMP:
+  module.run:
+    - name: hashutil.digest_file
+    - kwarg:
+      infile: {{ TMP }}/minion.pub
+
+
+{{ sls }} install minion pub on prime :
   file.copy:
     - name: /etc/salt/pki/master/minions/{{ MID }}
     - source: {{ TMP }}/minion.pub
+    - force: True
+
+
+{{ sls }} digest of minion pub on salt-prime:
+  module.run:
+    - name: hashutil.digest_file
+    - kwarg:
+      infile: /etc/salt/pki/master/minions/{{ MID }}
 
 
 {{ sls }} write minion roster:
