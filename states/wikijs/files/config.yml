@@ -61,7 +61,8 @@ public: false
 auth:
   defaultReadAccess: false
   local:
-    enabled: true
+    enabled: false
+  # https://docs-legacy.requarks.io/wiki/install/authentication#google-id
   google:
     enabled: true
     clientId: {{ pillar.wikijs.google_client_id }}
@@ -101,25 +102,14 @@ db: mongodb://localhost:27017/wiki
 # ---------------------------------------------------------------------
 
 git:
-  url: https://github.com/Organization/Repo
-  branch: master
+  url: {{ pillar.wikijs.git_url }}
+  branch: {{ pillar.wikijs.git_branch }}
   auth:
-
-    # Type: basic or ssh
     type: ssh
-
-    # Only for Basic authentication:
-    username: marty
-    password: MartyMcFly88
-
-    # Only for SSH authentication:
-    privateKey: /etc/wiki/keys/git.pem
-
+    privateKey: /srv/wikijs/{{ pillar.wikijs.git_ssh_key }}
     sslVerify: true
-
   # Default email to use as commit author
-  serverEmail: marty@example.com
-
+  serverEmail: {{ pillar.wikijs.git_server_email }}
   # Whether to use user email as author in commits
   showUserEmail: true
 

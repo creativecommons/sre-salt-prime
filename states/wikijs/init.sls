@@ -4,9 +4,33 @@
 {% set ARCHIVE_URL = "https://github.com/Requarks/wiki/releases/download" -%}
 
 
+{{ sls }} group:
+  group.present:
+    - name: wikijs
+    - system: True
+    - addusers:
+{%- for admin in pillar.user.admins.keys() %}
+      - {{ admin }}
+    - require:
+      - user: user.admins {{ admin }} user
+{% endfor %}
+
+
+{{ sls }} user:
+  user.present:
+    - name: wikijs
+    - home: /srv/wikijs
+    - gid_from_name: True
+    - createhome: False
+    - password: '*'
+    - shell: /usr/sbin/nologin
+    - system: True
+
+
 {{ sls }} {{ WIKI_DIR }} directory:
   file.directory:
     - name: {{ WIKI_DIR }}
+    - mode: '0555'
 
 
 {{ sls }} extract build archive:
@@ -31,7 +55,43 @@
     - require:
       - file: {{ sls }} {{ WIKI_DIR }} directory
     - unless:
-      - test -d {{ WIKI_DIR }}/node_modules
+      - test -d {{ WIKI_DIR }}/node_modules/abab
+
+
+{{ sls }} update {{ WIKI_DIR }} permissions:
+  file.directory:
+    - name: {{ WIKI_DIR }}
+    - dir_mode: '0555'
+    - file_mode: '0444'
+    - recurse:
+      - mode
+    - require:
+      - archive: {{ sls }} extract build archive
+      - archive: {{ sls }} extract dependencies archive
+    - unless:
+      - test -f {{ WIKI_DIR }}/config.yml
+
+
+{{ sls }} {{ WIKI_DIR }}/data directory:
+  file.directory:
+    - name: {{ WIKI_DIR }}/data
+    - user: wikijs
+    - group: wikijs
+    - mode: '0770'
+    - require:
+      - user: {{ sls }} user
+      - file: {{ sls }} update {{ WIKI_DIR }} permissions
+
+
+{{ sls }} {{ WIKI_DIR }}/repo directory:
+  file.directory:
+    - name: {{ WIKI_DIR }}/repo
+    - user: wikijs
+    - group: wikijs
+    - mode: '0770'
+    - require:
+      - user: {{ sls }} user
+      - file: {{ sls }} update {{ WIKI_DIR }} permissions
 
 
 {{ sls }} config file:
@@ -39,10 +99,31 @@
     - name: {{ WIKI_DIR }}/config.yml
     - source: salt://wikijs/files/config.yml
     - template: jinja
+    - group: wikijs
+    - mode: '0440'
+    - require:
+      - file: {{ sls }} {{ WIKI_DIR }}/data directory
+      - file: {{ sls }} {{ WIKI_DIR }}/repo directory
+
+
+{{ sls }} cc-sre-wiki-js-bot ssh public key:
+  file.managed:
+    - name: {{ WIKI_DIR }}/{{ pillar.wikijs.git_ssh_key }}.pub
+    - source: salt://wikijs/files/{{ pillar.wikijs.git_ssh_key }}.pub
+    - group: root
     - mode: '0444'
     - require:
       - file: {{ sls }} {{ WIKI_DIR }} directory
 
+
+{{ sls }} cc-sre-wiki-js-bot ssh private key:
+  file.managed:
+    - name: {{ WIKI_DIR }}/{{ pillar.wikijs.git_ssh_key }}
+    - source: salt://wikijs/files/{{ pillar.wikijs.git_ssh_key }}
+    - group: wikijs
+    - mode: '0440'
+    - require:
+      - file: {{ sls }} cc-sre-wiki-js-bot ssh public key
 
 
 {{ sls }} symlink pmwiki dir:
@@ -51,6 +132,5 @@
     - target: wikijs-{{ VERSION }}
     - force: True
     - require:
-      - archive: {{ sls }} extract build archive
-      - archive: {{ sls }} extract dependencies archive
       - file: {{ sls }} config file
+      - file: {{ sls }} cc-sre-wiki-js-bot ssh private key
