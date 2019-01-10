@@ -16,3 +16,4 @@
 #    - pmwiki
   'wikijs__*__*':
     - nodejs
+    - mount
