@@ -2,6 +2,7 @@
 
 {% set WIKI_DIR = "/srv/wikijs-{}".format(VERSION) -%}
 {% set ARCHIVE_URL = "https://github.com/Requarks/wiki/releases/download" -%}
+{% set WIKIJS_DIRS = [".pm2", "data", "logs", "repo"] -%}
 
 
 {{ sls }} group:
@@ -72,9 +73,10 @@
       - test -f {{ WIKI_DIR }}/config.yml
 
 
-{{ sls }} {{ WIKI_DIR }}/data directory:
+{% for dir in WIKIJS_DIRS -%}
+{{ sls }} {{ WIKI_DIR }}/{{ dir }} directory:
   file.directory:
-    - name: {{ WIKI_DIR }}/data
+    - name: {{ WIKI_DIR }}/{{ dir }}
     - user: wikijs
     - group: wikijs
     - mode: '0770'
@@ -83,15 +85,7 @@
       - file: {{ sls }} update {{ WIKI_DIR }} permissions
 
 
-{{ sls }} {{ WIKI_DIR }}/repo directory:
-  file.directory:
-    - name: {{ WIKI_DIR }}/repo
-    - user: wikijs
-    - group: wikijs
-    - mode: '0770'
-    - require:
-      - user: {{ sls }} user
-      - file: {{ sls }} update {{ WIKI_DIR }} permissions
+{% endfor -%}
 
 
 {{ sls }} config file:
@@ -102,8 +96,9 @@
     - group: wikijs
     - mode: '0440'
     - require:
-      - file: {{ sls }} {{ WIKI_DIR }}/data directory
-      - file: {{ sls }} {{ WIKI_DIR }}/repo directory
+{%- for dir in WIKIJS_DIRS %}
+      - file: {{ sls }} {{ WIKI_DIR }}/{{ dir }} directory
+{%- endfor %}
 
 
 {{ sls }} cc-sre-wiki-js-bot ssh public key:
