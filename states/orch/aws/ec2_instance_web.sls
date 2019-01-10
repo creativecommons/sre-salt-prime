@@ -59,10 +59,6 @@
         hostname: {{ HST }}
         fqdn: {{ fqdn }}
         manage_etc_hosts: localhost
-        # This adds a mountpoint with "nofail". The volume won't mount properly
-        # until it is formatted.
-        mounts:
-          - [ /dev/nvme1n1, /var/www, ext4 ]
     - instance_type: t3.small
     - placement: {{ P_POD.subnets.dmz.az }}
     - vpc_name: {{ P_LOC.vpc.name }}
@@ -75,7 +71,7 @@
         - boto_ec2: {{ name_eni }}
 
 
-{% set ident = ["{}-var-www".format(HST), POD, "ebs"] -%}
+{% set ident = ["{}-xvdf".format(HST), POD, "ebs"] -%}
 {% set name = ident|join("_") -%}
 {{ name }}:
   boto_ec2.volume_present:
