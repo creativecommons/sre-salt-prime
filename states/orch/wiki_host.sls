@@ -146,7 +146,7 @@
         attempts: 6
         interval: 5
     - require:
-      - salt: {{ sls }} orch.aws.ec2_instance_web 
+      - salt: {{ sls }} orch.aws.ec2_instance_web
 
 
 {{ sls }} complete minion configuration:
