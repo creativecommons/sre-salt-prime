@@ -18,3 +18,4 @@
     - mongodb
     - mount
     - nodejs
+    - wikijs
