@@ -33,7 +33,7 @@
   boto_ec2.eni_present:
     - region: {{ LOC }}
     - name: {{ name }}
-    - description: {{ POD }} PmWiki ENI in {{ LOC }}
+    - description: {{ POD }} {{ HST }} ENI in {{ LOC }}
     - subnet_name: {{ subnet_name }}
     - private_ip_address: {{ P_POD["host_ips"][HST] }}
     - groups:
