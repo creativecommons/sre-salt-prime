@@ -22,6 +22,13 @@ include:
       - cmd: salt.minion upgrade minion
 
 
+{{ sls }} digest of minion pub on minion:
+  module.run:
+    - name: hashutil.digest_file
+    - kwarg:
+      infile: /etc/salt/pki/minion/minion.pub
+
+
 {{ sls }} install private key:
   file.managed:
     - name: /etc/salt/pki/minion/minion.pem
