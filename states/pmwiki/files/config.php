@@ -15,8 +15,8 @@ $AuthUser['@admins'] = array('alden@creativecommons.org',
 $DefaultPasswords['admin'] = array(
     pmcrypt('{{ pillar.pmwiki.admin_password }}'), '@admins');
 # $UploadPermAdd = 0;
-$AuthLDAPBindDN = '{{ pillar.pmwiki.gsuite_ldap_user }}';
-$AuthLDAPBindPassword = '{{ pillar.pmwiki.gsuite_ldap_pass }}';
+$AuthLDAPBindDN = '{{ pillar.stunnel4.gsuite_ldap_user }}';
+$AuthLDAPBindPassword = '{{ pillar.stunnel4.gsuite_ldap_pass }}';
 $AuthUser['ldap'] = 'ldap://127.0.0.1:1636/ou=Users,dc=creativecommons,dc=org?mail?sub';
 $DefaultPasswords['edit'] = 'id:*';
 $DefaultPasswords['read'] = 'id:*';
