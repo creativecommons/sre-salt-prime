@@ -8,9 +8,9 @@
 
 
 include:
-  - .ldap
   - .markdown
   - .worse
+  - stunnel4.google_ldap
 
 
 {{ sls }} installed packages:

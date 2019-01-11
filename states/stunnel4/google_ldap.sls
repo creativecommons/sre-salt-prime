@@ -9,6 +9,30 @@ include:
 # https://support.google.com/cloudidentity/answer/9188164
 
 
+{{ sls }} installed packages:
+  pkg.installed:
+    - pkgs:
+      - ldap-utils
+
+
+{{ sls }} google ldap cert:
+  file.managed:
+    - name: /etc/stunnel/Google_2022_01_04_62076.crt
+    - source: salt://pmwiki/files/Google_2022_01_04_62076.crt
+    - mode: '0444'
+    - user: stunnel4
+    - group: stunnel4
+
+
+{{ sls }} google ldap key:
+  file.managed:
+    - name: /etc/stunnel/Google_2022_01_04_62076.key
+    - source: salt://pmwiki/files/Google_2022_01_04_62076.key
+    - mode: '0400'
+    - user: stunnel4
+    - group: stunnel4
+
+
 {{ sls }} /etc/stunnel/google-ldap.conf:
   file.managed:
     - name: /etc/stunnel/google_ldap.conf
@@ -24,7 +48,7 @@ include:
     - mode: 0444
     - require:
       - pkg: stunnel4 installed packages
-      - file: pmwiki.ldap google ldap cert
-      - file: pmwiki.ldap google ldap key
+      - file: {{ sls }} google ldap cert
+      - file: {{ sls }} google ldap key
     - watch_in:
       - service: stunnel4 service
