@@ -4,12 +4,18 @@
 {% set MODS_DISABLE = ["50-mod-http-echo.conf"] -%}
 
 
+include:
+  - tls
+
+
 {{ sls }} installed packages:
   pkg.installed:
     - pkgs:
       # Debian provides nginx-light, nginx-full, and nginx-extra
       - nginx-{{ pillar.nginx.flavor }}
       - nginx-doc
+    - require:
+      - file: tls dhparams.pem
 
 
 {{ sls }} service:

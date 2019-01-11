@@ -6,12 +6,17 @@
 {% set MODS_ENABLE = salt["pillar.get"]("apache2:mods:enable", []) -%}
 
 
+include:
+  - tls
+
+
 {{ sls }} installed packages:
   pkg.installed:
     - pkgs:
       - apache2
     - require:
       - mount: mount mount /var/www
+      - file: tls dhparams.pem
 
 
 {{ sls }} service:
@@ -22,10 +27,6 @@
       - pkg: {{ sls }} installed packages
 
 
-{{ a2.disable_confs(sls, CONFS_DISABLE) }}
-
-
-{{ a2.install_confs(sls, CONFS_INSTALL) }}
-
-
-{{ a2.enable_mods(sls, MODS_ENABLE) }}
+{{ a2.disable_confs(sls, CONFS_DISABLE) -}}
+{{ a2.install_confs(sls, CONFS_INSTALL) -}}
+{{ a2.enable_mods(sls, MODS_ENABLE) -}}
