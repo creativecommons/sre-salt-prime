@@ -11,8 +11,8 @@ include:
 {{ sls }} installed packages:
   pkg.installed:
     - pkgs:
-      # Debian provides nginx-light, nginx-full, and nginx-extra
-      - nginx-{{ pillar.nginx.flavor }}
+      - libnginx-mod-http-headers-more-filter
+      - nginx-light
       - nginx-doc
     - require:
       - file: tls dhparams.pem
