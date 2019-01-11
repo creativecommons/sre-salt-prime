@@ -1,0 +1,2 @@
+nginx:
+  flavor: light
