@@ -18,5 +18,6 @@
     - lencrypt
     - mongodb
     - mount
+    - nginx.wikijs
     - nodejs
     - wikijs

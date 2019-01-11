@@ -99,6 +99,8 @@
 {%- for dir in WIKIJS_DIRS %}
       - file: {{ sls }} {{ WIKI_DIR }}/{{ dir }} directory
 {%- endfor %}
+    - watch_in:
+      - service: {{ sls }} service
 
 
 {{ sls }} cc-sre-wiki-js-bot ssh public key:
@@ -129,3 +131,28 @@
     - require:
       - file: {{ sls }} config file
       - file: {{ sls }} cc-sre-wiki-js-bot ssh private key
+
+
+{{ sls }} install service:
+  file.managed:
+    - name: /etc/systemd/system/wikijs.service
+    - source: salt://wikijs/files/wikijs.service
+    - mode: '0444'
+    - require:
+      - file: {{ sls }} symlink pmwiki dir
+    - watch_in:
+      - cmd: {{ sls }} systemd daemon-reload
+      - service: {{ sls }} service
+
+
+{{ sls }} systemd daemon-reload:
+  cmd.wait:
+    - name: systemctl daemon-reload
+
+
+{{ sls }} service:
+  service.running:
+    - name: wikijs
+    - enable: True
+    - require:
+      - {{ sls }} install service

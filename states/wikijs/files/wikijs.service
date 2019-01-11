@@ -1,0 +1,23 @@
+[Unit]
+Description=PM2 process manager
+Documentation=https://pm2.keymetrics.io/
+After=network.target
+
+[Service]
+Type=forking
+User=wikijs
+Group=wikijs
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
+Environment=PATH=/usr/bin:/bin
+Environment=PM2_HOME=/srv/wikijs/.pm2
+PIDFile=/srv/wikijs/.pm2/pm2.pid
+WorkingDirectory=/srv/wikijs
+
+ExecStart=/usr/bin/node wiki start
+ExecReload=/usr/bin/node wiki restart
+ExecStop=/usr/bin/node wiki stop
+
+[Install]
+WantedBy=multi-user.target
