@@ -2,6 +2,12 @@ include:
   - letsencrypt
 
 
+{{ sls }} dependencies:
+  pkg.installed:
+    - pkgs:
+      - ssl-cert
+
+
 {{ sls }} debianize letsencrypt archive dirs:
   file.directory:
     - name: /etc/letsencrypt/archive
@@ -11,6 +17,8 @@ include:
       - mode
     - dir_mode: '2710'
     - file_mode: '0640'
+    - require:
+      - pkg: {{ sls }} dependencies
 
 
 {{ sls }} debianize letsencrypt live dirs:
@@ -22,3 +30,5 @@ include:
       - mode
     - dir_mode: '2710'
     - file_mode: '0640'
+    - require:
+      - pkg: {{ sls }} dependencies
