@@ -77,6 +77,18 @@ include:
       - test -f {{ WIKI_DIR }}/config.yml
 
 
+# https://github.com/Requarks/wiki-v1/issues/52#issuecomment-349194585
+{{ sls }} default write access for authenticated users:
+  file.replace:
+    - name: {{ WIKI_DIR }}/server/models/user.js
+    - pattern: "role: 'read',"
+    - repl: "role: 'write',"
+    - require:
+      - archive: {{ sls }} extract build archive
+    - require_in:
+      - file: {{ sls }} config file
+
+
 {% for dir in WIKIJS_DIRS -%}
 {{ sls }} {{ WIKI_DIR }}/{{ dir }} directory:
   file.directory:
