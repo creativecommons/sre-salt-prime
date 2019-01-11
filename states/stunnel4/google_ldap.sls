@@ -55,3 +55,13 @@ include:
       - file: {{ sls }} google ldap key
     - watch_in:
       - service: stunnel4 service
+
+
+{{ sls }} install test_google_ldap.sh:
+  file.managed:
+    - name: /usr/local/sbin/test_google_ldap.sh
+    - source: salt://stunnel4/files/test_google_ldap.sh
+    - mode: '0550'
+    - template: jinja
+    - defaults:
+        slspath: {{ slspath }}
