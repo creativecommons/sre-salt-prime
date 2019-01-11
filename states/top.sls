@@ -15,6 +15,7 @@
 #    - mount
 #    - pmwiki
   'wikijs__*__*':
+    - lencrypt
     - mongodb
     - mount
     - nodejs
