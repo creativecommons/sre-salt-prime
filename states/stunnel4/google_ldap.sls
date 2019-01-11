@@ -22,15 +22,19 @@ include:
     - mode: '0444'
     - user: stunnel4
     - group: stunnel4
+    - require:
+      - pkg: stunnel4 installed packages
 
 
 {{ sls }} google ldap key:
   file.managed:
     - name: /etc/stunnel/Google_2022_01_04_62076.key
     - source: salt://pmwiki/files/Google_2022_01_04_62076.key
-    - mode: '0400'
+    - mode: '0440'
     - user: stunnel4
     - group: stunnel4
+    - require:
+      - pkg: stunnel4 installed packages
 
 
 {{ sls }} /etc/stunnel/google-ldap.conf:
@@ -45,9 +49,8 @@ include:
       - key = /etc/stunnel/Google_2022_01_04_62076.key
       - setuid = stunnel4
       - setgid = stunnel4
-    - mode: 0444
+    - mode: '0444'
     - require:
-      - pkg: stunnel4 installed packages
       - file: {{ sls }} google ldap cert
       - file: {{ sls }} google ldap key
     - watch_in:

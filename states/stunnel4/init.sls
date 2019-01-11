@@ -22,5 +22,7 @@
       - MULTILINE
     # The default is 0 (disabled)
     - append_if_not_found: False
+    - require:
+      - pkg: {{ sls }} service
     - watch_in:
       - service: {{ sls }} service
