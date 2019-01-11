@@ -16,7 +16,7 @@ title: Creative Commons Wiki
 # ---------------------------------------------------------------------
 # INCLUDE CLIENT PORT IF NOT 80/443!
 
-host: https://wikijs.creativecommons.org
+host: 'https://wikijs.creativecommons.org'
 
 # ---------------------------------------------------------------------
 # Port the main server should listen to (80 by default)
@@ -59,14 +59,16 @@ langRtl: false
 public: false
 
 auth:
-  defaultReadAccess: false
+  defaultReadAccess: true
   local:
-    enabled: false
-  # https://docs-legacy.requarks.io/wiki/install/authentication#google-id
-  google:
+    # This appears to be required by ldap
     enabled: true
-    clientId: {{ pillar.wikijs.google_client_id }}
-    clientSecret: {{ pillar.wikijs.google_client_secret }}
+  google:
+    # Google+ Sign-In will expire in March 2019
+    # https://github.com/Requarks/wiki-v1/issues/146
+    #
+    # https://docs-legacy.requarks.io/wiki/install/authentication#google-id
+    enabled: false
   microsoft:
     enabled: false
   facebook:
@@ -76,7 +78,13 @@ auth:
   slack:
     enabled: false
   ldap:
-    enabled: false
+    # https://docs-legacy.requarks.io/wiki/install/authentication#ldap-active-directory
+    enabled: true
+    url: 'ldap://127.0.0.1:1636'
+    bindDn: {{ pillar.stunnel4.gsuite_ldap_user }}
+    bindCredentials: {{ pillar.stunnel4.gsuite_ldap_pass }}
+    searchBase: 'ou=Users,dc=creativecommons,dc=org'
+    {% raw %}searchFilter: '(mail={{username}})'{% endraw %}
   azure:
     enabled: false
   oauth2:
@@ -95,23 +103,21 @@ sessionSecret: {{ pillar.wikijs.session_secret }}
 # Database Connection String
 # ---------------------------------------------------------------------
 
-db: mongodb://localhost:27017/wiki
+db: 'mongodb://localhost:27017/wiki'
 
 # ---------------------------------------------------------------------
 # Git Connection Info
 # ---------------------------------------------------------------------
 
 git:
-  url: {{ pillar.wikijs.git_url }}
+  url: '{{ pillar.wikijs.git_url }}'
   branch: {{ pillar.wikijs.git_branch }}
   auth:
     type: ssh
     privateKey: /srv/wikijs/{{ pillar.wikijs.git_ssh_key }}
     sslVerify: true
-  # Default email to use as commit author
-  serverEmail: {{ pillar.wikijs.git_server_email }}
-  # Whether to use user email as author in commits
   showUserEmail: true
+  serverEmail: {{ pillar.wikijs.git_server_email }}
 
 # ---------------------------------------------------------------------
 # Features
@@ -138,10 +144,10 @@ externalLogging:
 # ---------------------------------------------------------------------
 
 theme:
-  primary: indigo
-  alt: blue-grey
+  primary: deep-orange
+  alt: grey
   viewSource: all # all | write | false
-  footer: blue-grey
+  footer: grey
   code:
     dark: true
     colorize: true

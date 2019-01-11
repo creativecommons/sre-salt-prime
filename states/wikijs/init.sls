@@ -2,7 +2,11 @@
 
 {% set WIKI_DIR = "/srv/wikijs-{}".format(VERSION) -%}
 {% set ARCHIVE_URL = "https://github.com/Requarks/wiki/releases/download" -%}
-{% set WIKIJS_DIRS = [".pm2", "data", "logs", "repo"] -%}
+{% set WIKIJS_DIRS = [".pm2", ".ssh", "data", "logs", "repo"] -%}
+
+
+include:
+  - stunnel4.google_ldap
 
 
 {{ sls }} group:
@@ -83,24 +87,11 @@
     - require:
       - user: {{ sls }} user
       - file: {{ sls }} update {{ WIKI_DIR }} permissions
+    - require_in:
+      - file: {{ sls }} config file
 
 
 {% endfor -%}
-
-
-{{ sls }} config file:
-  file.managed:
-    - name: {{ WIKI_DIR }}/config.yml
-    - source: salt://wikijs/files/config.yml
-    - template: jinja
-    - group: wikijs
-    - mode: '0440'
-    - require:
-{%- for dir in WIKIJS_DIRS %}
-      - file: {{ sls }} {{ WIKI_DIR }}/{{ dir }} directory
-{%- endfor %}
-    - watch_in:
-      - service: {{ sls }} service
 
 
 {{ sls }} cc-sre-wiki-js-bot ssh public key:
@@ -123,6 +114,31 @@
       - file: {{ sls }} cc-sre-wiki-js-bot ssh public key
 
 
+{{ sls }} repo:
+  git.latest:
+    - name: {{ pillar.wikijs.git_url }}
+    - target: {{ WIKI_DIR }}/repo
+    - user: wikijs
+    - identity: /srv/wikijs/{{ pillar.wikijs.git_ssh_key }}
+    - require:
+      - user: {{ sls }} user
+      - file: {{ sls }} cc-sre-wiki-js-bot ssh private key
+    - require_in:
+      - file: {{ sls }} config file
+
+
+{{ sls }} config file:
+  file.managed:
+    - name: {{ WIKI_DIR }}/config.yml
+    - source: salt://wikijs/files/config.yml
+    - template: jinja
+    - group: wikijs
+    - mode: '0440'
+    # see require_in directives above
+    - watch_in:
+      - service: {{ sls }} service
+
+
 {{ sls }} symlink pmwiki dir:
   file.symlink:
     - name: /srv/wikijs
@@ -130,7 +146,6 @@
     - force: True
     - require:
       - file: {{ sls }} config file
-      - file: {{ sls }} cc-sre-wiki-js-bot ssh private key
 
 
 {{ sls }} install service:
