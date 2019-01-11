@@ -16,7 +16,7 @@ title: Creative Commons Wiki
 # ---------------------------------------------------------------------
 # INCLUDE CLIENT PORT IF NOT 80/443!
 
-host: http://localhost:8080
+host: https://wikijs.creativecommons.org
 
 # ---------------------------------------------------------------------
 # Port the main server should listen to (80 by default)
