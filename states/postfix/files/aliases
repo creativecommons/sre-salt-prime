@@ -1,7 +1,7 @@
 # See man 5 aliases for format
-postmaster:  sre+root@creativecommons.org
-root:        sre+root@creativecommons.org
-webmaster:   sre+root@creativecommons.org
+postmaster:  {{ pillar.postfix.root_mail }}
+root:        {{ pillar.postfix.root_mail }}
+webmaster:   {{ pillar.postfix.root_mail }}
 
 {% for admin in pillar.user.admins.keys() -%}
 {% set mail = pillar.user.admins[admin]["mail"] -%}
