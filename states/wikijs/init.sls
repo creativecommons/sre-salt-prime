@@ -76,7 +76,7 @@ include:
     - unless:
       - test -f {{ WIKI_DIR }}/config.yml
 
-
+# Modify server file
 # https://github.com/Requarks/wiki-v1/issues/52#issuecomment-349194585
 {{ sls }} default write access for authenticated users:
   file.replace:
@@ -85,6 +85,41 @@ include:
     - repl: "role: 'write',"
     - require:
       - archive: {{ sls }} extract build archive
+    - require_in:
+      - file: {{ sls }} config file
+
+
+# Modify server file - Improve page title: 1/3
+{{ sls }} layout - comment out top level title:
+  file.replace:
+    - name: {{ WIKI_DIR }}/server/views/layout.pug
+    - pattern: "^    title= appconfig.title"
+    - repl: "      //- title= appconfig.title"
+    - backup: False
+    - require:
+      - archive: {{ sls }} extract build archive
+
+
+# Modify server file - Improve page title: 2/3
+{{ sls }} layout - add title to block head:
+  file.replace:
+    - name: {{ WIKI_DIR }}/server/views/layout.pug
+    - pattern: "block head\n\n"
+    - repl: "block head\n      title= appconfig.title\n\n"
+    - backup: False
+    - require:
+      - {{ sls }} layout - comment out top level title
+
+
+# Modify server file - Improve page title: 3/3
+{{ sls }} view - add block head with title:
+  file.replace:
+    - name: {{ WIKI_DIR }}/server/views/pages/view.pug
+    - pattern: "extends ../layout.pug\n\n"
+    - repl: "extends ../layout.pug\n\nblock head\n  title= pageData.meta.path + ' - ' + appconfig.title\n\n"
+    - backup: False
+    - require:
+      - {{ sls }} layout - add title to block head
     - require_in:
       - file: {{ sls }} config file
 
