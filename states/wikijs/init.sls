@@ -194,7 +194,7 @@ include:
 
 
 {{ sls }} repo:
-  git.latest:
+  git.cloned:
     - name: {{ pillar.wikijs.git_url }}
     - target: {{ WIKI_DIR }}/repo
     - user: wikijs
