@@ -112,16 +112,20 @@ include:
 
 
 # Modify server file - Improve page title: 3/3
-{{ sls }} view - add block head with title:
+{% for page in ["edit", "source", "view"] -%}
+{{ sls }} {{ page }} - add block head with title:
   file.replace:
-    - name: {{ WIKI_DIR }}/server/views/pages/view.pug
-    - pattern: "extends ../layout.pug\n\n"
-    - repl: "extends ../layout.pug\n\nblock head\n  title= pageData.meta.path + ' - ' + appconfig.title\n\n"
+    - name: {{ WIKI_DIR }}/server/views/pages/{{ page }}.pug
+    - pattern: "extends ../layout.pug\n\n(mixin|block rootNavCenter)"
+    - repl: "extends ../layout.pug\n\nblock head\n  title= pageData.meta.path + ' - ' + appconfig.title\n\n\\1"
     - backup: False
     - require:
       - {{ sls }} layout - add title to block head
     - require_in:
       - file: {{ sls }} config file
+
+
+{% endfor -%}
 
 
 {% for dir in WIKIJS_DIRS -%}
