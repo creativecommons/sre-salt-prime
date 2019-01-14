@@ -104,8 +104,8 @@ include:
 {{ sls }} layout - add title to block head:
   file.replace:
     - name: {{ WIKI_DIR }}/server/views/layout.pug
-    - pattern: "block head\n\n"
-    - repl: "block head\n      title= appconfig.title\n\n"
+    - pattern: "(block head\n)\n"
+    - repl: "\\1      title= appconfig.title\n\n"
     - backup: False
     - require:
       - {{ sls }} layout - comment out top level title
@@ -116,8 +116,8 @@ include:
 {{ sls }} {{ page }} - add block head with title:
   file.replace:
     - name: {{ WIKI_DIR }}/server/views/pages/{{ page }}.pug
-    - pattern: "extends ../layout.pug\n\n(mixin|block rootNavCenter)"
-    - repl: "extends ../layout.pug\n\nblock head\n  title= pageData.meta.path + ' - ' + appconfig.title\n\n\\1"
+    - pattern: "(extends [.][.]/layout[.]pug\n)\n(mixin|block rootNavCenter)"
+    - repl: "\\1\nblock head\n  title= pageData.meta.path + ' - ' + appconfig.title\n\n\\2"
     - backup: False
     - require:
       - {{ sls }} layout - add title to block head
@@ -126,6 +126,29 @@ include:
 
 
 {% endfor -%}
+
+
+# Modify server file - add custom CSS: 1/2
+{{ sls }} add custom.css:
+  file.managed:
+    - name: {{ WIKI_DIR }}/assets/custom.css
+    - source: salt://wikijs/files/custom.css
+    - mode: '0444'
+    - require:
+      - archive: {{ sls }} extract build archive
+
+
+# Modify server file - add custom CSS: 2/2
+{{ sls }} layout - add custom CSS link:
+  file.replace:
+    - name: {{ WIKI_DIR }}/server/views/layout.pug
+    - pattern: "(script[(][^)]+[)]\n)\n"
+    - repl: "\\1    link(rel='stylesheet', href=appconfig.host + '/custom.css')\n\n"
+    - backup: False
+    - require:
+      - file: {{ sls }} add custom.css
+    - require_in:
+      - file: {{ sls }} config file
 
 
 {% for dir in WIKIJS_DIRS -%}

@@ -1,0 +1,4 @@
+/* Use monospace font while edit area */
+div.CodeMirror-code {
+    font-family:monospace;
+}
