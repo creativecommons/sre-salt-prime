@@ -1,0 +1,9 @@
+# See man 5 aliases for format
+postmaster:  sre+root@creativecommons.org
+root:        sre+root@creativecommons.org
+webmaster:   sre+root@creativecommons.org
+
+{% for admin in pillar.user.admins.keys() -%}
+{% set mail = pillar.user.admins[admin]["mail"] -%}
+{{ admin }}:  {{ mail }}
+{% endfor -%}

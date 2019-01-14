@@ -28,6 +28,7 @@
   'pmwiki__*':
     - pmwiki
     - pmwiki.secrets
+    - postfix.secrets
   'wikijs__*':
     - wikijs
     - wikijs.secrets

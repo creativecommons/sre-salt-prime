@@ -1,0 +1,33 @@
+# Helpful Documentation:
+#   http://www.postfix.org/postconf.5.html
+#   http://www.postfix.org/DATABASE_README.html
+
+#myorigin = /etc/mailname
+#myhostname = $myorigin
+
+alias_database = hash:/etc/aliases
+alias_maps = hash:/etc/aliases
+append_dot_mydomain = no
+biff = no
+compatibility_level = 2
+header_size_limit = 4096000
+inet_interfaces = loopback-only
+inet_protocols = all
+local_transport = error:local delivery is disabled
+mydestination = $myhostname, localhost.$mydomain, localhost
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+recipient_delimiter = +
+relayhost = {{ pillar.postfix.relayhost }}
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options = noanonymous
+smtp_sasl_tls_security_options = noanonymous
+smtp_tls_security_level = encrypt
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
+smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+
+#smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+#smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+#smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+#smtpd_use_tls=yes

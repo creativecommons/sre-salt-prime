@@ -1,3 +1,7 @@
+include:
+  - user.secrets
+
+
 user:
   admin_groups:
     - adm
@@ -10,16 +14,9 @@ user:
     - plugdev
     - sudo
     - video
-  admins:
-    timidrobot:
-      id: 2000
-      fullname: Timid Robot Zheta
-      shell: /bin/bash
-    alden:
-      id: 2001
-      fullname: Alden Page
-      shell: /bin/bash
-    kgodey:
-      id: 2002
-      fullname: Kriti Godey
-      shell: /bin/bash
+#  admins:
+#    arthur:
+#      id: 4242
+#      fullname: Arthur Dent
+#      mail: arthurdent@creativecommons.org
+#      shell: /bin/bash

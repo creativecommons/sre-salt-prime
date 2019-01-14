@@ -8,7 +8,8 @@
     - vim
   'bastion__core__us-east-2':
     - salt.proxy
-#  'pmwiki__*__*':
+  'pmwiki__*__*':
+    - postfix
 #    - apache2
 #    - apache2.pmwiki
 #    - lencrypt
