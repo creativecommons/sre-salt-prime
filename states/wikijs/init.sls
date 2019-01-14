@@ -113,11 +113,16 @@ include:
 
 # Modify server file - Improve page title: 3/3
 {% for page in ["edit", "source", "view"] -%}
+{% if page == "edit" -%}
+{% set x = "'*' + " -%}
+{% else -%}
+{% set x = "" -%}
+{% endif -%}
 {{ sls }} {{ page }} - add block head with title:
   file.replace:
     - name: {{ WIKI_DIR }}/server/views/pages/{{ page }}.pug
     - pattern: "(extends [.][.]/layout[.]pug\n)\n(mixin|block rootNavCenter)"
-    - repl: "\\1\nblock head\n  title= pageData.meta.path + ' - ' + appconfig.title\n\n\\2"
+    - repl: "\\1\nblock head\n  title= {{ x }}pageData.meta.path + ' - ' + appconfig.title\n\n\\2"
     - backup: False
     - require:
       - {{ sls }} layout - add title to block head
