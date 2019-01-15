@@ -10,6 +10,7 @@
   '*':
     # Global (all Minions)
     - letsencrypt
+    - postfix.secrets
     - salt
     - user
     - user.passwords.*
@@ -28,7 +29,6 @@
   'pmwiki__*':
     - pmwiki
     - pmwiki.secrets
-    - postfix.secrets
   'wikijs__*':
     - wikijs
     - wikijs.secrets

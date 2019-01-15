@@ -2,6 +2,7 @@
 postmaster:  {{ pillar.postfix.root_mail }}
 root:        {{ pillar.postfix.root_mail }}
 webmaster:   {{ pillar.postfix.root_mail }}
+www-data:    {{ pillar.postfix.root_mail }}
 
 {% for admin in pillar.user.admins.keys() -%}
 {% set mail = pillar.user.admins[admin]["mail"] -%}

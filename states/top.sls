@@ -1,6 +1,7 @@
 {{ saltenv }}:
   '*':
     - common
+    - postfix
     - salt
     - ssh
     - sudo
@@ -8,8 +9,7 @@
     - vim
   'bastion__core__us-east-2':
     - salt.proxy
-  'pmwiki__*__*':
-    - postfix
+#  'pmwiki__*__*':
 #    - apache2
 #    - apache2.pmwiki
 #    - lencrypt
