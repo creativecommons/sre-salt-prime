@@ -12,7 +12,7 @@
 {% set P_LOC = pillar["infra"][LOC] -%}
 {% set P_POD = P_LOC[POD] -%}
 
-{% if pillar.kms_key_storage -%}
+{% if "kms_key_storage" in pillar -%}
 {% set KMS_KEY_STORAGE = pillar.kms_key_storage -%}
 {% else -%}
 {% set ACCOUNT_ID = salt.boto_iam.get_account_id() -%}
@@ -37,10 +37,11 @@
     - subnet_name: {{ subnet_name }}
     - private_ip_address: {{ P_POD["host_ips"][HST] }}
     - groups:
-      - pingtrace-all_core_secgroup
-      - ssh-from-salt-prime_core_secgroup
-      - ssh-from-bastion_core_secgroup
-      - web-all_core_secgroup
+{%- set id_host = ("infra:{}:{}:web_secgroups:{}".format(LOC, POD, HST)) -%}
+{% set secgroups_default =  P_POD.web_secgroups["default"] -%}
+{% for secgroup in salt["pillar.get"](id_host, secgroups_default) %}
+      - {{ secgroup -}}
+{% endfor %}
 
 
 {% set fqdn = (HST, "creativecommons.org")|join(".") -%}
