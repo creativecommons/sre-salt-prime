@@ -1,8 +1,8 @@
 infra:
   us-east-2:
     # url: https://wiki.debian.org/Cloud/AmazonEC2Image/Stretch
-    debian_ami_name: debian-stretch-hvm-x86_64-gp2-2018-11-10-63975
-    debian_ami_id: ami-08e2234d40f32eb5c
+    debian_ami_name: debian-stretch-hvm-x86_64-gp2-2019-01-14-59254
+    debian_ami_id: ami-0b8193ae73862dccd
     instance_iam_role: ec2_core_iam_role
     kms_key_id_storage: storage_core_kmskey
     vendor: aws
