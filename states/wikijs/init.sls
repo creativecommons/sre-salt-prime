@@ -76,6 +76,7 @@ include:
     - unless:
       - test -f {{ WIKI_DIR }}/config.yml
 
+
 # Modify server file
 # https://github.com/Requarks/wiki-v1/issues/52#issuecomment-349194585
 {{ sls }} default write access for authenticated users:
@@ -88,6 +89,8 @@ include:
       - archive: {{ sls }} extract build archive
     - require_in:
       - file: {{ sls }} config file
+    - watch_in:
+      - service: {{ sls }} service
 
 
 # Modify server file - Improve page title: 1/3
