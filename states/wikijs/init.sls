@@ -83,6 +83,7 @@ include:
     - name: {{ WIKI_DIR }}/server/models/user.js
     - pattern: "role: 'read',"
     - repl: "role: 'write',"
+    - backup: False
     - require:
       - archive: {{ sls }} extract build archive
     - require_in:
