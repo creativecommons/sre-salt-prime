@@ -37,7 +37,7 @@
   boto_secgroup.present:
     - region: {{ LOC }}
     - name: {{ name }}
-    - description: Allow SSH) from salt-prime
+    - description: Allow SSH from salt-prime
     - vpc_name: {{ P_LOC.vpc.name }}
     - rules:
       - ip_protocol: tcp
