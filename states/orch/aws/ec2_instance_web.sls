@@ -37,10 +37,10 @@
     - subnet_name: {{ subnet_name }}
     - private_ip_address: {{ P_POD["host_ips"][HST] }}
     - groups:
-        - pingtrace-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
-        - web-all_core_secgroup
+      - pingtrace-all_core_secgroup
+      - ssh-from-salt-prime_core_secgroup
+      - ssh-from-bastion_core_secgroup
+      - web-all_core_secgroup
 
 
 {% set fqdn = (HST, "creativecommons.org")|join(".") -%}
@@ -68,7 +68,7 @@
     - network_interface_name: {{ name_eni }}
     {{ aws.tags(ident) }}
     - require:
-        - boto_ec2: {{ name_eni }}
+      - boto_ec2: {{ name_eni }}
 
 
 {% set ident = ["{}-xvdf".format(HST), POD, "ebs"] -%}
@@ -85,4 +85,4 @@
     - encrypted: True
     - kms_key_id: {{ KMS_KEY_STORAGE }}
     - require:
-        - boto_ec2: {{ name_instance }}
+      - boto_ec2: {{ name_instance }}
