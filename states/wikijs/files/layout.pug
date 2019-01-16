@@ -27,7 +27,7 @@ html
     link(rel='stylesheet', href=appconfig.host + '/custom.css')
 
     block head
-      if pageData.meta.path
+      if pageData && pageData.meta && pageData.meta.path
         title= pageData.meta.path + ' - ' + appconfig.title
       else
         title= appconfig.title

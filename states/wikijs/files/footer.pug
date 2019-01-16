@@ -1,6 +1,6 @@
 footer.footer(class=['is-' + appconfig.theme.footer], ref='footer')
   span
-    if pageData.meta.path
+    if pageData && pageData.meta && pageData.meta.path
       = pageData.meta.path + ' - ' + appconfig.title
     else
       = appconfig.title
