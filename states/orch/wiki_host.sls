@@ -9,7 +9,7 @@
 {% set TMP = "/srv/{}/states/orch/bootstrap/TEMP__{}".format(saltenv, MID) -%}
 {#{% set TMP = salt.temp.dir() %} -#}
 
-{% set P_LOC = pillar["infra"][LOC] -%}
+{% set P_LOC = pillar.infra[LOC] -%}
 {% set P_POD = P_LOC[POD] -%}
 
 {% set IP = P_POD["host_ips"][HST] -%}

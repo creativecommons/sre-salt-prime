@@ -12,7 +12,7 @@ sudo salt-run --state-output=full_id --state-verbose=True --log-level=debug --lo
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
 
-{% set P_LOC = pillar["infra"][LOC] -%}
+{% set P_LOC = pillar.infra[LOC] -%}
 {% set P_POD = P_LOC[POD] -%}
 
 

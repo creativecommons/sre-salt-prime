@@ -4,7 +4,7 @@
 {% set IP = pillar.tgt_ip -%}
 {% set TMP = pillar.tgt_tmp -%}
 
-{% set P_LOC = pillar["infra"][LOC] -%}
+{% set P_LOC = pillar.infra[LOC] -%}
 {% set P_POD = P_LOC[POD] -%}
 
 
