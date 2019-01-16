@@ -1,0 +1,13 @@
+footer.footer(class=['is-' + appconfig.theme.footer], ref='footer')
+  span
+    if pageData.meta.path
+      = pageData.meta.path + ' - ' + appconfig.title
+    else
+      = appconfig.title
+  span
+    = t('footer.poweredby') + ' '
+    a(href='https://github.com/Requarks/wiki-v1') Wiki.js Stable v1.x
+    | .
+  ul
+    li: a(href='/')= t('footer.home')
+    li: a(href='#root')= t('footer.top')

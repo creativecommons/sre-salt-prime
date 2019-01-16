@@ -1,8 +1,10 @@
 {% set VERSION = pillar.wikijs.version -%}
 
 {% set WIKI_DIR = "/srv/wikijs-{}".format(VERSION) -%}
+{% set CUSTOM_DIR = [WIKI_DIR, "custom"]|join("/") -%}
 {% set ARCHIVE_URL = "https://github.com/Requarks/wiki/releases/download" -%}
 {% set WIKIJS_DIRS = [".pm2", ".ssh", "data", "logs", "repo"] -%}
+{% set NOW = None|strftime("%Y%m%d_%H%M%S") -%}
 
 
 include:
@@ -77,87 +79,113 @@ include:
       - test -f {{ WIKI_DIR }}/config.yml
 
 
-# Modify server file
-# https://github.com/Requarks/wiki-v1/issues/52#issuecomment-349194585
-{{ sls }} default write access for authenticated users:
-  file.replace:
-    - name: {{ WIKI_DIR }}/server/models/user.js
-    - pattern: "role: 'read',"
-    - repl: "role: 'write',"
-    - backup: False
+{{ sls }} custom directory:
+  file.directory:
+    - name: {{ CUSTOM_DIR }}
+    - mode: '0555'
     - require:
       - archive: {{ sls }} extract build archive
+
+
+{{ sls }} custom css:
+  file.managed:
+    - name: {{ CUSTOM_DIR }}/assets-custom.css
+    - source: salt://wikijs/files/custom.css
+    - mode: '0444'
+    - require:
+      - file: {{ sls }} custom directory
+
+
+{{ sls }} custom symlink css:
+  file.symlink:
+    - name: {{ WIKI_DIR }}/assets/custom.css
+    - target: ../custom/assets-custom.css
+    - force: True
+    - backupname: {{ CUSTOM_DIR }}//assets-custom.css.{{ NOW }}
+    - require:
+      - file: {{ sls }} custom css
+
+
+{{ sls }} custom layout.pug:
+  file.managed:
+    - name: {{ CUSTOM_DIR }}/server-views-layout.pug
+    - source: salt://wikijs/files/layout.pug
+    - mode: '0444'
+    - require:
+      - file: {{ sls }} custom directory
+      - file: {{ sls }} custom symlink css
+
+
+{{ sls }} custom symlink layout.pug:
+  file.symlink:
+    - name: {{ WIKI_DIR }}/server/views/layout.pug
+    - target: ../../custom/server-views-layout.pug
+    - force: True
+    - backupname: {{ CUSTOM_DIR }}/server-views-layout.pug.{{ NOW }}
+    - require:
+      - file: {{ sls }} custom layout.pug
+
+
+{{ sls }} custom edit.pug:
+  file.managed:
+    - name: {{ CUSTOM_DIR }}/server-views-pages-edit.pug
+    - source: salt://wikijs/files/edit.pug
+    - mode: '0444'
+    - require:
+      - file: {{ sls }} custom directory
+
+
+{{ sls }} custom symlink edit.pug:
+  file.symlink:
+    - name: {{ WIKI_DIR }}/server/views/pages/edit.pug
+    - target: ../../../custom/server-views-pages-edit.pug
+    - force: True
+    - backupname: {{ CUSTOM_DIR }}/server-views-pages-edit.pug.{{ NOW }}
+    - require:
+      - file: {{ sls }} custom edit.pug
+
+
+{{ sls }} custom footer.pug:
+  file.managed:
+    - name: {{ CUSTOM_DIR }}/server-views-common-footer.pug
+    - source: salt://wikijs/files/footer.pug
+    - mode: '0444'
+    - require:
+      - file: {{ sls }} custom directory
+
+
+{{ sls }} custom symlink footer.pug:
+  file.symlink:
+    - name: {{ WIKI_DIR }}/server/views/common/footer.pug
+    - target: ../../../custom/server-views-common-footer.pug
+    - force: True
+    - backupname: {{ CUSTOM_DIR }}/server-views-common-footer.pug.{{ NOW }}
+    - require:
+      - file: {{ sls }} custom footer.pug
+
+
+# https://github.com/Requarks/wiki-v1/issues/52#issuecomment-349194585
+{{ sls }} custom user.js:
+  file.managed:
+    - name: {{ CUSTOM_DIR }}/server-models-user.js
+    - source: salt://wikijs/files/user.js
+    - mode: '0444'
+    - require:
+      - file: {{ sls }} custom directory
+
+
+{{ sls }} custom symlink user.js:
+  file.symlink:
+    - name: {{ WIKI_DIR }}/server/models/user.js
+    - target: ../../custom/server-models-user.js
+    - force: True
+    - backupname: {{ CUSTOM_DIR }}/server-models-user.js.{{ NOW }}
+    - require:
+      - file: {{ sls }} custom user.js
     - require_in:
       - file: {{ sls }} config file
     - watch_in:
       - service: {{ sls }} service
-
-
-# Modify server file - Improve page title: 1/3
-{{ sls }} layout - comment out top level title:
-  file.replace:
-    - name: {{ WIKI_DIR }}/server/views/layout.pug
-    - pattern: "^    title= appconfig.title"
-    - repl: "      //- title= appconfig.title"
-    - backup: False
-    - require:
-      - archive: {{ sls }} extract build archive
-
-
-# Modify server file - Improve page title: 2/3
-{{ sls }} layout - add title to block head:
-  file.replace:
-    - name: {{ WIKI_DIR }}/server/views/layout.pug
-    - pattern: "(block head\n)\n"
-    - repl: "\\1      title= appconfig.title\n\n"
-    - backup: False
-    - require:
-      - {{ sls }} layout - comment out top level title
-
-
-# Modify server file - Improve page title: 3/3
-{% for page in ["edit", "source", "view"] -%}
-{% if page == "edit" -%}
-{% set x = "'*' + " -%}
-{% else -%}
-{% set x = "" -%}
-{% endif -%}
-{{ sls }} {{ page }} - add block head with title:
-  file.replace:
-    - name: {{ WIKI_DIR }}/server/views/pages/{{ page }}.pug
-    - pattern: "(extends [.][.]/layout[.]pug\n)\n(mixin|block rootNavCenter)"
-    - repl: "\\1\nblock head\n  title= {{ x }}pageData.meta.path + ' - ' + appconfig.title\n\n\\2"
-    - backup: False
-    - require:
-      - {{ sls }} layout - add title to block head
-    - require_in:
-      - file: {{ sls }} config file
-
-
-{% endfor -%}
-
-
-# Modify server file - add custom CSS: 1/2
-{{ sls }} add custom.css:
-  file.managed:
-    - name: {{ WIKI_DIR }}/assets/custom.css
-    - source: salt://wikijs/files/custom.css
-    - mode: '0444'
-    - require:
-      - archive: {{ sls }} extract build archive
-
-
-# Modify server file - add custom CSS: 2/2
-{{ sls }} layout - add custom CSS link:
-  file.replace:
-    - name: {{ WIKI_DIR }}/server/views/layout.pug
-    - pattern: "(script[(][^)]+[)]\n)\n"
-    - repl: "\\1    link(rel='stylesheet', href=appconfig.host + '/custom.css')\n\n"
-    - backup: False
-    - require:
-      - file: {{ sls }} add custom.css
-    - require_in:
-      - file: {{ sls }} config file
 
 
 {% for dir in WIKIJS_DIRS -%}
