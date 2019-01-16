@@ -9,14 +9,15 @@
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
 
-{% set P_LOC = pillar["infra"][LOC] -%}
+{% set P_SLS = pillar.infra[sls] -%}
+{% set P_LOC = pillar.infra[LOC] -%}
 {% set P_POD = P_LOC[POD] -%}
 
 {% if "kms_key_storage" in pillar -%}
 {% set KMS_KEY_STORAGE = pillar.kms_key_storage -%}
 {% else -%}
 {% set ACCOUNT_ID = salt.boto_iam.get_account_id() -%}
-# The region must NOT be omitted from the KMS Key ID
+{# The region must NOT be omitted from the KMS Key ID -#}
 {% set KMS_KEY_STORAGE = ["arn:aws:kms:us-east-2:", ACCOUNT_ID,
                           ":alias/", P_LOC.kms_key_id_storage]|join("") -%}
 {% endif -%}
@@ -37,9 +38,9 @@
     - subnet_name: {{ subnet_name }}
     - private_ip_address: {{ P_POD["host_ips"][HST] }}
     - groups:
-{%- set id_host = ("infra:{}:{}:web_secgroups:{}".format(LOC, POD, HST)) -%}
-{% set secgroups_default =  P_POD.web_secgroups["default"] -%}
-{% for secgroup in salt["pillar.get"](id_host, secgroups_default) %}
+{%- set secgroups_key = ("infra:{}:secgroups:{}".format(sls, HST)) -%}
+{% set secgroups_default = P_SLS["secgroups"]["default"] -%}
+{% for secgroup in salt["pillar.get"](secgroups_key, secgroups_default) %}
       - {{ secgroup -}}
 {% endfor %}
 
@@ -60,7 +61,10 @@
         hostname: {{ HST }}
         fqdn: {{ fqdn }}
         manage_etc_hosts: localhost
-    - instance_type: t3.small
+{%- set type_key = ("infra:{}:instance_type:{}".format(sls, HST)) -%}
+{% set type_default = P_SLS["instance_type"]["default"] -%}
+{% set instance_type = salt["pillar.get"](type_key, type_default) %}
+    - instance_type: {{ instance_type }}
     - placement: {{ P_POD.subnets.dmz.az }}
     - vpc_name: {{ P_LOC.vpc.name }}
     - monitoring_enabled: True
@@ -81,7 +85,10 @@
     - volume_name: {{ name }}
     - instance_name: {{ name_instance }}
     - device: xvdf
-    - size: 10
+{%- set size_key = ("infra:{}:ebs_size:{}".format(sls, HST)) -%}
+{% set size_default = P_SLS["ebs_size"]["default"] -%}
+{% set ebs_size = salt["pillar.get"](size_key, size_default) %}
+    - size: {{ ebs_size }}
     - volume_type: gp2
     - encrypted: True
     - kms_key_id: {{ KMS_KEY_STORAGE }}
