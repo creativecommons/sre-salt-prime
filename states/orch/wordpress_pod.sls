@@ -75,7 +75,25 @@
         interval: 5
 
 
-# TODO: RDS
+{{ sls }} orch.aws.rds_wordpress:
+  salt.state:
+    - tgt: {{ pillar.location.salt_prime_id }}
+    - sls: orch.aws.rds_wordpress
+    - saltenv: {{ saltenv }}
+    - kwarg:
+      pillar:
+        tgt_hst: {{ HST }}
+        tgt_pod: {{ POD }}
+        tgt_loc: {{ LOC }}
+        kms_key_storage: {{ KMS_KEY_STORAGE }}
+    - require:
+      - salt: {{ sls }} orch.aws.secgroup_wordpress
+{#
+    - retry:
+        attempts: 3
+        interval: 5
+#}
+
 
 # TODO: CloudFront
 
