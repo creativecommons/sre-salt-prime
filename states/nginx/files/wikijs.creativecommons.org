@@ -24,4 +24,10 @@ server {
         proxy_set_header Connection "upgrade";
         proxy_next_upstream error timeout http_502 http_503 http_504;
     }
+
+    # Enable letsencrypt authorization
+    location /.well-known {
+        default_type "text/plain";
+        root /var/www/html;
+    }
 }
