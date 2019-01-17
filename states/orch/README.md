@@ -9,13 +9,13 @@
 The following command does a test orchestration run of
 [`wiki_host.sls`](wiki_host.sls):
 ```shell
-sudo salt-run state.orchestrate orch.pmwiki \
-    pillar='{"tgt_hst":"pmwiki", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
+sudo salt-run state.orchestrate orch.wiki_host \
+    pillar='{"tgt_hst":"wikijs", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
     saltenv=timidrobot test=True
 ```
 - `pillar=` is required
   - Infrastructure creation is targeted with CLI pillar
-    (`pillar='{"tgt_hst":"pmwiki", "tgt_pod":"core", "tgt_loc":"us-east-2"}'`)
+    (`pillar='{"tgt_hst":"wikijs", "tgt_pod":"core", "tgt_loc":"us-east-2"}'`)
 - `saltenv=` is optional
   - The command above uses Pillars and States from a development environment
     (`saltenv=timidrobot`). Remove or change to `base` to use production
@@ -30,9 +30,9 @@ sudo salt-run state.orchestrate orch.pmwiki \
 The following command does a local test run of
 [`aws/ec2_instance_web.sls`](aws/ec2_instance_web.sls):
 ```shell
-sudo salt-call --log-level=debug --log-file-level=warning --local state.apply \
-    orch.aws.instance_pmwiki \
-    pillar='{"tgt_hst":"pmwiki", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
+sudo salt-call --log-level=debug --log-file-level=warning --local \
+    state.apply orch.aws.instance_wikijs \
+    pillar='{"tgt_hst":"wikijs", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
     saltenv=timidrobot test=True
 ```
 - Using `salt-call` to run individual states can aid in the troubleshooting of
