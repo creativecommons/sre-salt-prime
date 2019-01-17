@@ -17,3 +17,6 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-chapters_core_secgroup
+    subnet:
+      default: dmz
+      chapters: private-one

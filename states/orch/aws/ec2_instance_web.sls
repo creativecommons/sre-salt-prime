@@ -21,6 +21,10 @@
 {% set KMS_KEY_STORAGE = ["arn:aws:kms:us-east-2:", ACCOUNT_ID,
                           ":alias/", P_LOC.kms_key_id_storage]|join("") -%}
 {% endif -%}
+{% set subnet_key = ("infra:{}:subnet:{}".format(sls, HST)) -%}
+{% set subnet_default = P_SLS["subnet"]["default"] -%}
+{% set SUBNET = salt["pillar.get"](subnet_key, subnet_default) %}
+{% set SUBNET_NAME = [SUBNET, POD, "subnet"]|join("_") -%}
 
 
 ### EC2 Instance
@@ -29,13 +33,12 @@
 {% set ident = [HST, POD, "secgroup"] -%}
 {% set name = ident|join("_") -%}
 {% set name_eni = name -%}
-{% set subnet_name = ["dmz", POD, "subnet"]|join("_") -%}
 {{ name }}:
   boto_ec2.eni_present:
     - region: {{ LOC }}
     - name: {{ name }}
     - description: {{ POD }} {{ HST }} ENI in {{ LOC }}
-    - subnet_name: {{ subnet_name }}
+    - subnet_name: {{ SUBNET_NAME }}
     - private_ip_address: {{ P_POD["host_ips"][HST] }}
     - groups:
 {%- set secgroups_key = ("infra:{}:secgroups:{}".format(sls, HST)) -%}
@@ -65,7 +68,7 @@
 {% set type_default = P_SLS["instance_type"]["default"] -%}
 {% set instance_type = salt["pillar.get"](type_key, type_default) %}
     - instance_type: {{ instance_type }}
-    - placement: {{ P_POD.subnets.dmz.az }}
+    - placement: {{ P_POD.subnets[SUBNET]["az"] }}
     - vpc_name: {{ P_LOC.vpc.name }}
     - monitoring_enabled: True
     - instance_initiated_shutdown_behavior: stop
