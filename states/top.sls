@@ -9,6 +9,8 @@
     - vim
   'bastion__core__us-east-2':
     - salt.proxy
+  'chapters__*__*':
+    - mount
 #  'pmwiki__*__*':
 #    - apache2
 #    - apache2.pmwiki
