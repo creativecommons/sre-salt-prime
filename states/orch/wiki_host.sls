@@ -59,7 +59,18 @@
         interval: 5
 
 
-# Phase Two: Bootstrap (skipped if minion is already live)
+# Phase Two: Bootstrap
+# (skipped if minion public key has been accepted and minion is already live)
+
+
+{{ sls }} minion public key accepted:
+  salt.function:
+    - name: cmd.run
+    - tgt: {{ pillar.location.salt_prime_id }}
+    - arg:
+      - test -f /etc/salt/pki/master/minions/{{ MID }}
+    - require:
+      - salt: {{ sls }} orch.aws.ec2_instance_web
 
 
 {{ sls }} minion already up:
@@ -70,7 +81,9 @@
         attempts: 3
         interval: 5
     - require:
-      - salt: {{ sls }} orch.aws.ec2_instance_web
+      - salt: {{ sls }} minion public key accepted
+    - onlyif:
+      - test -f /etc/salt/pki/master/minions/{{ MID }}
 
 
 {{ sls }} salt-prime minion bootstrap prep:
@@ -85,9 +98,10 @@
         tgt_mid: {{ MID }}
         tgt_tmp: {{ TMP }}
         tgt_ip: {{ IP }}
-    # NOTE: onfail requires failhard: False
+    # NOTE: onfail_any requires failhard: False
     #       See: https://github.com/saltstack/salt/issues/20496
-    - onfail:
+    - onfail_any:
+      - salt: {{ sls }} minion public key accepted
       - salt: {{ sls }} minion already up
 
 
