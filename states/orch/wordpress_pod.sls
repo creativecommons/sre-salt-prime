@@ -35,9 +35,6 @@
       pillar:
         tgt_pod: {{ POD }}
         tgt_loc: {{ LOC }}
-    - retry:
-        attempts: 3
-        interval: 5
 
 
 {{ sls }} orch.aws.secgroup_wordpress:
@@ -52,9 +49,6 @@
         tgt_loc: {{ LOC }}
     - require:
       - salt: {{ sls }} orch.aws.common
-    - retry:
-        attempts: 3
-        interval: 5
 
 
 {{ sls }} orch.aws.ec2_instance_web:
@@ -70,9 +64,6 @@
         kms_key_storage: {{ KMS_KEY_STORAGE }}
     - require:
       - salt: {{ sls }} orch.aws.secgroup_wordpress
-    - retry:
-        attempts: 3
-        interval: 5
 
 
 {{ sls }} orch.aws.rds_wordpress:
@@ -88,9 +79,6 @@
         kms_key_storage: {{ KMS_KEY_STORAGE }}
     - require:
       - salt: {{ sls }} orch.aws.secgroup_wordpress
-    - retry:
-        attempts: 3
-        interval: 5
 
 
 # TODO: CloudFront
