@@ -88,11 +88,9 @@
         kms_key_storage: {{ KMS_KEY_STORAGE }}
     - require:
       - salt: {{ sls }} orch.aws.secgroup_wordpress
-{#
     - retry:
         attempts: 3
         interval: 5
-#}
 
 
 # TODO: CloudFront

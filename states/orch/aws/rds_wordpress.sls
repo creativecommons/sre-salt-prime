@@ -33,13 +33,9 @@
   boto_rds.subnet_group_present:
     - region: {{ LOC }}
     - name: {{ name }}
-    - description: "{{ POD }} {{ HST }} RDS Subnet Group in {{ LOC }}"
+    - description: {{ name }}
     - subnet_names:
-{%- set subnets_key = ("infra:{}:subnets:{}".format(sls, HST)) -%}
-{% set subnets_default = P_SLS["subnets"]["default"] -%}
-{% for subnet in salt["pillar.get"](subnets_key, subnets_default) %}
-      - {{ subnet -}}
-{% endfor %}
+{{ aws.infra_list(sls, "subnets", HST) }}
     {{ aws.tags(ident) }}
 
 
@@ -53,14 +49,41 @@
     - region: {{ LOC }}
     - name: {{ name }}
     - description: {{ ident|join("_") }}
-{%- set family_key = ("infra:{}:instance_family:{}".format(sls, HST)) -%}
-{% set family_default = P_SLS["family"]["default"] -%}
-{% set family = salt["pillar.get"](family_key, family_default) %}
-    - db_parameter_group_family: {{ family }}
+    - db_parameter_group_family: >-
+        {{ aws.infra_value(sls, "engine_family", HST) }}
     - parameters:
-{%- set params_key = ("infra:{}:parameters:{}".format(sls, HST)) -%}
-{% set params_default = P_SLS["parameters"]["default"] -%}
-{% for key, value in salt["pillar.get"](params_key, params_default).items() %}
-      - {{ key }}: {{ value -}}
-{% endfor %}
+{{ aws.infra_dictlist(sls, "parameters", HST) }}
+    {{ aws.tags(ident) }}
+
+
+# "[DBInstanceIdentifier] must begin with a letter; must contain only ASCII
+# letters, digits, and hyphens; and must not end with a hyphen or contain two
+# consecutive hyphens"
+{% set ident = [HST, POD, "rdsdb"] -%}
+{% set name = ident|join("-") -%}
+{{ name }}:
+  boto_rds.present:
+    - region: {{ LOC }}
+    - name: {{ name }}
+    - allocated_storage: {{ aws.infra_value(sls, "storage", HST) }}
+    - db_instance_class: {{ aws.infra_value(sls, "instance_class", HST) }}
+    - engine: {{ aws.infra_value(sls, "engine", HST) }}
+    - master_username: {{ aws.infra_value(sls, "primary_username", HST) }}
+    - master_user_password: {{ aws.infra_value(sls, "primary_password", HST) }}
+    - storage_type: gp2
+    - vpc_security_groups:
+{{ aws.infra_list(sls, "secgroups", HST) }}
+    - availability_zone: {{ P_POD.subnets["private-one"]["az"] }}
+    - db_subnet_group_name: {{ name_subnetgroup }}
+    - preferred_maintenance_window: Sun:06:00-Sun:07:00
+    - db_parameter_group_name: {{ name_parameter }}
+    - storage_encrypted: True
+    - kms_keyid: {{ KMS_KEY_STORAGE }}
+    - backup_retention_period: 35
+    - preferred_backup_window: 05:00-06:00
+    - port: 3306
+    - engine_version: {{ aws.infra_value(sls, "engine_version", HST) }}
+    - auto_minor_version_upgrade: True
+    - publicly_accessible: False
+    - wait_status: available
     {{ aws.tags(ident) }}

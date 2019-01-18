@@ -5,3 +5,31 @@
         Name: {{ name }}
         Pod: {{ pod }}
 {%- endmacro %}
+
+
+{% macro infra_dictlist(sls, path, requested) -%}
+{% set k_default = ("infra:{}:{}:default".format(sls, path)) -%}
+{% set k_requested = ("infra:{}:{}:{}".format(sls, path, requested)) -%}
+{% set v_default = salt["pillar.get"](k_default, "ERROR_infra_dictlist") -%}
+{% for key, value in salt["pillar.get"](k_requested, v_default).items() %}
+      - {{ key }}: {{ value -}}
+{% endfor %}
+{% endmacro -%}
+
+
+{% macro infra_list(sls, path, requested) -%}
+{% set k_default = ("infra:{}:{}:default".format(sls, path)) -%}
+{% set k_requested = ("infra:{}:{}:{}".format(sls, path, requested)) -%}
+{% set v_default = salt["pillar.get"](k_default, "ERROR_infra_dictlist") -%}
+{% for item in salt["pillar.get"](k_requested, v_default) %}
+      - {{ item -}}
+{% endfor %}
+{% endmacro -%}
+
+
+{% macro infra_value(sls, path, requested) -%}
+{% set k_default = ("infra:{}:{}:default".format(sls, path)) -%}
+{% set k_requested = ("infra:{}:{}:{}".format(sls, path, requested)) -%}
+{% set v_default = salt["pillar.get"](k_default, "ERROR_infra_value") -%}
+{{ salt["pillar.get"](k_requested, v_default) -}}
+{% endmacro -%}
