@@ -5,6 +5,10 @@
 {% set SITES_DISABLE = ["000-default.conf", "default-ssl.conf"] -%}
 
 
+include:
+  - apache2
+
+
 {{ sls }} installed packages:
   pkg.installed:
     - pkgs:
