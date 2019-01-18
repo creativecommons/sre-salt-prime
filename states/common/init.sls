@@ -13,4 +13,5 @@ include:
       - python-apt
       - rsync
       - silversearcher-ag
+      - time
       - tree
