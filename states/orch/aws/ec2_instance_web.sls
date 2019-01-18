@@ -60,7 +60,7 @@
         hostname: {{ HST }}
         fqdn: {{ fqdn }}
         manage_etc_hosts: localhost
-    - instance_type: {{ aws.infra_value(sls, "instance_type", HST) }} 
+    - instance_type: {{ aws.infra_value(sls, "instance_type", HST) }}
     - placement: {{ P_POD.subnets[SUBNET]["az"] }}
     - vpc_name: {{ P_LOC.vpc.name }}
     - monitoring_enabled: True
