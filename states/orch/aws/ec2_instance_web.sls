@@ -41,11 +41,7 @@
     - subnet_name: {{ SUBNET_NAME }}
     - private_ip_address: {{ P_POD["host_ips"][HST] }}
     - groups:
-{%- set secgroups_key = ("infra:{}:secgroups:{}".format(sls, HST)) -%}
-{% set secgroups_default = P_SLS["secgroups"]["default"] -%}
-{% for secgroup in salt["pillar.get"](secgroups_key, secgroups_default) %}
-      - {{ secgroup -}}
-{% endfor %}
+{{ aws.infra_list(sls, "secgroups", HST) }}
 
 
 {% set fqdn = (HST, "creativecommons.org")|join(".") -%}
@@ -64,10 +60,7 @@
         hostname: {{ HST }}
         fqdn: {{ fqdn }}
         manage_etc_hosts: localhost
-{%- set type_key = ("infra:{}:instance_type:{}".format(sls, HST)) -%}
-{% set type_default = P_SLS["instance_type"]["default"] -%}
-{% set instance_type = salt["pillar.get"](type_key, type_default) %}
-    - instance_type: {{ instance_type }}
+    - instance_type: {{ aws.infra_value(sls, "instance_type", HST) }} 
     - placement: {{ P_POD.subnets[SUBNET]["az"] }}
     - vpc_name: {{ P_LOC.vpc.name }}
     - monitoring_enabled: True
@@ -88,10 +81,7 @@
     - volume_name: {{ name }}
     - instance_name: {{ name_instance }}
     - device: xvdf
-{%- set size_key = ("infra:{}:ebs_size:{}".format(sls, HST)) -%}
-{% set size_default = P_SLS["ebs_size"]["default"] -%}
-{% set ebs_size = salt["pillar.get"](size_key, size_default) %}
-    - size: {{ ebs_size }}
+    - size: {{ aws.infra_value(sls, "ebs_size", HST) }}
     - volume_type: gp2
     - encrypted: True
     - kms_key_id: {{ KMS_KEY_STORAGE }}
