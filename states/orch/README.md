@@ -27,10 +27,24 @@ sudo salt-run state.orchestrate orch.wiki_host \
 
 ### Troubleshooting with Salt-Call
 
-The following command does a local test run of
+
+#### Local Render
+
+The following command shows how the SLS is rendered and outputs it as YAML:
 [`aws/ec2_instance_web.sls`](aws/ec2_instance_web.sls):
 ```shell
-sudo salt-call --log-level=debug --log-file-level=warning --local \
+sudo salt-call --local --out=yaml state.show_sls orch.aws.instance_wikijs \
+    pillar='{"tgt_hst":"wikijs", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
+    saltenv=timidrobot
+```
+
+
+#### Local Apply
+
+The following command does a local test apply of
+[`aws/ec2_instance_web.sls`](aws/ec2_instance_web.sls):
+```shell
+sudo salt-call --local --log-level=debug --log-file-level=warning \
     state.apply orch.aws.instance_wikijs \
     pillar='{"tgt_hst":"wikijs", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
     saltenv=timidrobot test=True
