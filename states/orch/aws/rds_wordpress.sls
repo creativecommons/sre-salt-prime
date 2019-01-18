@@ -87,3 +87,6 @@
     - publicly_accessible: False
     - wait_status: available
     {{ aws.tags(ident) }}
+    - require:
+      - boto_rds: {{ name_parameter }}
+      - boto_rds: {{ name_subnetgroup }}
