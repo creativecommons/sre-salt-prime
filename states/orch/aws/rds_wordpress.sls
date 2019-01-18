@@ -40,6 +40,7 @@
 {% for subnet in salt["pillar.get"](subnets_key, subnets_default) %}
       - {{ subnet -}}
 {% endfor %}
+    {{ aws.tags(ident) }}
 
 
 # RDS Parameter groups "Must contain only letters, digits, or hyphens".
