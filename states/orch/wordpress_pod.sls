@@ -81,7 +81,20 @@
       - salt: {{ sls }} orch.aws.secgroup_wordpress
 
 
-# TODO: CloudFront
+{#
+{{ sls }} orch.aws.cloudfront_wordpress:
+  salt.state:
+    - tgt: {{ pillar.location.salt_prime_id }}
+    - sls: orch.aws.cloudfront_wordpress
+    - saltenv: {{ saltenv }}
+    - kwarg:
+      pillar:
+        tgt_hst: {{ HST }}
+        tgt_pod: {{ POD }}
+        tgt_loc: {{ LOC }}
+    - require:
+      - salt: {{ sls }} orch.aws.ec2_instance_web
+#}
 
 
 # Phase Two: Bootstrap
