@@ -10,9 +10,9 @@
   'bastion__core__us-east-2':
     - salt.proxy
   'chapters__*__*':
+    - apache2
     - mount
 #  'pmwiki__*__*':
-#    - apache2
 #    - apache2.pmwiki
 #    - lencrypt
 #    - mount
