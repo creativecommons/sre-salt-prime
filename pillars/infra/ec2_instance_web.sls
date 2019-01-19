@@ -1,5 +1,8 @@
 infra:
   orch.aws.ec2_instance_web:
+    allocate_eip:
+      default: ~
+      chapters: vpc
     ebs_size:
       default: 10
       chapters: 334
@@ -19,4 +22,4 @@ infra:
         - web-all-chapters_core_secgroup
     subnet:
       default: dmz
-      chapters: private-one
+      chapters: dmz

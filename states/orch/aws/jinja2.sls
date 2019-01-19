@@ -31,5 +31,10 @@
 {% set k_default = ("infra:{}:{}:default".format(sls, path)) -%}
 {% set k_requested = ("infra:{}:{}:{}".format(sls, path, requested)) -%}
 {% set v_default = salt["pillar.get"](k_default, "ERROR_infra_value") -%}
-{{ salt["pillar.get"](k_requested, v_default) -}}
+{% set value  = salt["pillar.get"](k_requested, v_default) -%}
+{% if value is none -%}
+{{ "~" -}}
+{% else -%}
+{{ value -}}
+{% endif -%}
 {% endmacro -%}

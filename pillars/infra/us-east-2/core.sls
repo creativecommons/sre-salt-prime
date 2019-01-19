@@ -9,9 +9,9 @@ infra:
         bastion:      10.22.10.10
         pmwiki:       10.22.10.11
         wikijs:       10.22.10.12
+        chapters:     10.22.10.14
         # Private-One 10.22.11.0
         salt-prime:   10.22.11.11
-        chapters:     10.22.11.12
         # Private-Two 10.22.12.0
       subnets:
         dmz:

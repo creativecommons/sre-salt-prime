@@ -21,9 +21,7 @@
 {% set KMS_KEY_STORAGE = ["arn:aws:kms:us-east-2:", ACCOUNT_ID,
                           ":alias/", P_LOC.kms_key_id_storage]|join("") -%}
 {% endif -%}
-{% set subnet_key = ("infra:{}:subnet:{}".format(sls, HST)) -%}
-{% set subnet_default = P_SLS["subnet"]["default"] -%}
-{% set SUBNET = salt["pillar.get"](subnet_key, subnet_default) %}
+{% set SUBNET = aws.infra_value(sls, "subnet", HST) -%}
 {% set SUBNET_NAME = [SUBNET, POD, "subnet"]|join("_") -%}
 
 
@@ -41,7 +39,8 @@
     - subnet_name: {{ SUBNET_NAME }}
     - private_ip_address: {{ P_POD["host_ips"][HST] }}
     - groups:
-{{ aws.infra_list(sls, "secgroups", HST) }}
+{{- aws.infra_list(sls, "secgroups", HST) }}{{ "    " -}}
+    - allocate_eip: {{ aws.infra_value(sls, "allocate_eip", HST) }}
 
 
 {% set fqdn = (HST, "creativecommons.org")|join(".") -%}
