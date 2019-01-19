@@ -18,10 +18,38 @@
       - group: {{ sls }} {{ username }} group
 
 
+{# This assumes a Debian osrelease_info -#}
+{% if ("ed25519" in userdata.sshpub and
+       grains["saltversioninfo"][0] > 2014 and
+       grains["osrelease_info"][0] > 7) -%}
+{% for pubkey in userdata.sshpub.ed25519 -%}
+{{ sls }} {{ username }} sshauth ed25519 {{ loop.index }}:
+  ssh_auth:
+    - present
+    - user: {{ username }}
+    - enc: ed25519
+    - source: salt://user/files/{{ pubkey }}
+    - require:
+      - user: {{ sls }} {{ username }} user
+
+
 {% endfor -%}
+{% else -%}
+{% for pubkey in userdata.sshpub.rsa -%}
+{{ sls }} {{ username }} sshauth rsa {{ loop.index }}:
+  ssh_auth:
+    - present
+    - user: {{ username }}
+    - enc: rsa
+    - source: salt://user/files/{{ pubkey }}
+    - require:
+      - user: {{ sls }} {{ username }} user
 
 
-{%- for group in pillar.user.admin_groups %}
+{% endfor -%}
+{% endif -%}
+{% endfor -%}
+{% for group in pillar.user.admin_groups -%}
 {{ sls }} {{ group }} group:
   group.present:
     - name: {{ group }}
@@ -35,45 +63,5 @@
       - user: {{ sls }} {{ admin }} user
 {%- endfor %}
 
-{% endfor %}
 
-{{ sls }} alden-rsa:
-  ssh_auth:
-    - present
-    - user: alden
-    - enc: rsa
-    - source: salt://user/files/alden_rsa_creativecommons.org.pub
-    - require:
-      - user: {{ sls }} alden user
-
-
-{{ sls }} kgodey-rsa:
-  ssh_auth:
-    - present
-    - user: kgodey
-    - enc: rsa
-    - source: salt://user/files/kgodey_rsa_kdogey_mayo.hilia.us.pub
-    - require:
-      - user: {{ sls }} kgodey user
-
-
-{% if (grains["saltversioninfo"][0] > 2014 and
-       grains["osrelease_info"][0] > 7) -%}
-{{ sls }} timidrobot-ed25519:
-  ssh_auth:
-    - present
-    - user: timidrobot
-    - enc: ed25519
-    - source: salt://user/files/timidrobot_ed25519_creativecommons_20181121.pub
-    - require:
-      - user: {{ sls }} timidrobot user
-{% else %}
-{{ sls }} timidrobot-rsa:
-  ssh_auth:
-    - present
-    - user: timidrobot
-    - enc: rsa
-    - source: salt://user/files/timidrobot_rsa_creativecommons_20181018.pub
-    - require:
-      - user: {{ sls }} timidrobot user
-{% endif %}
+{% endfor -%}
