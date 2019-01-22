@@ -157,32 +157,6 @@ See [`states/orch/README.md`](states/orch/README.md).
 ## References
 
 
-### AWS
-
-- [AWS Resource Types Reference](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
-
-
-#### Region Selection
-
-- [Save yourself a lot of pain (and money) by choosing your AWS Region wisely - Concurrency Labs](https://www.concurrencylabs.com/blog/choose-your-aws-region-wisely/)
-
-
-#### WordPress on AWS
-
-- [Build a WordPress Website - AWS](https://aws.amazon.com/getting-started/projects/build-wordpress-website/) (version: last modified 2018-10-19)
-  - [WordPress: Best Practices on AWS](https://d0.awsstatic.com/whitepapers/wordpress-best-practices-on-aws.pdf) (PDF, 2018-02-12)
-
-
-### Cloud-Init
-
-- [Cloud config examples — Cloud-Init 18.4 documentation](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
-
-
-### Debian
-
-- [Cloud/AmazonEC2Image/Stretch - Debian Wiki](https://wiki.debian.org/Cloud/AmazonEC2Image/Stretch)
-
-
 ### SaltStack
 
 As of 2018-12-22, Debian Stretch's SaltStack packages are at version 2016.11.2.

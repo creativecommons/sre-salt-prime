@@ -56,10 +56,54 @@ sudo salt-call --local --log-level=debug --log-file-level=warning \
 
 ## References
 
-See [`../README.md`](..README.md) for information on SaltStack versions.
+
+### AWS
+
+- [AWS Resource Types Reference](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
 
 
-### Orchestration Documentation
+#### Region Selection
+
+- [Save yourself a lot of pain (and money) by choosing your AWS Region wisely - Concurrency Labs](https://www.concurrencylabs.com/blog/choose-your-aws-region-wisely/)
+
+
+#### WordPress on AWS
+
+- [Build a WordPress Website - AWS](https://aws.amazon.com/getting-started/projects/build-wordpress-website/) (version: last modified 2018-10-19)
+  - [WordPress: Best Practices on AWS](https://d0.awsstatic.com/whitepapers/wordpress-best-practices-on-aws.pdf) (PDF, 2018-02-12)
+
+
+### Cloud-Init
+
+- [Cloud config examples — Cloud-Init 18.4 documentation](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
+
+
+### Debian
+
+- [Cloud/AmazonEC2Image/Stretch - Debian Wiki](https://wiki.debian.org/Cloud/AmazonEC2Image/Stretch)
+
+
+### SaltStack
+
+See [`../README.md`](..README.md) for information on SaltStack versions and
+Best Practices.
+
+
+#### Module Documentation
+
+AWS orchestration (including bootstrap) makes use of the boto/boto3 state
+modules:
+- Salt Module Reference (**[latest][modulelatest]**, [2016.11][module2016])
+  - state modules (**[latest][statelatest]**, [2016.11][state2016])
+
+
+[modulelatest]: https://docs.saltstack.com/en/latest/ref/index.html
+[module2016]: https://docs.saltstack.com/en/2016.11/ref/index.html
+[statelatest]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
+[state2016]: https://docs.saltstack.com/en/2016.11/ref/states/all/index.html
+
+
+#### Orchestration Documentation
 
 - Orchestrate Runner (**[latest][orchlatest]**, [2016.11][orch2016])
 
@@ -68,7 +112,7 @@ See [`../README.md`](..README.md) for information on SaltStack versions.
 [orch2016]: https://docs.saltstack.com/en/2016.11/topics/orchestrate/orchestrate_runner.html
 
 
-### Orchestration Examples
+#### Orchestration Examples
 
 - [An example of a complex, multi-host Salt Orchestrate state that performs status checks as it goes][statechecks] (2017-08-11)
 - [Dynamic Test Servers with Salt | Lincoln Loop][lincoln]a (2017-09-12)
@@ -90,20 +134,6 @@ See [`../README.md`](..README.md) for information on SaltStack versions.
 [sysmgr]:https://aws.amazon.com/blogs/mt/running-salt-states-using-amazon-ec2-systems-manager/
 [boss]:https://medium.com/@anthonypjshaw/using-salt-to-boss-your-clouds-around-de2edb2f793d
 [sixfeet]:https://sixfeetup.com/blog/build-aws-vpc-with-saltstack
-
-
-### Module Documentation
-
-AWS orchestration (including bootstrap) makes use of the boto/boto3 state
-modules:
-- Salt Module Reference (**[latest][modulelatest]**, [2016.11][module2016])
-  - state modules (**[latest][statelatest]**, [2016.11][state2016])
-
-
-[modulelatest]: https://docs.saltstack.com/en/latest/ref/index.html
-[module2016]: https://docs.saltstack.com/en/2016.11/ref/index.html
-[statelatest]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
-[state2016]: https://docs.saltstack.com/en/2016.11/ref/states/all/index.html
 
 
 #### Boto State Module Examples
