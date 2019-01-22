@@ -250,11 +250,12 @@ include:
       - service: {{ sls }} service
 
 
-{{ sls }} symlink pmwiki dir:
+{{ sls }} symlink wikijs dir:
   file.symlink:
     - name: /srv/wikijs
     - target: wikijs-{{ VERSION }}
     - force: True
+    - backupname: /srv/wikijs.{{ NOW }}
     - require:
       - file: {{ sls }} config file
 
@@ -265,7 +266,7 @@ include:
     - source: salt://wikijs/files/wikijs.service
     - mode: '0444'
     - require:
-      - file: {{ sls }} symlink pmwiki dir
+      - file: {{ sls }} symlink wikijs dir
     - watch_in:
       - cmd: {{ sls }} systemd daemon-reload
       - service: {{ sls }} service
