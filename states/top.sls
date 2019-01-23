@@ -11,9 +11,10 @@
     - salt.proxy
   'chapters__*__*':
     - apache2
-    - composer
     - lencrypt
     - mount
+    - php.ng.composer
+    - php.ng.mysqlnd
 #  'pmwiki__*__*':
 #    - apache2.pmwiki
 #    - lencrypt
