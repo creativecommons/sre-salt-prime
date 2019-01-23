@@ -21,6 +21,8 @@
     # Host
     - '*.{{ HST }}'
   # Names/Roles
+  'chapters__*':
+    - php
   'salt-prime__*':
     # Orchestration Data
     - infra

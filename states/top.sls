@@ -13,6 +13,8 @@
     - apache2
     - lencrypt
     - mount
+    - php.ng.apache2
+    - php.ng.cli
     - php.ng.composer
     - php.ng.mysqlnd
 #  'pmwiki__*__*':
