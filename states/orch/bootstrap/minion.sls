@@ -40,7 +40,8 @@ include:
 
 {{ sls }} restart minion:
   cmd.run:
-    - name: nohup /usr/local/sbin/restart_minion.sh &
+    - name: nohup /usr/local/sbin/restart_minion.sh
+    - bg: True
     - onchanges:
       - file: {{ sls }} set minion id
       - file: {{ sls }} install public key
