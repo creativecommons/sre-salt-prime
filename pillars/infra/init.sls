@@ -1,7 +1,7 @@
 infra:
   github:
     ssh_key:
-      comment: saltstack_rsa_github_deploy_20190104
+      comment: cc-sre-salt-formulas-bot_rsa_github_20190123
   provisioning:
     ssh_key:
       aws_name: saltstack-rsa-provisioning-20181221_core_ec2key
