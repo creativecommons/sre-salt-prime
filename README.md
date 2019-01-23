@@ -215,10 +215,12 @@ See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
   - Configured to use [certbot][certbot]. See
     [`pillars/letsencrypt/init.sls`](pillars/letsencrypt/init.sls) for exact
     version.
+- [creativecommons/php-formula][php-formula]
 
 
 [letsencrypt]:https://github.com/creativecommons/letsencrypt-formula
 [certbot]:https://github.com/certbot/certbot
+[php-formula]:https://github.com/creativecommons/php-formula
 
 
 ## License
