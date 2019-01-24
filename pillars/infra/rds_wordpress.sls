@@ -1,3 +1,6 @@
+{% import_yaml 'mysql/chapters_secrets.sls' as chapters %}
+
+
 infra:
   orch.aws.rds_wordpress:
     engine:
@@ -18,9 +21,11 @@ infra:
         innodb_log_file_size: 268435456 # 256 MiB
         time_zone: UTC
     primary_password:
-      default: '/@@/ INVALID - SET NONDEFAULT IN SECRETS /@@/'
+      default: '/@@/ INVALID - MUST SET NON-DEFAULT PASSWORD /@@/'
+      chapters: {{ chapters.mysql.server.root_password }}
     primary_username:
       default: root
+      chapters: {{ chapters.mysql.server.root_user }}
     secgroups:
       default:
         - mysql-from-private_core_secgroup
