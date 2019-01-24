@@ -210,17 +210,23 @@ See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
 
 ## Formula Repositories
 
-- [creativecommons/letsencrypt-formula: Saltstack formula for letsencrypt
-  service][letsencrypt]
+- [creativecommons/letsencrypt-formula][letsencrypt-formula]: Saltstack formula
+  for letsencrypt service
   - Configured to use [certbot][certbot]. See
     [`pillars/letsencrypt/init.sls`](pillars/letsencrypt/init.sls) for exact
     version.
+- [creativecommons/mysql-formula][mysql-formula]: Install the MySQL client
+  and/or server
 - [creativecommons/php-formula][php-formula]
+- [creativecommons/wordpress-formula][wordpress-formula]: Wordpress Salt
+  Formula
 
 
-[letsencrypt]:https://github.com/creativecommons/letsencrypt-formula
+[letsencrypt-formula]:https://github.com/creativecommons/letsencrypt-formula
 [certbot]:https://github.com/certbot/certbot
+[mysql-formula]:https://github.com/creativecommons/mysql-formula
 [php-formula]:https://github.com/creativecommons/php-formula
+[wordpress-formula]:https://github.com/creativecommons/wordpress-formula
 
 
 ## License
