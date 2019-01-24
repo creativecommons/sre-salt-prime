@@ -13,6 +13,7 @@
     - apache2
     - lencrypt
     - mount
+    - mysql_cc.root_my_cnf
     - php.ng.apache2
     - php.ng.cli
     - php.ng.composer
