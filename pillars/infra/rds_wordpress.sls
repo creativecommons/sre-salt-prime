@@ -1,4 +1,4 @@
-{% import_yaml 'mysql/chapters_secrets.sls' as chapters %}
+{% import_yaml "mysql/chapters_secrets.yaml" as chapters %}
 
 
 infra:
