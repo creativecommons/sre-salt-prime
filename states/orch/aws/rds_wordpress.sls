@@ -35,7 +35,7 @@
     - name: {{ name }}
     - description: {{ name }}
     - subnet_names:
-{{ aws.infra_list(sls, "subnets", HST) }}
+{{- aws.infra_list(sls, "subnets", HST) }}{{ "    " -}}
     {{ aws.tags(ident) }}
 
 
@@ -52,7 +52,7 @@
     - db_parameter_group_family: >-
         {{ aws.infra_value(sls, "engine_family", HST) }}
     - parameters:
-{{ aws.infra_dictlist(sls, "parameters", HST) }}
+{{- aws.infra_dictlist(sls, "parameters", HST) }}{{ "    " -}}
     {{ aws.tags(ident) }}
 
 
@@ -72,7 +72,7 @@
     - master_user_password: {{ aws.infra_value(sls, "primary_password", HST) }}
     - storage_type: gp2
     - vpc_security_groups:
-{{ aws.infra_list(sls, "secgroups", HST) }}
+{{- aws.infra_list(sls, "secgroups", HST) }}{{ "    " -}}
     - availability_zone: {{ P_POD.subnets["private-one"]["az"] }}
     - db_subnet_group_name: {{ name_subnetgroup }}
     - preferred_maintenance_window: Sun:06:00-Sun:07:00
