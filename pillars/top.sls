@@ -14,15 +14,18 @@
 {{ saltenv }}:
   '*':
     # 0. Global (all Minions)
+    - classification
     - letsencrypt
     - postfix.secrets
     - salt
     - user
     - user.passwords.*
 {%- for key, data in LOOKUP.items() %}
+{%- set lookup_init = "{}/{}/init.sls".format(key, data[1]) %}
+{%- set lookup_sls = "{}/{}.sls".format(key, data[1]) %}
     # {{ key }} {{ data[0]}}
-{%- if (salt["pillar.file_exists"]("{}/{}/init.sls".format(key, data[1])) or
-        salt["pillar.file_exists"]("{}/{}.sls".format(key, data[1]))) %}
+{%- if (salt["pillar.file_exists"](lookup_init, saltenv=saltenv) or
+        salt["pillar.file_exists"](lookup_sls, saltenv=saltenv) %}
     - {{ key }}.{{ data[1] }}
 {%- else %}
     # - None
