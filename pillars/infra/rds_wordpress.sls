@@ -1,4 +1,4 @@
-{% import_yaml "mysql/chapters_secrets.yaml" as chapters %}
+{% import_yaml "5_HST__POD/chapters__core/secrets.yaml" as chapters__core %}
 
 
 infra:
@@ -22,10 +22,10 @@ infra:
         time_zone: UTC
     primary_password:
       default: '/@@/ INVALID - MUST SET NON-DEFAULT PASSWORD /@@/'
-      chapters: {{ chapters.mysql.server.root_password }}
+      chapters: {{ chapters__core.mysql.server.root_password }}
     primary_username:
       default: root
-      chapters: {{ chapters.mysql.server.root_user }}
+      chapters: {{ chapters__core.mysql.server.root_user }}
     secgroups:
       default:
         - mysql-from-private_core_secgroup

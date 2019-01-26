@@ -1,3 +1,10 @@
+include:
+  - infra.ec2_instance_web
+  - infra.rds_wordpress
+  - infra.us-east-2
+  - infra.us-east-2.core
+
+
 infra:
   github:
     ssh_key:
