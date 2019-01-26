@@ -140,13 +140,26 @@ project you agree to abide by its terms.
 ## Host Classification
 
 Minions are added and configured from `salt-prime` with the following Minion ID
-schema: **`name__pod__location`**. Examples:
+schema: **`HST__POD__LOC`** (host/role__pod/group__location). Examples:
 - `bastion__core__us-east-2`
 - `salt-prime__core__us-east-2`
+- `chapters__prod__us-east-2`
+- `chapters__stage__us-east-2`
 
-Glob patterns are used in [`pillars/top.sls`](pillars/top.sls) to ensure pillar
-data is scoped appropriately (as narrowly as possible).
+Like Apache2, SaltStack pillar data uses a last declared wins model. This
+repository uses (from least specific to most specific):
 
+1. `1_LOC` (location)
+2. `2_POD` (pod/group)
+3. `3_HST` (host/role)
+4. `4_POD__LOC` (pod/group and location)
+5. `5_HST__POD` (host/role and pod/group)
+
+This method of setting leat-specific to most-specific pillar data was inspired
+by Hiera.
+
+See [`states/orch/README.md`](states/orch/README.md) for how these
+classification parts are used with orchestration.
 
 
 ## Orchestration

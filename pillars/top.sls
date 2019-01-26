@@ -25,7 +25,7 @@
 {%- set lookup_sls = "{}/{}.sls".format(key, data[1]) %}
     # {{ key }} {{ data[0]}}
 {%- if (salt["pillar.file_exists"](lookup_init, saltenv=saltenv) or
-        salt["pillar.file_exists"](lookup_sls, saltenv=saltenv) %}
+        salt["pillar.file_exists"](lookup_sls, saltenv=saltenv)) %}
     - {{ key }}.{{ data[1] }}
 {%- else %}
     # - None

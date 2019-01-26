@@ -3,7 +3,6 @@
 {% set LOC = pillar.tgt_loc -%}
 
 {% set P_LOC = pillar.infra[LOC] -%}
-{% set P_POD = P_LOC[POD] -%}
 
 
 ### Security Groups

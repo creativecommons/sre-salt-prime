@@ -8,10 +8,11 @@
 {% set HST = pillar.tgt_hst -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
+{% set NET = pillar.tgt_net -%}
 
 {% set P_SLS = pillar.infra[sls] -%}
 {% set P_LOC = pillar.infra[LOC] -%}
-{% set P_POD = P_LOC[POD] -%}
+{% set P_NET = P_LOC[NET] -%}
 
 {% if "kms_key_storage" in pillar -%}
 {% set KMS_KEY_STORAGE = pillar.kms_key_storage -%}
@@ -37,7 +38,7 @@
     - name: {{ name }}
     - description: {{ POD }} {{ HST }} ENI in {{ LOC }}
     - subnet_name: {{ SUBNET_NAME }}
-    - private_ip_address: {{ P_POD["host_ips"][HST] }}
+    - private_ip_address: {{ P_NET["host_ips"][HST] }}
     - groups:
 {{- aws.infra_list(sls, "secgroups", HST) }}{{ "    " -}}
     - allocate_eip: {{ aws.infra_value(sls, "allocate_eip", HST) }}
@@ -60,7 +61,7 @@
         fqdn: {{ fqdn }}
         manage_etc_hosts: localhost
     - instance_type: {{ aws.infra_value(sls, "instance_type", HST) }}
-    - placement: {{ P_POD.subnets[SUBNET]["az"] }}
+    - placement: {{ P_NET.subnets[SUBNET]["az"] }}
     - vpc_name: {{ P_LOC.vpc.name }}
     - monitoring_enabled: True
     - instance_initiated_shutdown_behavior: stop

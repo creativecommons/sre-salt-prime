@@ -5,4 +5,4 @@
 hst: {{ HST }}
 pod: {{ POD }}
 loc: {{ LOC }}
-net: {{ networks.networks[POD__LOC] }}
+net: {{ networks[POD__LOC] }}

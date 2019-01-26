@@ -5,13 +5,16 @@
 {% set HST = pillar.tgt_hst -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
+{% set POD__LOC = "{}__{}".format(POD, LOC) -%}
 {% set MID = [HST, POD, LOC]|join("__") -%}
 {% set TMP = "/srv/{}/states/orch/bootstrap/TEMP__{}".format(saltenv, MID) -%}
 
 {% set P_LOC = pillar.infra[LOC] -%}
-{% set P_POD = P_LOC[POD] -%}
 
-{% set IP = P_POD["host_ips"][HST] -%}
+{% import_yaml "/srv/{}/pillars/infra/networks.yaml".format(saltenv) as nets %}
+{% set NET = nets[POD__LOC] -%}
+{% set P_NET = P_LOC[NET] -%}
+{% set IP = P_NET["host_ips"][HST] -%}
 
 {% set ACCOUNT_ID = salt.boto_iam.get_account_id() -%}
 {% set KMS_KEY_STORAGE = ["arn:aws:kms:us-east-2:", ACCOUNT_ID,
@@ -61,6 +64,7 @@
         tgt_hst: {{ HST }}
         tgt_pod: {{ POD }}
         tgt_loc: {{ LOC }}
+        tgt_net: {{ NET }}
         kms_key_storage: {{ KMS_KEY_STORAGE }}
     - require:
       - salt: {{ sls }} orch.aws.secgroup_wordpress
@@ -76,6 +80,7 @@
         tgt_hst: {{ HST }}
         tgt_pod: {{ POD }}
         tgt_loc: {{ LOC }}
+        tgt_net: {{ NET }}
         kms_key_storage: {{ KMS_KEY_STORAGE }}
     - require:
       - salt: {{ sls }} orch.aws.secgroup_wordpress

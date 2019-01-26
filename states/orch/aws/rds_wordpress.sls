@@ -8,10 +8,11 @@
 {% set HST = pillar.tgt_hst -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
+{% set NET = pillar.tgt_net -%}
 
 {% set P_SLS = pillar.infra[sls] -%}
 {% set P_LOC = pillar.infra[LOC] -%}
-{% set P_POD = P_LOC[POD] -%}
+{% set P_NET = P_LOC[NET] -%}
 
 {% if "kms_key_storage" in pillar -%}
 {% set KMS_KEY_STORAGE = pillar.kms_key_storage -%}
@@ -73,7 +74,7 @@
     - storage_type: gp2
     - vpc_security_groups:
 {{- aws.infra_list(sls, "secgroups", HST) }}{{ "    " -}}
-    - availability_zone: {{ P_POD.subnets["private-one"]["az"] }}
+    - availability_zone: {{ P_NET.subnets["private-one"]["az"] }}
     - db_subnet_group_name: {{ name_subnetgroup }}
     - preferred_maintenance_window: Sun:06:00-Sun:07:00
     - db_parameter_group_name: {{ name_parameter }}

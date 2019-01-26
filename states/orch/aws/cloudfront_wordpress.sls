@@ -7,10 +7,6 @@
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
 
-{% set P_SLS = pillar.infra[sls] -%}
-{% set P_LOC = pillar.infra[LOC] -%}
-{% set P_POD = P_LOC[POD] -%}
-
 
 ### CloudFront
 
