@@ -1,0 +1,57 @@
+{
+    "name":"chapters-sites/wordpress-multisite-network",
+    "description":"Creative Commons Chapter Sites on WordPress via Composer",
+    "authors": [
+        {
+            "name":"Creative Commons",
+            "homepage":"https://github.com/creativecommons/sre-salt-prime"
+        }
+    ],
+    "type": "project",
+    "repositories": [
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
+    "config": {
+        "vendor-dir":"wp-content/vendor"
+    },
+    "require": {
+        "composer/installers":"1.6",
+        "johnpbloch/wordpress":"5.0.3",
+        "wpackagist-plugin/advanced-custom-fields":"5.7.9",
+        "wpackagist-plugin/advanced-menu-widget":"0.4.1",
+        "wpackagist-plugin/advanced-sidebar-menu":"7.4.6",
+        "wpackagist-plugin/akismet":"4.1.1",
+        "wpackagist-plugin/all-in-one-seo-pack":"2.11",
+        "wpackagist-plugin/all-in-one-wp-migration":"6.83",
+        "wpackagist-plugin/auto-hide-admin-bar":"1.3.1",
+        "wpackagist-plugin/be-subpages-widget":"1.7",
+        "wpackagist-plugin/easy-redirect-manager":"2.18.18",
+        "wpackagist-plugin/google-analytics-for-wordpress":"7.4.2",
+        "wpackagist-plugin/jetpack":"6.9",
+        "wpackagist-plugin/recent-posts-widget-extended":"0.9.9.7",
+        "wpackagist-plugin/redirection":"3.7.2",
+        "wpackagist-plugin/simple-tags":"2.4.7",
+        "wpackagist-plugin/ultimate-addons-for-gutenberg":"1.8.1",
+        "wpackagist-plugin/widget-css-classes":"1.5.3",
+        "wpackagist-plugin/wordpress-importer":"0.6.4",
+        "wpackagist-plugin/wordpress-mu-domain-mapping":"0.5.5.1",
+        "wpackagist-plugin/wp-latest-posts":"4.5.4",
+        "wpackagist-plugin/wp-log-viewer":"1.2.1",
+        "wpackagist-plugin/wp-mail-smtp":"1.4.1",
+        "wpackagist-plugin/wp-query-console":"1.0",
+        "wpackagist-theme/twentyfifteen":"2.3",
+        "wpackagist-theme/twentynineteen":"1.2",
+        "wpackagist-theme/twentyseventeen":"2.0",
+        "wpackagist-theme/twentysixteen":"1.8"
+    },
+    "require-dev": {
+        "wpackagist-plugin/debug-bar":"1.0",
+        "wpackagist-plugin/debug-bar-actions-and-filters-addon":"1.5.4"
+    },
+    "extra": {
+        "wordpress-install-dir":"wp"
+    }
+}
