@@ -1,10 +1,9 @@
+# Composer in WordPress
+# https://composer.rarst.net/
+#
+# WordPress Packagist: Manage your plugins and themes with Composer
+# https://wpackagist.org/
 {% set DOCROOT = "/var/www/chapters" -%}
-
-# DIR STRUCTURE:
-# wp-content/
-# wp/
-# index.php
-# wp-config.php
 
 
 include:
@@ -28,19 +27,6 @@ include:
       - file: {{ sls }} docroot
     - require_in:
       - composer: {{ sls }} composer update
-
-
-{#
-{{ sls }} dir wp-content/vendor:
-  file.directory:
-    - name: {{ DOCROOT }}/wp-content/vendor
-    - mode: '2775'
-    - group: www-data
-    - require:
-      - file: {{ sls }} dir wp-content
-    - require_in:
-      - composer: {{ sls }} composer update
-#}
 
 
 {{ sls }} dir wp:
