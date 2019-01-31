@@ -1,0 +1,14 @@
+{
+    "license"    : "MIT",
+    "authors"     : [
+        {
+            "name"    : "Creative Commons",
+            "homepage": "https://github.com/creativecommons/sre-salt-prime"
+        }
+    ],
+    "config"      : {
+        "data-dir": "${home}/data",
+        "archive-dir": "${home}/archive",
+        "htaccess-protect": false
+    }
+}
