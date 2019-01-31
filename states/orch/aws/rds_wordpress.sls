@@ -36,7 +36,7 @@
     - name: {{ name }}
     - description: {{ name }}
     - subnet_names:
-{{- aws.infra_list(sls, "subnets", HST) }}{{ "    " -}}
+{{- aws.infra_list(sls, "rds_subnets", HST, POD) }}{{ "    " -}}
     {{ aws.tags(ident) }}
 
 
@@ -51,9 +51,9 @@
     - name: {{ name }}
     - description: {{ ident|join("_") }}
     - db_parameter_group_family: >-
-        {{ aws.infra_value(sls, "engine_family", HST) }}
+        {{ aws.infra_value(sls, "engine_family", HST, POD) }}
     - parameters:
-{{- aws.infra_dictlist(sls, "parameters", HST) }}{{ "    " -}}
+{{- aws.infra_dictlist(sls, "parameters", HST, POD) }}{{ "    " -}}
     {{ aws.tags(ident) }}
 
 
@@ -66,14 +66,15 @@
   boto_rds.present:
     - region: {{ LOC }}
     - name: {{ name }}
-    - allocated_storage: {{ aws.infra_value(sls, "storage", HST) }}
-    - db_instance_class: {{ aws.infra_value(sls, "instance_class", HST) }}
-    - engine: {{ aws.infra_value(sls, "engine", HST) }}
-    - master_username: {{ aws.infra_value(sls, "primary_username", HST) }}
-    - master_user_password: {{ aws.infra_value(sls, "primary_password", HST) }}
+    - allocated_storage: {{ aws.infra_value(sls, "storage", HST, POD) }}
+    - db_instance_class: {{ aws.infra_value(sls, "instance_class", HST, POD) }}
+    - engine: {{ aws.infra_value(sls, "engine", HST, POD) }}
+    - master_username: {{ aws.infra_value(sls, "primary_username", HST, POD) }}
+    - master_user_password: >-
+        {{ aws.infra_value(sls, "primary_password", HST, POD) }}
     - storage_type: gp2
     - vpc_security_groups:
-{{- aws.infra_list(sls, "secgroups", HST) }}{{ "    " -}}
+{{- aws.infra_list(sls, "secgroups", HST, POD) }}{{ "    " -}}
     - availability_zone: {{ P_NET.subnets["private-one"]["az"] }}
     - db_subnet_group_name: {{ name_subnetgroup }}
     - preferred_maintenance_window: Sun:06:00-Sun:07:00
@@ -83,7 +84,7 @@
     - backup_retention_period: 35
     - preferred_backup_window: 05:00-06:00
     - port: 3306
-    - engine_version: {{ aws.infra_value(sls, "engine_version", HST) }}
+    - engine_version: {{ aws.infra_value(sls, "engine_version", HST, POD) }}
     - auto_minor_version_upgrade: True
     - publicly_accessible: False
     - wait_status: available

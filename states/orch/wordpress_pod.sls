@@ -5,6 +5,7 @@
 {% set HST = pillar.tgt_hst -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
+{% set HST__POD = "{}__{}".format(HST, POD) -%}
 {% set POD__LOC = "{}__{}".format(POD, LOC) -%}
 {% set MID = [HST, POD, LOC]|join("__") -%}
 {% set TMP = "/srv/{}/states/orch/bootstrap/TEMP__{}".format(saltenv, MID) -%}
@@ -14,7 +15,7 @@
 {% import_yaml "/srv/{}/pillars/infra/networks.yaml".format(saltenv) as nets %}
 {% set NET = nets[POD__LOC] -%}
 {% set P_NET = P_LOC[NET] -%}
-{% set IP = P_NET["host_ips"][HST] -%}
+{% set IP = P_NET["host_ips"][HST__POD] -%}
 
 {% set ACCOUNT_ID = salt.boto_iam.get_account_id() -%}
 {% set KMS_KEY_STORAGE = ["arn:aws:kms:us-east-2:", ACCOUNT_ID,
