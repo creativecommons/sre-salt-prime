@@ -6,7 +6,7 @@ include:
 
 letsencrypt:
   deploy_hooks:
-    restart_nginx.sh: service apache2 reload
+    restart_apache2.sh: service apache2 reload
 mounts:
   - spec: /dev/nvme1n1
     file: /var/www
