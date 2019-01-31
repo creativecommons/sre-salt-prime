@@ -15,8 +15,10 @@ include:
     - pkgs:
       - apache2
     - require:
-      - mount: mount mount /var/www
+      - mount: mount mount /var/www   # this seems fragile. load from pillar?
       - file: tls dhparams.pem
+    - require_in:
+      - pkg: letsencrypt-client       # this seems fragile. load from pillar?
 
 
 {{ sls }} service:
