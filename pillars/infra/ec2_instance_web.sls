@@ -14,14 +14,14 @@ infra:
       chapters: t3.medium
     web_secgroups:
       default:
-        - pingtrace-all_{{ POD }}_secgroup
-        - ssh-from-salt-prime_{{ POD }}_secgroup
-        - ssh-from-bastion_{{ POD }}_secgroup
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
         - web-all_{{ POD }}_secgroup
       chapters:
-        - pingtrace-all_{{ POD }}_secgroup
-        - ssh-from-salt-prime_{{ POD }}_secgroup
-        - ssh-from-bastion_{{ POD }}_secgroup
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
         - web-all-chapters_{{ POD }}_secgroup
     web_subnet:
       default: dmz

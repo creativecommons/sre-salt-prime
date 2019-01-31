@@ -24,7 +24,7 @@
                           ":alias/", P_LOC.kms_key_id_storage]|join("") -%}
 {% endif -%}
 {% set SUBNET = aws.infra_value(sls, "web_subnet", HST, POD) -%}
-{% set SUBNET_NAME = [SUBNET, POD, "subnet"]|join("_") -%}
+{% set SUBNET_NAME = [SUBNET, NET, "subnet"]|join("_") -%}
 
 
 ### EC2 Instance
