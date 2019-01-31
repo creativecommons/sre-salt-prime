@@ -74,7 +74,7 @@
         {{ aws.infra_value(sls, "primary_password", HST, POD) }}
     - storage_type: gp2
     - vpc_security_groups:
-{{- aws.infra_list(sls, "secgroups", HST, POD) }}{{ "    " -}}
+{{- aws.infra_list(sls, "rds_secgroups", HST, POD) }}{{ "    " -}}
     - availability_zone: {{ P_NET.subnets["private-one"]["az"] }}
     - db_subnet_group_name: {{ name_subnetgroup }}
     - preferred_maintenance_window: Sun:06:00-Sun:07:00
