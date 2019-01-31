@@ -49,7 +49,7 @@
           Quantity: 1
           Items:
             # Must be a Public IP
-            - DomainName: ip-10-22-11-12.us-east-2.compute.internal
+            - DomainName: ip-10-22-10-14.us-east-2.compute.internal
               Id: chapters__prod__us-east-2
               CustomOriginConfig:
                 HTTPPort: 80
