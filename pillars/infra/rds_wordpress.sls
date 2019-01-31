@@ -1,5 +1,5 @@
 {% set HST, POD, LOC = grains.id.split("__") -%}
-{% import_yaml "5_HST__POD/chapters__core/secrets.yaml" as chapters__core %}
+{% import_yaml "5_HST__POD/chapters__prod/secrets.yaml" as chapters__prod %}
 
 
 infra:
@@ -23,10 +23,10 @@ infra:
         time_zone: UTC
     primary_password:
       default: '/@@/ INVALID - MUST SET NON-DEFAULT PASSWORD /@@/'
-      chapters__core: {{ chapters__core.mysql.server.root_password }}
+      chapters__prod: {{ chapters__prod.mysql.server.root_password }}
     primary_username:
       default: root
-      chapters__core: {{ chapters__core.mysql.server.root_user }}
+      chapters__prod: {{ chapters__prod.mysql.server.root_user }}
     rds_secgroups:
       default:
         - mysql-from-private_{{ POD }}_secgroup

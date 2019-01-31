@@ -9,7 +9,7 @@ infra:
         bastion__core:    10.22.10.10
         pmwiki__core:     10.22.10.11
         wikijs__core:     10.22.10.12
-        chapters__core:   10.22.10.14
+        chapters__prod:   10.22.10.14
         chapters__prod:   10.22.10.15
         # Private-One     10.22.11.0
         salt-prime__core: 10.22.11.11
