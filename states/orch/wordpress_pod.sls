@@ -84,7 +84,7 @@
         tgt_net: {{ NET }}
         kms_key_storage: {{ KMS_KEY_STORAGE }}
     - require:
-      - salt: {{ sls }} orch.aws.secgroup_wordpress
+      - salt: {{ sls }} orch.aws.ec2_instance_web 
 
 
 {#
