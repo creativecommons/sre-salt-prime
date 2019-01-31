@@ -1,3 +1,4 @@
+{% set HST, POD, LOC = grains.id.split("__") -%}
 {% import_yaml "5_HST__POD/chapters__core/secrets.yaml" as chapters__core %}
 
 
@@ -22,19 +23,19 @@ infra:
         time_zone: UTC
     primary_password:
       default: '/@@/ INVALID - MUST SET NON-DEFAULT PASSWORD /@@/'
-      chapters: {{ chapters__core.mysql.server.root_password }}
+      chapters__core: {{ chapters__core.mysql.server.root_password }}
     primary_username:
       default: root
-      chapters: {{ chapters__core.mysql.server.root_user }}
-    secgroups:
+      chapters__core: {{ chapters__core.mysql.server.root_user }}
+    rds_secgroups:
       default:
-        - mysql-from-private_core_secgroup
+        - mysql-from-private_{{ POD }}_secgroup
       chapters:
-        - mysql-from-chapters_core_secgroup
+        - mysql-from-chapters_{{ POD }}_secgroup
     storage:
       default: 10
       chapters: 334
-    subnets:
+    rds_subnets:
       default:
         - private-one_core_subnet
         - private-two_core_subnet
