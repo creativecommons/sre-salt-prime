@@ -20,7 +20,8 @@
     - salt
     - user
     - user.passwords.*
-{%- for key, data in LOOKUP.items() %}
+{%- for key in LOOKUP.keys()|sort %}
+{%- set data = LOOKUP[key] %}
 {%- set lookup_init = "{}/{}/init.sls".format(key, data[1]) %}
 {%- set lookup_sls = "{}/{}.sls".format(key, data[1]) %}
     # {{ key }} {{ data[0]}}
