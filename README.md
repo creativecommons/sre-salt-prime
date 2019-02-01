@@ -158,13 +158,13 @@ repository uses (from least specific to most specific):
 This method of setting leat-specific to most-specific pillar data was inspired
 by Hiera.
 
-See [`docs/orchestration.md`](docs/orchestration.md) for how these
+See [`docs/Orchestration.md`](docs/Orchestration.md) for how these
 classification parts are used with orchestration.
 
 
 ## Orchestration
 
-See [`docs/orchestration.md`](docs/orchestration.md).
+See [`docs/Orchestration.md`](docs/Orchestration.md).
 
 
 ## References
@@ -213,7 +213,12 @@ As of 2018-12-22, Debian Stretch's SaltStack packages are at version 2016.11.2.
 
 #### Orchestration Documentation
 
-See [`docs/orchestration.md`](docs/orchestration.md).
+See [`docs/Orchestration.md`](docs/Orchestration.md).
+
+
+### WordPress
+
+See [`docs/WordPress.md`](docs/WordPress.md).
 
 
 ## Bootstrap
