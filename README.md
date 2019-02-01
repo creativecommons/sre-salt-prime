@@ -226,9 +226,9 @@ See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
 
 - [creativecommons/letsencrypt-formula][letsencrypt-formula]: Saltstack formula
   for letsencrypt service
-  - Configured to use [certbot][certbot]. See
+  - Configured to use [certbot/certbot][certbot]. See
     [`pillars/letsencrypt/init.sls`](pillars/letsencrypt/init.sls) for exact
-    version.
+    branch.
 - [creativecommons/mysql-formula][mysql-formula]: Install the MySQL client
   and/or server
 - [creativecommons/php-formula][php-formula]
