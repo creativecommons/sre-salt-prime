@@ -37,6 +37,14 @@ modules:
 [statescomposer]:https://docs.saltstack.com/en/latest/ref/states/all/salt.states.composer.html
 
 
+### WordPress
+
+- [WP-CLI][wpcli] - The command line interface for WordPress
+
+
+[wpcli]:https://make.wordpress.org/cli/
+
+
 ## Formula Repositories
 
 - [creativecommons/wordpress-formula][wordpress-formula]: Wordpress Salt
