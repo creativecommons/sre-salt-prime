@@ -15,7 +15,7 @@
         }
     ],
     "config": {
-        "vendor-dir":"wp-content/vendor"
+        "vendor-dir":"content/vendor"
     },
     "require": {
         "composer/installers":"1.6",
@@ -52,6 +52,12 @@
         "wpackagist-plugin/debug-bar-actions-and-filters-addon":"1.5.4"
     },
     "extra": {
+        "installer-paths": {
+            "content/languages/{$name}/":["type:wordpress-dropin"],
+            "content/mu-plugins/{$name}/":["type:wordpress-muplugin"],
+            "content/plugins/{$name}/":["type:wordpress-plugin"],
+            "content/themes/{$name}/":["type:wordpress-theme"]
+        },
         "wordpress-install-dir":"wp"
     }
 }

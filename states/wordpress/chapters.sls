@@ -13,24 +13,71 @@ include:
       - mount: mount mount /var/www
 
 
-{{ sls }} dir wp-content:
-  file.directory:
-    - name: {{ DOCROOT }}/wp-content
-    - mode: '2775'
-    - group: www-data
+{{ sls }} file silence.php:
+  file.managed:
+    - name: {{ DOCROOT }}/silence.php
+    - contents:
+      - '<?php'
+      - '// Silence is golden.'
+    - mode: '0444'
     - require:
       - file: {{ sls }} docroot
     - require_in:
       - composer: {{ sls }} composer update
 
 
+{{ sls }} dir content:
+  file.directory:
+    - name: {{ DOCROOT }}/content
+    - mode: '0555'
+    - require:
+      - file: {{ sls }} docroot
+    - require_in:
+      - composer: {{ sls }} composer update
+
+
+{{ sls }} content silence:
+  file.symlink:
+    - name: {{ DOCROOT }}/content/index.php
+    - target: ../silence.php
+    - require:
+      - file: {{ sls }} file silence.php
+      - file: {{ sls }} dir content
+
+
+{%- for dir in ["languages", "plugins", "themes", "vendor"] %}
+
+
+{{ sls }} dir content/{{ dir }}:
+  file.directory:
+    - name: {{ DOCROOT }}/content/{{ dir }}
+    - mode: '2775'
+    - group: composer
+    - require:
+      - file: {{ sls }} dir content
+      - user: php_cc.composer user
+    - require_in:
+      - composer: {{ sls }} composer update
+
+
+{{ sls }} content/{{ dir }} silence:
+  file.symlink:
+    - name: {{ DOCROOT }}/content/{{ dir }}/index.php
+    - target: ../../silence.php
+    - require:
+      - file: {{ sls }} file silence.php
+      - file: {{ sls }} dir content/{{ dir }}
+{%- endfor %}
+
+
 {{ sls }} dir wp:
   file.directory:
     - name: {{ DOCROOT }}/wp
     - mode: '2775'
-    - group: www-data
+    - group: composer
     - require:
       - file: {{ sls }} docroot
+      - user: php_cc.composer user
     - require_in:
       - composer: {{ sls }} composer update
 
@@ -52,9 +99,10 @@ include:
       - '{}'
     - replace: False
     - mode: '0664'
-    - group: www-data
+    - group: composer
     - require:
       - file: {{ sls }} docroot
+      - user: php_cc.composer user
     - require_in:
       - composer: {{ sls }} composer update
 
@@ -66,7 +114,14 @@ include:
     - php: /usr/bin/php
     - optimize: True
     - no_dev: True
-    - user: www-data
+    - user: composer
     - composer_home: /opt/composer
     - require:
       - php_cc.composer config.json
+
+
+{{ sls }} dir wp/wp-content:
+  file.absent:
+    - name: {{ DOCROOT }}/wp/wp-content
+    - require:
+      - composer: {{ sls }} composer update
