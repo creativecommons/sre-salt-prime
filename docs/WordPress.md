@@ -44,12 +44,12 @@ modules:
 
 - [Hardening WordPress « WordPress Codex][hardenwp]
   - [php - Correct file permissions for WordPress - Stack Overflow][wpperms]
-- [WP-CLI][wpcli] - The command line interface for WordPress
+- [Command line interface for WordPress | WP-CLI][wpcli]
 
 
 [hardenwp]:https://codex.wordpress.org/Hardening_WordPress
 [wpperms]:https://stackoverflow.com/a/25865028/568372
-[wpcli]:https://make.wordpress.org/cli/
+[wpcli]:https://wp-cli.org/
 
 
 ## Formula Repositories
