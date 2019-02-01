@@ -18,9 +18,11 @@ include:
     - addusers:
 {%- for admin in pillar.user.admins.keys() %}
       - {{ admin }}
+{%- endfor %}
     - require:
+{%- for admin in pillar.user.admins.keys() %}
       - user: user.admins {{ admin }} user
-{% endfor %}
+{%- endfor %}
 
 
 {{ sls }} user:
@@ -32,6 +34,8 @@ include:
     - password: '*'
     - shell: /usr/sbin/nologin
     - system: True
+    - require:
+      - group: {{ sls }} group
 
 
 {{ sls }} {{ WIKI_DIR }} directory:
