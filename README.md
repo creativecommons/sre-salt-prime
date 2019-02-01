@@ -129,7 +129,7 @@ project you agree to abide by its terms.
   - Free/Open Source
   - Performance
   - Creative Commons is already using it and staff are familiar with it
-  - Version: `2018.3`
+  - Version: `2018.3.3`
     - For current targeted minion version, see `minion_target_version` in
      [`pillars/salt/init.sls`](pillars/salt/init.sls)
 
@@ -172,43 +172,39 @@ See [`docs/Orchestration.md`](docs/Orchestration.md).
 
 ### SaltStack
 
-As of 2018-12-22, Debian Stretch's SaltStack packages are at version 2016.11.2.
+
 - For the SaltStack version that this repository is developed on, see
   [Decisions](#Decisions), above.
 - For current version of SaltStack in Debian Stretch, see
   [Debian -- Package Search Results -- salt-master][pkgsearch]
-
+  - As of 2019-02-01, Debian Stretch's SaltStack packages are at version
+    `2016.11.2`.
 
 [pkgsearch]:https://packages.debian.org/search?suite=default&section=all&arch=any&searchon=names&keywords=salt-master
 
 
 ####  Best Practices
 
-- Hardening Salt (**[latest][hardenlatest]**, [2016.11][harden2016])
+- [Hardening Salt][hardensalt]
   - *The only grain which can be safely used is `grains['id']` which contains
     the Minion ID.* ([FAQ Q.21][FAQ21])
-- Salt Best Practices (**[latest][bestlatest]**, [2016.11][best2016])
-- Salt Formulas (**[latest][formulaslatest]**, [2016.11][formulas2016])
+- [Salt Best Practices][saltbest]
+- [Salt Formulas][saltformulas]
 
 
-[hardenlatest]: https://docs.saltstack.com/en/latest/topics/hardening.html
-[harden2016]: https://docs.saltstack.com/en/2016.11/topics/hardening.html
-[bestlatest]: https://docs.saltstack.com/en/latest/topics/best_practices.html
-[best2016]: https://docs.saltstack.com/en/2016.11/topics/best_practices.html
-[formulaslatest]: https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html
-[formulas2016]: https://docs.saltstack.com/en/2016.11/topics/development/conventions/formulas.html
+[hardensalt]: https://docs.saltstack.com/en/latest/topics/hardening.html
+[saltbest]: https://docs.saltstack.com/en/latest/topics/best_practices.html
+[saltformulas]: https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html
 
 
 #### Module Documentation
 
-- Salt Module Reference (**[latest][modulelatest]**, [2016.11][module2016])
-  - state modules (**[latest][statelatest]**, [2016.11][state2016])
+- [Salt Module Reference][moduleref]
+  - [state modules][statemodules]
 
 
-[modulelatest]: https://docs.saltstack.com/en/latest/ref/index.html
-[module2016]: https://docs.saltstack.com/en/2016.11/ref/index.html
-[statelatest]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
-[state2016]: https://docs.saltstack.com/en/2016.11/ref/states/all/index.html
+[moduleref]: https://docs.saltstack.com/en/latest/ref/index.html
+[statemodules]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
 
 
 #### Orchestration Documentation
