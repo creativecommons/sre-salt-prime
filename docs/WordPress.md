@@ -10,8 +10,8 @@
 - [Composer in WordPress][composerwp]
 - [composer/installers][installers]: A Multi-Framework Composer Library
   Installer
-- [WordPress Packagist: Manage your plugins and themes with
-  Composer][wpackagist]
+- [WordPress Packagist][wpackagist]: Manage your plugins and themes with
+  Composer
 
 
 [composer]:https://getcomposer.org/
