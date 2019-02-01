@@ -17,7 +17,7 @@
 [wpackagist]:https://wpackagist.org/
 
 
-### Formula Repositories
+## Formula Repositories
 
 - [creativecommons/wordpress-formula][wordpress-formula]: Wordpress Salt
   Formula
