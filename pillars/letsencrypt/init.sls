@@ -1,9 +1,12 @@
+{% import_yaml "letsencrypt/secrets.yaml" as secrets -%}
+
+
 letsencrypt:
   config: |
     agree-tos = True
     authenticator = webroot
-    eff-email = True
-    email = webmaster@creativecommons.org
+    eff-email = False
+    email = {{ secrets.email }}
     expand = True
     keep-until-expiring = True
     quiet = True
