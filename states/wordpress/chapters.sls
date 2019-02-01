@@ -1,8 +1,3 @@
-# Composer in WordPress
-# https://composer.rarst.net/
-#
-# WordPress Packagist: Manage your plugins and themes with Composer
-# https://wpackagist.org/
 {% set DOCROOT = "/var/www/chapters" -%}
 
 
