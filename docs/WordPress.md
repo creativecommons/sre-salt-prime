@@ -19,8 +19,10 @@
 
 ### Formula Repositories
 
-- [creativecommons/php-formula][php-formula]
-- See [`../README.md#formula-repositories`](../README.md#formula-repositories)
+- [creativecommons/wordpress-formula][wordpress-formula]: Wordpress Salt
+  Formula
+- For additional formula repositories (ex. php), see
+  [`../README.md#formula-repositories`](../README.md#formula-repositories)
 
 
 [wordpress-formula]:https://github.com/creativecommons/wordpress-formula
