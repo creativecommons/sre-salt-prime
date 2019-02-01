@@ -6,3 +6,4 @@ include:
   - php.ng.cli
   - php.ng.mysqlnd
   - php_cc.composer
+  - wordpress.cli
