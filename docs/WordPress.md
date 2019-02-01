@@ -8,12 +8,15 @@
 
 - [Composer][composer]
 - [Composer in WordPress][composerwp]
+- [composer/installers][installers]: A Multi-Framework Composer Library
+  Installer
 - [WordPress Packagist: Manage your plugins and themes with
   Composer][wpackagist]
 
 
 [composer]:https://getcomposer.org/
 [composerwp]:https://composer.rarst.net/
+[installers]:https://github.com/composer/installers
 [wpackagist]:https://wpackagist.org/
 
 
@@ -39,9 +42,13 @@ modules:
 
 ### WordPress
 
+- [Hardening WordPress « WordPress Codex][hardenwp]
+  - [php - Correct file permissions for WordPress - Stack Overflow][wpperms]
 - [WP-CLI][wpcli] - The command line interface for WordPress
 
 
+[hardenwp]:https://codex.wordpress.org/Hardening_WordPress
+[wpperms]:https://stackoverflow.com/a/25865028/568372
 [wpcli]:https://make.wordpress.org/cli/
 
 
