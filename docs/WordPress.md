@@ -17,6 +17,14 @@
 [wpackagist]:https://wpackagist.org/
 
 
+### Saltstack
+
+- [salt.states.composer][statescomposer]
+
+
+[statescomposer]:https://docs.saltstack.com/en/latest/ref/states/all/salt.states.composer.html
+
+
 ## Formula Repositories
 
 - [creativecommons/wordpress-formula][wordpress-formula]: Wordpress Salt
