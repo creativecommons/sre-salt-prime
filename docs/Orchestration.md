@@ -93,23 +93,20 @@ Best Practices.
 
 AWS orchestration (including bootstrap) makes use of the boto/boto3 state
 modules:
-- Salt Module Reference (**[latest][modulelatest]**, [2016.11][module2016])
-  - state modules (**[latest][statelatest]**, [2016.11][state2016])
+- [Salt Module Reference][moduleref]
+  - [state modules][statemodules]
 
 
-[modulelatest]: https://docs.saltstack.com/en/latest/ref/index.html
-[module2016]: https://docs.saltstack.com/en/2016.11/ref/index.html
-[statelatest]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
-[state2016]: https://docs.saltstack.com/en/2016.11/ref/states/all/index.html
+[moduleref]: https://docs.saltstack.com/en/latest/ref/index.html
+[statemodules]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
 
 
 #### Orchestration Documentation
 
-- Orchestrate Runner (**[latest][orchlatest]**, [2016.11][orch2016])
+- [Orchestrate Runner][orchrunner]
 
 
-[orchlatest]: https://docs.saltstack.com/en/latest/topics/orchestrate/orchestrate_runner.html
-[orch2016]: https://docs.saltstack.com/en/2016.11/topics/orchestrate/orchestrate_runner.html
+[orchrunner]: https://docs.saltstack.com/en/latest/topics/orchestrate/orchestrate_runner.html
 
 
 #### Orchestration Examples
