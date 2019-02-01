@@ -9,4 +9,3 @@ salt:
     - git@github.com:creativecommons/letsencrypt-formula.git
     - git@github.com:creativecommons/mysql-formula.git
     - git@github.com:creativecommons/php-formula.git
-    - git@github.com:creativecommons/wordpress-formula.git

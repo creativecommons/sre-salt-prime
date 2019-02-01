@@ -232,15 +232,12 @@ See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
 - [creativecommons/mysql-formula][mysql-formula]: Install the MySQL client
   and/or server
 - [creativecommons/php-formula][php-formula]
-- [creativecommons/wordpress-formula][wordpress-formula]: Wordpress Salt
-  Formula
 
 
 [letsencrypt-formula]:https://github.com/creativecommons/letsencrypt-formula
 [certbot]:https://github.com/certbot/certbot
 [mysql-formula]:https://github.com/creativecommons/mysql-formula
 [php-formula]:https://github.com/creativecommons/php-formula
-[wordpress-formula]:https://github.com/creativecommons/wordpress-formula
 
 
 ## License

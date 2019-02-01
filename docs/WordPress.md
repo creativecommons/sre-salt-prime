@@ -22,8 +22,8 @@
 
 ### Saltstack
 
-See [`../README.md`](../README.md) for information on SaltStack versions and
-Best Practices.
+- See [`../README.md`](../README.md) for information on SaltStack versions and
+  Best Practices.
 
 
 #### Module Documentation
@@ -54,13 +54,7 @@ modules:
 
 ## Formula Repositories
 
-- [creativecommons/wordpress-formula][wordpress-formula]: Wordpress Salt
-  Formula
-- For additional formula repositories (ex. php), see
-  [`../README.md#formula-repositories`](../README.md#formula-repositories)
-
-
-[wordpress-formula]:https://github.com/creativecommons/wordpress-formula
+- See [`../README.md#formula-repositories`](../README.md#formula-repositories)
 
 
 ## Repository Documentation
