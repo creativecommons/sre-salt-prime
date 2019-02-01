@@ -13,6 +13,16 @@ include:
       - mount: mount mount /var/www
 
 
+{{ sls }} wp-config:
+  file.managed:
+    - name: {{ DOCROOT }}/wp-config.php
+    - source: salt://wordpress/files/wp-config.php
+    - mode: '0444'
+    - template: jinja
+    - require:
+      - file: {{ sls }} docroot
+
+
 {{ sls }} file silence.php:
   file.managed:
     - name: {{ DOCROOT }}/silence.php
