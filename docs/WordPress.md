@@ -44,11 +44,15 @@ modules:
 
 - [Hardening WordPress « WordPress Codex][hardenwp]
   - [php - Correct file permissions for WordPress - Stack Overflow][wpperms]
+  - [Administration Over SSL « WordPress Codex][adminssl]
+- [Editing wp-config.php « WordPress Codex][wpconfig]
 - [Command line interface for WordPress | WP-CLI][wpcli]
 
 
 [hardenwp]:https://codex.wordpress.org/Hardening_WordPress
 [wpperms]:https://stackoverflow.com/a/25865028/568372
+[adminssl]:https://codex.wordpress.org/Administration_Over_SSL
+[wpconfig]:https://codex.wordpress.org/Editing_wp-config.php
 [wpcli]:https://wp-cli.org/
 
 
