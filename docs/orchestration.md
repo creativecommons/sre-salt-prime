@@ -85,7 +85,7 @@ sudo salt-call --local --log-level=debug --log-file-level=warning \
 
 ### SaltStack
 
-See [`../README.md`](..README.md) for information on SaltStack versions and
+See [`../README.md`](../README.md) for information on SaltStack versions and
 Best Practices.
 
 
@@ -155,4 +155,4 @@ provisioning/orchestration. Also see:
 
 ## Related
 
-- [`../../README.md`](../../README.md)
+- [`../README.md`](../README.md)
