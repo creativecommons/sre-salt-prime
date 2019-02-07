@@ -69,8 +69,7 @@ sudo salt-call --local --log-level=debug --log-file-level=warning \
 
 #### WordPress on AWS
 
-- [Build a WordPress Website - AWS](https://aws.amazon.com/getting-started/projects/build-wordpress-website/) (version: last modified 2018-10-19)
-  - [WordPress: Best Practices on AWS](https://d0.awsstatic.com/whitepapers/wordpress-best-practices-on-aws.pdf) (PDF, 2018-02-12)
+- See [`WordPress.md`](WordPress.md)
 
 
 ### Cloud-Init

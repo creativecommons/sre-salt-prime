@@ -4,6 +4,23 @@
 ## References
 
 
+### AWS
+
+- [Build a WordPress Website - AWS][wpaws] (version: last modified 2018-10-19)
+  - [WordPress: Best Practices on AWS][wpawsbest] (PDF, 2018-02-12)
+  - [aws-samples/aws-refarch-wordpress][refarch]: This reference architecture
+    provides best practices and a set of YAML CloudFormation templates for
+    deploying WordPress on AWS.
+- [How to accelerate your WordPress site with Amazon CloudFront | AWS Startups
+  Blog][wpcloudfront]
+
+
+[wpaws]:https://aws.amazon.com/getting-started/projects/build-wordpress-website/
+[wpawsbest]:https://d0.awsstatic.com/whitepapers/wordpress-best-practices-on-aws.pdf
+[refarch]:https://github.com/aws-samples/aws-refarch-wordpress
+[wpcloudfront]:https://d0.awsstatic.com/whitepapers/wordpress-best-practices-on-aws.pdf
+
+
 ### Composer
 
 - [Composer][composer]
