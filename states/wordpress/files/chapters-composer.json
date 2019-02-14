@@ -1,6 +1,6 @@
 {
-    "name":"chapters-sites/wordpress-multisite-network",
-    "description":"Creative Commons Chapter Sites on WordPress via Composer",
+    "name":"creativecommons/wordpress-chapters",
+    "description":"Creative Commons Chapters WordPress Site via Composer",
     "authors": [
         {
             "name":"Creative Commons",

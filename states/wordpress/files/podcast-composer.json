@@ -1,0 +1,39 @@
+{
+    "name":"creativecommons/wordpress-podcast",
+    "description":"Creative Commons Podcast WordPress Site via Composer",
+    "authors": [
+        {
+            "name":"Creative Commons",
+            "homepage":"https://github.com/creativecommons/sre-salt-prime"
+        }
+    ],
+    "type": "project",
+    "repositories": [
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
+    "config": {
+        "vendor-dir":"content/vendor"
+    },
+    "require": {
+        "composer/installers":"1.6",
+        "johnpbloch/wordpress":"5.0.3",
+        "wpackagist-plugin/wordfence":"7.2.1",
+        "wpackagist-plugin/wordpress-seo":"9.6"
+    },
+    "require-dev": {
+        "wpackagist-plugin/debug-bar":"1.0",
+        "wpackagist-plugin/debug-bar-actions-and-filters-addon":"1.5.4"
+    },
+    "extra": {
+        "installer-paths": {
+            "content/languages/{$name}/":["type:wordpress-dropin"],
+            "content/mu-plugins/{$name}/":["type:wordpress-muplugin"],
+            "content/plugins/{$name}/":["type:wordpress-plugin"],
+            "content/themes/{$name}/":["type:wordpress-theme"]
+        },
+        "wordpress-install-dir":"wp"
+    }
+}

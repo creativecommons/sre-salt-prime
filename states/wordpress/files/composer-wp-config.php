@@ -78,12 +78,14 @@ define('WP_DEBUG', {{ pillar.wordpress.wp_debug }});
 
 /* Multisite */
 define('MULTISITE', {{ pillar.wordpress.multisite }});
+{%- if pillar.wordpress.multisite %}
 define('SUBDOMAIN_INSTALL', {{ pillar.wordpress.subdomain_install }});
 define('DOMAIN_CURRENT_SITE', '{{ pillar.wordpress.domain_current_site }}');
 define('PATH_CURRENT_SITE', '{{ pillar.wordpress.path_current_site }}');
 define('SITE_ID_CURRENT_SITE', {{ pillar.wordpress.site_id_current_site }});
 define('BLOG_ID_CURRENT_SITE', {{ pillar.wordpress.blog_id_current_site }});
 define 'SUNRISE', '{{ pillar.wordpress.sunrise }}');
+{%- endif %}
 
 define( 'DISALLOW_FILE_MODS', True );
 

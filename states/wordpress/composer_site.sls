@@ -1,4 +1,5 @@
-{% set DOCROOT = "/var/www/chapters" -%}
+{% set DOCROOT = pillar.wordpress.docroot -%}
+{% set HST = pillar.hst -%}
 
 
 include:
@@ -16,7 +17,9 @@ include:
 {{ sls }} wp-config:
   file.managed:
     - name: {{ DOCROOT }}/wp-config.php
-    - source: salt://wordpress/files/wp-config.php
+    - source:
+      - salt://wordpress/files/{{ HST }}-wp-config.php
+      - salt://wordpress/files/composer-wp-config.php
     - mode: '0444'
     - template: jinja
     - require:
@@ -95,7 +98,9 @@ include:
 {{ sls }} composer.json:
   file.managed:
     - name: {{ DOCROOT }}/composer.json
-    - source: salt://wordpress/files/chapters_composer.json
+    - source:
+      - salt://wordpress/files/{{ HST }}-composer.json
+      - salt://wordpress/files/default-composer.json
     - require:
       - file: {{ sls }} docroot
     - require_in:

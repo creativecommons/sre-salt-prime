@@ -1,6 +1,8 @@
 include:
   - apache2
   - lencrypt
+  - mysql.database
+  - mysql.user
   - mysql_cc.root_my_cnf
   - php.ng.apache2
   - php.ng.cli

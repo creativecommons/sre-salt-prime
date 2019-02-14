@@ -8,23 +8,23 @@
 
 
 include:
-  - 5_HST__POD.chapters__prod.secrets
+  - 5_HST__POD.podcast__prod.secrets
 
 
 letsencrypt:
   domainsets:
-    chapters:
-      - chapters.creativecommons.org
+    podcast:
+      - podcast.creativecommons.org
 mysql:
   server:
     root_user: {{ SECRETS.mysql.server.root_user }}
     root_password: {{ SECRETS.mysql.server.root_password }}
     host: {{ ENDPOINT }}
 wordpress:
-  # (also see 5_HST__POD.chapters__prod.secrets)
+  # (also see 5_HST__POD.podcast__prod.secrets)
   # Database
   db_host: {{ ENDPOINT }}
   # Developer
   wp_debug: False
   # Multisite
-  domain_current_site: chapters.creativecommon.org
+  domain_current_site: podcast.creativecommon.org

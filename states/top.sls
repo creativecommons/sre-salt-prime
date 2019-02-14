@@ -11,7 +11,10 @@
     - salt.proxy
   'chapters__*__*':
     - mount
-    - wordpress.chapters
+    - wordpress.composer_site
+  'podcast__*__*':
+    - mount
+    - wordpress.composer_site
 #  'pmwiki__*__*':
 #    - apache2.pmwiki
 #    - lencrypt

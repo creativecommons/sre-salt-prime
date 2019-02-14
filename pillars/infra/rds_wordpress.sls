@@ -1,5 +1,6 @@
 {% set HST, POD, LOC = grains.id.split("__") -%}
-{% import_yaml "5_HST__POD/chapters__prod/secrets.yaml" as chapters__prod %}
+{% import_yaml "5_HST__POD/chapters__prod/secrets.yaml" as chapters__prod -%}
+{% import_yaml "5_HST__POD/podcast__prod/secrets.yaml" as podcast__prod -%}
 
 
 infra:
@@ -13,6 +14,7 @@ infra:
     engine_version:
       default: 10.3
     instance_class:
+      # DB Instance class db.t2.micro does not support encryption at rest
       default: db.t2.small
       chapters: db.t2.medium
     parameters:
@@ -24,14 +26,18 @@ infra:
     primary_password:
       default: '/@@/ INVALID - MUST SET NON-DEFAULT PASSWORD /@@/'
       chapters__prod: {{ chapters__prod.mysql.server.root_password }}
+      podcast__prod: {{ podcast__prod.mysql.server.root_password }}
     primary_username:
       default: root
       chapters__prod: {{ chapters__prod.mysql.server.root_user }}
+      podcast__prod: {{ podcast__prod.mysql.server.root_user }}
     rds_secgroups:
       default:
-        - mysql-from-private_{{ POD }}_secgroup
-      chapters:
-        - mysql-from-chapters_{{ POD }}_secgroup
+        - mysql-from-private_core_secgroup
+      chapters__prod:
+        - mysql-from-chapters_prod_secgroup
+      podcast__prod:
+        - mysql-from-podcast_prod_secgroup
     storage:
       default: 10
       chapters: 334

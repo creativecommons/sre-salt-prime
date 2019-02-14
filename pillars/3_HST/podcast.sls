@@ -15,11 +15,6 @@ mounts:
     freq: 0
     pass: 2
 wordpress:
-  docroot: /var/www/chapters
+  docroot: /var/www/podcast
   # Multisite
-  multisite: True
-  subdomain_install: True
-  path_current_site: /
-  site_id_current_site: 1
-  blog_id_current_site: 1
-  sunrise: 'on'
+  multisite: False
