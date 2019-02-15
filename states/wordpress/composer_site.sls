@@ -115,3 +115,29 @@ include:
     - composer_home: /opt/composer
     - require:
       - php_cc.composer config.json
+
+
+# Support for Wordfence 1/2
+{{ sls }} dir wp-content/plugins/wordfence:
+  file.directory:
+    - name: {{ DOCROOT }}/wp-content/plugins/wordfence
+    - mode: '2775'
+    - group: www-data
+    - require:
+      - composer: {{ sls }} composer update
+      - group: php_cc.composer www-data group
+    - onlyif:
+      - test -d {{ DOCROOT }}/wp-content/plugins/wordfence
+
+
+# Support for Wordfence 2/2
+{{ sls }} dir wp-content/wflogs:
+  file.directory:
+    - name: {{ DOCROOT }}/wp-content/wflogs
+    - mode: '2775'
+    - group: www-data
+    - require:
+      - composer: {{ sls }} composer update
+      - group: php_cc.composer www-data group
+    - onlyif:
+      - test -d {{ DOCROOT }}/wp-content/plugins/wordfence
