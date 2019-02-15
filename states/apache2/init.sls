@@ -8,6 +8,7 @@
 
 include:
   - tls
+  - apache2.mod_ssl
 
 
 {{ sls }} installed packages:
