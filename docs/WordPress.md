@@ -73,6 +73,14 @@ modules:
 [wpcli]:https://wp-cli.org/
 
 
+#### Multisite Network
+
+- [Create A Network « WordPress Codex][wpnetwork]
+
+
+[wpnetwork]:https://codex.wordpress.org/Create_A_Network
+
+
 ## Formula Repositories
 
 - See [`../README.md#formula-repositories`](../README.md#formula-repositories)
