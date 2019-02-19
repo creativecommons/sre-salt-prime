@@ -15,6 +15,8 @@ letsencrypt:
   domainsets:
     podcast:
       - podcast.creativecommons.org
+      - playswellwithothers.org
+      - www.playswellwithothers.org
 mysql:
   server:
     root_user: {{ SECRETS.mysql.server.root_user }}
