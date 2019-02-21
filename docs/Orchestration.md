@@ -7,9 +7,9 @@
 ### Orchestration Run
 
 The following command does a test orchestration run of
-[`wiki_host.sls`](wiki_host.sls):
+[`web_host.sls`](web_host.sls):
 ```shell
-sudo salt-run state.orchestrate orch.wiki_host \
+sudo salt-run state.orchestrate orch.web_host \
     pillar='{"tgt_hst":"wikijs", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
     saltenv=timidrobot test=True
 ```
@@ -59,12 +59,19 @@ sudo salt-call --local --log-level=debug --log-file-level=warning \
 
 ### AWS
 
-- [AWS Resource Types Reference](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
+- [AWS Resource Types Reference][awstypes]
+
+
+[awstypes]:http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html
 
 
 #### Region Selection
 
-- [Save yourself a lot of pain (and money) by choosing your AWS Region wisely - Concurrency Labs](https://www.concurrencylabs.com/blog/choose-your-aws-region-wisely/)
+- [Save yourself a lot of pain (and money) by choosing your AWS Region wisely -
+  Concurrency Labs][awsregion]
+
+
+[awsregion]:https://www.concurrencylabs.com/blog/choose-your-aws-region-wisely/
 
 
 #### WordPress on AWS
@@ -74,12 +81,18 @@ sudo salt-call --local --log-level=debug --log-file-level=warning \
 
 ### Cloud-Init
 
-- [Cloud config examples — Cloud-Init 18.4 documentation](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
+- [Cloud config examples — Cloud-Init 18.4 documentation][cloudinit]
+
+
+[cloudinit]:https://cloudinit.readthedocs.io/en/latest/topics/examples.html
 
 
 ### Debian
 
-- [Cloud/AmazonEC2Image/Stretch - Debian Wiki](https://wiki.debian.org/Cloud/AmazonEC2Image/Stretch)
+- [Cloud/AmazonEC2Image/Stretch - Debian Wiki][debianaws]
+
+
+[debianaws]:https://wiki.debian.org/Cloud/AmazonEC2Image/Stretch
 
 
 ### SaltStack
@@ -110,11 +123,13 @@ modules:
 
 #### Orchestration Examples
 
-- [An example of a complex, multi-host Salt Orchestrate state that performs status checks as it goes][statechecks] (2017-08-11)
+- [An example of a complex, multi-host Salt Orchestrate state that performs
+  status checks as it goes][statechecks] (2017-08-11)
 - [Dynamic Test Servers with Salt | Lincoln Loop][lincoln]a (2017-09-12)
 - [SaltStack as an Alternative to Terraform for AWS Orchestration][terraform]
   (2017-08-30, Salt 2017.7.1 was stable version)
-- [Running Salt States Using Amazon EC2 Systems Manager | AWS Management Tools Blog][sysmgr] (2017-07-16, Salt 2016.11.5 was stable version)
+- [Running Salt States Using Amazon EC2 Systems Manager | AWS Management Tools
+  Blog][sysmgr] (2017-07-16, Salt 2016.11.5 was stable version)
 - ~~[Using Salt to boss your clouds around – Anthony Shaw – Medium][boss]
   (2017-05-02, Salt 2016.11.4 was stable version)~~
   - Uses salt-cloud, which has far fewer features than the state boto modules
@@ -142,17 +157,10 @@ modules:
 [confidant]:https://github.com/lyft/confidant/blob/master/salt/orchestration/confidant.sls
 
 
-### Creative Commons Terraform
-
-Creative Commons is exploring both SaltStack and Terraform for
-provisioning/orchestration. Also see:
-- [cccatalog-api/deployment at master · creativecommons/cccatalog-api](https://github.com/creativecommons/cccatalog-api/tree/master/deployment)
-
-
 ## Repository Documentation
 
 - [`README.md`](../README.md)
-- [`bootstrap-aws/README.md`](../bootstrap-aws/README.md).
+- [`bootstrap-aws/README.md`](../bootstrap-aws/README.md)
 - `docs/`
   - [`Orchestration.md`](Orchestration.md)
   - [`WordPress.md`](WordPress.md)
