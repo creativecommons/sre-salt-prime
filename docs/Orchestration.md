@@ -42,7 +42,7 @@ sudo salt-call --local --out=yaml state.show_sls orch.aws.instance_wikijs \
 #### Local Apply
 
 The following command does a local test apply of
-[`states/orch/aws/ec2_instance_web.sls`](../states/orchaws/ec2_instance_web.sls):
+[`states/orch/aws/ec2_instance_web.sls`](../states/orch/aws/ec2_instance_web.sls):
 ```shell
 sudo salt-call --local --log-level=debug --log-file-level=warning \
     state.apply orch.aws.instance_wikijs \
