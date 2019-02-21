@@ -89,7 +89,7 @@ modules:
 ## Repository Documentation
 
 - [`README.md`](../README.md)
-- [`bootstrap-aws/README.md`](../bootstrap-aws/README.md).
+- [`bootstrap-aws/README.md`](../bootstrap-aws/README.md)
 - `docs/`
   - [`Orchestration.md`](Orchestration.md)
   - [`WordPress.md`](WordPress.md)
