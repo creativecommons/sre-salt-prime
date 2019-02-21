@@ -7,7 +7,7 @@
 ### Orchestration Run
 
 The following command does a test orchestration run of
-[`web_host.sls`](web_host.sls):
+[`states/orch/web_host.sls`](../states/orch/web_host.sls):
 ```shell
 sudo salt-run state.orchestrate orch.web_host \
     pillar='{"tgt_hst":"wikijs", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
@@ -31,7 +31,7 @@ sudo salt-run state.orchestrate orch.web_host \
 #### Local Render
 
 The following command shows how the SLS is rendered and outputs it as YAML:
-[`aws/ec2_instance_web.sls`](aws/ec2_instance_web.sls):
+[`states/orch/aws/ec2_instance_web.sls`](../states/orch/aws/ec2_instance_web.sls):
 ```shell
 sudo salt-call --local --out=yaml state.show_sls orch.aws.instance_wikijs \
     pillar='{"tgt_hst":"wikijs", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
@@ -42,7 +42,7 @@ sudo salt-call --local --out=yaml state.show_sls orch.aws.instance_wikijs \
 #### Local Apply
 
 The following command does a local test apply of
-[`aws/ec2_instance_web.sls`](aws/ec2_instance_web.sls):
+[`states/orch/aws/ec2_instance_web.sls`](../states/orchaws/ec2_instance_web.sls):
 ```shell
 sudo salt-call --local --log-level=debug --log-file-level=warning \
     state.apply orch.aws.instance_wikijs \
