@@ -5,6 +5,7 @@
     - salt
     - ssh
     - sudo
+    - swapfile
     - user
     - vim
   'bastion__core__us-east-2':
@@ -12,6 +13,9 @@
   'chapters__*__*':
     - mount
     - wordpress.composer_site
+  'discourse__*__*':
+    - mount
+    - discourse
   'podcast__*__*':
     - mount
     - wordpress.composer_site

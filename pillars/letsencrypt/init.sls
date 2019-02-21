@@ -2,6 +2,7 @@
 
 
 letsencrypt:
+  email: {{ secrets.email }}
   config: |
     agree-tos = True
     authenticator = webroot

@@ -1,6 +1,22 @@
 # https://docs.docker.com/install/linux/docker-ce/debian/
 
 
+{{ sls }} /srv/docker:
+  file.directory:
+    - name: /srv/docker
+    - require:
+      - mount: mount mount /srv
+
+
+{{ sls }} /var/lib/docker symlink:
+  file.symlink:
+    - name: /var/lib/docker
+    - target: /srv/docker
+    - force: True
+    - require:
+      - file: {{ sls }} /srv/docker
+
+
 {{ sls }} dependencies:
   pkg.installed:
     - pkgs:
@@ -8,6 +24,8 @@
       - gnupg2
       - python-apt
       - software-properties-common
+    - require:
+      - file: {{ sls }} /var/lib/docker symlink
 
 
 {{ sls }} Docker CE Repository:

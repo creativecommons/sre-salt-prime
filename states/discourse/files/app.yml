@@ -1,0 +1,37 @@
+templates:
+  - "templates/postgres.template.yml"
+  - "templates/redis.template.yml"
+  - "templates/web.template.yml"
+  - "templates/web.ratelimited.template.yml"
+  - "templates/web.ssl.template.yml"
+  - "templates/web.letsencrypt.ssl.template.yml"
+expose:
+  - "80:80"   # http
+  - "443:443" # https
+params:
+  db_default_text_search_config: "pg_catalog.english"
+env:
+  LANG: en_US.UTF-8
+  DISCOURSE_HOSTNAME: {{ HOSTNAME }}
+  DISCOURSE_DEVELOPER_EMAILS: '{{ DEVELOPER_EMAILS }}'
+  DISCOURSE_SMTP_ADDRESS: {{ SMTP_ADDRESS }}
+  DISCOURSE_SMTP_PORT: 587
+  DISCOURSE_SMTP_USER_NAME: {{ SMTP_USER_NAME }}
+  DISCOURSE_SMTP_PASSWORD: {{ SMTP_PASSWORD }}
+  DISCOURSE_SMTP_ENABLE_START_TLS: true
+  LETSENCRYPT_ACCOUNT_EMAIL: {{ LETSENCRYPT_EMAIL }}
+volumes:
+  - volume:
+      host: /var/discourse/shared/standalone
+      guest: /shared
+  - volume:
+      host: /var/discourse/shared/standalone/log/var-log
+      guest: /var/log
+## Plugins go here
+## see https://meta.discourse.org/t/19157 for details
+hooks:
+  after_code:
+    - exec:
+        cd: $home/plugins
+        cmd:
+          - git clone https://github.com/discourse/docker_manager.git

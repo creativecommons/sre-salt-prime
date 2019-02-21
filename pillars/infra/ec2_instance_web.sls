@@ -10,7 +10,7 @@ infra:
     instance_type:
       default: t3.nano
       chapters: t3.medium
-      discourse: t3.micro
+      discourse: t3.small
       podcast: t3.micro
       wikijs: t3.small
     web_secgroups:

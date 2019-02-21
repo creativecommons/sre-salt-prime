@@ -1,6 +1,5 @@
-letsencrypt:
-  deploy_hooks:
-    restart_nginx.sh: service nginx reload
+linux:
+  swapsize: 2
 mounts:
   - spec: /dev/nvme1n1
     file: /srv
