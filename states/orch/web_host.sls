@@ -73,6 +73,7 @@
   salt.function:
     - name: cmd.run
     - tgt: {{ pillar.location.salt_prime_id }}
+    - saltenv: {{ saltenv }}
     - arg:
       - test -f /etc/salt/pki/master/minions/{{ MID }}
     - require:
@@ -83,6 +84,7 @@
   salt.function:
     - name: test.ping
     - tgt: {{ MID }}
+    - saltenv: {{ saltenv }}
     - retry:
         attempts: 3
         interval: 5
@@ -162,6 +164,7 @@
   salt.function:
     - name: test.ping
     - tgt: {{ MID }}
+    - saltenv: {{ saltenv }}
     - retry:
         attempts: 6
         interval: 5
