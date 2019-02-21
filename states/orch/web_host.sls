@@ -1,7 +1,7 @@
 # Required command line pillar data:
-#   tgt_hst: Targeted Hostname and Wiki
-#   tgt_pod: Targeted Pod
-#   tgt_loc: Targeted Location
+#   tgt_hst: targeted host/role
+#   tgt_pod: targeted pod/group
+#   tgt_loc: targeted location
 {% set HST = pillar.tgt_hst -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
@@ -23,11 +23,10 @@
                           ":alias/", P_LOC.kms_key_id_storage]|join("") -%}
 
 
-
 # Phases:
-# One: AWS Provisioning
-# Two: Bootstrap (skipped if minion is already live)
-# Three: Highstate
+#   One: AWS Provisioning
+#   Two: Bootstrap (skipped if minion is already live)
+#   Three: Highstate
 
 
 # Phase One: AWS Provisioning
