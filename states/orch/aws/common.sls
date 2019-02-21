@@ -8,7 +8,7 @@
 ### Security Groups
 
 
-{% set ident = ["web-all", POD, "secgroup"] -%}
+{% set ident = ["web-all", "core", "secgroup"] -%}
 {% set name = ident|join("_") -%}
 {{ name }}:
   boto_secgroup.present:
@@ -30,7 +30,7 @@
     {{ aws.tags(ident) }}
 
 
-{% set ident = ["ssh-from-salt-prime", POD, "secgroup"] -%}
+{% set ident = ["ssh-from-salt-prime", "core", "secgroup"] -%}
 {% set name = ident|join("_") -%}
 {{ name }}:
   boto_secgroup.present:
