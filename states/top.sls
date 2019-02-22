@@ -19,6 +19,7 @@
   'podcast__*__*':
     - mount
     - wordpress.composer_site
+    - user.webdevs
 #  'pmwiki__*__*':
 #    - apache2.pmwiki
 #    - lencrypt

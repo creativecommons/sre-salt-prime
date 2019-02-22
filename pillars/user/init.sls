@@ -14,6 +14,8 @@ user:
     - plugdev
     - sudo
     - video
+  webdev_groups:
+    - adm
 {#
  # Admins are stored in user.secrets to reduce mail harvesting. The expected
  # data structure is demonstrated below:
@@ -30,4 +32,6 @@ user:
  #        rsa:
  #          - arthur_rsa_legacy_20190102.pub
  #          - arthur_rsa_inherited_20190102.pub
+ #
+ # WebDevs follow the same structure but under webdevs insteead of admins.
  #}
