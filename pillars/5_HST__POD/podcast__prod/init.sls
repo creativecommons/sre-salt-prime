@@ -28,5 +28,3 @@ wordpress:
   db_host: {{ ENDPOINT }}
   # Developer
   wp_debug: False
-  # Multisite
-  domain_current_site: podcast.creativecommons.org
