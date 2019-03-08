@@ -12,6 +12,10 @@
         {
             "type":"composer",
             "url":"https://wpackagist.org"
+        },
+        {
+            "type":"vcs",
+            "url":"https://github.com/creativecommons/wp-theme-cc-chapter"
         }
     ],
     "config": {
@@ -19,6 +23,7 @@
     },
     "require": {
         "composer/installers":"1.6",
+        "creativecommons/wp-theme-cc-chapter":"dev-master",
         "johnpbloch/wordpress":"5.0.3",
         "wpackagist-plugin/advanced-custom-fields":"5.7.9",
         "wpackagist-plugin/advanced-menu-widget":"0.4.1",
