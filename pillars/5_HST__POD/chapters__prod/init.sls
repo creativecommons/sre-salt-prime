@@ -27,4 +27,4 @@ wordpress:
   # Developer
   wp_debug: False
   # Multisite
-  domain_current_site: chapters.creativecommon.org
+  domain_current_site: chapters.creativecommons.org

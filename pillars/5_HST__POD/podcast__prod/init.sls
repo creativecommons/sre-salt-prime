@@ -29,4 +29,4 @@ wordpress:
   # Developer
   wp_debug: False
   # Multisite
-  domain_current_site: podcast.creativecommon.org
+  domain_current_site: podcast.creativecommons.org
