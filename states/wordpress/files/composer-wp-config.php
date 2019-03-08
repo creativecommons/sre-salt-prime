@@ -10,6 +10,7 @@
 define('FORCE_SSL_ADMIN', True);
 define('ABSPATH', dirname(__FILE__));
 define('WP_SITEURL', 'https://'.$_SERVER['SERVER_NAME']);
+define('WP_HOME', 'https://'.$_SERVER['SERVER_NAME']);
 define('WP_CONTENT_DIR', dirname(__FILE__) . '/wp-content');
 define('WP_CONTENT_URL', WP_SITEURL . '/wp-content');
 
@@ -49,6 +50,7 @@ define('WP_DEBUG', {{ pillar.wordpress.wp_debug }});
 /* Multisite */
 define('MULTISITE', {{ pillar.wordpress.multisite }});
 {%- if pillar.wordpress.multisite %}
+define('WP_ALLOW_MULTISITE', True);
 define('SUBDOMAIN_INSTALL', {{ pillar.wordpress.subdomain_install }});
 define('DOMAIN_CURRENT_SITE', '{{ pillar.wordpress.domain_current_site }}');
 define('PATH_CURRENT_SITE', '{{ pillar.wordpress.path_current_site }}');
