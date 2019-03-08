@@ -49,7 +49,7 @@ include:
       - composer: {{ sls }} composer update
 
 
-{%- for dir in ["languages", "plugins", "themes", "vendor"] %}
+{%- for dir in ["languages", "mu-plugins", "plugins", "themes", "vendor"] %}
 
 
 {{ sls }} dir wp-content/{{ dir }}:
@@ -141,3 +141,27 @@ include:
       - group: php_cc.composer www-data group
     - onlyif:
       - test -d {{ DOCROOT }}/wp-content/plugins/wordfence
+
+
+# Support for WordPress MU Domain Mapping 1/2
+# http://ottopress.com/2010/wordpress-3-0-multisite-domain-mapping-tutorial/
+{{ sls }} file domain_mapping.php:
+  file.symlink:
+    - name: {{ DOCROOT }}/wp-content/mu-plugins/domain_mapping.php
+    - target: ../plugins/wordpress-mu-domain-mapping/domain_mapping.php
+    - require:
+      - composer: {{ sls }} composer update
+    - onlyif:
+      - test -d {{ DOCROOT }}/wp-content/plugins/wordpress-mu-domain-mapping
+
+
+# Support for WordPress MU Domain Mapping 2/2
+# http://ottopress.com/2010/wordpress-3-0-multisite-domain-mapping-tutorial/
+{{ sls }} file sunrise.php:
+  file.symlink:
+    - name: {{ DOCROOT }}/wp-content/sunrise.php
+    - target: plugins/wordpress-mu-domain-mapping/sunrise.php
+    - require:
+      - composer: {{ sls }} composer update
+    - onlyif:
+      - test -d {{ DOCROOT }}/wp-content/plugins/wordpress-mu-domain-mapping
