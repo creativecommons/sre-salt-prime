@@ -59,7 +59,8 @@ define('BLOG_ID_CURRENT_SITE', {{ pillar.wordpress.blog_id_current_site }});
 define('SUNRISE', '{{ pillar.wordpress.sunrise }}');
 {%- endif %}
 
-define( 'DISALLOW_FILE_MODS', True );
+define('DISALLOW_FILE_EDIT', True);
+#define('DISALLOW_FILE_MODS', True);
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
