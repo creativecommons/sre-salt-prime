@@ -14,6 +14,7 @@
   'chapters__*__*':
     - mount
     - wordpress.composer_site
+    - user.webdevs
   'discourse__*__*':
     - mount
     - discourse
