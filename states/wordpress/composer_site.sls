@@ -115,6 +115,18 @@ include:
     - composer_home: /opt/composer
     - require:
       - php_cc.composer config.json
+    - unless:
+      - test -f {{ DOCROOT }}/COMPOSER_SALTSTACK_LOCKED
+
+
+{{ sls }} composer lock:
+  file.managed:
+    - name: {{ DOCROOT }}/COMPOSER_SALTSTACK_LOCKED
+    - contents:
+      - '# This file prevents composer from being run by SaltStack'
+    - mode: '0444'
+    - require:
+      - composer: {{ sls }} composer update
 
 
 # Support for Wordfence 1/2
