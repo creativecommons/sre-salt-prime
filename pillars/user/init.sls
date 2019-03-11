@@ -16,6 +16,7 @@ user:
     - video
   webdev_groups:
     - adm
+    - composer
 {#
  # Admins are stored in user.secrets to reduce mail harvesting. The expected
  # data structure is demonstrated below:
