@@ -49,7 +49,8 @@ include:
       - composer: {{ sls }} composer update
 
 
-{%- for dir in ["languages", "mu-plugins", "plugins", "themes", "vendor"] %}
+{%- for dir in ["languages", "mu-plugins", "plugins", "themes", "upgrade",
+                "vendor"] %}
 
 
 {{ sls }} dir wp-content/{{ dir }}:
@@ -127,6 +128,17 @@ include:
     - mode: '0444'
     - require:
       - composer: {{ sls }} composer update
+
+
+{{ sls }} symlink wp-content:
+  file.symlink:
+    - name: {{ DOCROOT }}/wp/wp-content
+    - target: ../wp-content
+    - force: True
+    - backupname: >-
+        {{ DOCROOT }}/wp/wp-content.{{ None|strftime("%Y%m%d_%H%M%S") }}
+    - onlyif:
+      - test -d {{ DOCROOT }}/wp/wp-content
 
 
 # Support for Wordfence 1/2
