@@ -30,9 +30,9 @@ include:
       - file: {{ sls }} debianize letsencrypt archive dirs
 
 
-{{ sls }} lencrypt deploy_hook ssl-cert-perms:
+{{ sls }} lencrypt deploy_hook ssl-cert-perms.sh:
   file.managed:
-    - name: /etc/letsencrypt/renewal-hooks/deploy/ssl-cert_perms
+    - name: /etc/letsencrypt/renewal-hooks/deploy/ssl-cert_perms.sh
     - contents:
       - '#!/bin/sh'
       - '/bin/chgrp -R ssl-cert /etc/letsencrypt/live'
