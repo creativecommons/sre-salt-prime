@@ -1,6 +1,6 @@
 # sre-salt-prime
 
-Site Reliability Engineering / DevOps SaltStack configuration files - NEW!
+Site Reliability Engineering / DevOps SaltStack configuration files
 
 
 ## Code of Conduct
