@@ -13,6 +13,7 @@ infra:
         chapters__prod:   10.22.10.14
         podcast__prod:    10.22.10.15
         discourse__dev:   10.22.10.16
+        biztool__prod:    10.22.10.17
         ### Private-One   10.22.11.0
         salt-prime__core: 10.22.11.11
         ### Private-Two   10.22.12.0
