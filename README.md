@@ -2,14 +2,24 @@
 
 Site Reliability Engineering / DevOps SaltStack configuration files - NEW!
 
-(This will eventually completely replace `sre-salt`.)
-
 
 ## Code of Conduct
 
-Please note that this project is released with a Contributor Code of Conduct
-([`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)). By participating in this
-project you agree to abide by its terms.
+> The Creative Commons team is committed to fostering a welcoming community.
+> This project and all other Creative Commons open source projects are governed
+> by our [Code of Conduct][code_of_conduct]. Please report unacceptable
+> behavior to [conduct@creativecommons.org](mailto:conduct@creativecommons.org)
+> per our [reporting guidelines][reporting_guide].
+> ([`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md))
+
+
+[code_of_conduct]:https://creativecommons.github.io/community/code-of-conduct/
+[reporting_guide]:https://creativecommons.github.io/community/code-of-conduct/enforcement/
+
+
+## Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 
 ## Development Notes
