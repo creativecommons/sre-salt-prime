@@ -9,7 +9,7 @@ infra:
         bastion__core:    10.22.10.10
         pmwiki__core:     10.22.10.11
         wikijs__core:     10.22.10.12
-        # NAT Gateway     10.22.10.13
+        #NAT_Gateway:     10.22.10.13
         chapters__prod:   10.22.10.14
         podcast__prod:    10.22.10.15
         discourse__dev:   10.22.10.16
