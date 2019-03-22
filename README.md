@@ -5,12 +5,12 @@ Site Reliability Engineering / DevOps SaltStack configuration files - NEW!
 
 ## Code of Conduct
 
+[`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md):
 > The Creative Commons team is committed to fostering a welcoming community.
 > This project and all other Creative Commons open source projects are governed
 > by our [Code of Conduct][code_of_conduct]. Please report unacceptable
 > behavior to [conduct@creativecommons.org](mailto:conduct@creativecommons.org)
 > per our [reporting guidelines][reporting_guide].
-> ([`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md))
 
 
 [code_of_conduct]:https://creativecommons.github.io/community/code-of-conduct/
