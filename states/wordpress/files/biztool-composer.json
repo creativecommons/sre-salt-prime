@@ -12,6 +12,14 @@
         {
             "type":"composer",
             "url":"https://wpackagist.org"
+        },
+        {
+            "type":"vcs",
+            "url":"https://github.com/creativecommons/qtranslate-xt"
+        },
+        {
+            "type":"vcs",
+            "url":"https://github.com/creativecommons/wp-theme-cctoolkit"
         }
     ],
     "config": {
