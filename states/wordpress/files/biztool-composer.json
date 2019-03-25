@@ -1,0 +1,43 @@
+{
+    "name":"creativecommons/wordpress-biztool",
+    "description":"Creative Commons Business Toolkit WordPress Site via Composer",
+    "authors": [
+        {
+            "name":"Creative Commons",
+            "homepage":"https://github.com/creativecommons/sre-salt-prime"
+        }
+    ],
+    "type": "project",
+    "repositories": [
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
+    "config": {
+        "vendor-dir":"wp-content/vendor"
+    },
+    "require": {
+        "composer/installers":"1.6",
+        "creativecommons/qtranslate-xt":"dev-composer",
+        "creativecommons/wp-theme-cctoolkit":"dev-master",
+        "johnpbloch/wordpress":"5.1.1",
+        "wpackagist-plugin/acf-qtranslate":"1.7.25",
+        "wpackagist-plugin/admin-menu-editor":"1.8.8",
+        "wpackagist-plugin/advanced-custom-fields":"5.7.12",
+        "wpackagist-plugin/custom-post-type-ui":"1.6.1",
+        "wpackagist-plugin/dashicons-cpt":"1.0.2",
+        "wpackagist-plugin/disable-comments":"1.9.0",
+        "wpackagist-plugin/qtranslate-x":"3.4.6.8",
+        "wpackagist-plugin/simple-custom-post-order":"2.4.2",
+        "wpackagist-plugin/wordfence":"7.2.1",
+        "wpackagist-plugin/wordpress-seo":"9.6"
+    },
+    "require-dev": {
+        "wpackagist-plugin/debug-bar":"1.0",
+        "wpackagist-plugin/debug-bar-actions-and-filters-addon":"1.5.4"
+    },
+    "extra": {
+        "wordpress-install-dir":"wp"
+    }
+}
