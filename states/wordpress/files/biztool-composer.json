@@ -19,9 +19,9 @@
     },
     "require": {
         "composer/installers":"1.6",
-        "creativecommons/qtranslate-xt":"dev-composer",
         "creativecommons/wp-theme-cctoolkit":"dev-master",
         "johnpbloch/wordpress":"5.1.1",
+        "qtranslate/qtranslate-xt":"dev-composer",
         "wpackagist-plugin/acf-qtranslate":"1.7.25",
         "wpackagist-plugin/admin-menu-editor":"1.8.8",
         "wpackagist-plugin/advanced-custom-fields":"5.7.12",
