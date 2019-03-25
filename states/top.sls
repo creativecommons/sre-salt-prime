@@ -11,6 +11,10 @@
   'bastion__core__us-east-2':
     - salt.proxy
     - user.webdevs
+  'biztool__*__*':
+    - mount
+    - wordpress.composer_site
+    - user.webdevs
   'chapters__*__*':
     - mount
     - wordpress.composer_site
