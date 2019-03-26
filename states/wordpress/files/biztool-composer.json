@@ -15,11 +15,13 @@
         },
         {
             "type":"vcs",
-            "url":"https://github.com/creativecommons/qtranslate-xt"
+            "url":"https://github.com/creativecommons/qtranslate-xt",
+            "no-api":true
         },
         {
             "type":"vcs",
-            "url":"https://github.com/creativecommons/wp-theme-cctoolkit"
+            "url":"https://github.com/creativecommons/wp-theme-cctoolkit",
+            "no-api":true
         }
     ],
     "config": {
