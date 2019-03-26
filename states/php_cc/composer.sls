@@ -1,3 +1,5 @@
+# - Members of user:webdevs are added to the composer Linux system group
+# - Members of user:admins are added to the composer Linux system group
 include:
   - php.ng.composer
 
@@ -12,10 +14,26 @@ include:
   group.present:
     - name: composer
     - system: True
+{%- set admins = salt["pillar.get"]("user:admins", False) %}
+{%- set webdevs = salt["pillar.get"]("user:webdevs", False) %}
+{%- if admins or webdevs %}
+    - addusers:
+{%- if admins %}
+{%- for user in admins.keys() %}
+      - {{ user }}
+{%- endfor %}
+{%- endif %}
+{%- if webdevs %}
+{%- for user in webdevs.keys() %}
+      - {{ user }}
+{%- endfor %}
+{%- endif %}
+{%- endif %}
     - require:
       - file: {{ sls }} home
     - require_in:
       - file: {{ sls }} config.json
+
 
 {{ sls }} user:
   user.present:

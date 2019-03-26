@@ -1,3 +1,5 @@
+# - Members of user:webdevs are added to thye www-data Linux system group
+# - Members of user:admins are added to the www-data Linux system group
 {% import "apache2/jinja2.sls" as a2 with context -%}
 
 {% set CONFS_INSTALL = ["zzz_denied_to_all", "zzz_harden"] -%}
@@ -20,6 +22,30 @@ include:
       - file: tls dhparams.pem
     - require_in:
       - pkg: letsencrypt-client       # this seems fragile. load from pillar?
+
+
+{{ sls }} www-data group:
+  group.present:
+    - name: www-data
+    - gid: 33
+{%- set admins = salt["pillar.get"]("user:admins", False) %}
+{%- set webdevs = salt["pillar.get"]("user:webdevs", False) %}
+{%- if admins or webdevs %}
+    - addusers:
+{%- if admins %}
+{%- for user in admins.keys() %}
+      - {{ user }}
+{%- endfor %}
+{%- endif %}
+{%- if webdevs %}
+{%- for user in webdevs.keys() %}
+      - {{ user }}
+{%- endfor %}
+{%- endif %}
+{%- endif %}
+    - require:
+      - pkg: {{ sls }} installed packages
+
 
 
 {{ sls }} service:

@@ -4,6 +4,8 @@ include:
 
 user:
   admin_groups:
+    # composer per states/php_cc/composer.sls
+    # www-data per states/apache2/init.sls
     - adm
     - audio
     - cdrom
@@ -15,8 +17,9 @@ user:
     - sudo
     - video
   webdev_groups:
+    # composer per states/php_cc/composer.sls
+    # www-data per states/apache2/init.sls
     - adm
-    - composer
 {#
  # Admins are stored in user.secrets to reduce mail harvesting. The expected
  # data structure is demonstrated below:
