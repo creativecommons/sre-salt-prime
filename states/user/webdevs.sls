@@ -1,5 +1,5 @@
-{% for username in pillar.user.webdevs.keys() -%}
-{% set userdata = pillar["user"]["webdevs"][username] -%}
+{%- for username in pillar.user.webdevs.keys() %}
+{%- set userdata = pillar["user"]["webdevs"][username] %}
 {{ sls }} {{ username }} group:
   group.present:
     - name: {{ username }}
@@ -49,6 +49,8 @@
 {% endfor -%}
 {% endif -%}
 {% endfor -%}
+
+
 {% for group in pillar.user.webdev_groups -%}
 {{ sls }} {{ group }} group:
   group.present:
