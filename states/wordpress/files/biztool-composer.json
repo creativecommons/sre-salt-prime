@@ -40,8 +40,8 @@
         "wpackagist-plugin/disable-comments":"1.9.0",
         "wpackagist-plugin/qtranslate-x":"3.4.6.8",
         "wpackagist-plugin/simple-custom-post-order":"2.4.2",
-        "wpackagist-plugin/wordfence":"7.2.1",
-        "wpackagist-plugin/wordpress-seo":"9.6"
+        "wpackagist-plugin/wordfence":"7.2.3",
+        "wpackagist-plugin/wordpress-seo":"10.0.1"
     },
     "require-dev": {
         "wpackagist-plugin/debug-bar":"1.0",
