@@ -11,9 +11,6 @@ include:
   - apache2.mod_rewrite
 
 
-{{ a2.disable_sites(sls, SITES_DISABLE) }}
-
-
 {{ sls }} site config:
   file.managed:
     - name: /etc/apache2/sites-available/{{ SERVER_NAME }}.conf
@@ -37,5 +34,10 @@ include:
     - name: {{ SERVER_NAME }}
     - require:
       - file: {{ sls }} site config
+    - require_in:
+      - {{ sls }} disable site 000-default.conf
     - watch_in:
       - service: apache2 service
+
+
+{{ a2.disable_sites(sls, SITES_DISABLE) }}
