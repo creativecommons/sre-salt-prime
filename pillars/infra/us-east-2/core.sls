@@ -7,7 +7,6 @@ infra:
 #}
         ### DMZ           10.22.10.0
         bastion__core:    10.22.10.10
-        pmwiki__core:     10.22.10.11
         wikijs__core:     10.22.10.12
         #NAT_Gateway:     10.22.10.13
         chapters__prod:   10.22.10.14

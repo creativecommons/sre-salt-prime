@@ -26,11 +26,6 @@
     - mount
     - wordpress.composer_site
     - user.webdevs
-#  'pmwiki__*__*':
-#    - apache2.pmwiki
-#    - lencrypt
-#    - mount
-#    - pmwiki
   'wikijs__*__*':
     - lencrypt
     - mongodb
