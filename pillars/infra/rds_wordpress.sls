@@ -1,6 +1,7 @@
 {% set HST, POD, LOC = grains.id.split("__") -%}
 {% import_yaml "5_HST__POD/biztool__prod/secrets.yaml" as biztool__prod -%}
 {% import_yaml "5_HST__POD/chapters__prod/secrets.yaml" as chapters__prod -%}
+{% import_yaml "5_HST__POD/chapters__stage/secrets.yaml" as chapters__stage -%}
 {% import_yaml "5_HST__POD/podcast__prod/secrets.yaml" as podcast__prod -%}
 
 
@@ -28,11 +29,13 @@ infra:
       default: '/@@/ INVALID - MUST SET NON-DEFAULT PASSWORD /@@/'
       biztool__prod: {{ biztool__prod.mysql.server.root_password }}
       chapters__prod: {{ chapters__prod.mysql.server.root_password }}
+      chapters__stage: {{ chapters__stage.mysql.server.root_password }}
       podcast__prod: {{ podcast__prod.mysql.server.root_password }}
     primary_username:
       default: root
       biztool__prod: {{ biztool__prod.mysql.server.root_user }}
       chapters__prod: {{ chapters__prod.mysql.server.root_user }}
+      chapters__stage: {{ chapters__stage.mysql.server.root_user }}
       podcast__prod: {{ podcast__prod.mysql.server.root_user }}
     rds_secgroups:
       default:
@@ -41,6 +44,8 @@ infra:
         - mysql-from-biztool_prod_secgroup
       chapters__prod:
         - mysql-from-chapters_prod_secgroup
+      chapters__stage:
+        - mysql-from-chapters_stage_secgroup
       podcast__prod:
         - mysql-from-podcast_prod_secgroup
     storage:
