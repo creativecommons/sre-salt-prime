@@ -33,15 +33,3 @@ infra:
           az: us-east-2c
           route_table: nat_core_route-table
           tag_routing: NAT Gateway
-      web_secgroups:
-        default:
-          - pingtrace-all_core_secgroup
-          - ssh-from-salt-prime_core_secgroup
-          - ssh-from-bastion_core_secgroup
-          - web-all_core_secgroup
-        chapters:
-          - pingtrace-all_core_secgroup
-          - ssh-from-salt-prime_core_secgroup
-          - ssh-from-bastion_core_secgroup
-          - web-all-chapters_core_secgroup
-
