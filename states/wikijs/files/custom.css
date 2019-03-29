@@ -2,3 +2,10 @@
 div.CodeMirror-code {
     font-family:monospace;
 }
+
+/* Bold links should be bold */
+strong a.external-link {
+    font-weight:bold;
+}strong a.internal-link {
+    font-weight:bold;
+}
