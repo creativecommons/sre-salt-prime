@@ -1,9 +1,11 @@
 footer.footer(class=['is-' + appconfig.theme.footer], ref='footer')
   span
-    if pageData && pageData.meta && pageData.meta.path
-      = pageData.meta.path + ' - ' + appconfig.title
+    if pageData && pageData.meta && pageData.meta.title
+      = '[' + pageData.meta.title + '](/' + pageData.meta.path + ')'
     else
-      = appconfig.title
+      = ''
+  span
+    = appconfig.title
   span
     = t('footer.poweredby') + ' '
     a(href='https://github.com/Requarks/wiki-v1') Wiki.js Stable v1.x
