@@ -8,5 +8,6 @@ include:
   - php.ng.cli
   - php.ng.gd
   - php.ng.mysqlnd
+  - php.ng.xml
   - php_cc.composer
   - wordpress.cli
