@@ -43,7 +43,7 @@ trap '_es=${?};
 backup_database() {
     # https://developer.wordpress.org/cli/commands/db/export/
     /usr/local/bin/wp --quiet --no-color --require=/opt/wp-cli/silence.php \
-        --path="${DOCROOT}/wp" db export - | \
+        --path="${DOCROOT}/wp" db export --single-transaction - | \
         gzip > ${DESTINATION}/db.sql.gz
 }
 
