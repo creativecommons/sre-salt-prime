@@ -103,6 +103,8 @@ include:
     - source:
       - salt://wordpress/files/{{ HST }}-composer.json
       - salt://wordpress/files/default-composer.json
+    - mode: '0444'
+    - template: jinja
     - require:
       - file: {{ sls }} docroot
     - require_in:
