@@ -45,12 +45,14 @@ backup_database() {
     /usr/local/bin/wp --quiet --no-color --require=/opt/wp-cli/silence.php \
         --path="${DOCROOT}/wp" db export --single-transaction - | \
         gzip > ${DESTINATION}/db.sql.gz
+    chmod g+w ${DESTINATION}/db.sql.gz
 }
 
 
 backup_uploads() {
     tar zcf ${DESTINATION}/uploads.tgz -C ${DOCROOT}/wp-content \
         uploads
+    chmod g+w ${DESTINATION}/uploads.tgz
 }
 
 
@@ -72,10 +74,12 @@ prep_and_erase_backup_destination() {
     else
         mkdir "${DESTINATION}"
     fi
+    chmod g+w ${DESTINATION}
     local today=$(date -u '+%F')
     local hash=$(date | md5sum)
     local hash=${hash:1:7}
     echo "# ${today}" > ${DESTINATION}/backup_id_${today}-${hash}
+    chmod g+w ${DESTINATION}/backup_id_${today}-${hash}
 }
 
 
