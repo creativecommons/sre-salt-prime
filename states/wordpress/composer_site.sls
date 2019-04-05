@@ -7,6 +7,14 @@ include:
   - apache2.wordpress_composer
 
 
+{{ sls }} update webdev group perms cron:
+  cron.present:
+    - name: '/usr/bin/find /var/www \( -group composer -o -group www-data \) -exec chmod g+w {} +'
+    - user: root
+    - identifier: update_webdev_group_perms
+    - special: '@daily'
+
+
 {{ sls }} docroot:
   file.directory:
     - name: {{ DOCROOT }}
