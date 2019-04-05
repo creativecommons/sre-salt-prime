@@ -14,7 +14,7 @@ include:
 letsencrypt:
   domainsets:
     chapters:
-      - chapters.stage.creativecommons.org
+      - chapters-stage.creativecommons.org
 mysql:
   server:
     root_user: {{ SECRETS.mysql.server.root_user }}
@@ -27,4 +27,4 @@ wordpress:
   # Developer
   wp_debug: False
   # Multisite
-  domain_current_site: chapters.stage.creativecommons.org
+  domain_current_site: chapters-stage.creativecommons.org
