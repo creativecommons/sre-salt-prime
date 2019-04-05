@@ -23,7 +23,7 @@
     },
     "require": {
         "composer/installers":"1.6",
-        "creativecommons/wp-theme-cc-chapter":"dev-master",
+        "creativecommons/wp-theme-cc-chapter":"2019.4.1",
         "johnpbloch/wordpress":"5.0.3",
         "wpackagist-plugin/advanced-custom-fields":"5.7.9",
         "wpackagist-plugin/advanced-menu-widget":"0.4.1",
