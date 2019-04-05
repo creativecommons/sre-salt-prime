@@ -1,4 +1,11 @@
+#
+# WARNING: Pod "Stage" minions execute composer with dev requirements
+#          (no_dev: False)
+#
 {% set DOCROOT = pillar.wordpress.docroot -%}
+{% set WP_CONTENT = "{}/wp-content".format(DOCROOT) -%}
+{% set MU_PLUGINS = "{}/mu-plugins".format(WP_CONTENT) -%}
+{% set PLUGINS = "{}/plugins".format(WP_CONTENT) -%}
 {% set HST = pillar.hst -%}
 {% set POD = pillar.pod -%}
 
@@ -63,7 +70,7 @@ include:
 
 {{ sls }} dir wp-content/{{ dir }}:
   file.directory:
-    - name: {{ DOCROOT }}/wp-content/{{ dir }}
+    - name: {{ WP_CONTENT }}/{{ dir }}
     - mode: '2775'
     - group: composer
     - require:
@@ -153,17 +160,46 @@ include:
       - test -d {{ DOCROOT }}/wp/wp-content
 
 
+# Support for Queulat 1/3
+{{ sls }} symlink vendor:
+  file.symlink:
+    - name: {{ MU_PLUGINS }}/queulat/vendor
+    - target: ../../vendor
+    - require:
+      - composer: {{ sls }} composer update
+    - onlyif:
+      - test -d {{ MU_PLUGINS }}/queulat
+
+
+# Support for Queulat 2/3
+{{ sls }} file wp-content/mu-plugins/queulat.php:
+  file.managed:
+    - name: {{ MU_PLUGINS }}/queulat.php
+    - source: salt://wordpress/files/queulat.php
+    - mode: '0664'
+    - group: composer
+    - require:
+      - composer: {{ sls }} composer update
+      - user: php_cc.composer user
+    - onlyif:
+      - test -d {{ MU_PLUGINS }}/queulat
+
+
+# Support for Queulat 3/3
+# TODO: npm install
+
+
 # Support for Wordfence 1/2
 {{ sls }} dir wp-content/plugins/wordfence:
   file.directory:
-    - name: {{ DOCROOT }}/wp-content/plugins/wordfence
+    - name: {{ PLUGINS }}/wordfence
     - mode: '2775'
     - group: www-data
     - require:
       - composer: {{ sls }} composer update
       - group: php_cc.composer www-data group
     - onlyif:
-      - test -d {{ DOCROOT }}/wp-content/plugins/wordfence
+      - test -d {{ PLUGINS }}/wordfence
 
 
 # Support for Wordfence 2/2
@@ -176,28 +212,28 @@ include:
       - composer: {{ sls }} composer update
       - group: php_cc.composer www-data group
     - onlyif:
-      - test -d {{ DOCROOT }}/wp-content/plugins/wordfence
+      - test -d {{ PLUGINS }}/wordfence
 
 
 # Support for WordPress MU Domain Mapping 1/2
 # http://ottopress.com/2010/wordpress-3-0-multisite-domain-mapping-tutorial/
-{{ sls }} file domain_mapping.php:
+{{ sls }} symlink domain_mapping.php:
   file.symlink:
-    - name: {{ DOCROOT }}/wp-content/mu-plugins/domain_mapping.php
+    - name: {{ MU_PLUGINS }}/domain_mapping.php
     - target: ../plugins/wordpress-mu-domain-mapping/domain_mapping.php
     - require:
       - composer: {{ sls }} composer update
     - onlyif:
-      - test -d {{ DOCROOT }}/wp-content/plugins/wordpress-mu-domain-mapping
+      - test -d {{ PLUGINS }}/wordpress-mu-domain-mapping
 
 
 # Support for WordPress MU Domain Mapping 2/2
 # http://ottopress.com/2010/wordpress-3-0-multisite-domain-mapping-tutorial/
-{{ sls }} file sunrise.php:
+{{ sls }} symlink sunrise.php:
   file.symlink:
     - name: {{ DOCROOT }}/wp-content/sunrise.php
     - target: plugins/wordpress-mu-domain-mapping/sunrise.php
     - require:
       - composer: {{ sls }} composer update
     - onlyif:
-      - test -d {{ DOCROOT }}/wp-content/plugins/wordpress-mu-domain-mapping
+      - test -d {{ PLUGINS }}/wordpress-mu-domain-mapping
