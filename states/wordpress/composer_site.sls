@@ -1,6 +1,6 @@
 {% set DOCROOT = pillar.wordpress.docroot -%}
 {% set HST = pillar.hst -%}
-
+{% set POD = pillar.pod -%}
 
 include:
   - wordpress
@@ -119,7 +119,11 @@ include:
     - composer: /usr/local/bin/composer
     - php: /usr/bin/php
     - optimize: True
+{%- if POD == "stage" %}
+    - no_dev: False
+{%- else %}
     - no_dev: True
+{%- endif %}
     - user: composer
     - composer_home: /opt/composer
     - require:
