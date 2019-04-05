@@ -31,3 +31,14 @@
     - target: /opt/wp-cli/bin/wp-cli.phar
     - require:
       - file: {{ sls }} install wp-cli
+
+
+# https://wordpress.stackexchange.com/questions/100234/wp-cli-displays-php-notices-when-display-errors-off/145313#145313
+{{ sls }} silence PHP file:
+  file.managed:
+    - name: /opt/wp-cli/silence.php
+    - contents:
+      - '<?php error_reporting(0); @ini_set("display_errors", 0);'
+    - mode: '0444'
+    - require:
+      - file: {{ sls }} home
