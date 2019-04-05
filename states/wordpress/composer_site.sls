@@ -180,13 +180,25 @@ include:
     - group: composer
     - require:
       - composer: {{ sls }} composer update
+      - file: {{ sls }} symlink vendor
       - user: php_cc.composer user
     - onlyif:
       - test -d {{ MU_PLUGINS }}/queulat
 
 
 # Support for Queulat 3/3
-# TODO: npm install
+{{ sls }} queulat npm install:
+  npm.installed:
+    - name: package.json
+    - dir: {{ MU_PLUGINS }}/queulat
+    - user: composer
+    - require:
+      - composer: {{ sls }} composer update
+      - file: {{ sls }} file wp-content/mu-plugins/queulat.php
+      - pkg: nodejs installed packages
+      - user: php_cc.composer user
+    - onlyif:
+      - test -d {{ MU_PLUGINS }}/queulat
 
 
 # Support for Wordfence 1/2

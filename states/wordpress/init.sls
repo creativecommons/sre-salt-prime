@@ -4,6 +4,7 @@ include:
   - mysql.database
   - mysql.user
   - mysql_cc.root_my_cnf
+  - nodejs
   - php.ng.apache2
   - php.ng.cli
   - php.ng.gd
