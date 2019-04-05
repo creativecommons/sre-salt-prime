@@ -4,12 +4,6 @@ include:
   - php.ng.composer
 
 
-{{ sls }} home:
-  file.directory:
-    - name: /opt/composer
-    - mode: '0555'
-
-
 {{ sls }} group:
   group.present:
     - name: composer
@@ -29,8 +23,6 @@ include:
 {%- endfor %}
 {%- endif %}
 {%- endif %}
-    - require:
-      - file: {{ sls }} home
     - require_in:
       - file: {{ sls }} config.json
 
@@ -48,6 +40,16 @@ include:
       - group: {{ sls }} group
     - require_in:
       - file: {{ sls }} config.json
+
+
+{{ sls }} home:
+  file.directory:
+    - name: /opt/composer
+    - mode: '0775'
+    - user: composer
+    - group: composer
+    - require:
+      - user: {{ sls }} user
 
 
 {{ sls }} www-data group:
