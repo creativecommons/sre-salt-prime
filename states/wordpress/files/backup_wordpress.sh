@@ -9,12 +9,22 @@
 # - /opt/wp-cli/silence.php exists and contains something like:
 #       <?php error_reporting(0); @ini_set("display_errors", 0);
 #
-# This script creates the following:
+#
+# This script creates the following backups (if invoked with each interval):
+#
 #   /var/www/SITE/backup
-#   └── now
-#       ├── backup_id_2019-04-05-b4243d2    # (provides timestamp of backup)
-#       ├── db.sql.gz                       # Compressed database dump
-#       └── uploads.tgz                     # Tarball of uploads directory
+#   ├── daily
+#   │   ├── backup_id_2019-04-05-1379620    # (provides timestamp of backup)
+#   │   ├── db.sql.gz                       # Compressed database dump
+#   │   └── uploads.tgz                     # Tarball of uploads directory
+#   ├── now
+#   │   ├── backup_id_2019-04-05-a427ee7
+#   │   ├── db.sql.gz
+#   │   └── uploads.tgz
+#   └── weekly
+#       ├── backup_id_2019-04-05-04ebe43
+#       ├── db.sql.gz
+#       └── uploads.tgz
 #
 set -o errexit
 set -o errtrace
