@@ -12,6 +12,7 @@
 
 include:
   - wordpress
+  - wordpress.backup
   - wordpress.queulat
   - wordpress.wordfence
   - wordpress.domain_mapping
