@@ -47,6 +47,7 @@
         "qtranslate/qtranslate-xt":"dev-composer",
         "wpackagist-plugin/acf-qtranslate":"1.7.25",
         "wpackagist-plugin/admin-menu-editor":"1.8.8",
+        "wpackagist-plugin/advanced-custom-fields":"5.7.12",
         "wpackagist-plugin/classic-editor":"1.4",
         "wpackagist-plugin/custom-post-type-ui":"1.6.1",
         "wpackagist-plugin/dashicons-cpt":"1.0.2",
