@@ -6,8 +6,8 @@
 
 {{ sls }} symlink vendor:
   file.symlink:
-    - name: {{ MU_PLUGINS }}/queulat/vendor
-    - target: ../../vendor
+    - name: {{ DOCROOT }}/vendor
+    - target: wp-content/vendor
     - require:
       - composer: wordpress.composer_site composer update
       - pkg: nodejs installed packages
