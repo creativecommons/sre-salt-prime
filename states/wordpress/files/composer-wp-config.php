@@ -7,8 +7,16 @@
  * @package WordPress
  */
 
+if ( !defined('ABSPATH') ) {
+    define('ABSPATH', dirname(__FILE__) . '/');
+}
 define('FORCE_SSL_ADMIN', True);
-define('ABSPATH', dirname(__FILE__));
+/* PHP notice: Undefined index on $_SERVER superglobal
+ * https://make.wordpress.org/cli/handbook/common-issues/#php-notice-undefined-index-on-_server-superglobal
+ */
+if ( defined( 'WP_CLI' ) && WP_CLI && ! isset( $_SERVER['SERVER_NAME'] ) ) {
+    $_SERVER['SERVER_NAME'] = 'localhost';
+}
 define('WP_SITEURL', 'https://'.$_SERVER['SERVER_NAME']);
 define('WP_HOME', 'https://'.$_SERVER['SERVER_NAME']);
 define('WP_CONTENT_DIR', dirname(__FILE__) . '/wp-content');
