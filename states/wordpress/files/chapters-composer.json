@@ -29,8 +29,8 @@
     },
     "require": {
         "composer/installers":"1.6",
-        "creativecommons/wp-theme-cc-chapter":"2019.4.3",
-        "johnpbloch/wordpress":"5.0.3",
+        "creativecommons/wp-theme-cc-chapter":"2019.4.4",
+        "johnpbloch/wordpress":"5.1.1",
         "wpackagist-plugin/advanced-custom-fields":"5.7.9",
         "wpackagist-plugin/advanced-menu-widget":"0.4.1",
         "wpackagist-plugin/advanced-sidebar-menu":"7.4.6",
