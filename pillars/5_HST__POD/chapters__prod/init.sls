@@ -15,6 +15,11 @@ letsencrypt:
   domainsets:
     chapters:
       - chapters.creativecommons.org
+      - au-beta.creativecommons.org
+      - ca-beta.creativecommons.org
+      - ke-beta.creativecommons.org
+      - mx-beta.creativecommons.org
+      - nl-beta.creativecommons.org
 mysql:
   server:
     root_user: {{ SECRETS.mysql.server.root_user }}
