@@ -33,11 +33,7 @@ include:
 {{ sls }} lencrypt deploy_hook ssl-cert-perms.sh:
   file.managed:
     - name: /etc/letsencrypt/renewal-hooks/deploy/ssl-cert_perms.sh
-    - contents:
-      - '#!/bin/sh'
-      - '/bin/chgrp -R ssl-cert /etc/letsencrypt/live'
-      - '/usr/bin/find /etc/letsencrypt/live -type d -exec chmod 2710 {} +'
-      - '/usr/bin/find /etc/letsencrypt/live -type f -exec chmod 0640 {} +'
+    - source: salt:///lencrypt/files/ssl-cert_perms.sh
     - mode: '0555'
     - require:
       - pkg: letsencrypt-client
