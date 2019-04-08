@@ -21,7 +21,7 @@ include:
 
 {{ sls }} update webdev group perms cron:
   cron.present:
-    - name: '/usr/bin/find /var/www \( -group composer -o -group www-data \) -exec chmod g+w {} +'
+    - name: '/usr/bin/find /var/www \( -group composer -o -group www-data \) -exec chmod g+w {} + 2>/dev/null'
     - user: root
     - identifier: update_webdev_group_perms
     - special: '@daily'
