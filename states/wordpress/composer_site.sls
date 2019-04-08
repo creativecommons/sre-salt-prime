@@ -30,9 +30,11 @@ include:
 {{ sls }} docroot:
   file.directory:
     - name: {{ DOCROOT }}
-    - mode: '0555'
+    - mode: '2775'
+    - group: composer
     - require:
       - mount: mount mount /var/www
+      - user: php_cc.composer user
 
 
 {{ sls }} wp-config:
@@ -47,7 +49,7 @@ include:
       - file: {{ sls }} docroot
 
 
-{{ sls }} dir wp:
+{{ sls }} create dir wp:
   file.directory:
     - name: {{ DOCROOT }}/wp
     - mode: '2775'
@@ -154,6 +156,16 @@ include:
     - mode: '0444'
     - require:
       - composer: {{ sls }} composer update
+
+
+{{ sls }} update dir wp:
+  file.directory:
+    - name: {{ DOCROOT }}/wp
+    - mode: '2775'
+    - group: composer
+    - require:
+      - composer: {{ sls }} composer update
+      - user: php_cc.composer user
 
 
 {{ sls }} symlink wp-content:
