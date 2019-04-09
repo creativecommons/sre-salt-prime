@@ -97,7 +97,7 @@ php:
             request_order: 'GP'
             register_argc_argv: 'Off'
             auto_globals_jit: 'On'
-            post_max_size: 8M
+            post_max_size: 11M
             auto_prepend_file: ''
             auto_append_file: ''
             default_mimetype: 'text/html'
@@ -106,31 +106,31 @@ php:
             user_dir: ''
             enable_dl: 'Off'
             file_uploads: 'On'
-            upload_max_filesize: 2M
+            upload_max_filesize: 10M
             max_file_uploads: 20
             allow_url_fopen: 'On'
             allow_url_include: 'Off'
             default_socket_timeout: 60
 {# Default disable_functions list for Debian libapache2-mod-php7.0 package:
-              - pcntl_alarm
-              - pcntl_exec
-              - pcntl_fork
-              - pcntl_get_last_error
-              - pcntl_getpriority
-              - pcntl_setpriority
-              - pcntl_signal
-              - pcntl_signal_dispatch
-              - pcntl_sigprocmask
-              - pcntl_sigtimedwait
-              - pcntl_sigwaitinfo
-              - pcntl_strerror
-              - pcntl_wait
-              - pcntl_waitpid
-              - pcntl_wexitstatus
-              - pcntl_wifcontinued
-              - pcntl_wifexited
-              - pcntl_wifsignaled
-              - pcntl_wifstopped
-              - pcntl_wstopsig
-              - pcntl_wtermsig
-#}
+ #            - pcntl_alarm
+ #            - pcntl_exec
+ #            - pcntl_fork
+ #            - pcntl_get_last_error
+ #            - pcntl_getpriority
+ #            - pcntl_setpriority
+ #            - pcntl_signal
+ #            - pcntl_signal_dispatch
+ #            - pcntl_sigprocmask
+ #            - pcntl_sigtimedwait
+ #            - pcntl_sigwaitinfo
+ #            - pcntl_strerror
+ #            - pcntl_wait
+ #            - pcntl_waitpid
+ #            - pcntl_wexitstatus
+ #            - pcntl_wifcontinued
+ #            - pcntl_wifexited
+ #            - pcntl_wifsignaled
+ #            - pcntl_wifstopped
+ #            - pcntl_wstopsig
+ #            - pcntl_wtermsig
+ #}
