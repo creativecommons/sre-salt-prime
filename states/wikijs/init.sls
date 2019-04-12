@@ -110,6 +110,26 @@ include:
       - file: {{ sls }} custom css
 
 
+{{ sls }} custom login.pug:
+  file.managed:
+    - name: {{ CUSTOM_DIR }}/server-views-auth-login.pug
+    - source: salt://wikijs/files/login.pug
+    - mode: '0444'
+    - require:
+      - file: {{ sls }} custom directory
+      - file: {{ sls }} custom symlink css
+
+
+{{ sls }} custom symlink login.pug:
+  file.symlink:
+    - name: {{ WIKI_DIR }}/server/views/auth/login.pug
+    - target: ../../../custom/server-views-auth-login.pug
+    - force: True
+    - backupname: {{ CUSTOM_DIR }}/server-views-auth-login.pug.{{ NOW }}
+    - require:
+      - file: {{ sls }} custom login.pug
+
+
 {{ sls }} custom layout.pug:
   file.managed:
     - name: {{ CUSTOM_DIR }}/server-views-layout.pug
