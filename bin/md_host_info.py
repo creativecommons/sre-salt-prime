@@ -24,12 +24,18 @@ def main():
     print("---- | --------- | ---------------- | ------------")
     for host in sorted(data.keys()):
         grains = data[host]
-        aws_ip = grains["meta-data:public-ipv4"]
-        fqdn_ips = grains["fqdn_ip4"]
+        if "meta-data:public-ipv4" in grains:
+            aws_ip = grains["meta-data:public-ipv4"]
+        else:
+            aws_ip = False
+        if "fqdn_ip4" in grains:
+            fqdn_ips = grains["fqdn_ip4"]
+        else:
+            fqdn_ips = False
         if aws_ip:
             ip = "`{}`".format(aws_ip)
         elif fqdn_ips and fqdn_ips[0] and fqdn_ips[0] != "127.0.1.1":
-            ip = "`{}`".format(fqdn_ips)
+            ip = "`{}`".format(fqdn_ips[0])
         else:
             ip = ""
         os = grains["lsb_distrib_description"]
