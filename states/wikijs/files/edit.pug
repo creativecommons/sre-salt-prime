@@ -2,7 +2,7 @@ extends ../layout.pug
 
 block head
   if pageData && pageData.meta && pageData.meta.path
-    title= '*' + pageData.meta.path + ' - ' + appconfig.title
+    title= '(!)' + pageData.meta.title + ' - ' + appconfig.title
   else
     title= appconfig.title
 
