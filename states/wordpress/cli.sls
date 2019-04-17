@@ -1,5 +1,3 @@
-
-
 {{ sls }} home:
   file.directory:
     - name: /opt/wp-cli
