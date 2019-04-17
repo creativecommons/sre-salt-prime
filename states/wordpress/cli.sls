@@ -1,5 +1,3 @@
-
-
 {{ sls }} home:
   file.directory:
     - name: /opt/wp-cli
@@ -29,6 +27,7 @@
   file.symlink:
     - name: /usr/local/bin/wp
     - target: /opt/wp-cli/bin/wp-cli.phar
+    - force: True
     - require:
       - file: {{ sls }} install wp-cli
 
