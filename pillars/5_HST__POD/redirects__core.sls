@@ -1,6 +1,6 @@
 letsencrypt:
   domainsets:
-    creativecommons.org:
+    redirects.creativecommons.org:
       - redirects.creativecommons.org
       - i.creativecommons.org
 nginx:
