@@ -1,0 +1,19 @@
+# vim: ft=nginx:
+
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name {{ SOURCE }};
+    return 301 https://{{ DESTINATION }}$request_uri;
+}
+
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name {{ SOURCE }};
+    ssl_certificate /etc/letsencrypt/live/{{ CERT_NAME }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ CERT_NAME }}/privkey.pem;
+    return 301 https://{{ DESTINATION }}$request_uri;
+}

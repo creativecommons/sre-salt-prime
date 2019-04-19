@@ -26,6 +26,8 @@
     - mount
     - wordpress.composer_site
     - user.webdevs
+  'redirects__*__*':
+    - nginx.redirects
   'wikijs__*__*':
     - lencrypt
     - mongodb

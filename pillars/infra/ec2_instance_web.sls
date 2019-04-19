@@ -5,6 +5,7 @@ infra:
       biztool: vpc
       chapters: vpc
       podcast: vpc
+      redirects: vpc
     ebs_size:
       default: 10
       chapters: 334

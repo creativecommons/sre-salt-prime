@@ -1,0 +1,26 @@
+# vim: ft=nginx:
+
+
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    # Enable letsencrypt authorization
+    location /.well-known {
+        default_type "text/plain";
+        root /var/www/html;
+    }
+    # Redirect everything else to creativecommons.org
+    location / {
+        return 301 https://creativecommons.org$request_uri;
+    }
+}
+
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    ssl_certificate /etc/letsencrypt/live/redirects.creativecommons.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/redirects.creativecommons.org/privkey.pem;
+    # Redirect everything to creativecommons.org
+    return 301 https://creativecommons.org$request_uri;
+}
