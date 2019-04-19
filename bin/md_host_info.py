@@ -20,8 +20,8 @@ def main():
     now = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
     data = yaml.safe_load(sys.stdin)
     print()
-    print("Host | Public IP | Operating System | Salt Version")
-    print("---- | --------- | ---------------- | ------------")
+    print("Host | Public IP | Operating System | Salt Version | Days Up")
+    print("---- | :-------: | ---------------- | ------------ | ------:")
     for host in sorted(data.keys()):
         grains = data[host]
         if "meta-data:public-ipv4" in grains:
@@ -33,21 +33,22 @@ def main():
         else:
             fqdn_ips = False
         if aws_ip:
-            ip = "`{}`".format(aws_ip)
+            ip = aws_ip
         elif fqdn_ips and fqdn_ips[0] and fqdn_ips[0] != "127.0.1.1":
-            ip = "`{}`".format(fqdn_ips[0])
+            ip = fqdn_ips[0]
         else:
             ip = ""
         os = grains["lsb_distrib_description"]
-        salt = "`{}`".format(grains["saltversion"])
+        salt = "{}".format(grains["saltversion"])
+        uptime = "{}".format(grains["uptime_days"])
         if grains == "Minion did not return. [Not connected]":
             print(host, "| *N/A* | *Not connected*")
         else:
-            print(" | ".join([host, ip, os, salt]))
+            print(" | ".join([host, ip, os, salt, uptime]))
     print("Generated {} via:".format(now))
     print("```shell")
     print("sudo salt --out yaml \* grains.item lsb_distrib_description \\")
-    print("    meta-data:public-ipv4 fqdn_ip4 saltversion \\")
+    print("    meta-data:public-ipv4 fqdn_ip4 saltversion uptime_days \\")
     print("    | bin/md_host_info.py")
     print("```")
     print()
