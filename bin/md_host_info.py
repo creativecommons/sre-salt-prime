@@ -40,7 +40,7 @@ def main():
             ip = ""
         os = grains["lsb_distrib_description"]
         salt = "{}".format(grains["saltversion"])
-        uptime = "{}".format(grains["uptime_days"])
+        uptime = "{:.2f}".format(grains["uptime_days"])
         if grains == "Minion did not return. [Not connected]":
             print(host, "| *N/A* | *Not connected*")
         else:
