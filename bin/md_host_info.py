@@ -3,6 +3,7 @@
 
 """Create markdown table of host information:
 
+sudo salt \* saltutil.sync_grains
 sudo salt --out yaml \* grains.item lsb_distrib_description \\
     meta-data:public-ipv4 fqdn_ip4 saltversion \\
     | bin/md_host_info.py
@@ -20,8 +21,9 @@ def main():
     now = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
     data = yaml.safe_load(sys.stdin)
     print()
-    print("Host | Public IP | Operating System | Salt Version | Days Up")
-    print("---- | :-------: | ---------------- | ------------ | ------:")
+    print("### | Host | Public IP | Operating System | Salt Version | Days Up")
+    print("--: | ---- | :-------: | ---------------- | ------------ | ------:")
+    i = 1
     for host in sorted(data.keys()):
         grains = data[host]
         if "meta-data:public-ipv4" in grains:
@@ -44,10 +46,12 @@ def main():
         if grains == "Minion did not return. [Not connected]":
             print(host, "| *N/A* | *Not connected*")
         else:
-            print(" | ".join([host, ip, os, salt, uptime]))
+            print(" | ".join(["{: 3d}".format(i), host, ip, os, salt, uptime]))
+        i += 1
     print("Generated {} via:".format(now))
     print("```shell")
-    print("sudo salt --out yaml \* grains.item lsb_distrib_description \\")
+    print("sudo salt \\* saltutil.sync_grains")
+    print("sudo salt --out yaml \\* grains.item lsb_distrib_description \\")
     print("    meta-data:public-ipv4 fqdn_ip4 saltversion uptime_days \\")
     print("    | bin/md_host_info.py")
     print("```")
