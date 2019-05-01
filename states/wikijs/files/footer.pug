@@ -11,5 +11,10 @@ footer.footer(class=['is-' + appconfig.theme.footer], ref='footer')
     a(href='https://github.com/Requarks/wiki-v1') Wiki.js Stable v1.x
     | .
   ul
+    if pageData && pageData.meta && pageData.meta.path
+      li: a.icon(href='https://github.com/creativecommons/sre-wiki-js/blob/master/' + pageData.meta.path + '.md')
+        i.icon-github
+    else
+      = ''
     li: a(href='/')= t('footer.home')
     li: a(href='#root')= t('footer.top')
