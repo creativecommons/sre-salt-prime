@@ -1,0 +1,46 @@
+{
+    "name":"creativecommons/wordpress-sotc",
+    "description":"Creative Commons State of the Commons Site via Composer",
+    "authors": [
+        {
+            "name":"Creative Commons",
+            "homepage":"https://github.com/creativecommons/sre-salt-prime"
+        }
+    ],
+    "type": "project",
+    "repositories": [
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        },
+        {
+            "type":"vcs",
+            "url":"https://github.com/creativecommons/queulat",
+            "no-api":true
+        },
+        {
+            "type":"vcs",
+            "url":"https://github.com/creativecommons/wp-theme-cc-sotc",
+            "no-api":true
+        }
+    ],
+    "config": {
+        "vendor-dir":"wp-content/vendor"
+    },
+    "require": {
+        "composer/installers":"1.6",
+        "creativecommons/wp-theme-cc-sotc":"dev-master",
+        "johnpbloch/wordpress":"5.1.1",
+        "wpackagist-plugin/cms-tree-page-view":"1.6",
+        "wpackagist-plugin/polylang":"2.5.3",
+        "wpackagist-plugin/wordfence":"7.2.5",
+        "wpackagist-plugin/wordpress-seo":"11.1"
+    },
+    "require-dev": {
+        "wpackagist-plugin/debug-bar":"1.0",
+        "wpackagist-plugin/debug-bar-actions-and-filters-addon":"1.5.4"
+    },
+    "extra": {
+        "wordpress-install-dir":"wp"
+    }
+}

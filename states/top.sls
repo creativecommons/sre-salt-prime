@@ -28,6 +28,10 @@
     - user.webdevs
   'redirects__*__*':
     - nginx.redirects
+  'sotc__*__*':
+    - mount
+    - wordpress.composer_site
+    - user.webdevs
   'wikijs__*__*':
     - lencrypt
     - mongodb

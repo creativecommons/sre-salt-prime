@@ -13,8 +13,8 @@ include:
 
 letsencrypt:
   domainsets:
-    sotc:
-      - sotc.creativecommons.org
+    sotc-server.creativecommons.org:
+      - sotc-server.creativecommons.org
 mysql:
   server:
     root_user: {{ SECRETS.mysql.server.root_user }}
