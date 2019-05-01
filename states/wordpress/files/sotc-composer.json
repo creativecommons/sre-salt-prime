@@ -29,7 +29,7 @@
     },
     "require": {
         "composer/installers":"1.6",
-        "creativecommons/wp-theme-cc-sotc":"dev-master",
+        "creativecommons/wp-theme-cc-sotc":"2019.5.1",
         "johnpbloch/wordpress":"5.1.1",
         "wpackagist-plugin/cms-tree-page-view":"1.6",
         "wpackagist-plugin/polylang":"2.5.3",
