@@ -21,7 +21,7 @@ def main():
     now = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
     data = yaml.safe_load(sys.stdin)
     print()
-    print("### | Host | Public IP | Operating System | Salt Version | Days Up")
+    print("Cnt | Host | Public IP | Operating System | Salt Version | Days Up")
     print("--: | ---- | :-------: | ---------------- | ------------ | ------:")
     i = 1
     for host in sorted(data.keys()):
