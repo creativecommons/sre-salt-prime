@@ -48,6 +48,7 @@ def main():
         else:
             print(" | ".join(["{: 3d}".format(i), host, ip, os, salt, uptime]))
         i += 1
+    print()
     print("Generated {} via:".format(now))
     print("```shell")
     print("sudo salt \\* saltutil.sync_grains")
