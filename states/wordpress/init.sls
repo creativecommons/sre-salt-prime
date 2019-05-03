@@ -1,6 +1,6 @@
 include:
   - apache2
-  - lencrypt
+  - letsencrypt
   - mysql.database
   - mysql.user
   - mysql_cc.root_my_cnf

@@ -5,8 +5,8 @@ include:
 
 
 letsencrypt:
-  deploy_hooks:
-    restart_apache2.sh: /usr/sbin/service apache2 reload
+  post_hooks:
+    apache2_reload.sh: /usr/sbin/service apache2 reload
 mounts:
   - spec: /dev/nvme1n1
     file: /var/www

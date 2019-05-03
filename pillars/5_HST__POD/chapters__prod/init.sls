@@ -5,16 +5,32 @@
                  "jmespath": "DBInstances[0].Endpoint.Address"} -%}
 {% set ENDPOINT = salt.boto_rds.describe_db_instances(**kwargs)[0] -%}
 {% import_yaml "5_HST__POD/{}/secrets.yaml".format(HST__POD) as SECRETS -%}
+{% import_yaml "letsencrypt/secrets.yaml" as LETSENCRYPT -%}
 
 
 include:
   - 5_HST__POD.chapters__prod.secrets
+  - cloudflare.secrets
 
 
 letsencrypt:
+  config:
+    agree-tos: True
+    authenticator: dns-cloudflare
+    dns-cloudflare-credentials: /root/.secrets/cloudflare_api.ini
+    eff-email: False
+    email: {{ LETSENCRYPT.email }}
+    expand: True
+    keep-until-expiring: True
+    preferred-challenges: dns-01
+    quiet: True
+    renew-with-new-domains: True
+    server: https://acme-v02.api.letsencrypt.org/directory
+    webroot-path: /var/www/html
   domainsets:
-    chapters:
-      - chapters.creativecommons.org
+    creativecommons.net:
+      - '*.creativecommons.net'
+    chapters.creativecommons.org:
       - au-beta.creativecommons.org
       - ca-beta.creativecommons.org
       - ke-beta.creativecommons.org
@@ -26,6 +42,7 @@ mysql:
     root_password: {{ SECRETS.mysql.server.root_password }}
     host: {{ ENDPOINT }}
 wordpress:
+  site: chapters.creativecommons.org
   # (also see 5_HST__POD.chapters__prod.secrets)
   # Database
   db_host: {{ ENDPOINT }}

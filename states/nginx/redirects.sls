@@ -3,7 +3,7 @@
 
 include:
   - nginx
-  - lencrypt
+  - letsencrypt
 
 
 {{ sls }} install site redirects.creativecommons.org:

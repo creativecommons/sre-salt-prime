@@ -19,6 +19,8 @@
     - mount
     - wordpress.composer_site
     - user.webdevs
+  'chapters__prod__*':
+    - letsencrypt.cloudflare
   'discourse__*__*':
     - mount
     - discourse
@@ -33,7 +35,7 @@
     - wordpress.composer_site
     - user.webdevs
   'wikijs__*__*':
-    - lencrypt
+    - letsencrypt
     - mongodb
     - mount
     - nginx.wikijs
