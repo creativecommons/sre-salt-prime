@@ -52,8 +52,8 @@ include:
       - '# - Issue #57 - saltstack-formulas/letsencrypt-formula'
       - '# https://github.com/saltstack-formulas/letsencrypt-formula/issues/57'
       - '#'
-      - '/opt/letsencrypt/letsencrypt-auto certonly \'
 {%- for domainset in pillar.letsencrypt.domainsets.keys() %}
+      - '/opt/letsencrypt/letsencrypt-auto certonly \'
 {%- for domain in pillar.letsencrypt.domainsets[domainset] %}
 {%- if loop.last %}
       - '    -d {{ domain }}'
@@ -61,6 +61,7 @@ include:
       - '    -d {{ domain }} \'
 {%- endif %}
 {%- endfor %}
+      - ''
 {%- endfor %}
       - ''
     - mode: '0555'
