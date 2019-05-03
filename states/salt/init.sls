@@ -8,6 +8,7 @@ include:
 {{ sls }} dependencies:
   pkg.installed:
     - pkgs:
+      - apt-transport-https
       - python-apt
 
 
