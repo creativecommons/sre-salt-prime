@@ -63,7 +63,6 @@ include:
 {%- endfor %}
       - ''
 {%- endfor %}
-      - ''
     - mode: '0555'
     - require:
       - pkg: letsencrypt-client
