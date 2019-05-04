@@ -33,6 +33,6 @@ include:
         SMTP_ADDRESS: {{ pillar.postfix.onlyhost }}
         SMTP_USER_NAME: {{ pillar.postfix.relayuser }}
         SMTP_PASSWORD: {{ pillar.postfix.relaypass }}
-        LETSENCRYPT_EMAIL: {{ pillar.letsencrypt.email }}
+        LETSENCRYPT_EMAIL: {{ pillar.letsencrypt.config.email }}
     - require:
       - git: {{ sls }} discourse repo clone
