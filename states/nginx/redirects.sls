@@ -23,8 +23,7 @@ include:
     - target: /etc/nginx/sites-available/redirects.creativecommons.org
     - require:
       - file: {{ sls }} install site redirects.creativecommons.org
-      # from letsencrypt/domains.sls
-      - cmd: create-fullchain-privkey-pem-for-redirects.creativecommons.org
+      - cron: letsencrypt cron certbot renew
     - require_in:
       - {{ sls }} disable site default
     - watch_in:
