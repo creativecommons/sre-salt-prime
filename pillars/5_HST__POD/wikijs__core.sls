@@ -1,4 +1,3 @@
 letsencrypt:
   domainsets:
-    wikijs:
-      - wikijs.creativecommons.org
+    wikijs.creativecommons.org: ~

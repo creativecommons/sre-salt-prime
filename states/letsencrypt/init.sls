@@ -89,6 +89,9 @@ include:
 {{ sls }} certonly install {{ domainset }}:
   cmd.run:
     - name: >-
+{%- if pillar.letsencrypt.domainsets[domainset] is none %}
+        /usr/local/bin/certbot certonly -d {{ domainset }}
+{%- else %}
         /usr/local/bin/certbot certonly -d {{ domainset }} \
 {%- for domain in pillar.letsencrypt.domainsets[domainset]|sort() %}
 {%- if loop.last %}
@@ -97,6 +100,7 @@ include:
           -d {{ domain }} \
 {%- endif %}
 {%- endfor %}
+{%- endif %}
     - onchanges:
       - file: {{ sls }} domainsets
     - require_in:

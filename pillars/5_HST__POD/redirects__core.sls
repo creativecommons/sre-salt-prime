@@ -1,8 +1,6 @@
 letsencrypt:
   domainsets:
     redirects.creativecommons.org:
-      - redirects.creativecommons.org
-      # SANs:
       - donate.creativecommons.org
       - i.creativecommons.org
       - sotc.creativecommons.org

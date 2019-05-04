@@ -13,14 +13,14 @@ include:
 
 letsencrypt:
   domainsets:
-    biztool:
-      - business-toolkit.creativecommons.org
+    business-toolkit.creativecommons.org: ~
 mysql:
   server:
     root_user: {{ SECRETS.mysql.server.root_user }}
     root_password: {{ SECRETS.mysql.server.root_password }}
     host: {{ ENDPOINT }}
 wordpress:
+  site: business-toolkit.creativecommons.org
   # (also see 5_HST__POD.biztool__prod.secrets)
   # Database
   db_host: {{ ENDPOINT }}

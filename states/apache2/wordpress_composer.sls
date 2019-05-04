@@ -1,7 +1,6 @@
 {% import "apache2/jinja2.sls" as a2 with context -%}
 
-{% set domain = pillar.letsencrypt.domainsets.keys()[0] -%}
-{% set SERVER_NAME = pillar.letsencrypt.domainsets[domain][0] -%}
+{% set SERVER_NAME = pillar.wordpress.site -%}
 {% set LE_CERT_PATH = ["/etc/letsencrypt/live", SERVER_NAME]|join("/") -%}
 {% set SITES_DISABLE = ["000-default.conf", "default-ssl.conf"] -%}
 
@@ -23,8 +22,7 @@ include:
     - require:
       - composer: wordpress.composer_site composer update
       - pkg: apache2 installed packages
-      # from letsencrypt/domains.sls
-      - cmd: create-fullchain-privkey-pem-for-{{ SERVER_NAME }}
+      - cron: letsencrypt cron certbot renew
     - watch_in:
       - service: apache2 service
 

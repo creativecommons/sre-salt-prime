@@ -21,7 +21,7 @@ include:
       - mount: mount mount /var/www   # this seems fragile. load from pillar?
       - file: tls dhparams.pem
     - require_in:
-      - pkg: letsencrypt-client       # this seems fragile. load from pillar?
+      - pip: letsencrypt install certbot
 
 
 {{ sls }} www-data group:

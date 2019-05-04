@@ -13,8 +13,7 @@ include:
 
 letsencrypt:
   domainsets:
-    podcast:
-      - podcast.creativecommons.org
+    podcast.creativecommons.org:
       - playswellwithothers.org
       - www.playswellwithothers.org
 mysql:
@@ -23,6 +22,7 @@ mysql:
     root_password: {{ SECRETS.mysql.server.root_password }}
     host: {{ ENDPOINT }}
 wordpress:
+  site: podcast.creativecommons.org
   # (also see 5_HST__POD.podcast__prod.secrets)
   # Database
   db_host: {{ ENDPOINT }}

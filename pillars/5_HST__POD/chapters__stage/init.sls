@@ -13,14 +13,14 @@ include:
 
 letsencrypt:
   domainsets:
-    chapters:
-      - chapters-stage.creativecommons.org
+    chapters-stage.creativecommons.org: ~
 mysql:
   server:
     root_user: {{ SECRETS.mysql.server.root_user }}
     root_password: {{ SECRETS.mysql.server.root_password }}
     host: {{ ENDPOINT }}
 wordpress:
+  site: chapters-stage.creativecommons.org
   # (also see 5_HST__POD.chapters__stage.secrets)
   # Database
   db_host: {{ ENDPOINT }}

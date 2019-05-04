@@ -13,14 +13,14 @@ include:
 
 letsencrypt:
   domainsets:
-    sotc-server.creativecommons.org:
-      - sotc-server.creativecommons.org
+    sotc-server.creativecommons.org: ~
 mysql:
   server:
     root_user: {{ SECRETS.mysql.server.root_user }}
     root_password: {{ SECRETS.mysql.server.root_password }}
     host: {{ ENDPOINT }}
 wordpress:
+  site: sotc-server.creativecommons.org
   # (also see 5_HST__POD.sotc__prod.secrets)
   # Database
   db_host: {{ ENDPOINT }}
