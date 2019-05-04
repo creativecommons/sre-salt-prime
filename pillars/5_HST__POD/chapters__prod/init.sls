@@ -30,23 +30,17 @@ letsencrypt:
   domainsets:
     creativecommons.net:
       - '*.creativecommons.net'
-    chapters.creativecommons.org:
-      - au-beta.creativecommons.org
-      - ca-beta.creativecommons.org
-      - ke-beta.creativecommons.org
-      - mx-beta.creativecommons.org
-      - nl-beta.creativecommons.org
 mysql:
   server:
     root_user: {{ SECRETS.mysql.server.root_user }}
     root_password: {{ SECRETS.mysql.server.root_password }}
     host: {{ ENDPOINT }}
 wordpress:
-  site: chapters.creativecommons.org
+  site: creativecommons.net
   # (also see 5_HST__POD.chapters__prod.secrets)
   # Database
   db_host: {{ ENDPOINT }}
   # Developer
   wp_debug: False
   # Multisite
-  domain_current_site: chapters.creativecommons.org
+  domain_current_site: creativecommons.net
