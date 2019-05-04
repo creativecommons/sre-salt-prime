@@ -37,38 +37,6 @@ include:
       - pip: {{ sls }} install certbot
 
 
-{{ sls }} domainsets:
-  file.serialize:
-    - name: /etc/letsencrypt/domainsets.yaml
-    - formatter: yaml
-    - dataset_pillar: letsencrypt:domainsets
-    - mode: '0444'
-    - require:
-      - file: {{ sls }} config dir deploy
-
-
-# If the contents of /etc/letsencrypt/domainsets.yaml, then run certbot with
-# certonly command and all current domains to ensure the certificate and
-# Subject Alternative Name are correct
-{%- for domainset in pillar.letsencrypt.domainsets.keys() %}
-
-
-{{ sls }} certonly install {{ domainset }}:
-  cmd.run:
-    - name: >-
-        /usr/local/bin/certbot certonly -d {{ domainset }} \
-{%- for domain in pillar.letsencrypt.domainsets[domainset]|sort() %}
-{%- if loop.last %}
-          -d {{ domain }}
-{%- else %}
-          -d {{ domain }} \
-{%- endif %}
-{%- endfor %}
-    - onchanges:
-      - file: {{ sls }} domainsets
-{%- endfor %}
-
-
 {{ sls }} deploy_hook manage_new_certs.sh:
   file.managed:
     - name: /etc/letsencrypt/renewal-hooks/deploy/manage_new_certs.sh
@@ -99,6 +67,41 @@ include:
       - cron: {{ sls }} cron certbot renew
 {%- endfor %}
 {%- endif %}
+
+
+{{ sls }} domainsets:
+  file.serialize:
+    - name: /etc/letsencrypt/domainsets.yaml
+    - formatter: yaml
+    - dataset_pillar: letsencrypt:domainsets
+    - mode: '0444'
+    - require:
+      - file: {{ sls }} config dir deploy
+      - file: {{ sls }} deploy_hook manage_new_certs.sh
+
+
+# If the contents of /etc/letsencrypt/domainsets.yaml, then run certbot with
+# certonly command and all current domains to ensure the certificate and
+# Subject Alternative Name are correct
+{%- for domainset in pillar.letsencrypt.domainsets.keys() %}
+
+
+{{ sls }} certonly install {{ domainset }}:
+  cmd.run:
+    - name: >-
+        /usr/local/bin/certbot certonly -d {{ domainset }} \
+{%- for domain in pillar.letsencrypt.domainsets[domainset]|sort() %}
+{%- if loop.last %}
+          -d {{ domain }}
+{%- else %}
+          -d {{ domain }} \
+{%- endif %}
+{%- endfor %}
+    - onchanges:
+      - file: {{ sls }} domainsets
+    - require_in:
+      - cron: {{ sls }} cron certbot renew
+{%- endfor %}
 
 
 {{ sls }} cron certbot renew:
