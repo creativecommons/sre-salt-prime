@@ -12,11 +12,10 @@ infra:
       chapters: 334
       sotc: 214
     instance_type:
-      default: t3.nano
-      biztool: t3.micro
+      default: t3.micro
+      bastion: t3.nano
       chapters: t3.medium
       discourse: t3.small
-      podcast: t3.micro
       sotc: t3.medium
       wikijs: t3.small
     web_secgroups:
