@@ -42,7 +42,7 @@ include:
     - name: /etc/letsencrypt/domainsets.yaml
     - formatter: yaml
     - dataset_pillar: letsencrypt:domainsets
-    - mode: '0644'
+    - mode: '0444'
     - require:
       - file: {{ sls }} config dir deploy
 
