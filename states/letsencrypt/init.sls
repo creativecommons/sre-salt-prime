@@ -1,5 +1,3 @@
-# TO DO:
-# - initial install of certs
 include:
   - tls
 
@@ -37,6 +35,38 @@ include:
     - require:
       - file: {{ sls }} config dir deploy
       - pip: {{ sls }} install certbot
+
+
+{{ sls }} domainsets:
+  file.serialize:
+    - name: /etc/letsencrypt/domainsets.yaml
+    - formatter: yaml
+    - dataset_pillar: letsencrypt:domainsets
+    - mode: '0644'
+    - require:
+      - file: {{ sls }} config dir deploy
+
+
+# If the contents of /etc/letsencrypt/domainsets.yaml, then run certbot with
+# certonly command and all current domains to ensure the certificate and
+# Subject Alternative Name are correct
+{%- for domainset in pillar.letsencrypt.domainsets.keys() %}
+
+
+{{ sls }} certonly install {{ domainset }}:
+  cmd.run:
+    - name: >-
+        /usr/local/bin/certbot certonly -d {{ domainset }} \
+{%- for domain in pillar.letsencrypt.domainsets[domainset]|sort() %}
+{%- if loop.last %}
+          -d {{ domain }}
+{%- else %}
+          -d {{ domain }} \
+{%- endif %}
+{%- endfor %}
+    - onchanges:
+      - file: {{ sls }} domainsets
+{%- endfor %}
 
 
 {{ sls }} deploy_hook manage_new_certs.sh:
@@ -80,36 +110,3 @@ include:
     - require:
       - file: {{ sls }} cli.ini
       - file: {{ sls }} deploy_hook manage_new_certs.sh
-
-
-{#
-{{ sls }} lencrypt initialize certificates:
-  file.managed:
-    - name: /usr/local/sbin/le-initialize.sh
-    - contents:
-      - '#!/bin/sh'
-      - '#'
-      - '# This is a helper script to assist with mitigating:'
-      - '#'
-      - '# Adding a new SubjectAlternativeName to a set does not cause a renew'
-      - '# - Issue #57 - saltstack-formulas/letsencrypt-formula'
-      - '# https://github.com/saltstack-formulas/letsencrypt-formula/issues/57'
-      - '#'
-{%- for domainset in pillar.letsencrypt.domainsets.keys() %}
-      - '/opt/letsencrypt/letsencrypt-auto certonly \'
-{%- for domain in pillar.letsencrypt.domainsets[domainset] %}
-{%- if loop.last %}
-      - '    -d {{ domain }}'
-{%- else %}
-      - '    -d {{ domain }} \'
-{%- endif %}
-{%- endfor %}
-      - ''
-{%- endfor %}
-    - mode: '0555'
-    - require:
-      - pkg: letsencrypt-client
-      - pkg: tls installed packages
-
-
-#}
