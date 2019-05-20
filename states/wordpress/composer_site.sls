@@ -154,6 +154,8 @@ include:
     - contents:
       - '# This file prevents composer from being run by SaltStack'
     - mode: '0444'
+    - user: root
+    - group: root
     - require:
       - composer: {{ sls }} composer update
 
