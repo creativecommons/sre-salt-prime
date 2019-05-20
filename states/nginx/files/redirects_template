@@ -6,7 +6,15 @@ server {
     listen [::]:80;
     server_name {{ SOURCE }};
     access_log off;
-    return 301 https://{{ DESTINATION }}$request_uri;
+    # Enable letsencrypt authorization
+    location /.well-known {
+        default_type "text/plain";
+        root /var/www/html;
+    }
+    # Redirect everything else
+    location / {
+        return 301 https://{{ DESTINATION }}$request_uri;
+    }
 }
 
 
@@ -17,5 +25,6 @@ server {
     access_log off;
     ssl_certificate /etc/letsencrypt/live/{{ CERT_NAME }}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/{{ CERT_NAME }}/privkey.pem;
+    # Redirect everything
     return 301 https://{{ DESTINATION }}$request_uri;
 }
