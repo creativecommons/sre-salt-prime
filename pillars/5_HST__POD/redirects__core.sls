@@ -6,6 +6,7 @@ letsencrypt:
       - chapters.creativecommons.org
       - donate.creativecommons.org
       - i.creativecommons.org
+      - it.creativecommons.org
       - ke-beta.creativecommons.org
       - mx-beta.creativecommons.org
       - nl-beta.creativecommons.org
@@ -22,6 +23,8 @@ nginx:
       dst: us.netdonor.net/page/6650/donate/1
     - src: i.creativecommons.org
       dst: licensebuttons.net
+    - src: it.creativecommons.org
+      dst: creativecommons.it
     - src: ke-beta.creativecommons.org
       dst: ke-beta.creativecommons.net
     - src: mx-beta.creativecommons.org
