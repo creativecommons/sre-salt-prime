@@ -12,6 +12,7 @@ letsencrypt:
       - mx-beta.creativecommons.org
       - nl.creativecommons.org
       - nl-beta.creativecommons.org
+      - pl.creativecommons.org
       - sotc.creativecommons.org
 nginx:
   redirects:
@@ -37,5 +38,7 @@ nginx:
       dst: creativecommons.nl
     - src: nl-beta.creativecommons.org
       dst: nl-beta.creativecommons.net
+    - src: pl.creativecommons.org
+      dst: creativecommons.pl
     - src: sotc.creativecommons.org
       dst: stateof.creativecommons.org
