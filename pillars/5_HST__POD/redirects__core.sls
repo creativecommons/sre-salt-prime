@@ -10,6 +10,7 @@ letsencrypt:
       - jp.creativecommons.org
       - ke-beta.creativecommons.org
       - mx-beta.creativecommons.org
+      - nl.creativecommons.org
       - nl-beta.creativecommons.org
       - sotc.creativecommons.org
 nginx:
@@ -32,6 +33,8 @@ nginx:
       dst: ke-beta.creativecommons.net
     - src: mx-beta.creativecommons.org
       dst: mx-beta.creativecommons.net
+    - src: nl.creativecommons.org
+      dst: creativecommons.nl
     - src: nl-beta.creativecommons.org
       dst: nl-beta.creativecommons.net
     - src: sotc.creativecommons.org
