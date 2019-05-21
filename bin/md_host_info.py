@@ -46,7 +46,8 @@ def main():
         if grains == "Minion did not return. [Not connected]":
             print(host, "| *N/A* | *Not connected*")
         else:
-            print(" | ".join(["{: 3d}".format(i), host, ip, os, salt, uptime]))
+            print(" | ".join(["{: 3d}".format(i), "`{}`".format(host), ip, os,
+                  salt, uptime]))
         i += 1
     print()
     print("Generated {} via:".format(now))
