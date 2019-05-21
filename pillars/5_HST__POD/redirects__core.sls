@@ -7,6 +7,7 @@ letsencrypt:
       - donate.creativecommons.org
       - i.creativecommons.org
       - it.creativecommons.org
+      - jp.creativecommons.org
       - ke-beta.creativecommons.org
       - mx-beta.creativecommons.org
       - nl-beta.creativecommons.org
@@ -25,6 +26,8 @@ nginx:
       dst: licensebuttons.net
     - src: it.creativecommons.org
       dst: creativecommons.it
+    - src: jp.creativecommons.org
+      dst: creativecommons.jp
     - src: ke-beta.creativecommons.org
       dst: ke-beta.creativecommons.net
     - src: mx-beta.creativecommons.org
