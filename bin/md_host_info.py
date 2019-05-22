@@ -47,7 +47,7 @@ def main():
             ip_f = fqdn_ips[0]
         else:
             ip_f = ""
-        host_f = host
+        host_f = "`{}`".format(host)
         os_f = grains["lsb_distrib_description"]
         salt_f = "{}".format(grains["saltversion"])
         uptime_f = "{}{:.2f}{}".format(b, uptime, b)
