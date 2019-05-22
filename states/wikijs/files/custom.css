@@ -4,8 +4,11 @@ div.CodeMirror-code {
 }
 
 /* Bold links should be bold */
-strong a.external-link {
+strong a.external-link, strong a.internal-link {
     font-weight:bold;
-}strong a.internal-link {
-    font-weight:bold;
+}
+
+/* Bold inline code should be bold */
+strong > code {
+    font-weight:bold !important;
 }
