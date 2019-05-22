@@ -26,6 +26,13 @@ def main():
     i = 1
     for host in sorted(data.keys()):
         grains = data[host]
+        uptime = grains["uptime_days"]
+        if uptime > 90.0:
+            b = "**"
+            count_f = "{}{}{}".format(b, i, b)
+        else:
+            b = ""
+            count_f = "{: 3d}".format(i)
         if "meta-data:public-ipv4" in grains:
             aws_ip = grains["meta-data:public-ipv4"]
         else:
@@ -35,19 +42,19 @@ def main():
         else:
             fqdn_ips = False
         if aws_ip:
-            ip = aws_ip
+            ip_f = aws_ip
         elif fqdn_ips and fqdn_ips[0] and fqdn_ips[0] != "127.0.1.1":
-            ip = fqdn_ips[0]
+            ip_f = fqdn_ips[0]
         else:
-            ip = ""
-        os = grains["lsb_distrib_description"]
-        salt = "{}".format(grains["saltversion"])
-        uptime = "{:.2f}".format(grains["uptime_days"])
+            ip_f = ""
+        host_f = host
+        os_f = grains["lsb_distrib_description"]
+        salt_f = "{}".format(grains["saltversion"])
+        uptime_f = "{}{:.2f}{}".format(b, uptime, b)
         if grains == "Minion did not return. [Not connected]":
             print(host, "| *N/A* | *Not connected*")
         else:
-            print(" | ".join(["{: 3d}".format(i), "`{}`".format(host), ip, os,
-                  salt, uptime]))
+            print(" | ".join([count_f, host_f, ip_f, os_f, salt_f, uptime_f]))
         i += 1
     print()
     print("Generated {} via:".format(now))
