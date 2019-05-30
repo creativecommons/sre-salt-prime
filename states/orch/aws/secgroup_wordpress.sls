@@ -33,7 +33,7 @@
         to_port: 443
         cidr_ip:
           - 0.0.0.0/0
-    {{ aws.tags(ident) }}
+    {{ aws.tags(name, POD, HST, POD) }}
 
 
 {% set ident = ["mysql-from-{}".format(HST), POD, "secgroup"] -%}
@@ -50,4 +50,4 @@
         from_port: 3306
         to_port: 3306
         source_group_name: {{ name_secgroup_web }}
-    {{ aws.tags(ident) }}
+    {{ aws.tags(name, POD, HST, POD) }}

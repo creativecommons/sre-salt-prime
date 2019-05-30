@@ -30,6 +30,7 @@
 ### EC2 Instance
 
 
+# NOTE: Name is wrong. It ends with "secgroup" instead of "eni".
 {% set ident = [HST, POD, "secgroup"] -%}
 {% set name = ident|join("_") -%}
 {% set name_eni = name -%}
@@ -68,7 +69,7 @@
     - instance_initiated_shutdown_behavior: stop
     - instance_profile_name: {{  P_LOC.instance_iam_role }}
     - network_interface_name: {{ name_eni }}
-    {{ aws.tags(ident) }}
+    {{ aws.tags(name, POD, HST, POD) }}
     - require:
       - boto_ec2: {{ name_eni }}
 

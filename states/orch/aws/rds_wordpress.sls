@@ -37,7 +37,7 @@
     - description: {{ name }}
     - subnet_names:
 {{- aws.infra_list(sls, "rds_subnets", HST, POD) }}{{ "    " -}}
-    {{ aws.tags(ident) }}
+    {{ aws.tags(name, POD, HST, POD) }}
 
 
 # RDS Parameter groups "Must contain only letters, digits, or hyphens".
@@ -54,7 +54,7 @@
         {{ aws.infra_value(sls, "engine_family", HST, POD) }}
     - parameters:
 {{- aws.infra_dictlist(sls, "parameters", HST, POD) }}{{ "    " -}}
-    {{ aws.tags(ident) }}
+    {{ aws.tags(name, POD, HST, POD) }}
 
 
 # "[DBInstanceIdentifier] must begin with a letter; must contain only ASCII
@@ -88,7 +88,7 @@
     - auto_minor_version_upgrade: True
     - publicly_accessible: False
     - wait_status: available
-    {{ aws.tags(ident) }}
+    {{ aws.tags(name, POD, HST, POD) }}
     - require:
       - boto_rds: {{ name_parameter }}
       - boto_rds: {{ name_subnetgroup }}

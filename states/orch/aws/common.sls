@@ -27,7 +27,7 @@
         to_port: 443
         cidr_ip:
           - 0.0.0.0/0
-    {{ aws.tags(ident) }}
+    {{ aws.tags(name, "core", "core", "secgroup") }}
 
 
 {% set ident = ["ssh-from-salt-prime", "core", "secgroup"] -%}
@@ -43,7 +43,7 @@
         from_port: 22
         to_port: 22
         source_group_name: salt-vpc_core_secgroup
-    {{ aws.tags(ident) }}
+    {{ aws.tags(name, "core", "core", "secgroup") }}
 
 
 ### EC2 SSH Key

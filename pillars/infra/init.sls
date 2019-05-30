@@ -1,4 +1,5 @@
 include:
+  - infra.aws
   - infra.ec2_instance_web
   - infra.rds_wordpress
   - infra.us-east-2
