@@ -16,11 +16,10 @@
     - wordpress.composer_site
     - user.webdevs
   'chapters__*__*':
-    - mount
-    - wordpress.composer_site
-    - user.webdevs
-  'chapters__prod__*':
     - letsencrypt.cloudflare
+    - mount
+    - user.webdevs
+    - wordpress.composer_site
   'discourse__*__*':
     - mount
     - discourse
