@@ -5,7 +5,7 @@ include:
 
 
 letsencrypt:
-  deploy_hooks:
+  post_hooks:
     restart_nginx.sh: /usr/sbin/service nginx reload
 mounts:
   - spec: /dev/nvme1n1

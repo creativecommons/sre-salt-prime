@@ -3,7 +3,7 @@ include:
 
 
 letsencrypt:
-  deploy_hooks:
+  post_hooks:
     restart_nginx.sh: /usr/sbin/service nginx reload
 nginx:
   flavor: light
