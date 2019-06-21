@@ -35,7 +35,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
     GitHub branch protection enabled.
     - [About required commit signing - User Documentation][signing]
   - Ensure you are using `RemoteForward` in your SSH configuration to forward
-    your GnuPG agent to `salt-prime` (see the example configurationi, under
+    your GnuPG agent to `salt-prime` (see the example configuration, under
     [Setup](#Setup), below).
   - Ensure you have configured your newly cloned repository to sign commits
     (see the `git config` command, under [Setup](#Setup), below).
@@ -165,7 +165,7 @@ repository uses (from least specific to most specific):
 4. `4_POD__LOC` (pod/group and location)
 5. `5_HST__POD` (host/role and pod/group)
 
-This method of setting leat-specific to most-specific pillar data was inspired
+This method of setting least-specific to most-specific pillar data was inspired
 by Hiera.
 
 See [`docs/Orchestration.md`](docs/Orchestration.md) for how these
