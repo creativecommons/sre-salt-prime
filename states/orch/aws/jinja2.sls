@@ -6,7 +6,10 @@
 {%- endmacro %}
 
 
-{% macro infra_dict(sls, path, hst, pod) -%}
+{% macro infra_dict(sls, path, hst, pod, indent=none) -%}
+{% if indent is none -%}
+{% set indent=8 -%}
+{% endif -%}
 {% set hst__pod = "{}__{}".format(hst, pod) -%}
 {% set k_default = ("infra:{}:{}:default".format(sls, path)) -%}
 {% set k_hst = ("infra:{}:{}:{}".format(sls, path, hst)) -%}
@@ -19,7 +22,7 @@
 {% set v_hst = salt["pillar.get"](k_hst, v_default) -%}
 {% set v_hst__pod = salt["pillar.get"](k_hst__pod, v_hst) -%}
 {% for key, value in v_hst__pod.items() %}
-        {{ key }}: {{ value -}}
+{{ " " * indent }}{{ key }}: {{ value -}}
 {% endfor %}
 {% endmacro -%}
 
