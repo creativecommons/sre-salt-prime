@@ -6,6 +6,11 @@ infra:
         cc:product: DATA-INCOMPLETE
         cc:purpose: DATA-INCOMPLETE
         cc:team: internal-tech
+      bastion-us-east-2__core:
+        cc:environment: production
+        cc:product: infrastructure
+        cc:purpose: bastion
+        cc:team: internal-tech
       biztool__prod:
         cc:environment: production
         cc:product: business-toolkit
@@ -40,6 +45,11 @@ infra:
         cc:environment: production
         cc:product: web-redirects
         cc:purpose: web-redirects
+        cc:team: internal-tech
+      salt-prime__core:
+        cc:environment: production
+        cc:product: infrastructure
+        cc:purpose: saltstack
         cc:team: internal-tech
       sotc__prod:
         cc:environment: production
