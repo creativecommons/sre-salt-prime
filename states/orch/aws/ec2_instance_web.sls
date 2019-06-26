@@ -50,11 +50,16 @@
 {% set ident = [HST, POD, LOC] -%}
 {% set name = ident|join("_") -%}
 {% set name_instance = name -%}
+{% set id = salt.boto_ec2.get_id(region=LOC, name=name) -%}
 {{ name }}:
   boto_ec2.instance_present:
     - region: {{ LOC }}
     - name: {{ name }}
+{%- if id is none %}
     - instance_name: {{ name }}
+{%- else %}
+    - instance_id: {{ id }}
+{% endif %}
     - image_name: {{ P_LOC.debian_ami_name }}
     - key_name: {{ pillar.infra.provisioning.ssh_key.aws_name }}
     - user_data: |
@@ -72,16 +77,20 @@
     {{ aws.tags(name, POD, HST, POD) }}
     - require:
       - boto_ec2: {{ name_eni }}
+{%- if id is none %}
+{%- set id = salt.boto_ec2.get_id(region=LOC, name=name) %}
+{%- endif %}
 
 
 {% set ident = ["{}-xvdf".format(HST), POD, "ebs"] -%}
 {% set name = ident|join("_") -%}
+{% set name_ebs = name -%}
 {{ name }}:
   boto_ec2.volume_present:
     - region: {{ LOC }}
     - name: {{ name }}
     - volume_name: {{ name }}
-    - instance_name: {{ name_instance }}
+    - instance_id: {{ id }}
     - device: xvdf
     - size: {{ aws.infra_value(sls, "ebs_size", HST, POD) }}
     - volume_type: gp2
@@ -89,3 +98,20 @@
     - kms_key_id: {{ KMS_KEY_STORAGE }}
     - require:
       - boto_ec2: {{ name_instance }}
+
+
+{% if id and id is not none -%}
+{% set ident = [HST, POD, "ebs-tags"] -%}
+{% set name = ident|join("_") -%}
+{{ name }}:
+  boto_ec2.volumes_tagged:
+    - region: {{ LOC }}
+    - name: {{ name }}
+    - tag_maps:
+      - filters:
+          attachment.instance_id: {{ id }}
+        tags:
+          Name: {{ name }}
+          cc:pod: {{ POD }}
+{{- aws.infra_dict("aws", "tags", HST, POD, indent=10) }}
+{%- endif %}
