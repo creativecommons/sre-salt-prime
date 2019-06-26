@@ -1,6 +1,6 @@
 # Required command line pillar data:
-#   tgt_hst: Targeted Hostname and Wiki
-#   tgt_pod: Targeted Pod
+#   tgt_hst: Targeted Host/role
+#   tgt_pod: Targeted Pod/group
 #   tgt_loc: Targeted Location
 # optional command line pillar data:
 #   kms_key_storage: KMS Key ID ARN

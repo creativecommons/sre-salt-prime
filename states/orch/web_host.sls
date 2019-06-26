@@ -1,7 +1,7 @@
 # Required command line pillar data:
-#   tgt_hst: targeted host/role
-#   tgt_pod: targeted pod/group
-#   tgt_loc: targeted location
+#   tgt_hst: targeted Host/role
+#   tgt_pod: targeted Pod/group
+#   tgt_loc: targeted Location
 {% set HST = pillar.tgt_hst -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}

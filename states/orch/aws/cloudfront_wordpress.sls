@@ -1,6 +1,6 @@
 # Required command line pillar data:
-#   tgt_hst: Targeted Hostname and Wiki
-#   tgt_pod: Targeted Pod
+#   tgt_hst: Targeted Host/role
+#   tgt_pod: Targeted Pod/group
 #   tgt_loc: Targeted Location
 {% import "orch/aws/jinja2.sls" as aws with context -%}
 {% set HST = pillar.tgt_hst -%}
