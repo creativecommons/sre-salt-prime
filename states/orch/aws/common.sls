@@ -1,3 +1,6 @@
+# Required command line pillar data:
+#   tgt_pod: Targeted Pod/group
+#   tgt_loc: Targeted Location
 {% import "orch/aws/jinja2.sls" as aws with context -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
