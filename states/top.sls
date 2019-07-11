@@ -29,6 +29,8 @@
     - user.webdevs
   'redirects__*__*':
     - nginx.redirects
+  'salt-prime__*__*':
+    - wikijs.reports
   'sotc__*__*':
     - mount
     - wordpress.composer_site
