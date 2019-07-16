@@ -14,31 +14,53 @@ letsencrypt:
       - nl-beta.creativecommons.org
       - pl.creativecommons.org
       - sotc.creativecommons.org
+    redirects.sciencecommons.org:
+      - scholars.sciencecommons.org
 nginx:
+  redirect_default: redirects.creativecommons.org
   redirects:
-    - src: au-beta.creativecommons.org
+    # redirects.creativecommons.org
+    - crt: redirects.creativecommons.org
+      src: au-beta.creativecommons.org
       dst: au-beta.creativecommons.net
-    - src: ca-beta.creativecommons.org
+    - crt: redirects.creativecommons.org
+      src: ca-beta.creativecommons.org
       dst: ca-beta.creativecommons.net
-    - src: chapters.creativecommons.org
+    - crt: redirects.creativecommons.org
+      src: chapters.creativecommons.org
       dst: creativecommons.net
-    - src: donate.creativecommons.org
+    - crt: redirects.creativecommons.org
+      src: donate.creativecommons.org
       dst: us.netdonor.net/page/6650/donate/1
-    - src: i.creativecommons.org
+    - crt: redirects.creativecommons.org
+      src: i.creativecommons.org
       dst: licensebuttons.net
-    - src: it.creativecommons.org
+    - crt: redirects.creativecommons.org
+      src: it.creativecommons.org
       dst: creativecommons.it
-    - src: jp.creativecommons.org
+    - crt: redirects.creativecommons.org
+      src: jp.creativecommons.org
       dst: creativecommons.jp
-    - src: ke-beta.creativecommons.org
+    - crt: redirects.creativecommons.org
+      src: ke-beta.creativecommons.org
       dst: ke-beta.creativecommons.net
-    - src: mx-beta.creativecommons.org
+    - crt: redirects.creativecommons.org
+      src: mx-beta.creativecommons.org
       dst: mx-beta.creativecommons.net
-    - src: nl.creativecommons.org
+    - crt: redirects.creativecommons.org
+      src: nl.creativecommons.org
       dst: creativecommons.nl
-    - src: nl-beta.creativecommons.org
+    - crt: redirects.creativecommons.org
+      src: nl-beta.creativecommons.org
       dst: nl-beta.creativecommons.net
-    - src: pl.creativecommons.org
+    - crt: redirects.creativecommons.org
+      src: pl.creativecommons.org
       dst: creativecommons.pl
-    - src: sotc.creativecommons.org
+    - crt: redirects.creativecommons.org
+      src: sotc.creativecommons.org
       dst: stateof.creativecommons.org
+    # redirects.sciencecommons.org
+    - crt: redirects.sciencecommons.org
+      src: scholars.sciencecommons.org
+      dst: labs.creativecommons.org/scholars
+
