@@ -1,6 +1,7 @@
 include:
   - 3_HST.wikijs.secrets
   - cloudflare.secrets
+  - gandi.secrets
   - infra
 
 

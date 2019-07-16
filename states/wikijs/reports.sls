@@ -1,5 +1,6 @@
 include:
   - wikijs.cloudflare_report
+  - wikijs.gandi_report
 
 
 {{ sls }} group:
