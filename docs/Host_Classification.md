@@ -57,7 +57,7 @@ Implementation is also supported by three configuration values:
 *The only grain which can be safely used is `grains['id']` which contains the
 Minion ID.* ([FAQ Q.21][FAQ21])
 
-It is important to rely only the Minion ID as all other grains can be
+It is important to rely *only* on the Minion ID as all other grains can be
 manipulated by the client. This means a compromised client could change its
 grains to collect secrets if a dedicated grain (ex. `role`) was used for host
 classification.
