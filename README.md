@@ -12,7 +12,6 @@ Site Reliability Engineering / DevOps SaltStack configuration files
 > behavior to [conduct@creativecommons.org](mailto:conduct@creativecommons.org)
 > per our [reporting guidelines][reporting_guide].
 
-
 [code_of_conduct]:https://creativecommons.github.io/community/code-of-conduct/
 [reporting_guide]:https://creativecommons.github.io/community/code-of-conduct/enforcement/
 
@@ -39,7 +38,6 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
     [Setup](#Setup), below).
   - Ensure you have configured your newly cloned repository to sign commits
     (see the `git config` command, under [Setup](#Setup), below).
-
 
 [signing]:https://help.github.com/articles/about-required-commit-signing/
 
@@ -113,7 +111,6 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
     - *The only grain which can be safely used is `grains['id']` which contains
       the Minion ID.* ([FAQ Q.21][FAQ21])
 
-
 [FAQ21]: https://docs.saltstack.com/en/latest/faq.html#is-targeting-using-grain-data-secure
 
 
@@ -143,33 +140,15 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
     - For current targeted minion version, see `minion_target_version` in
      [`pillars/salt/init.sls`](pillars/salt/init.sls)
 
-
 [gitcrypt]: https://www.agwa.name/projects/git-crypt/
 
 
 ## Host Classification
 
 Minions are added and configured from `salt-prime` with the following Minion ID
-schema: **`HST__POD__LOC`** (host/role__pod/group__location). Examples:
-- `bastion__core__us-east-2`
-- `salt-prime__core__us-east-2`
-- `chapters__prod__us-east-2`
-- `chapters__stage__us-east-2`
+schema: **`HST__POD__LOC`** (host/role__pod/group__location).
 
-Like Apache2, SaltStack pillar data uses a last declared wins model. This
-repository uses (from least specific to most specific):
-
-1. `1_LOC` (location)
-2. `2_POD` (pod/group)
-3. `3_HST` (host/role)
-4. `4_POD__LOC` (pod/group and location)
-5. `5_HST__POD` (host/role and pod/group)
-
-This method of setting least-specific to most-specific pillar data was inspired
-by Hiera.
-
-See [`docs/Orchestration.md`](docs/Orchestration.md) for how these
-classification parts are used with orchestration.
+See [`docs/Host_Classification.md`](docs/Host_Classification.md) for details.
 
 
 ## Orchestration
@@ -201,7 +180,6 @@ See [`docs/Orchestration.md`](docs/Orchestration.md).
 - [Salt Best Practices][saltbest]
 - [Salt Formulas][saltformulas]
 
-
 [hardensalt]: https://docs.saltstack.com/en/latest/topics/hardening.html
 [saltbest]: https://docs.saltstack.com/en/latest/topics/best_practices.html
 [saltformulas]: https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html
@@ -212,24 +190,18 @@ See [`docs/Orchestration.md`](docs/Orchestration.md).
 - [Salt Module Reference][moduleref]
   - [state modules][statemodules]
 
-
 [moduleref]: https://docs.saltstack.com/en/latest/ref/index.html
 [statemodules]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
 
 
-#### Orchestration Documentation
+## Repository Documentation
 
-See [`docs/Orchestration.md`](docs/Orchestration.md).
-
-
-### WordPress
-
-See [`docs/WordPress.md`](docs/WordPress.md).
-
-
-## Bootstrap
-
-See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
+- [`README.md`](README.md)
+- [`bootstrap-aws/README.md`](bootstrap-aws/README.md)
+- `docs/`
+  - [`Host Classification`](docs/Host_Classification.md)
+  - [`Orchestration.md`](docs/Orchestration.md)
+  - [`WordPress.md`](docs/WordPress.md)
 
 
 ## Formula Repositories
@@ -237,7 +209,6 @@ See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
 - [creativecommons/mysql-formula][mysql-formula]: Install the MySQL client
   and/or server
 - [creativecommons/php-formula][php-formula]
-
 
 [certbot]:https://github.com/certbot/certbot
 [mysql-formula]:https://github.com/creativecommons/mysql-formula
@@ -247,6 +218,5 @@ See [`bootstrap-aws/README.md`](bootstrap-aws/README.md).
 ## License
 
 - [`LICENSE`](LICENSE) (Expat/[MIT][mit] License)
-
 
 [mit]: http://www.opensource.org/licenses/MIT "The MIT License | Open Source Initiative"
