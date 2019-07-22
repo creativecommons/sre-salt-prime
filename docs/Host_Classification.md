@@ -35,7 +35,7 @@ by Puppet Hiera.
 ## Implementation
 
 The `HST__POD__LOC` schema is implemented using Jinja2 in the
-[`pillars/top.sls`](../pillars/top.sl) file.
+[`pillars/top.sls`](../pillars/top.sls) file.
 
 Implementation is also supported by three configuration values:
 - Master
