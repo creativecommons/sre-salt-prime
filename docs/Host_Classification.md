@@ -16,11 +16,11 @@ Examples:
 - `chapters__prod__us-east-2`
 - `chapters__stage__us-east-2`
 
-This host classification allows three levels of specificity to minimize the
+This host classification allows multiple levels of specificity to minimize the
 configuration required between similar hosts.
 
 Like Apache2, SaltStack pillar data uses a last declared wins model. This
-repository uses (from least specific to most specific):
+repository uses (from least-specific to most-specific):
 
 1. `1_LOC` (location)
 2. `2_POD` (pod/group)
@@ -77,7 +77,7 @@ are used with orchestration.
 less flexible:
 - They are configured at server run time (`salt-master` must be restarted to
   apply changes)
-- They do not allow a least specific to most specific configuration path
+- They do not allow a least-specific to most-specific configuration path
 
 [nodegroups]: https://docs.saltstack.com/en/latest/topics/targeting/nodegroups.html
 
