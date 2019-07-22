@@ -90,6 +90,6 @@ less flexible:
 - [`README.md`](../README.md)
 - [`bootstrap-aws/README.md`](../bootstrap-aws/README.md)
 - `docs/`
-  - [`Host Classification`](Host_Classification.md)
+  - [`Host_Classification.md`](Host_Classification.md)
   - [`Orchestration.md`](Orchestration.md)
   - [`WordPress.md`](WordPress.md)

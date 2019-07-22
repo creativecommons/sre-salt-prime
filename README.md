@@ -199,7 +199,7 @@ See [`docs/Orchestration.md`](docs/Orchestration.md).
 - [`README.md`](README.md)
 - [`bootstrap-aws/README.md`](bootstrap-aws/README.md)
 - `docs/`
-  - [`Host Classification`](docs/Host_Classification.md)
+  - [`Host_Classification.md`](docs/Host_Classification.md)
   - [`Orchestration.md`](docs/Orchestration.md)
   - [`WordPress.md`](docs/WordPress.md)
 
