@@ -74,12 +74,14 @@ are used with orchestration.
 ## Node Groups
 
 [Node groups][nodegroups] provide similar functionality. However they are far
-less flexible:
+less flexible and have a number of issues:
 - They are configured at server run time (`salt-master` must be restarted to
   apply changes)
 - They do not allow a least-specific to most-specific configuration path
+- [open "nodegroup" Issues · saltstack/salt][nodegroup-issues]
 
 [nodegroups]: https://docs.saltstack.com/en/latest/topics/targeting/nodegroups.html
+[nodegroup-issues]: https://github.com/saltstack/salt/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+nodegroups
 
 
 ## References
