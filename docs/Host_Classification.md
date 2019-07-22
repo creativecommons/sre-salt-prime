@@ -4,11 +4,10 @@
 ## Overview
 
 Minions are added and configured from `salt-prime` with the following Minion ID
-schema: **`HST__POD__LOC`**
-1. **`HST`** is the hostname or role. It indications what service(s) are
-   running on the host or the role that it serves.
-2. **`POD`** is the pod or group. It indicates the logical grouping of the
-   host.
+schema: **`HST__POD__LOC`**:
+1. **`HST`** is the hostname or role. It indications what services are running on
+   the host or the role that it serves.
+2. **`POD`** is the pod or group. It indicates the logical grouping of the host.
 3. **`LOC`** is the location. It indicates where the host is.
 
 Examples:
@@ -30,13 +29,13 @@ repository uses (from least specific to most specific):
 5. `5_HST__POD` (host/role and pod/group)
 
 This method of setting least-specific to most-specific pillar data was inspired
-by Hiera.
+by Puppet Hiera.
 
 
 ## Implementation
 
 The `HST__POD__LOC` schema is implemented using Jinja2 in the
-[`pillars/top.sls`][../pillars/top.sl] file.
+[`pillars/top.sls`](../pillars/top.sl) file.
 
 Implementation is also supported by three configuration values:
 - Master
