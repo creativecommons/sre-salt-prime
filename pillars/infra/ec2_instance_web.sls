@@ -4,6 +4,7 @@ infra:
       default: ABSENT
       biztool: vpc
       chapters: vpc
+      openglam: vpc
       podcast: vpc
       redirects: vpc
       sotc: vpc
@@ -39,6 +40,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-chapters_stage_secgroup
+      openglam__prod:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-all-openglam_prod_secgroup
       podcast__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup

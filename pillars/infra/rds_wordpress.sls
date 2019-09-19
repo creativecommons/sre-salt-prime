@@ -2,6 +2,7 @@
 {% import_yaml "5_HST__POD/biztool__prod/secrets.yaml" as biztool__prod -%}
 {% import_yaml "5_HST__POD/chapters__prod/secrets.yaml" as chapters__prod -%}
 {% import_yaml "5_HST__POD/chapters__stage/secrets.yaml" as chapters__stage -%}
+{% import_yaml "5_HST__POD/openglam__prod/secrets.yaml" as openglam__prod -%}
 {% import_yaml "5_HST__POD/podcast__prod/secrets.yaml" as podcast__prod -%}
 {% import_yaml "5_HST__POD/sotc__prod/secrets.yaml" as sotc__prod -%}
 
@@ -31,6 +32,7 @@ infra:
       biztool__prod: {{ biztool__prod.mysql.server.root_password }}
       chapters__prod: {{ chapters__prod.mysql.server.root_password }}
       chapters__stage: {{ chapters__stage.mysql.server.root_password }}
+      openglam__prod: {{ openglam__prod.mysql.server.root_password }}
       podcast__prod: {{ podcast__prod.mysql.server.root_password }}
       sotc__prod: {{ sotc__prod.mysql.server.root_password }}
     primary_username:
@@ -38,6 +40,7 @@ infra:
       biztool__prod: {{ biztool__prod.mysql.server.root_user }}
       chapters__prod: {{ chapters__prod.mysql.server.root_user }}
       chapters__stage: {{ chapters__stage.mysql.server.root_user }}
+      openglam__prod: {{ openglam__prod.mysql.server.root_user }}
       podcast__prod: {{ podcast__prod.mysql.server.root_user }}
       sotc__prod: {{ sotc__prod.mysql.server.root_user }}
     rds_secgroups:
@@ -49,6 +52,8 @@ infra:
         - mysql-from-chapters_prod_secgroup
       chapters__stage:
         - mysql-from-chapters_stage_secgroup
+      openglam__prod:
+        - mysql-from-openglam_prod_secgroup
       podcast__prod:
         - mysql-from-podcast_prod_secgroup
       sotc__prod:
