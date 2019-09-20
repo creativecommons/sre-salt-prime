@@ -23,6 +23,10 @@
   'discourse__*__*':
     - mount
     - discourse
+  'openglam__*__*':
+    - mount
+    - wordpress.composer_site
+    - user.webdevs
   'podcast__*__*':
     - mount
     - wordpress.composer_site
