@@ -61,6 +61,7 @@ infra:
     storage:
       default: 10
       chapters: 334
+      openglam: 214
     rds_subnets:
       default:
         - private-one_core_subnet
