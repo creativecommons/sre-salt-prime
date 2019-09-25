@@ -11,8 +11,8 @@ infra:
     ebs_size:
       default: 10
       chapters: 334
-      sotc: 214
       openglam: 214
+      sotc: 214
     instance_type:
       default: t3.micro
       bastion: t3.nano
