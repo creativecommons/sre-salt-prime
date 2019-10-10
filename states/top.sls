@@ -39,6 +39,10 @@
     - mount
     - wordpress.composer_site
     - user.webdevs
+  'summit__*__*':
+    - mount
+    - wordpress.composer_site
+    - user.webdevs
   'wikijs__*__*':
     - letsencrypt
     - mongodb

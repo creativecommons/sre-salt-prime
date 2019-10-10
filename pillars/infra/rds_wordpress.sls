@@ -5,6 +5,7 @@
 {% import_yaml "5_HST__POD/openglam__prod/secrets.yaml" as openglam__prod -%}
 {% import_yaml "5_HST__POD/podcast__prod/secrets.yaml" as podcast__prod -%}
 {% import_yaml "5_HST__POD/sotc__prod/secrets.yaml" as sotc__prod -%}
+{% import_yaml "5_HST__POD/summit__prod/secrets.yaml" as summit__prod -%}
 
 
 infra:
@@ -35,6 +36,7 @@ infra:
       openglam__prod: {{ openglam__prod.mysql.server.root_password }}
       podcast__prod: {{ podcast__prod.mysql.server.root_password }}
       sotc__prod: {{ sotc__prod.mysql.server.root_password }}
+      summit__prod: {{ summit__prod.mysql.server.root_password }}
     primary_username:
       default: root
       biztool__prod: {{ biztool__prod.mysql.server.root_user }}
@@ -43,6 +45,7 @@ infra:
       openglam__prod: {{ openglam__prod.mysql.server.root_user }}
       podcast__prod: {{ podcast__prod.mysql.server.root_user }}
       sotc__prod: {{ sotc__prod.mysql.server.root_user }}
+      summit__prod: {{ summit__prod.mysql.server.root_user }}
     rds_secgroups:
       default:
         - mysql-from-private_core_secgroup
@@ -58,6 +61,8 @@ infra:
         - mysql-from-podcast_prod_secgroup
       sotc__prod:
         - mysql-from-sotc_prod_secgroup
+      summit__prod:
+        - mysql-from-summit_prod_secgroup
     storage:
       default: 10
       chapters: 334

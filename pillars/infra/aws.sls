@@ -61,6 +61,11 @@ infra:
         cc:product: state-of-the-commons
         cc:purpose: wordpress-hosting
         cc:team: internal-tech
+      summit__prod:
+        cc:environment: production
+        cc:product: global-summit
+        cc:purpose: wordpress-hosting
+        cc:team: internal-tech
       wikijs__core:
         cc:environment: production
         cc:product: wiki-internal

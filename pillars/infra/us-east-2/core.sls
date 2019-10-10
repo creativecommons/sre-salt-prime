@@ -17,6 +17,7 @@ infra:
         redirects__core:  10.22.10.19
         sotc__prod:       10.22.10.20
         openglam__prod:   10.22.10.21
+        summit__prod:     10.22.10.22
         ###_Private-One   10.22.11.0
         salt-prime__core: 10.22.11.11
         ###_Private-Two   10.22.12.0
