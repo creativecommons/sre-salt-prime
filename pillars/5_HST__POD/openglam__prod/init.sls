@@ -13,15 +13,15 @@ include:
 
 letsencrypt:
   domainsets:
-    openglam.creativecommons.org:
-      - openglam.creativecommons.org
+    openglam.org:
+      - openglam.org
 mysql:
   server:
     root_user: {{ SECRETS.mysql.server.root_user }}
     root_password: {{ SECRETS.mysql.server.root_password }}
     host: {{ ENDPOINT }}
 wordpress:
-  site: openglam.creativecommons.org
+  site: openglam.org
   # (also see 5_HST__POD.openglam__prod.secrets)
   # Database
   db_host: {{ ENDPOINT }}
