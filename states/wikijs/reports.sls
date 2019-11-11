@@ -91,7 +91,7 @@ include:
     - name: /srv/wikijs/.ssh/config
     - contents:
       - '# Managed by SaltStack: {{ sls }}'
-      - ''
+      - "\n"
       - 'Host *'
       - '    IdentityFile /srv/wikijs/.ssh/{{ pillar.wikijs.git_ssh_key }}'
     - require:

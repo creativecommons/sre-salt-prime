@@ -8,7 +8,7 @@ include:
     - contents:
       - '# Managed by SaltStack: {{ sls }}'
 {%- for sect in ["client", "msyql", "mysqladmin", "mysqlcheck", "mysqldump"] %}
-      - ''
+      - "\n"
       - '[{{ sect }}]'
       - 'host      = {{ pillar.mysql.server.host }}'
       - 'user      = {{ pillar.mysql.server.root_user }}'

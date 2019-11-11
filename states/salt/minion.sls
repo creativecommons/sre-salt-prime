@@ -100,7 +100,7 @@
     - name: /etc/salt/minion.d/metadata_server_grains.conf
     - contents:
       - 'metadata_server_grains: True'
-      - ''
+      - "\n"
       - '# vim: ft=yaml'
     - mode: '0444'
     - follow_symlinks: False
