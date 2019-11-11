@@ -72,12 +72,11 @@ def main():
     for host in sorted(data.keys()):
         grains = data[host]
         uptime = grains["uptime_days"]
+        count_f = "{: 3d}".format(i)
         if uptime > 90.0:
             b = "**"
-            count_f = "{}{}{}".format(b, i, b)
         else:
             b = ""
-            count_f = "{: 3d}".format(i)
         if "meta-data:public-ipv4" in grains:
             aws_ip = grains["meta-data:public-ipv4"]
         else:
