@@ -36,6 +36,11 @@ infra:
         cc:product: cc-create
         cc:purpose: discourse-hosting
         cc:team: internal-tech
+      openglam__prod:
+        cc:environment: production
+        cc:product: openglam
+        cc:purpose: wordpress-hosting
+        cc:team: internal-tech
       podcast__prod:
         cc:environment: production
         cc:product: podcast-plays-well-with-others
@@ -54,6 +59,11 @@ infra:
       sotc__prod:
         cc:environment: production
         cc:product: state-of-the-commons
+        cc:purpose: wordpress-hosting
+        cc:team: internal-tech
+      summit__prod:
+        cc:environment: production
+        cc:product: global-summit
         cc:purpose: wordpress-hosting
         cc:team: internal-tech
       wikijs__core:

@@ -23,6 +23,10 @@
   'discourse__*__*':
     - mount
     - discourse
+  'openglam__*__*':
+    - mount
+    - wordpress.composer_site
+    - user.webdevs
   'podcast__*__*':
     - mount
     - wordpress.composer_site
@@ -32,6 +36,10 @@
   'salt-prime__*__*':
     - wikijs.reports
   'sotc__*__*':
+    - mount
+    - wordpress.composer_site
+    - user.webdevs
+  'summit__*__*':
     - mount
     - wordpress.composer_site
     - user.webdevs

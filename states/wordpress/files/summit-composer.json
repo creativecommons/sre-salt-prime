@@ -1,0 +1,39 @@
+{
+    "name":"creativecommons/wordpress-summit",
+    "description":"Creative Commons Global Summit WordPress Site via Composer",
+    "authors": [
+        {
+            "name":"Creative Commons",
+            "homepage":"https://github.com/creativecommons/sre-salt-prime"
+        }
+    ],
+    "type": "project",
+    "repositories": [
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
+    "config": {
+        "vendor-dir":"wp-content/vendor"
+    },
+    "require": {
+        "composer/installers":"1.7",
+        "johnpbloch/wordpress":"5.2.3",
+        "wpackagist-plugin/akismet":"4.1.2",
+        "wpackagist-plugin/jetpack":"7.7.2",
+        "wpackagist-plugin/sched-embed":"1.1.3",
+        "wpackagist-plugin/table-sorter":"2.2",
+        "wpackagist-plugin/wordfence":"7.4.0",
+        "wpackagist-plugin/wordpress-seo":"12.2",
+        "wpackagist-plugin/wp-super-cache":"1.7.0",
+        "wpackagist-theme/twentynineteen":"1.4"
+    },
+    "require-dev": {
+        "wpackagist-plugin/debug-bar":"1.0",
+        "wpackagist-plugin/debug-bar-actions-and-filters-addon":"1.5.4"
+    },
+    "extra": {
+        "wordpress-install-dir":"wp"
+    }
+}

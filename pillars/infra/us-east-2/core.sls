@@ -5,10 +5,10 @@ infra:
 {#- sort host_ips with the following external vim command:
 !sort -n -t . -k 2,2 -k 3,3 -k 4,4 -k 5,5
 #}
-        ### DMZ           10.22.10.0
+        ###_DMZ           10.22.10.0
         bastion__core:    10.22.10.10
         wikijs__core:     10.22.10.12
-        #NAT_Gateway:     10.22.10.13
+        #_NAT_Gateway:    10.22.10.13
         chapters__prod:   10.22.10.14
         podcast__prod:    10.22.10.15
         discourse__dev:   10.22.10.16
@@ -16,9 +16,11 @@ infra:
         chapters__stage:  10.22.10.18
         redirects__core:  10.22.10.19
         sotc__prod:       10.22.10.20
-        ### Private-One   10.22.11.0
+        openglam__prod:   10.22.10.21
+        summit__prod:     10.22.10.22
+        ###_Private-One   10.22.11.0
         salt-prime__core: 10.22.11.11
-        ### Private-Two   10.22.12.0
+        ###_Private-Two   10.22.12.0
       subnets:
         dmz:
           cidr: 10.22.10.0/24

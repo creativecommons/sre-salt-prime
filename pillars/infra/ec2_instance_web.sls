@@ -4,13 +4,17 @@ infra:
       default: ABSENT
       biztool: vpc
       chapters: vpc
+      openglam: vpc
       podcast: vpc
       redirects: vpc
       sotc: vpc
+      summit: vpc
     ebs_size:
       default: 10
       chapters: 334
+      openglam: 214
       sotc: 214
+      summit: 214
     instance_type:
       default: t3.micro
       bastion: t3.nano
@@ -39,6 +43,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-chapters_stage_secgroup
+      openglam__prod:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-all-openglam_prod_secgroup
       podcast__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
@@ -49,5 +58,10 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-sotc_prod_secgroup
+      summit__prod:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-all-summit_prod_secgroup
     web_subnet:
       default: dmz

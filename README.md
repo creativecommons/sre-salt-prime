@@ -161,15 +161,14 @@ See [`docs/Orchestration.md`](docs/Orchestration.md).
 
 ### SaltStack
 
-
 - For the SaltStack version that this repository is developed on, see
   [Decisions](#Decisions), above.
-- For current version of SaltStack in Debian Stretch, see
-  [Debian -- Package Search Results -- salt-master][pkgsearch]
-  - As of 2019-02-01, Debian Stretch's SaltStack packages are at version
-    `2016.11.2`.
+- This repository attempts to tracks the most current release of SaltStack in
+  the SaltStack Debian repository: https://repo.saltstack.com/apt/debian/
+- For current version of SaltStack in Debian proper, see [Debian -- Package
+  Search Results -- salt-master][pkgsearch]
 
-[pkgsearch]:https://packages.debian.org/search?suite=default&section=all&arch=any&searchon=names&keywords=salt-master
+[pkgsearch]: https://packages.debian.org/search?suite=default&section=all&arch=any&searchon=names&keywords=salt-master
 
 
 ####  Best Practices

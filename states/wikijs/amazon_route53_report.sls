@@ -25,7 +25,7 @@
 
 
 {% set python3 = "/srv/wikijs/.venvs/amazon_route53/bin/python3" -%}
-{% set report = "/srv/wikijs/sre-report-to-wikijs/amazon_route53/report.py" -%}
+{% set report = "/srv/wikijs/sre-report-to-wikijs/amazon-route53/report.py" -%}
 {{ sls }} cron job:
   cron.present:
     - name: {{ python3 }} {{ report }} /srv/wikijs/sre-wiki-js

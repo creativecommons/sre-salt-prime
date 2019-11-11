@@ -1,0 +1,42 @@
+{
+    "name":"creativecommons/wordpress-openglam",
+    "description":"Creative Commons OpenGLAM WordPress Site via Composer",
+    "authors": [
+        {
+            "name":"Creative Commons",
+            "homepage":"https://github.com/creativecommons/sre-salt-prime"
+        }
+    ],
+    "type": "project",
+    "repositories": [
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
+    "config": {
+        "vendor-dir":"wp-content/vendor"
+    },
+    "require": {
+        "composer/installers":"1.7",
+        "johnpbloch/wordpress":"5.2.3",
+        "wpackagist-plugin/akismet":"4.1.2",
+        "wpackagist-plugin/better-click-to-tweet":"5.8.2",
+        "wpackagist-plugin/classic-editor":"1.5",
+        "wpackagist-plugin/cloudflare":"3.4.1",
+        "wpackagist-plugin/google-calendar-events":"3.1.22",
+        "wpackagist-plugin/iframe":"4.4",
+        "wpackagist-plugin/jetpack":"7.7.2",
+        "wpackagist-plugin/redirection":"4.4",
+        "wpackagist-plugin/ssl-insecure-content-fixer":"2.7.2",
+        "wpackagist-plugin/twitter-tools":"3.1",
+        "wpackagist-theme/twentynineteen":"1.4"
+    },
+    "require-dev": {
+        "wpackagist-plugin/debug-bar":"1.0",
+        "wpackagist-plugin/debug-bar-actions-and-filters-addon":"1.5.4"
+    },
+    "extra": {
+        "wordpress-install-dir":"wp"
+    }
+}
