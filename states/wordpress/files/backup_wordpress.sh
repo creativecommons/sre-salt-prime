@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Assumptions:
-# - DOCROOT/backup is created with desired owern, group, and permissions by
+# - DOCROOT/backup is created with desired owner, group, and permissions by
 #   system configuration
 # - WordPress is installed in DOCROOT/wp
 # - The uploads directory is in DOCROOT/wp-content
@@ -13,14 +13,17 @@
 # This script creates the following backups (if invoked with each interval):
 #
 #   /var/www/SITE/backup
+#   │
 #   ├── daily
-#   │   ├── backup_id_2019-04-05-1379620    # (provides timestamp of backup)
+#   │   ├── backup_id_2019-04-05-1379620    # (Provides timestamp of backup)
 #   │   ├── db.sql.gz                       # Compressed database dump
-#   │   └── uploads.tgz                     # Tarball of uploads directory
+#   │   └── uploads.tgz                     # Compressed tarball of uploads
+#   │                                       # directory
 #   ├── now
 #   │   ├── backup_id_2019-04-05-a427ee7
 #   │   ├── db.sql.gz
 #   │   └── uploads.tgz
+#   │
 #   └── weekly
 #       ├── backup_id_2019-04-05-04ebe43
 #       ├── db.sql.gz
