@@ -1,9 +1,7 @@
 include:
   - apache2
   - letsencrypt
-  - mysql.database
-  - mysql.user
-  - mysql_cc.root_my_cnf
+  - mysql_cc
   - nodejs
   - php.ng.apache2
   - php.ng.cli
