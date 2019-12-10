@@ -1,7 +1,7 @@
 # - Members of user:webdevs are added to the composer Linux system group
 # - Members of user:admins are added to the composer Linux system group
 include:
-  - php.ng.composer
+  - php.composer
 
 
 {{ sls }} group:
