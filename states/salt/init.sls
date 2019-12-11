@@ -12,9 +12,13 @@ include:
       - python-apt
 
 
-{% set repo_url = ("https://repo.saltstack.com/apt/debian/{}/amd64/latest"
-                   .format(grains['osmajorrelease']))-%}
-{%- set os = grains['oscodename'] %}
+{% set os = grains['oscodename'] -%}
+{% if os == "stretch" -%}
+  {% set repo_url = "https://repo.saltstack.com/apt/debian/9/amd64/latest" -%}
+{% else -%}
+  {% set repo_url = ("https://repo.saltstack.com/py3/debian/{}/amd64/latest"
+                     .format(grains['osmajorrelease'])) -%}
+{% endif -%}
 {{ sls }} SaltStack Repository:
   pkgrepo.managed:
     - name: deb {{ repo_url }} {{ os }} main
