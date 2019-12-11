@@ -38,6 +38,11 @@ infra:
         cc:product: cc-create
         cc:purpose: discourse-hosting
         cc:team: internal-tech
+      dispatch__stage:
+        cc:environment: staging
+        cc:product: primary-website
+        cc:purpose: dispatch-urls
+        cc:team: internal-tech
       openglam__prod:
         cc:environment: production
         cc:product: openglam
