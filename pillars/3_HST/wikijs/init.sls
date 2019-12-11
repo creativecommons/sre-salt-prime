@@ -16,6 +16,13 @@ mounts:
     pass: 2
 nginx:
   flavor: light
+states:
+  letsencrypt: {{ sls }}
+  mongodb: {{ sls }}
+  mount: {{ sls }}
+  nginx.wikijs: {{ sls }}
+  nodejs: {{ sls }}
+  wikijs: {{ sls }}
 wikijs:
   build_hash: >-
     sha256=f114484dd9a9c6aa4daf17e77318a24df2363fd3638439d6f75b57f5baf2a049

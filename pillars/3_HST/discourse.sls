@@ -1,5 +1,8 @@
 linux:
   swapsize: 2
+states:
+  discourse: {{ sls }}
+  mount: {{ sls }}
 mounts:
   - spec: /dev/nvme1n1
     file: /srv

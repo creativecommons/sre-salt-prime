@@ -14,6 +14,11 @@ mounts:
     opts: defaults
     freq: 0
     pass: 2
+states:
+  letsencrypt.cloudflare: {{ sls }}
+  mount: {{ sls }}
+  user.webdevs: {{ sls }}
+  wordpress.composer_site: {{ sls }}
 wordpress:
   docroot: /var/www/chapters
   # Multisite

@@ -14,6 +14,10 @@ mounts:
     opts: defaults
     freq: 0
     pass: 2
+states:
+  mount: {{ sls }}
+  user.webdevs: {{ sls }}
+  wordpress.composer_site: {{ sls }}
 wordpress:
   docroot: /var/www/biztool
   # Multisite
