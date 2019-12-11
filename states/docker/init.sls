@@ -1,4 +1,5 @@
 # https://docs.docker.com/install/linux/docker-ce/debian/
+{%- set os = grains['oscodename'] %}
 
 
 {{ sls }} /srv/docker:
@@ -30,7 +31,7 @@
 
 {{ sls }} Docker CE Repository:
   pkgrepo.managed:
-    - name: deb https://download.docker.com/linux/debian stretch stable
+    - name: deb https://download.docker.com/linux/debian {{ os }} stable
     - file: /etc/apt/sources.list.d/docker-ce.list
     - key_url: https://download.docker.com/linux/debian/gpg
     - clean_file: True
