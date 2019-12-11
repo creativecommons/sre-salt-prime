@@ -1,11 +1,13 @@
 infra:
   aws:
     tags:
+      # Default
       default:
         cc:environment: DATA-INCOMPLETE
         cc:product: DATA-INCOMPLETE
         cc:purpose: DATA-INCOMPLETE
         cc:team: internal-tech
+      # Specific (please maintain order)
       bastion-us-east-2__core:
         cc:environment: production
         cc:product: infrastructure

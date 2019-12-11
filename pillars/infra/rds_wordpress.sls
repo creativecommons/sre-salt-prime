@@ -20,7 +20,9 @@ infra:
       default: 10.3
     instance_class:
       # DB Instance class db.t2.micro does not support encryption at rest
+      # Default
       default: db.t2.small
+      # Specific (please maintain order)
       chapters: db.t2.medium
     parameters:
       default:
@@ -29,7 +31,9 @@ infra:
         innodb_log_file_size: 268435456 # 256 MiB
         time_zone: UTC
     primary_password:
+      # Default
       default: '/@@/ INVALID - MUST SET NON-DEFAULT PASSWORD /@@/'
+      # Specific (please maintain order)
       biztool__prod: {{ biztool__prod.mysql.server.root_password }}
       chapters__prod: {{ chapters__prod.mysql.server.root_password }}
       chapters__stage: {{ chapters__stage.mysql.server.root_password }}
@@ -38,7 +42,9 @@ infra:
       sotc__prod: {{ sotc__prod.mysql.server.root_password }}
       summit__prod: {{ summit__prod.mysql.server.root_password }}
     primary_username:
+      # Default
       default: root
+      # Specific (please maintain order)
       biztool__prod: {{ biztool__prod.mysql.server.root_user }}
       chapters__prod: {{ chapters__prod.mysql.server.root_user }}
       chapters__stage: {{ chapters__stage.mysql.server.root_user }}
@@ -47,8 +53,10 @@ infra:
       sotc__prod: {{ sotc__prod.mysql.server.root_user }}
       summit__prod: {{ summit__prod.mysql.server.root_user }}
     rds_secgroups:
+      # Default
       default:
         - mysql-from-private_core_secgroup
+      # Specific (please maintain order)
       biztool__prod:
         - mysql-from-biztool_prod_secgroup
       chapters__prod:
@@ -64,7 +72,9 @@ infra:
       summit__prod:
         - mysql-from-summit_prod_secgroup
     storage:
+      # Default
       default: 10
+      # Specific (please maintain order)
       chapters: 334
       openglam: 214
     rds_subnets:
