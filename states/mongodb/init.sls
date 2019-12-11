@@ -1,17 +1,24 @@
 {{ sls }} dependencies:
   pkg.installed:
     - pkgs:
+      - apt-transport-https
       - python-apt
 
 
 # Install MongoDB Community Edition on Debian — MongoDB Manual
 # https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/
-{% set repo_host = "https://deb.nodesource.com" -%}
-{{ sls }} MongerDB-org-4.0 Repository:
+{%- set repo_host = "https://repo.mongodb.org" %}
+{%- set os = grains['oscodename'] %}
+{%- if os == "stretch" %}
+  {%- set ver = "4.0" %}
+{%- else %}
+  {%- set ver = "4.2" %}
+{%- endif %}
+{{ sls }} MongerDB-org-{{ ver }} Repository:
   pkgrepo.managed:
-    - name: deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main
-    - file: /etc/apt/sources.list.d/mongodb-org-4.0.list
-    - key_url: https://www.mongodb.org/static/pgp/server-4.0.asc
+    - name: deb {{ repo_host }}/apt/debian {{ os }}/mongodb-org/{{ ver }} main
+    - file: /etc/apt/sources.list.d/mongodb-org-{{ ver }}.list
+    - key_url: https://www.mongodb.org/static/pgp/server-{{ ver }}.asc
     - clean_file: True
     - require:
       - pkg: {{ sls }} dependencies
