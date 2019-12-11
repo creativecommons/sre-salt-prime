@@ -82,7 +82,7 @@
 {%- endif %}
 
 
-{% set ident = ["{}-xvdf".format(HST), POD, "ebs"] -%}
+{% set ident = [HST, POD, "ebs-xvdf"] -%}
 {% set name = ident|join("_") -%}
 {% set name_ebs = name -%}
 {{ name }}:
@@ -100,18 +100,23 @@
       - boto_ec2: {{ name_instance }}
 
 
-{% if id and id is not none -%}
-{% set ident = [HST, POD, "ebs-tags"] -%}
+{%- if id and id is not none %}
+{%- for device in ["/dev/xvda", "xvda", "xvdf"] %}
+
+{% set ident = [HST, POD, "ebs-{}".format(device.replace("/dev/", "dev-"))] -%}
 {% set name = ident|join("_") -%}
-{{ name }}:
+{{ name }}-tagged:
+{%- set name = name.replace("dev-", "") %}
   boto_ec2.volumes_tagged:
     - region: {{ LOC }}
     - name: {{ name }}
     - tag_maps:
       - filters:
+          attachment.device: {{ device }}
           attachment.instance_id: {{ id }}
         tags:
           Name: {{ name }}
           cc:pod: {{ POD }}
 {{- aws.infra_dict("aws", "tags", HST, POD, indent=10) }}
+{%- endfor %}
 {%- endif %}
