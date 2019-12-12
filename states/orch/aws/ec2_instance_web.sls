@@ -100,8 +100,14 @@
       - boto_ec2: {{ name_instance }}
 
 
+# If we have a valid instance ID, ensure both the xvda and xvdf volumes are
+# tagged (without this stanza, the only volume tag is Name on xvdf).
+#
+# For filters information, see:
+# https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.boto_ec2.html#salt.modules.boto_ec2.get_all_volumes
 {%- if id and id is not none %}
 {%- for device in ["/dev/xvda", "xvda", "xvdf"] %}
+
 
 {% set ident = [HST, POD, "ebs-{}".format(device.replace("/dev/", "dev-"))] -%}
 {% set name = ident|join("_") -%}
