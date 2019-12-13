@@ -1,18 +1,13 @@
 include:
+  - python.pip
   - tls
-
-
-{{ sls }} installed packages:
-  pkg.installed:
-    - pkgs:
-      - python-pip
 
 
 {{ sls }} install certbot:
   pip.installed:
     - name: certbot == {{ pillar.letsencrypt.version }}
     - require:
-      - pkg: {{ sls }} installed packages
+      - pkg: python.pip installed packages
 
 
 {%- for dir in ["deploy", "post", "pre"] %}
