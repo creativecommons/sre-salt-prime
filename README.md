@@ -207,7 +207,8 @@ See [`docs/Orchestration.md`](docs/Orchestration.md).
 
 - [creativecommons/mysql-formula][mysql-formula]: Install the MySQL client
   and/or server
-- [creativecommons/php-formula][php-formula]
+- [creativecommons/php-formula][php-formula]: Formula to set up and configure
+  php
 
 [certbot]:https://github.com/certbot/certbot
 [mysql-formula]:https://github.com/creativecommons/mysql-formula
