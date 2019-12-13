@@ -1,3 +1,7 @@
+include:
+  - python.pip
+
+
 {{ sls }} gandi token:
   file.managed:
     - name: /srv/wikijs/.gandi_token
@@ -25,6 +29,7 @@
     - name: GitPython
     - bin_env: /srv/wikijs/.venvs/gandi
     - require:
+      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
 
 
@@ -33,6 +38,7 @@
     - name: requests
     - bin_env: /srv/wikijs/.venvs/gandi
     - require:
+      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
 
 
