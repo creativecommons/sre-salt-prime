@@ -30,8 +30,7 @@
 ### EC2 Instance
 
 
-# NOTE: Name is wrong. It ends with "secgroup" instead of "eni".
-{% set ident = [HST, POD, "secgroup"] -%}
+{% set ident = [HST, POD, "eni"] -%}
 {% set name = ident|join("_") -%}
 {% set name_eni = name -%}
 {{ name }}:
