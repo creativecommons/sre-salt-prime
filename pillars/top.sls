@@ -2,11 +2,13 @@
 {% set LOC = LOC.replace("_master", "") -%}
 {% set POD__LOC = "{}__{}".format(POD, LOC) -%}
 {% set HST__POD = "{}__{}".format(HST, POD) -%}
+{% set ID = grains.id -%}
 {% set LOOKUP = {"1_LOC": ["(location)", LOC],
                  "2_POD": ["(pod/group)", POD],
                  "3_HST": ["(host/role)", HST],
                  "4_POD__LOC": ["(pod/group and location)", POD__LOC],
-                 "5_HST__POD": ["(host/role and pod/group)", HST__POD]} -%}
+                 "5_HST__POD": ["(host/role and pod/group)", HST__POD],
+                 "6_ID": ["(Full ID)", ID]} -%}
 {# The following {{ saltenv }} together with the pillarenv_from_saltenv: True
  # configuration value allows the use of development environments without
  # impacting/destabilizing the base environment
@@ -14,6 +16,7 @@
 {{ saltenv }}:
   '*':
     # 0. Global (all Minions)
+    - all
     - classification
     - letsencrypt
     - postfix.secrets

@@ -1,5 +1,5 @@
-# This state assumes Debian 9 (Stretch). For each section below, the stanzas
-# are in order they appear in /etc/ssh/sshd_config.
+# This state assumes Debian 9 (Stretch) or Debian 10 (buster). For each section
+# below, the stanzas are in order they appear in /etc/ssh/sshd_config.
 
 
 {{ sls }} installed packages:
@@ -16,6 +16,14 @@
       - pkg: {{ sls }} installed packages
 
 
+{{ sls }} backup original config:
+  file.copy:
+    - name: /etc/ssh/sshd_config.orig
+    - source: /etc/ssh/sshd_config
+    - force: False
+    - preserve: True
+
+
 ### Changes
 
 
@@ -29,6 +37,8 @@
       - MULTILINE
     # The default is 120 seconds.
     - append_if_not_found: True
+    - require:
+      - file: {{ sls }} backup original config
     - watch_in:
       - service: {{ sls }} service
 
@@ -43,6 +53,8 @@
       - MULTILINE
     # The default is prohibit-password.
     - append_if_not_found: True
+    - require:
+      - file: {{ sls }} backup original config
     - watch_in:
       - service: {{ sls }} service
 
@@ -60,6 +72,8 @@
       - MULTILINE
     # The default is yes
     - append_if_not_found: True
+    - require:
+      - file: {{ sls }} backup original config
     - watch_in:
       - service: {{ sls }} service
 
@@ -97,18 +111,27 @@
       - MULTILINE
     # The default is 3
     - append_if_not_found: True
+    - require:
+      - file: {{ sls }} backup original config
     - watch_in:
       - service: {{ sls }} service
 
 
+{% if grains['oscodename'] == "stretch" -%}
+  {% set pattern = "ClientAliveInterval 420\nClientAliveInterval 120\n" -%}
+{% else -%}
+  {% set pattern = "ClientAliveInterval 120\n" -%}
+{% endif -%}
 {{ sls }} remove duplicate ClientAliveInterval:
   file.replace:
     - name: /etc/ssh/sshd_config
-    - pattern: ClientAliveInterval 420\nClientAliveInterval 120\n
+    - pattern: {{ pattern }}
     - repl: ""
     - flags:
       - IGNORECASE
     - append_if_not_found: False
+    - require:
+      - file: {{ sls }} backup original config
     - watch_in:
       - service: {{ sls }} service
 
@@ -120,6 +143,8 @@
 
         Match Group sudo
             StreamLocalBindUnlink yes
+    - require:
+      - file: {{ sls }} backup original config
     - watch_in:
       - service: {{ sls }} service
 
@@ -137,6 +162,8 @@
       - MULTILINE
     # The default is yes.
     - append_if_not_found: False
+    - require:
+      - file: {{ sls }} backup original config
     - watch_in:
       - service: {{ sls }} service
 
@@ -151,6 +178,8 @@
       - MULTILINE
     # The default is no.
     - append_if_not_found: False
+    - require:
+      - file: {{ sls }} backup original config
     - watch_in:
       - service: {{ sls }} service
 
@@ -165,5 +194,7 @@
       - MULTILINE
     # The default is no.
     - append_if_not_found: False
+    - require:
+      - file: {{ sls }} backup original config
     - watch_in:
       - service: {{ sls }} service

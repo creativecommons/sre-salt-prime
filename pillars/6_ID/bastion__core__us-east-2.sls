@@ -1,0 +1,2 @@
+states:
+  salt.proxy: {{ sls }}
