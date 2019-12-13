@@ -6,6 +6,7 @@ include:
 {{ sls }} install certbot:
   pip.installed:
     - name: certbot == {{ pillar.letsencrypt.version }}
+    - upgrade: True
     - require:
       - pkg: python.pip installed packages
 

@@ -13,4 +13,4 @@ letsencrypt:
     renew-with-new-domains: True
     server: https://acme-v02.api.letsencrypt.org/directory
     webroot-path: /var/www/html
-  version: 0.37
+  version: "1.0.0"
