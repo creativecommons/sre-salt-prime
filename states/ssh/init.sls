@@ -125,7 +125,7 @@
 {{ sls }} remove duplicate ClientAliveInterval:
   file.replace:
     - name: /etc/ssh/sshd_config
-    - pattern: {{ pattern }}
+    - pattern: "{{ pattern }}"
     - repl: ""
     - flags:
       - IGNORECASE
