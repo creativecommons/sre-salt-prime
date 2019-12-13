@@ -20,10 +20,9 @@
 {% set ACCOUNT_ID = salt.boto_iam.get_account_id() -%}
 {% set KMS_KEY_STORAGE = ["arn:aws:kms:us-east-2:", ACCOUNT_ID,
                           ":alias/", P_LOC.kms_key_id_storage]|join("") -%}
-
 # Phases:
 # One: AWS Provisioning
-# Two: Bootstrap (skipped if minion is already live)
+# Two: Bootstrap via SSH (skipped if minion is already live)
 # Three: Highstate
 
 
@@ -71,37 +70,13 @@
       - salt: {{ sls }} orch.aws.secgroup_dispatch
 
 
-# Phase Two: Bootstrap
+# Phase Two: Bootstrap via SSH
 # (skipped if minion public key has been accepted and minion is already live)
 
-
-{{ sls }} minion public key accepted:
-  salt.function:
-    - name: cmd.run
-    - tgt: {{ pillar.location.salt_prime_id }}
-    - arg:
-      - test -f /etc/salt/pki/master/minions/{{ MID }}
-    - require:
-      - salt: {{ sls }} orch.aws.ec2_instance_web
-
-
-{{ sls }} minion already up:
-  salt.function:
-    - name: test.ping
-    - tgt: {{ MID }}
-    - retry:
-        attempts: 3
-        interval: 5
-    - require:
-      - salt: {{ sls }} minion public key accepted
-    - onlyif:
-      - test -f /etc/salt/pki/master/minions/{{ MID }}
-
-
-{{ sls }} salt-prime minion bootstrap prep:
+{{ sls }} ssh bootstrap:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: orch.bootstrap.prime_prep
+    - sls: orch.bootstrap
     - saltenv: {{ saltenv }}
     - kwarg:
       pillar:
@@ -110,55 +85,8 @@
         tgt_mid: {{ MID }}
         tgt_tmp: {{ TMP }}
         tgt_ip: {{ IP }}
-    # NOTE: onfail_any requires failhard: False
-    #       See: https://github.com/saltstack/salt/issues/20496
-    - onfail_any:
-      - salt: {{ sls }} minion public key accepted
-      - salt: {{ sls }} minion already up
-
-
-{{ sls }} bootstrap minion:
-  salt.state:
-    - tgt: {{ MID }}
-    - sls: orch.bootstrap.minion
-    - saltenv: {{ saltenv }}
-    - ssh: True
-    - kwarg:
-      pillar:
-        tgt_mid: {{ MID }}
     - require:
-      - salt: {{ sls }} salt-prime minion bootstrap prep
-    - onlyif:
-      - test -d {{ TMP }}
-
-
-{{ sls }} salt-prime minion bootstrap cleanup failure:
-  salt.state:
-    - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: orch.bootstrap.prime_cleanup_failure
-    - saltenv: {{ saltenv }}
-    - kwarg:
-      pillar:
-        tgt_mid: {{ MID }}
-    # NOTE: onfail_any requires failhard: False
-    #       See: https://github.com/saltstack/salt/issues/20496
-    - onfail_any:
-      - salt: {{ sls }} salt-prime minion bootstrap prep
-      - salt: {{ sls }} bootstrap minion
-
-
-{{ sls }} salt-prime minion bootstrap cleanup success:
-  salt.state:
-    - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: orch.bootstrap.prime_cleanup_success
-    - saltenv: {{ saltenv }}
-    - kwarg:
-      pillar:
-        tgt_mid: {{ MID }}
-        tgt_ip: {{ IP }}
-        tgt_tmp: {{ TMP }}
-    - onlyif:
-      - test -d {{ TMP }}
+      - salt: {{ sls }} orch.aws.ec2_instance_web
 
 
 # Phase Three: Highstate
