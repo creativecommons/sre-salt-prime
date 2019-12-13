@@ -12,10 +12,16 @@ include:
       - python-apt
 
 
-{% set repo_url = "https://repo.saltstack.com/apt/debian/9/amd64/latest" -%}
+{% set os = grains['oscodename'] -%}
+{% if os == "stretch" -%}
+  {% set repo_url = "https://repo.saltstack.com/apt/debian/9/amd64/latest" -%}
+{% else -%}
+  {% set repo_url = ("https://repo.saltstack.com/py3/debian/{}/amd64/latest"
+                     .format(grains['osmajorrelease'])) -%}
+{% endif -%}
 {{ sls }} SaltStack Repository:
   pkgrepo.managed:
-    - name: deb {{ repo_url }}  stretch main
+    - name: deb {{ repo_url }} {{ os }} main
     - file: /etc/apt/sources.list.d/saltstack.list
     - key_url: {{ repo_url }}/SALTSTACK-GPG-KEY.pub
     - clean_file: True

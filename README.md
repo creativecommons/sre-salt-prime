@@ -123,7 +123,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
   - `us-east-2`
     - cost effective
     - avoid conflict/collision over region limited resources (ex. ElasticIPs)
-- Debian 9 (Stretch)
+- Debian 10 (Buster) and Debian 9 (Stretch)
   - Free/Open Source
   - Debian Stable
   - Creative Commons is already using it and staff are familiar with it
