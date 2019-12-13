@@ -65,6 +65,7 @@ include:
       - file: {{ sls }} config dir post
     - require_in:
       - cron: {{ sls }} cron certbot renew
+      - file: {{ sls }} domainsets
 {%- endfor %}
 {%- endif %}
 
@@ -76,6 +77,7 @@ include:
     - dataset_pillar: letsencrypt:domainsets
     - mode: '0444'
     - require:
+      - file: {{ sls }} cli.ini
       - file: {{ sls }} config dir deploy
       - file: {{ sls }} deploy_hook manage_new_certs.sh
 
