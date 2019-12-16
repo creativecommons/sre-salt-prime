@@ -81,6 +81,9 @@
 {%- endif %}
 
 
+# Set size to ABSENT to disable creation of xvdf
+{% set xvdf_size = aws.infra_value(sls, "ebs_size", HST, POD) -%}
+{% if xvdf_size != "~" -%}
 {% set ident = [HST, POD, "ebs-xvdf"] -%}
 {% set name = ident|join("_") -%}
 {% set name_ebs = name -%}
@@ -91,12 +94,13 @@
     - volume_name: {{ name }}
     - instance_id: {{ id }}
     - device: xvdf
-    - size: {{ aws.infra_value(sls, "ebs_size", HST, POD) }}
+    - size: {{ xvdf_size }}
     - volume_type: gp2
     - encrypted: True
     - kms_key_id: {{ KMS_KEY_STORAGE }}
     - require:
       - boto_ec2: {{ name_instance }}
+{%- endif %}
 
 
 # If we have a valid instance ID, ensure both the xvda and xvdf volumes are
