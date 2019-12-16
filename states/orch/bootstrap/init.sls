@@ -31,8 +31,9 @@
 {{ sls }} salt-prime minion bootstrap prep:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: prime_prep
+    - sls: orch.bootstrap.prime_prep
     - saltenv: {{ saltenv }}
+    - concurrent: True
     - kwarg:
       pillar:
         tgt_pod: {{ POD }}
@@ -50,7 +51,7 @@
 {{ sls }} bootstrap minion:
   salt.state:
     - tgt: {{ MID }}
-    - sls: minion
+    - sls: orch.bootstrap.minion
     - saltenv: {{ saltenv }}
     - ssh: True
     - kwarg:
@@ -65,8 +66,9 @@
 {{ sls }} salt-prime minion bootstrap cleanup failure:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: prime_cleanup_failure
+    - sls: orch.bootstrap.prime_cleanup_failure
     - saltenv: {{ saltenv }}
+    - concurrent: True
     - kwarg:
       pillar:
         tgt_mid: {{ MID }}
@@ -80,12 +82,15 @@
 {{ sls }} salt-prime minion bootstrap cleanup success:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: prime_cleanup_success
+    - sls: orch.bootstrap.prime_cleanup_success
     - saltenv: {{ saltenv }}
+    - concurrent: True
     - kwarg:
       pillar:
         tgt_mid: {{ MID }}
         tgt_ip: {{ IP }}
         tgt_tmp: {{ TMP }}
+    - require:
+      - salt: {{ sls }} bootstrap minion
     - onlyif:
       - test -d {{ TMP }}
