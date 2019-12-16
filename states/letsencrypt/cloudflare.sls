@@ -1,5 +1,6 @@
 include:
   - letsencrypt
+  - python.pip
 
 
 {{ sls }} root secrets dir:
@@ -25,7 +26,7 @@ include:
     - name: certbot-dns-cloudflare == {{ pillar.letsencrypt.version }}
     - upgrade: True
     - require:
-      - pkg: letsencrypt installed packages
+      - pkg: python.pip installed packages
       - file: {{ sls }} cloudflare_api.ini
     - require_in:
       - pip: letsencrypt install certbot
