@@ -16,6 +16,7 @@ infra:
       default: 10
       # Specific (please maintain order)
       chapters: 334
+      dispatch: ABSENT
       openglam: 214
       sotc: 214
       summit: 214
