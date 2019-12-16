@@ -1,3 +1,7 @@
+include:
+  - letsencrypt
+
+
 {{ sls }} root secrets dir:
   file.directory:
     - name: /root/.secrets
@@ -12,19 +16,16 @@
       - 'dns_cloudflare_email = "{{ pillar.cloudflare.email }}"'
       - 'dns_cloudflare_api_key = "{{ pillar.cloudflare. api_key }}"'
     - mode: '0400'
-
-
-{{ sls }} installed packages:
-  pkg.installed:
-    - pkgs:
-      - python-pip
+    - require:
+      - file: {{ sls }} root secrets dir
 
 
 {{ sls }} install certbot-dns-cloudflare:
   pip.installed:
     - name: certbot-dns-cloudflare == {{ pillar.letsencrypt.version }}
+    - upgrade: True
     - require:
-      - pkg: {{ sls }} installed packages
+      - pkg: letsencrypt installed packages
       - file: {{ sls }} cloudflare_api.ini
     - require_in:
       - pip: letsencrypt install certbot
