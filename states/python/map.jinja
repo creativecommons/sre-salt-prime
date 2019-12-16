@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+{%- set py = salt['grains.filter_by'](
+    {
+        2: {
+            "pip_package": "python-pip",
+        },
+        3: {
+            "pip_package": "python3-pip",
+        },
+    },
+    grain="pythonversion"
+) %}

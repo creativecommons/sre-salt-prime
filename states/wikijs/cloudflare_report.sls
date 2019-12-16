@@ -1,3 +1,7 @@
+include:
+  - python.pip
+
+
 {{ sls }} cloudflare email:
   file.managed:
     - name: /srv/wikijs/.cloudflare_email
@@ -37,6 +41,7 @@
     - name: cloudflare
     - bin_env: /srv/wikijs/.venvs/cloudflare
     - require:
+      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
 
 
@@ -45,6 +50,7 @@
     - name: GitPython
     - bin_env: /srv/wikijs/.venvs/cloudflare
     - require:
+      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
 
 

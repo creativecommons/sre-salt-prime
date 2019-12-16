@@ -1,3 +1,7 @@
+include:
+  - python.pip
+
+
 {{ sls }} virtualenv:
   virtualenv.managed:
     - name: /srv/wikijs/.venvs/amazon_route53
@@ -13,6 +17,7 @@
     - name: boto3
     - bin_env: /srv/wikijs/.venvs/amazon_route53
     - require:
+      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
 
 
@@ -21,6 +26,7 @@
     - name: GitPython
     - bin_env: /srv/wikijs/.venvs/amazon_route53
     - require:
+      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
 
 

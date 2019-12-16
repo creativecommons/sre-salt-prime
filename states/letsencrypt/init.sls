@@ -1,19 +1,24 @@
 include:
+  - python.pip
   - tls
 
 
-{{ sls }} installed packages:
+{% if grains['oscodename'] == "buster" -%}
+# Ensure compatible dependencies are installed on Debian 10 (Buster)
+{{ sls }} installed packges:
   pkg.installed:
     - pkgs:
-      - python-pip
+      - python3-openssl
+    - require_in:
+      - pip: {{ sls }} install certbot
+{%- endif %}
 
 
 {{ sls }} install certbot:
   pip.installed:
     - name: certbot == {{ pillar.letsencrypt.version }}
-    - upgrade: True
     - require:
-      - pkg: {{ sls }} installed packages
+      - pkg: python.pip installed packages
 
 
 {%- for dir in ["deploy", "post", "pre"] %}
