@@ -146,7 +146,13 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 ## Host Classification
 
 Minions are added and configured from `salt-prime` with the following Minion ID
-schema: **`HST__POD__LOC`** (host/role__pod/group__location).
+schema: **`HST__POD__LOC`** (host/role__pod/group__location). These variables
+are used to determine the state and pillar data.
+
+Show top states example command:
+```
+sudo salt \* pillar.item states saltenv=${USER}
+```
 
 See [`docs/Host_Classification.md`](docs/Host_Classification.md) for details.
 
@@ -184,13 +190,15 @@ See [`docs/Orchestration.md`](docs/Orchestration.md).
 [saltformulas]: https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html
 
 
-#### Module Documentation
+#### Frequently Referenced Documentation
 
 - [Salt Module Reference][moduleref]
   - [state modules][statemodules]
+- [Requisites and Other Global State Arguments][requisites]
 
 [moduleref]: https://docs.saltstack.com/en/latest/ref/index.html
 [statemodules]: https://docs.saltstack.com/en/latest/ref/states/all/index.html
+[requisites]: https://docs.saltstack.com/en/latest/ref/states/requisites.html
 
 
 ## Repository Documentation
