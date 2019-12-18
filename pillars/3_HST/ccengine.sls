@@ -1,6 +1,6 @@
-states:
-  mount: {{ sls }}
-#  nginx.dispatch: {{ sls }}
+ccengine:
+  # set the default here (may be overridden by subsequent sls)
+  branch: master
 mounts:
   - spec: /dev/nvme1n1
     file: /srv
@@ -10,4 +10,7 @@ mounts:
     pass: 2
 #nginx:
 #  flavor: light
-
+states:
+  ccengine: {{ sls }}
+  mount: {{ sls }}
+#  nginx.dispatch: {{ sls }}
