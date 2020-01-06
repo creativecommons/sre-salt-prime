@@ -8,20 +8,16 @@
 {% set MODS_ENABLE = salt["pillar.get"]("apache2:mods:enable", []) -%}
 
 
-include:
-  - tls
-  - apache2.mod_ssl
-
-
 {{ sls }} installed packages:
   pkg.installed:
     - pkgs:
       - apache2
     - require:
-      - mount: mount mount /var/www   # this seems fragile. load from pillar?
-      - file: tls dhparams.pem
-    - require_in:
-      - pip: letsencrypt install certbot
+{%- if pillar.mounts %}
+{%- for mount in pillar.mounts %}
+      - mount: mount mount {{ mount.file }}
+{%- endfor %}
+{%- endif %}
 
 
 {{ sls }} www-data group:
