@@ -6,6 +6,8 @@ include:
 
 {{ sls }} installed packages:
   pkg.installed:
+    - pkgs:
+      - apache2
     - require:
       - file: tls dhparams.pem
     - require_in:
