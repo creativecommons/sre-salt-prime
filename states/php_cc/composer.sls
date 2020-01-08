@@ -8,8 +8,8 @@ include:
   group.present:
     - name: composer
     - system: True
-{%- set admins = salt["pillar.get"]("user:admins", False) %}
-{%- set webdevs = salt["pillar.get"]("user:webdevs", False) %}
+{%- set admins = salt["pillar.get"]("user:admins", false) %}
+{%- set webdevs = salt["pillar.get"]("user:webdevs", false) %}
 {%- if admins or webdevs %}
     - addusers:
 {%- if admins %}

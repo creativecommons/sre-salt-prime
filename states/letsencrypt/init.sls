@@ -52,7 +52,7 @@ include:
       - file: {{ sls }} config dir post
 
 
-{%- set post_hooks = salt["pillar.get"]("letsencrypt:post_hooks", False) %}
+{%- set post_hooks = salt["pillar.get"]("letsencrypt:post_hooks", false) %}
 {%- if post_hooks %}
 {%- for label, cmd in post_hooks.items() %}
 
