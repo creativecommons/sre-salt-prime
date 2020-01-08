@@ -8,9 +8,7 @@ mounts:
     opts: defaults
     freq: 0
     pass: 2
-#nginx:
-#  flavor: light
 states:
+  apache2.ccengine: {{ sls }}
   ccengine: {{ sls }}
   mount: {{ sls }}
-#  nginx.dispatch: {{ sls }}

@@ -3,11 +3,9 @@ from flup.server.fcgi import WSGIServer
 from paste.deploy import loadapp
 from paste.exceptions.errormiddleware import ErrorMiddleware
 
-CCENGINE_CONFIG_PATH = '{{ DIR_ENV }}/config.ini'
-
 
 def launch_ccengine_fcgi():
-    ccengine_wsgi_app = loadapp('config:{}'.format(CCENGINE_CONFIG_PATH))
+    ccengine_wsgi_app = loadapp('config:config.ini', relative_to='..')
     WSGIServer(ccengine_wsgi_app).run()
 
 

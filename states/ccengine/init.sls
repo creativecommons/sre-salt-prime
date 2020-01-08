@@ -6,6 +6,8 @@
     - pkgs:
       - git
       - pipenv
+      - python-cssselect
+      - python-flup
       - python-librdf
       - python-pip
       - virtualenv
@@ -17,8 +19,12 @@
 {{ sls }} {{ dir }}:
   file.directory:
     - name: {{ dir }}
+{%- if pillar.mounts %}
     - require:
-      - mount: mount mount /srv
+{%- for mount in pillar.mounts %}
+      - mount: mount mount {{ mount.file }}
+{%- endfor %}
+{%- endif %}
 {%- endfor %}
 
 
@@ -52,10 +58,8 @@
       - file: {{ sls }} docroot
 
 
-{#- Note: the repo order below is required for successful env
-          installations #}
-{%- for repo in ["rdfadict", "cc.i18n", "cc.licenserdf", "cc.license",
-                 "cc.engine"] %}
+{%- for repo in ("cc.engine", "cc.i18n", "cc.license", "cc.licenserdf",
+                 "rdfadict") %}
 
 
 {{ sls }} {{ repo }} repo:
@@ -67,18 +71,68 @@
     - fetch_tags: False
     - require:
       - virtualenv: {{ sls }} env setup
+{%- endfor %}
 
 
-{{ sls }} {{ repo }} env install:
+{{ sls }} rdfadict env install:
   pip.installed:
-    - name: {{ repo }}
-    - editable: /srv/ccengine/src/{{ repo }}
+    - name: rdfadict
+    - editable: /srv/ccengine/src/rdfadict
     - bin_env: /srv/ccengine/env
     - require:
-      - git: {{ sls }} {{ repo }} repo
+      - git: {{ sls }} rdfadict repo
     - unless:
-      - test -f {{ SITE_PACKAGES }}/{{ repo }}.egg-link
-{%- endfor %}
+      - test -f {{ SITE_PACKAGES }}/rdfadict.egg-link
+
+
+{{ sls }} cc.i18n env install:
+  pip.installed:
+    - name: cc.i18n
+    - editable: /srv/ccengine/src/cc.i18n
+    - bin_env: /srv/ccengine/env
+    - require:
+      - git: {{ sls }} cc.i18n repo
+    - unless:
+      - test -f {{ SITE_PACKAGES }}/cc.i18n.egg-link
+
+
+{{ sls }} cc.licenserdf env install:
+  pip.installed:
+    - name: cc.licenserdf
+    - editable: /srv/ccengine/src/cc.licenserdf
+    - bin_env: /srv/ccengine/env
+    - require:
+      - git: {{ sls }} cc.licenserdf repo
+      - pip: {{ sls }} cc.i18n env install
+      - pip: {{ sls }} rdfadict env install
+    - unless:
+      - test -f {{ SITE_PACKAGES }}/cc.licenserdf.egg-link
+
+
+{{ sls }} cc.license env install:
+  pip.installed:
+    - name: cc.license
+    - editable: /srv/ccengine/src/cc.license
+    - bin_env: /srv/ccengine/env
+    - require:
+      - git: {{ sls }} cc.license repo
+      - pip: {{ sls }} cc.licenserdf env install
+    - unless:
+      - test -f {{ SITE_PACKAGES }}/cc.license.egg-link
+
+
+{{ sls }} cc.engine env install:
+  pip.installed:
+    - name: cc.engine
+    - editable: /srv/ccengine/src/cc.engine
+    - bin_env: /srv/ccengine/env
+    - require:
+      - git: {{ sls }} cc.engine repo
+      - pip: {{ sls }} cc.i18n env install
+      - pip: {{ sls }} cc.license env install
+      - pip: {{ sls }} cc.licenserdf env install
+    - unless:
+      - test -f {{ SITE_PACKAGES }}/cc.engine.egg-link
 
 
 {{ sls }} Compile Machine Object translation files:
@@ -111,12 +165,15 @@
   file.managed:
     - name: /srv/ccengine/env/config.ini
     - source: salt://ccengine/files/config.ini
+    - template: jinja
+    - defaults:
+        SLS: {{ sls }}
     - require:
       - cmd: {{ sls }} Compile Machine Object translation files
       - cmd: {{ sls }} Compile translation stats
       - pip: {{ sls }} cc.engine env install
-#    - watch_in:
-#      - ...
+    - watch_in:
+      - service: apache2 service
 
 
 {{ sls }} CC Engine fcgi:
@@ -129,5 +186,5 @@
     - mode: '0555'
     - require:
       - file: {{ sls }} CC Engine config
-#    - watch_in:
-#      - ...
+    - watch_in:
+      - service: apache2 service
