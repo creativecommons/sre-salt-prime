@@ -1,5 +1,5 @@
 include:
-  - user.secrets
+  - user.admins.secrets
 
 
 user:
