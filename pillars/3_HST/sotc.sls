@@ -2,6 +2,7 @@ include:
   - letsencrypt
   - mysql
   - php
+  - user.webdevs.secrets
 
 
 letsencrypt:
