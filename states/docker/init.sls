@@ -5,8 +5,12 @@
 {{ sls }} /srv/docker:
   file.directory:
     - name: /srv/docker
+{%- if pillar.mounts %}
     - require:
-      - mount: mount mount /srv
+{%- for mount in pillar.mounts %}
+      - mount: mount mount {{ mount.file }}
+{%- endfor %}
+{%- endif %}
 
 
 {{ sls }} /var/lib/docker symlink:
