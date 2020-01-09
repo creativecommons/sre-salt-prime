@@ -33,7 +33,11 @@ include:
     - mode: '2775'
     - group: composer
     - require:
-      - mount: mount mount /var/www
+{%- if pillar.mounts %}
+{%- for mount in pillar.mounts %}
+      - mount: mount mount {{ mount.file }}
+{%- endfor %}
+{%- endif %}
       - user: php_cc.composer user
 
 
