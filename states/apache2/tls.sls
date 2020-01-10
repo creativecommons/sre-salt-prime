@@ -4,10 +4,8 @@ include:
   - tls
 
 
-{{ sls }} installed packages:
-  pkg.installed:
-    - pkgs:
-      - apache2
+{{ sls }} install tls before apache2 and letsencrypt:
+  test.nop:
     - require:
       - file: tls dhparams.pem
     - require_in:
