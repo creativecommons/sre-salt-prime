@@ -12,8 +12,8 @@
   pkg.installed:
     - pkgs:
       - apache2
-    - require:
 {%- if pillar.mounts %}
+    - require:
 {%- for mount in pillar.mounts %}
       - mount: mount mount {{ mount.file }}
 {%- endfor %}
