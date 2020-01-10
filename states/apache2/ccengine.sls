@@ -10,12 +10,21 @@ include:
   - apache2.fcgid
 
 
+{{ sls }} wait for ccengine:
+  test.nop:
+    - require:
+      - test: ccengine completed
+    - require_in:
+      - pkg: apache2 installed packages
+
+
 {{ sls }} www-data group:
   group.present:
     - name: www-data
     - gid: 33
     - require:
       - pkg: apache2 installed packages
+      - test: {{ sls }} wait for ccengine
 
 
 {{ sls }} fcgi cache dir:
@@ -24,7 +33,7 @@ include:
     - group: www-data
     - mode: '2775'
     - require:
-      - file: ccengine /srv/ccengine/env
+      - file: ccengine.env /srv/ccengine/env
       - group: {{ sls }} www-data group
 
 
@@ -39,7 +48,7 @@ include:
     - require:
       - pkg: apache2 installed packages
       - pkg: apache2.fcgid installed packages
-      - file: ccengine CC Engine fcgi
+      - file: ccengine.env CC Engine fcgi
     - watch_in:
       - service: apache2 service
 
