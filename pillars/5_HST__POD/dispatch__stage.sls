@@ -1,3 +1,9 @@
+{% set SERVER_503 = "http://127.0.0.1:8503" -%}
+{% set SERVER_CCENGINE = "http://10.22.11.12" -%}
+{% set SERVER_MISC = SERVER_503 -%}
+{% set SERVER_DEFAULT = SERVER_503 -%}
+
+
 letsencrypt:
   domainsets:
     stage.creativecommons.org:
@@ -8,33 +14,33 @@ nginx:
     # CC Engine
     - description: CC Engine
       location: /characteristic
-      server: http://127.0.0.1:8503
+      server: {{ SERVER_CCENGINE }}
     - description: CC Engine
       location: /choose
-      server: http://127.0.0.1:8503
+      server: {{ SERVER_CCENGINE }}
     - description: CC Engine
       location: /licenses
-      server: http://127.0.0.1:8503
+      server: {{ SERVER_CCENGINE }}
     - description: CC Engine
       location: /ns
-      server: http://127.0.0.1:8503
+      server: {{ SERVER_CCENGINE }}
     - description: CC Engine
       location: /publicdomain
-      server: http://127.0.0.1:8503
+      server: {{ SERVER_CCENGINE }}
     - description: CC Engine
       location: /rdf
-      server: http://127.0.0.1:8503
+      server: {{ SERVER_CCENGINE }}
     - description: CC Engine
       location: /schema.rdf
-      server: http://127.0.0.1:8503
+      server: {{ SERVER_CCENGINE }}
     # Miscellaneous
     - description: Miscellaneous
       location: /faq
-      server: http://127.0.0.1:8503
+      server: {{ SERVER_MISC }}
     - description: Miscellaneous
       location: /platform/toolkit
-      server: http://127.0.0.1:8503
-    # WordPress (Default)
+      server: {{ SERVER_MISC }}
+    # Default (WordPress)
     - description: Default (WordPress)
       location: /
-      server: http://127.0.0.1:8503
+      server: {{ SERVER_DEFAULT }}
