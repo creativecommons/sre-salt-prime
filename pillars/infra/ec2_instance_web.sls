@@ -15,7 +15,9 @@ infra:
       # Default
       default: 10
       # Specific (please maintain order)
+      ccengine: 214
       chapters: 334
+      dispatch: ABSENT
       openglam: 214
       sotc: 214
       summit: 214
@@ -41,6 +43,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-biztool_prod_secgroup
+      ccengine__stage:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-from-dispatch_stage_secgroup
       chapters__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
@@ -51,6 +58,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-chapters_stage_secgroup
+      dispatch__stage:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-all-dispatch_stage_secgroup
       openglam__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
@@ -72,4 +84,7 @@ infra:
         - ssh-from-bastion_core_secgroup
         - web-all-summit_prod_secgroup
     web_subnet:
+      # Default
       default: dmz
+      # Specific (please maintain order)
+      ccengine: private-one

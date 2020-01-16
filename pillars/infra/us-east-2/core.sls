@@ -18,8 +18,10 @@ infra:
         sotc__prod:       10.22.10.20
         openglam__prod:   10.22.10.21
         summit__prod:     10.22.10.22
+        dispatch__stage:  10.22.10.23
         ###_Private-One   10.22.11.0
         salt-prime__core: 10.22.11.11
+        ccengine__stage:  10.22.11.12
         ###_Private-Two   10.22.12.0
       subnets:
         dmz:
