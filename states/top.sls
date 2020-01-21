@@ -1,3 +1,4 @@
+
 # States are selected via the pillar.states
 #
 # To see the states selected for minion, run:
