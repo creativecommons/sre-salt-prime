@@ -7,10 +7,10 @@ include:
   - letsencrypt
 
 
-{{ sls }} install site {{ CERT_NAME }}:
+{{ sls }} install {{ CERT_NAME }}_basic site:
   file.managed:
-    - name: /etc/nginx/sites-available/{{ CERT_NAME }}
-    - source: salt://nginx/files/dispatch_template
+    - name: /etc/nginx/sites-available/{{ CERT_NAME }}_basic
+    - source: salt://nginx/files/dispatch_basic_template
     - mode: '0444'
     - template: jinja
     - defaults:
@@ -22,14 +22,42 @@ include:
       - service: nginx service
 
 
-{{ sls }} enable site {{ CERT_NAME }}:
-  file.symlink:
-    - name: /etc/nginx/sites-enabled/{{ CERT_NAME }}
-    - target: /etc/nginx/sites-available/{{ CERT_NAME }}
+{{ sls }} install {{ CERT_NAME }}_tls site:
+  file.managed:
+    - name: /etc/nginx/sites-available/{{ CERT_NAME }}_tls
+    - source: salt://nginx/files/dispatch_tls_template
+    - mode: '0444'
+    - template: jinja
+    - defaults:
+        CERT_NAME: {{ CERT_NAME }}
+        SLS: {{ sls }}
     - require:
-      - file: {{ sls }} install site {{ CERT_NAME }}
-      - cron: letsencrypt cron certbot renew
+      - pkg: nginx installed packages
+    - watch_in:
+      - service: nginx service
+
+
+{{ sls }} enable {{ CERT_NAME }}_basic site:
+  file.symlink:
+    - name: /etc/nginx/sites-enabled/{{ CERT_NAME }}_basic
+    - target: /etc/nginx/sites-available/{{ CERT_NAME }}_basic
+    - require:
+      - file: {{ sls }} install {{ CERT_NAME }}_basic site
+      - {{ sls }} disable site default
     - require_in:
+      - pip: letsencrypt install certbot
+    - watch_in:
+      - service: nginx service
+
+
+{{ sls }} enable {{ CERT_NAME }}_tls site:
+  file.symlink:
+    - name: /etc/nginx/sites-enabled/{{ CERT_NAME }}_tls
+    - target: /etc/nginx/sites-available/{{ CERT_NAME }}_tls
+    - require:
+      - cron: letsencrypt cron certbot renew
+      - file: {{ sls }} install {{ CERT_NAME }}_tls site
+      - file: {{ sls }} enable {{ CERT_NAME }}_basic site
       - {{ sls }} disable site default
     - watch_in:
       - service: nginx service
