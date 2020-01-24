@@ -10,6 +10,7 @@ include:
     - name: /srv/ccengine/env
     - require:
       - file: ccengine /srv/ccengine
+      - pkg: ccengine installed packages
 
 
 {{ sls }} env setup:
@@ -28,6 +29,7 @@ include:
     - bin_env: /srv/ccengine/env
     - require:
       - git: ccengine.src rdfadict repo
+      - virtualenv: {{ sls }} env setup
     - unless:
       - test -f {{ SITE_PACKAGES }}/rdfadict.egg-link
 
@@ -39,6 +41,7 @@ include:
     - bin_env: /srv/ccengine/env
     - require:
       - git: ccengine.src cc.i18n repo
+      - virtualenv: {{ sls }} env setup
     - unless:
       - test -f {{ SITE_PACKAGES }}/cc.i18n.egg-link
 
