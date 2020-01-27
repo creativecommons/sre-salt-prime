@@ -6,6 +6,7 @@ infra:
       # Specific (please maintain order)
       biztool: vpc
       chapters: vpc
+      dispatch: vpc
       openglam: vpc
       podcast: vpc
       redirects: vpc
