@@ -98,11 +98,11 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ### Goals
 
-- Use AWS well, but avoid technologies that are create AWS lock-in (ex.
-  Confidant)
+- Use AWS well, but avoid technologies that create AWS lock-in (ex. Confidant)
 - Salt Prime must not contain any exclusive data (use Git)
 - Git repository must not contain any unencrypted secrets
-- Git repository commits must be signed
+- Git repository commits must be signed and applied to the master branch via
+  Pull Requests
 - A compromised minion must not be able to escalate access
   - SysAdmins must not forward their SSH agent
   - Must not reuse application passwords (ex. Prod and Dev databases must have
@@ -136,9 +136,9 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
   - Free/Open Source
   - Performance
   - Creative Commons is already using it and staff are familiar with it
-  - Version: `2019.2.2`
+  - Version: `2019.2.3`
     - For current targeted minion version, see `minion_target_version` in
-     [`pillars/salt/init.sls`](pillars/salt/init.sls)
+      [`pillars/salt/init.sls`](pillars/salt/init.sls)
 
 [gitcrypt]: https://www.agwa.name/projects/git-crypt/
 
