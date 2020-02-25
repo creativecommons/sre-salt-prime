@@ -7,6 +7,7 @@ infra:
       biztool: vpc
       chapters: vpc
       dispatch: vpc
+      licbuttons: vpc
       openglam: vpc
       podcast: vpc
       redirects: vpc
@@ -19,6 +20,7 @@ infra:
       ccengine: 214
       chapters: 334
       dispatch: ABSENT
+      licbuttons: 214
       openglam: 214
       sotc: 214
       summit: 214

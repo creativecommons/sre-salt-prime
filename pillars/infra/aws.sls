@@ -48,6 +48,11 @@ infra:
         cc:product: primary-website
         cc:purpose: dispatch-urls
         cc:team: internal-tech
+      licbuttons__prod:
+        cc:environment: production
+        cc:product: licensebuttons
+        cc:purpose: static-hosting
+        cc:team: internal-tech
       openglam__prod:
         cc:environment: production
         cc:product: openglam
