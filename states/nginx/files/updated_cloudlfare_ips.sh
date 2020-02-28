@@ -19,7 +19,7 @@ IPV6="$(curl --http2 --raw --silent https://www.cloudflare.com/ips-v6 \
     echo '# Managed by SaltStack: {{ SLS }}'
     echo '#'
     printf '# To update this file, run the updated_cloudlfare_ips.sh script'
-    printf 'on Salt-Prime\n# and then deploy via SaltStack\n'
+    printf ' on Salt-Prime\n# and then deploy via SaltStack\n'
     echo
     echo
     echo '# Restoring original visitor IPs: Logging visitor IP addresses with'
