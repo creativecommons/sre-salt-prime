@@ -4,6 +4,7 @@
 
 include:
   - nginx
+  - nginx.custom_log_formats
   - letsencrypt
 
 
@@ -18,6 +19,7 @@ include:
         SLS: {{ sls }}
     - require:
       - pkg: nginx installed packages
+      - file: nginx.custom_log_formats install conf custom_log_formats
     - watch_in:
       - service: nginx service
 

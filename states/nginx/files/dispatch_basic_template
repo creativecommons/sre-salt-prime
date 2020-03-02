@@ -1,4 +1,3 @@
-# vim: ft=nginx:
 # Managed by SaltStack: {{ SLS }}
 
 
@@ -6,7 +5,8 @@ server {
     listen 80;
     listen [::]:80;
     server_name {{ CERT_NAME }};
-    access_log off;
+    access_log {{ pillar.nginx.custom_log_dir }}/access_debug.log
+        json_debug buffer=32k flush=2s;
     # Enable letsencrypt authorization
     location /.well-known {
         default_type "text/plain";
@@ -30,3 +30,6 @@ server {
         return 503;
     }
 }
+
+
+# vim: ft=nginx:
