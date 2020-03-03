@@ -1,8 +1,9 @@
 # vim: set fileencoding=utf-8:
 
 # Standard library
-from os.path import join
 from random import choice
+import os
+from datetime import datetime
 
 # Third-party
 from locust import HttpLocust, TaskSet, between, task
@@ -113,13 +114,17 @@ CODE_ZERO_ONE = [
     "zh-Hans",
     "zh-Hant",
 ]
+BUSTCACHE = False
 
 
 def client_get(browselegaltools, *argv):
     """
     GET deed/legalcode/rdf URL after combining the provided path components
     """
-    path = join(*argv)
+    path = os.path.join(*argv)
+    if BUSTCACHE:
+        now = datetime.now().strftime("%s.%f")
+        path = f"{path}?{now}"
     browselegaltools.client.get(path)
 
 
@@ -201,6 +206,10 @@ class BrowseLegalTools(TaskSet):
 
 
 class LegalToolsUser(HttpLocust):
+    global BUSTCACHE
+    if "BUSTCACHE" in os.environ and os.environ["BUSTCACHE"]:
+        BUSTCACHE = True
+        print("# Cache busting enabled")
     host = HOST_STAGE
     task_set = BrowseLegalTools
     wait_time = between(2, 16)
