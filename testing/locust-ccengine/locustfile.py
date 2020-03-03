@@ -129,14 +129,14 @@ def client_get(browselegaltools, *argv):
 
 
 class BrowseLegalTools(TaskSet):
-    @task(4)
+    @task(2)
     def deed_by_four(self):
         """
         Task: get CC BY 4.0 deed
         """
         client_get(self, PATH_BY, "4.0", f"deed.{choice(CODE_BY_FOUR)}")
 
-    @task(2)
+    @task(1)
     def legalcode_by_four(self):
         """
         Task: get CC BY 4.0 legalcode
@@ -202,6 +202,20 @@ class BrowseLegalTools(TaskSet):
             choice(("by-nc-nd", "by-nc-sa", "by-nc", "by-nd", "by-sa", "by")),
             choice(("4.0", "3.0", "2.0", "1.0")),
             "rdf",
+        )
+
+
+    @task(3)
+    def deed_wrong_index(self):
+        """
+        Task: get CC RDF
+        """
+        client_get(
+            self,
+            PATH_BY.rstrip("/by"),
+            choice(("by-nc-nd", "by-nc-sa", "by-nc", "by-nd", "by-sa", "by")),
+            choice(("4.0", "3.0", "2.0", "1.0")),
+            "index.php",
         )
 
 
