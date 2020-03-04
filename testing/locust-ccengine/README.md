@@ -42,7 +42,7 @@ else fails, try removing the virtual environment and reinstalling:
 ./swarm.sh
 ```
 
-The helper script, above, assumes macOS.
+The helper script, [`swarm.sh`](swarm.sh), assumes macOS.
 
 To test without caching, use your local `/etc/hosts` to change the IP of the
 host from the CDN to the origin.
