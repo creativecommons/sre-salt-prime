@@ -27,5 +27,5 @@ jobs
 
 echo "# starting locust master in foreground"
 pipenv run locust --no-web --master --master-bind-host=127.0.0.1 \
-    --expect-slaves=4 --only-summary --reset-stats \
+    --expect-slaves=8 --only-summary --reset-stats \
     -c4000 -r160 -t160s
