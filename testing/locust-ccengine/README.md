@@ -38,10 +38,14 @@ else fails, try removing the virtual environment and reinstalling:
 
 ## Test Execution
 
-Sample command on macOS:
 ```shell
-ulimit -S -n 1024 && pipenv run locust
+./swarm.sh
 ```
+
+The helper script, above, assumes macOS.
+
+To test without caching, use your local `/etc/hosts` to change the IP of the
+host from the CDN to the origin.
 
 
 ## Primary README
