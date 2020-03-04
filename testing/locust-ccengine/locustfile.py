@@ -2,11 +2,11 @@
 
 # Standard library
 from random import choice
-import os
-from datetime import datetime
+import os.path
 
 # Third-party
-from locust import HttpLocust, TaskSet, between, task
+from locust import TaskSet, between, task
+from locust.contrib.fasthttp import FastHttpLocust
 
 
 HOST_STAGE = "https://stage.creativecommons.org"
@@ -114,18 +114,16 @@ CODE_ZERO_ONE = [
     "zh-Hans",
     "zh-Hant",
 ]
-BUSTCACHE = False
 
 
 def client_get(browselegaltools, *argv):
     """
-    GET deed/legalcode/rdf URL after combining the provided path components
+    GET deed/legalcode/rdf URI (after combining the provided URI components)
     """
-    path = os.path.join(*argv)
-    if BUSTCACHE:
-        now = datetime.now().strftime("%s.%f")
-        path = f"{path}?{now}"
-    browselegaltools.client.get(path)
+    uri = os.path.join(*argv)
+    if "BUSTCACHE" in os.environ and os.environ["BUSTCACHE"]:
+        uri = f"{uri}?{os.environ['BUSTCACHE']}"
+    browselegaltools.client.get(uri)
 
 
 class BrowseLegalTools(TaskSet):
@@ -204,7 +202,6 @@ class BrowseLegalTools(TaskSet):
             "rdf",
         )
 
-
     @task(3)
     def deed_wrong_index(self):
         """
@@ -219,11 +216,7 @@ class BrowseLegalTools(TaskSet):
         )
 
 
-class LegalToolsUser(HttpLocust):
-    global BUSTCACHE
-    if "BUSTCACHE" in os.environ and os.environ["BUSTCACHE"]:
-        BUSTCACHE = True
-        print("# Cache busting enabled")
+class LegalToolsUser(FastHttpLocust):
     host = HOST_STAGE
     task_set = BrowseLegalTools
     wait_time = between(2, 16)
