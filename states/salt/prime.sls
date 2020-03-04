@@ -6,9 +6,11 @@
   pkg.installed:
     - pkgs:
       - awscli
+      - colordiff
       - git
       - git-crypt
       - git-doc
+      - ipv6calc
       - python-boto
       - python-boto3
       - python-pygit2

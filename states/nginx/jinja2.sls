@@ -6,6 +6,9 @@
     - name: /etc/nginx/conf.d/{{ conf }}.conf
     - source: salt://nginx/files/{{ conf }}.conf
     - mode: '0444'
+    - template: jinja
+    - defaults:
+        SLS: {{ sls }}
     - require:
       - pkg: nginx installed packages
     - watch_in:
