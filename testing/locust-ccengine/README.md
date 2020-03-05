@@ -3,7 +3,7 @@
 Performance testing for ccEngine.
 
 :warning: **Use of this code against Creative Commons infrastructure by persons
-not employed by Creative Commons constitutes abuse.**
+not explicitly authorized by Creative Commons constitutes abuse.**
 
 
 ## Installation
