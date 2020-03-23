@@ -8,7 +8,7 @@ include:
 location:
   salt_prime_ip: 127.0.0.1
 mounts:
-  - spec: /dev/nvme1n1
+  - spec: /dev/xvdf
     file: /srv
     type: ext4
     opts: defaults

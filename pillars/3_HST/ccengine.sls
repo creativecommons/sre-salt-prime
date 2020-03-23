@@ -2,7 +2,7 @@ ccengine:
   # set the default here (may be overridden by subsequent sls)
   branch: master
 mounts:
-  - spec: /dev/nvme0n1
+  - spec: /dev/xvdf
     file: /srv
     type: ext4
     opts: defaults
