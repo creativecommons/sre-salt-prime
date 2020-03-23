@@ -4,7 +4,7 @@
 {% set spec_long = "/dev/{}".format(spec_short) -%}
 
 
-{{ sls }} convience symlink:
+{{ sls }} add convience symlink:
   cmd.run:
     - name: |
         for n in /dev/nvme?n?
@@ -19,15 +19,15 @@
     - require:
       - pkg: common installed packages
     - unless:
-      - test -e {{ spec_long }}
+      - test -d {{ mount.file }}/lost+found
 
 
 {{ sls }} format {{ spec_long }} as {{ mount.type }}:
   blockdev.formatted:
     - name: {{ spec_long }}
     - fs_type: {{ mount.type }}
-    - require:
-      - {{ sls }} convience symlink
+    - onchanges:
+      - {{ sls }} add convience symlink
 
 
 {{ sls }} label {{ spec_long }} as {{ label }}:
@@ -35,6 +35,13 @@
     - name: e2label {{ spec_long }} {{ label }}
     - onchanges:
       - blockdev: {{ sls }} format {{ spec_long }} as {{ mount.type }}
+
+
+{{ sls }} remove convience symlink:
+  file.absent:
+    - name: {{ spec_long }}
+    - require:
+      - cmd: {{ sls }} label {{ spec_long }} as {{ label }}
 
 
 {{ sls }} mount {{ mount.file }}:
@@ -48,7 +55,6 @@
     - pass_num: {{ mount.pass }}
     - match_on: name
     - require:
-      - blockdev: {{ sls }} format {{ spec_long }} as {{ mount.type }}
       - cmd: {{ sls }} label {{ spec_long }} as {{ label }}
 
 
