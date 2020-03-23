@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+# This helper/wrapper script expects POD (ex. prod, stage) as the first
+# argument. Any additional arguments will be added to the end of the salt-call
+# command lines (ex. test=True).
+
 set -o errtrace
 set -o nounset
 
