@@ -14,9 +14,9 @@ include:
 
 {% set os = grains['oscodename'] -%}
 {% if os == "stretch" -%}
-  {% set repo_url = "https://repo.saltstack.com/apt/debian/9/amd64/latest" -%}
+  {% set repo_url = "https://repo.saltstack.com/apt/debian/9/amd64/2019.2" -%}
 {% else -%}
-  {% set repo_url = ("https://repo.saltstack.com/py3/debian/{}/amd64/latest"
+  {% set repo_url = ("https://repo.saltstack.com/py3/debian/{}/amd64/2019.2"
                      .format(grains['osmajorrelease'])) -%}
 {% endif -%}
 {{ sls }} SaltStack Repository:
