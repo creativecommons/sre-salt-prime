@@ -14,6 +14,11 @@ server {
     # NGINX Docs | NGINX Reverse Proxy
     # https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
 {%- for dispatch in pillar.nginx.dispatches %}
+{%- if "host" in dispatch %}
+{%- set host = dispatch.host %}
+{%- else %}
+{%- set host = "$host" %}
+{%- endif %}
     # {{ dispatch.description }}
     location {{ dispatch.location }} {
         proxy_buffering off;
