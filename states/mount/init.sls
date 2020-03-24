@@ -12,8 +12,6 @@
           if nvme id-ctrl -v ${n} | grep -q '^0000:.*{{ spec_short }}'
           then
             ln -s ${n} {{ spec_long }}
-          else
-            continue
           fi
         done
     - require:
