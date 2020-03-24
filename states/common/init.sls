@@ -1,9 +1,7 @@
 {%- if grains.virtual == "kvm" %}
 include:
   - .virtual
-
-
-{% endif -%}
+{%- endif %}
 
 
 {{ sls }} installed packages:
