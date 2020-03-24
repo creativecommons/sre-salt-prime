@@ -15,6 +15,7 @@ letsencrypt:
       - nl-beta.creativecommons.org
       - pl.creativecommons.org
       - sotc.creativecommons.org
+      - za.creativecommons.org
     redirects.sciencecommons.org:
       - scholars.sciencecommons.org
 nginx:
@@ -63,6 +64,9 @@ nginx:
     - crt: redirects.creativecommons.org
       src: sotc.creativecommons.org
       dst: stateof.creativecommons.org
+    - crt: redirects.creativecommons.org
+      src: za.creativecommons.org
+      dst: za.creativecommons.net
     # redirects.sciencecommons.org
     - crt: redirects.sciencecommons.org
       src: scholars.sciencecommons.org
