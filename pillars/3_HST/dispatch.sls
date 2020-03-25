@@ -9,7 +9,7 @@ states:
   nginx.dispatch: {{ sls }}
   mount: {{ sls }}
 mounts:
-  - spec: /dev/nvme1n1
+  - spec: /dev/xvdf
     file: /srv
     type: ext4
     opts: defaults
