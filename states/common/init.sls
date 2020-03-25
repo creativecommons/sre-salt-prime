@@ -1,7 +1,7 @@
-{% if grains['virtual'] == 'kvm' %}
+{%- if grains.virtual == "kvm" %}
 include:
   - .virtual
-{% endif %}
+{%- endif %}
 
 
 {{ sls }} installed packages:
@@ -10,6 +10,7 @@ include:
       - apt-transport-https
       - dnsutils
       - htop
+      - nvme-cli
       - python-apt
       - rsync
       - silversearcher-ag

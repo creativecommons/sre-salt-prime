@@ -9,7 +9,7 @@ letsencrypt:
   post_hooks:
     restart_apache2.sh: /usr/sbin/service apache2 reload
 mounts:
-  - spec: /dev/nvme1n1
+  - spec: /dev/xvdf
     file: /var/www
     type: ext4
     opts: defaults
