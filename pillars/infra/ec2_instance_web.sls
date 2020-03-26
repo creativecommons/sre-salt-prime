@@ -46,6 +46,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-biztool_prod_secgroup
+      ccengine__prod:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-from-dispatch_prod_secgroup
       ccengine__stage:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
@@ -61,6 +66,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-chapters_stage_secgroup
+      dispatch__prod:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-all-dispatch_prod_secgroup
       dispatch__stage:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup

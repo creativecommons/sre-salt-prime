@@ -18,6 +18,11 @@ infra:
         cc:product: business-toolkit
         cc:purpose: wordpress-hosting
         cc:team: internal-tech
+      ccengine__prod:
+        cc:environment: production
+        cc:product: primary-website
+        cc:purpose: ccengine
+        cc:team: internal-tech
       ccengine__stage:
         cc:environment: staging
         cc:product: primary-website
@@ -42,6 +47,11 @@ infra:
         cc:environment: development
         cc:product: cc-create
         cc:purpose: discourse-hosting
+        cc:team: internal-tech
+      dispatch__prod:
+        cc:environment: production
+        cc:product: primary-website
+        cc:purpose: dispatch-urls
         cc:team: internal-tech
       dispatch__stage:
         cc:environment: staging
