@@ -5,9 +5,6 @@ include:
 letsencrypt:
   post_hooks:
     restart_nginx.sh: /usr/sbin/service nginx reload
-states:
-  nginx.dispatch: {{ sls }}
-  mount: {{ sls }}
 mounts:
   - spec: /dev/xvdf
     file: /srv
@@ -18,3 +15,6 @@ mounts:
 nginx:
   flavor: light
   custom_log_dir: /srv/log-nginx-custom
+states:
+  nginx.dispatch: {{ sls }}
+  mount: {{ sls }}

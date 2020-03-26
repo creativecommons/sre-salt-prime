@@ -61,6 +61,8 @@ include:
       - file: {{ sls }} install {{ CERT_NAME }}_tls site
       - file: {{ sls }} enable {{ CERT_NAME }}_basic site
       - {{ sls }} disable site default
+    - onlyif:
+      - test -f /etc/letsencrypt/live/{{ CERT_NAME }}/fullchain.pem
     - watch_in:
       - service: nginx service
 
