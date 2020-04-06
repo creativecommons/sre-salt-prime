@@ -1,3 +1,8 @@
+# NOTE: It may be better to manage iptables per:
+#         Managing IPtables efficiently with Saltstack - Server Fault
+#         https://serverfault.com/a/948526
+
+
 # Configure proxy host (it should have a static public IP) to forward SaltStack
 # traffic to salt prime host
 {% set PROXY_IP = pillar.location.salt_proxy_ip -%}
