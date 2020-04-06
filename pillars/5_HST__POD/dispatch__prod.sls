@@ -37,11 +37,9 @@ nginx:
     - description: Miscellaneous
       location: /faq
       server: {{ SERVER_MISC }}
-      host: creativecommons.org
     - description: Miscellaneous
       location: /platform/toolkit
       server: {{ SERVER_MISC }}
-      host: creativecommons.org
     # Default (WordPress)
     - description: Default (WordPress)
       location: /
