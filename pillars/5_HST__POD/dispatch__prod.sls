@@ -6,10 +6,10 @@
 
 letsencrypt:
   domainsets:
-    new.creativecommons.org:
-      - new.creativecommons.org
+    creativecommons.org:
+      - creativecommons.org
 nginx:
-  cert_name: new.creativecommons.org
+  cert_name: creativecommons.org
   dispatches:
     # CC Engine
     - description: CC Engine
