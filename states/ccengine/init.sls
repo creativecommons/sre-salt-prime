@@ -2,6 +2,15 @@ include:
   - ccengine.docroot
   - ccengine.env
   - ccengine.src
+  - ccengine.transifex
+
+
+{{ sls }} www-data group:
+  group.present:
+    - name: www-data
+    - gid: 33
+    - require:
+      - pkg: apache2 installed packages
 
 
 {{ sls }} installed packages:

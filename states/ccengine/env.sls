@@ -105,6 +105,7 @@ include:
     - template: jinja
     - defaults:
         DIR_ENV: /srv/ccengine/env
+        SLS: {{ sls }}
     - mode: '0555'
     - require:
       - file: {{ sls }} CC Engine config
