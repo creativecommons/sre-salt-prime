@@ -24,24 +24,6 @@ include:
 {%- endfor %}
 
 
-{{ sls }} dir licenses:
-  file.directory:
-    - name: /srv/ccengine/docroot/licenses
-    - require:
-      - file: {{ sls }} /srv/ccengine/docroot
-
-
-{{ sls }} symlink index.rdf:
-  file.symlink:
-    - name: /srv/ccengine/docroot/licenses/index.rdf
-    - target: /srv/ccengine/src/cc.licenserdf/cc/licenserdf/rdf/index.rdf
-    - require:
-      - file: {{ sls }} dir licenses
-      - git: ccengine.src cc.licenserdf repo
-    - require_in:
-      - test: ccengine completed
-
-
 {{ sls }} dir ns:
   file.directory:
     - name: /srv/ccengine/docroot/ns
@@ -52,7 +34,7 @@ include:
 {{ sls }} symlink ns.html:
   file.symlink:
     - name: /srv/ccengine/docroot/ns/index.html
-    - target: /srv/ccengine/src/cc.licenserdf/cc/licenserdf/rdf/ns.html
+    - target: ../rdf-meta/ns.html
     - require:
       - file: {{ sls }} dir ns
       - git: ccengine.src cc.licenserdf repo
@@ -60,10 +42,21 @@ include:
       - test: ccengine completed
 
 
-{{ sls }} symlink rdf licenses:
+{{ sls }} symlink rdf-licenses:
   file.symlink:
-    - name: /srv/ccengine/docroot/rdf
+    - name: /srv/ccengine/docroot/rdf-licenses
     - target: /srv/ccengine/src/cc.licenserdf/cc/licenserdf/licenses
+    - require:
+      - file: {{ sls }} /srv/ccengine/docroot
+      - git: ccengine.src cc.licenserdf repo
+    - require_in:
+      - test: ccengine completed
+
+
+{{ sls }} symlink rdf-meta:
+  file.symlink:
+    - name: /srv/ccengine/docroot/rdf-meta
+    - target: /srv/ccengine/src/cc.licenserdf/cc/licenserdf/rdf
     - require:
       - file: {{ sls }} /srv/ccengine/docroot
       - git: ccengine.src cc.licenserdf repo
@@ -74,7 +67,7 @@ include:
 {{ sls }} symlink schema.rdf:
   file.symlink:
     - name: /srv/ccengine/docroot/schema.rdf
-    - target: /srv/ccengine/src/cc.licenserdf/cc/licenserdf/rdf/schema.rdf
+    - target: rdf-meta/schema.rdf
     - require:
       - file: {{ sls }} /srv/ccengine/docroot
       - git: ccengine.src cc.licenserdf repo
