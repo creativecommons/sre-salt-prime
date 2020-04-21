@@ -4,3 +4,4 @@ ccengine:
   branch: master
   cc_cache: false
   fcgid_max_procs: 3
+  translations_update: true

@@ -4,3 +4,4 @@ ccengine:
   branch: staging
   cc_cache: false
   fcgid_max_procs: 3
+  translations_update: false

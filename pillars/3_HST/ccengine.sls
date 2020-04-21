@@ -1,3 +1,7 @@
+include:
+  - transifex.secrets
+
+
 ccengine:
   # set the default here (may be overridden by subsequent sls)
   branch: master

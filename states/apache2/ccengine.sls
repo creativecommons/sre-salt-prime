@@ -18,13 +18,7 @@ include:
       - pkg: apache2 installed packages
 
 
-{{ sls }} www-data group:
-  group.present:
-    - name: www-data
-    - gid: 33
-    - require:
-      - pkg: apache2 installed packages
-      - test: {{ sls }} wait for ccengine
+{%- if pillar.ccengine.cc_cache %}
 
 
 {{ sls }} fcgi cache dir:
@@ -34,7 +28,8 @@ include:
     - mode: '2775'
     - require:
       - file: ccengine.env /srv/ccengine/env
-      - group: {{ sls }} www-data group
+      - group: apache2 www-data group
+{%- endif %}
 
 
 {{ sls }} site config:

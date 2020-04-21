@@ -1,0 +1,7 @@
+# vim: ft=sudoers
+#
+# This file MUST be edited with `/usr/sbin/visudo -sf FILENAME`.
+
+Cmnd_Alias APACHE_RESTART = /usr/sbin/service apache2 restart
+
+transifex ALL = NOPASSWD: APACHE_RESTART
