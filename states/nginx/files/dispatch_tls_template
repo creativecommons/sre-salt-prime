@@ -25,7 +25,7 @@ server {
         proxy_pass {{ dispatch.server }}$request_uri;
         proxy_set_header Host      {{ host }};
         proxy_set_header X-Real-IP $remote_addr;
-{%- if dispatch.location == "/choose" %}
+{%- if dispatch.location in ["/choose", "/publicdomain"] %}
 
         # <iframe> embedded not working · Issue #1101
         # https://github.com/creativecommons/creativecommons.org/issues/1101
