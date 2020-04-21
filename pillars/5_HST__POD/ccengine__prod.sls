@@ -3,5 +3,5 @@ apache2:
 ccengine:
   branch: master
   cc_cache: false
-  fcgid_max_procs: 3
+  fcgid_max_procs: 4
   translations_update: true
