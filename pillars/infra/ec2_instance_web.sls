@@ -27,6 +27,7 @@ infra:
       default: t3.micro
       # Specific (please maintain order)
       bastion: t3.nano
+      ccengine: t3.small
       chapters: t3.medium
       discourse: t3.small
       sotc: t3.medium
