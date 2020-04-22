@@ -11,6 +11,8 @@
     - source: salt://postfix/files/{{ source }}
     - mode: '{{ mode }}'
     - template: jinja
+    - defaults:
+        SLS: {{ sls }}
     - require:
       - pkg: postfix installed packages
     - watch_in:
@@ -33,6 +35,8 @@
     - source: salt://postfix/files/{{ source }}
     - mode: '{{ mode }}'
     - template: jinja
+    - defaults:
+        SLS: {{ sls }}
     - require:
       - pkg: postfix installed packages
     - watch_in:

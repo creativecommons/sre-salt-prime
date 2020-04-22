@@ -25,8 +25,10 @@ include:
   file.managed:
     - name: /etc/postfix/main.cf
     - source: salt://postfix/files/main.cf
-    - mode: '0444'
+    - mode: '0644'
     - template: jinja
+    - defaults:
+        SLS: {{ sls }}
     - require:
       - pkg: {{ sls }} installed packages
     - watch_in:

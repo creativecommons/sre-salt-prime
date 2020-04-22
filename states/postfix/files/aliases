@@ -1,6 +1,13 @@
+# Managed by SaltStack: {{ SLS }}
+#
 # See man 5 aliases for format
 postmaster:  {{ pillar.postfix.root_mail }}
 root:        {{ pillar.postfix.root_mail }}
+{%- if ("ccengine" in pillar
+        and "translations_update" in pillar.ccengine
+        and pillar.ccengine.translations_update) %}
+transifex:   {{ pillar.postfix.root_mail }}
+{%- endif %}
 webmaster:   {{ pillar.postfix.root_mail }}
 www-data:    {{ pillar.postfix.root_mail }}
 
