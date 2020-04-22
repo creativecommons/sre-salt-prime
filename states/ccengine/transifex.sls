@@ -5,6 +5,12 @@ include:
 {%- endif %}
 
 
+{{ sls }} install package:
+  pkg.installed:
+    - pkgs:
+      - transifex-client
+
+
 {{ sls }} group:
   group.present:
     - name: transifex
@@ -83,5 +89,6 @@ include:
       - file: {{ sls }} config
       - file: sudo.transifex add transifex
       - pip: ccengine.env cc.i18n install
+      - pkg: {{ sls }} install package
       - user: {{ sls }} user
 {%- endif %}

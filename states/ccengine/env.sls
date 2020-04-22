@@ -89,17 +89,6 @@ include:
       - test -d /srv/ccengine/src/cc.engine/cc.engine.egg-info
 
 
-{{ sls }} transifex-client install:
-  pip.installed:
-    - name: transifex-client
-    - bin_env: /srv/ccengine/env
-    - require:
-      - file: ccengine.transifex config
-      - pip: {{ sls }} cc.i18n install
-    - unless:
-      - test -f {{ SITE_PACKAGES }}/transifex_client-*.egg-link
-
-
 {{ sls }} CC Engine config:
   file.managed:
     - name: /srv/ccengine/env/config.ini
