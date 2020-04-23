@@ -25,7 +25,11 @@ include:
 
 {{ sls }} {{ repo }} repo:
   git.latest:
+{%- if repo == "cc.i18n" %}
+    - name: 'git@github.com:creativecommons/{{ repo }}.git'
+{%- else %}
     - name: 'https://github.com/creativecommons/{{ repo }}.git'
+{%- endif %}
     - target: /srv/ccengine/src/{{ repo }}
     - rev: {{ pillar.ccengine.branch }}
     - branch: {{ pillar.ccengine.branch }}
@@ -37,6 +41,7 @@ include:
       - file: {{ sls }} /srv/ccengine/src/cc.i18n
       - pkg: ccengine installed packages
 {%- if repo == "cc.i18n" %}
+      - file: ccengine.transifex ssh config
       - user: ccengine.transifex user
 {%- endif %}
 {%- endfor %}
