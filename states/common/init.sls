@@ -1,5 +1,6 @@
 include:
   - .virtual
+  - amazon.cloudwatch_agent
 
 
 {{ sls }} installed packages:
