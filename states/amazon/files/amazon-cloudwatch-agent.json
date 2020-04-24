@@ -1,0 +1,59 @@
+{
+    "agent": {
+        "metrics_collection_interval": 60,
+        "logfile": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log"
+    },
+    "metrics": {
+        "metrics_collected": {
+            "disk": {
+                "resources": [
+                    "*"
+                ],
+                "measurement": [
+                    "free",
+                    "used"
+                ],
+                "ignore_file_system_types": [
+                    "bpf",
+                    "cgroup",
+                    "cgroup2",
+                    "debugfs",
+                    "devpts",
+                    "devtmpfs",
+                    "hugetlbfs",
+                    "mqueue",
+                    "proc",
+                    "pstore",
+                    "securityfs",
+                    "sysfs",
+                    "tmpfs",
+                    "udev",
+                    "vfat"
+                ],
+                "drop_device": true
+            },
+            "mem": {
+                "measurement": [
+                    "buffered",
+                    "cached",
+                    "free",
+                    "used"
+                ],
+            "metrics_collection_interval": 1
+            },
+            "processes": {
+                "measurement": [
+                    "blocked",
+                    "dead",
+                    "running",
+                    "sleeping",
+                    "zombies"
+                ],
+            "metrics_collection_interval": 1
+            }
+        },
+        "append_dimensions": {
+            "InstanceId": "${aws:InstanceId}"
+        }
+    }
+}

@@ -1,7 +1,6 @@
-{%- if grains.virtual == "kvm" %}
 include:
   - .virtual
-{%- endif %}
+  - amazon.cloudwatch_agent
 
 
 {{ sls }} installed packages:
