@@ -44,6 +44,7 @@ include:
       - virtualenv: {{ sls }} env setup
     - unless:
       - test -f {{ SITE_PACKAGES }}/cc.i18n.egg-link
+      - test -d /srv/ccengine/src/cc.i18n/cc.i18n.egg-info
 
 
 {{ sls }} cc.licenserdf install:
@@ -57,6 +58,7 @@ include:
       - pip: {{ sls }} rdfadict install
     - unless:
       - test -f {{ SITE_PACKAGES }}/cc.licenserdf.egg-link
+      - test -d /srv/ccengine/src/cc.licenserdf/cc.licenserdf.egg-info
 
 
 {{ sls }} cc.license install:
@@ -69,6 +71,7 @@ include:
       - pip: {{ sls }} cc.licenserdf install
     - unless:
       - test -f {{ SITE_PACKAGES }}/cc.license.egg-link
+      - test -d /srv/ccengine/src/cc.license/cc.license.egg-info
 
 
 {{ sls }} cc.engine install:
@@ -83,6 +86,7 @@ include:
       - pip: {{ sls }} cc.licenserdf install
     - unless:
       - test -f {{ SITE_PACKAGES }}/cc.engine.egg-link
+      - test -d /srv/ccengine/src/cc.engine/cc.engine.egg-info
 
 
 {{ sls }} CC Engine config:
@@ -105,6 +109,7 @@ include:
     - template: jinja
     - defaults:
         DIR_ENV: /srv/ccengine/env
+        SLS: {{ sls }}
     - mode: '0555'
     - require:
       - file: {{ sls }} CC Engine config

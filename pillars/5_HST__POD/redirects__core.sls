@@ -4,6 +4,7 @@ letsencrypt:
       - au-beta.creativecommons.org
       - ca-beta.creativecommons.org
       - chapters.creativecommons.org
+      - co.creativecommons.org
       - code.creativecommons.org
       - donate.creativecommons.org
       - i.creativecommons.org
@@ -28,6 +29,9 @@ nginx:
     - crt: redirects.creativecommons.org
       src: ca-beta.creativecommons.org
       dst: ca-beta.creativecommons.net
+    - crt: redirects.creativecommons.org
+      src: co.creativecommons.org
+      dst: co.creativecommons.net
     - crt: redirects.creativecommons.org
       src: code.creativecommons.org
       dst: opensource.creativecommons.org

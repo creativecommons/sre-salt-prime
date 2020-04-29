@@ -1,3 +1,5 @@
+# Managed by SaltStack: {{ SLS }}
+#
 # Helpful Documentation:
 #   http://www.postfix.org/TLS_README.html#client_tls
 #   http://www.postfix.org/postconf.5.html
