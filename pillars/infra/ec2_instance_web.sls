@@ -105,3 +105,4 @@ infra:
       default: dmz
       # Specific (please maintain order)
       ccengine: private-one
+      misc: private-one
