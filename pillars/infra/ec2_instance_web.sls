@@ -75,6 +75,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-dispatch_stage_secgroup
+      misc__stage:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-from-dispatch_stage_secgroup
       openglam__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
@@ -100,3 +105,4 @@ infra:
       default: dmz
       # Specific (please maintain order)
       ccengine: private-one
+      misc: private-one
