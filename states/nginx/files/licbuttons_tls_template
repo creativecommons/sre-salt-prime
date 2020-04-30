@@ -1,0 +1,21 @@
+# Managed by SaltStack: {{ SLS }}
+
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name {{ CERT_NAME }};
+    access_log {{ pillar.nginx.custom_log_dir }}/access_archive.log
+        json_archive buffer=32k flush=2s;
+    access_log {{ pillar.nginx.custom_log_dir }}/access_debug.log
+        json_debug buffer=32k flush=2s;
+    ssl_certificate /etc/letsencrypt/live/{{ CERT_NAME }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ CERT_NAME }}/privkey.pem;
+    root /srv/licensebuttons/www;
+    location / {
+        fancyindex on;
+    }
+}
+
+
+# vim: ft=nginx:
