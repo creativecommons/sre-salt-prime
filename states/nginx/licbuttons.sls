@@ -20,21 +20,77 @@ include:
       - pkg: nginx installed packages
 
 
-{{ sls }} licensebuttons repo:
-  git.latest:
-    - name: 'https://github.com/creativecommons/licensebuttons.git'
-    - target: /srv/licensebuttons
-    - rev: {{ pillar.git_branch }}
-    - branch: {{ pillar.git_branch }}
-    - fetch_tags: False
-    - require:
-      - pkg: {{ sls }} installed packages
+{{ sls }} group:
+  group.present:
+    - name: licbuttons
+    - system: True
 {%- if pillar.mounts %}
     - require:
 {%- for mount in pillar.mounts %}
       - mount: mount mount {{ mount.file }}
 {%- endfor %}
 {%- endif %}
+
+
+{{ sls }} user:
+  user.present:
+    - name: licbuttons
+    - gid_from_name: True
+    - home: /srv
+    - password: '!'
+    - shell: /usr/sbin/nologin
+    - system: True
+    - require:
+      - group: {{ sls }} group
+
+
+{{ sls }} /srv/licensebuttons:
+  file.directory:
+    - name: /srv/licensebuttons
+    - user: licbuttons
+    - group: licbuttons
+    - require:
+      - user: {{ sls }} user
+
+
+{{ sls }} licensebuttons repo:
+  git.latest:
+    - name: 'https://github.com/creativecommons/licensebuttons.git'
+    - target: /srv/licensebuttons
+    - rev: {{ pillar.git_branch }}
+    - branch: {{ pillar.git_branch }}
+    - user: licbuttons
+    - fetch_tags: False
+    - require:
+      - pkg: {{ sls }} installed packages
+      - user: {{ sls }} user
+
+
+{{ sls }} /srv/.fonts:
+  file.directory:
+    - name: /srv/.fonts
+    - user: licbuttons
+    - group: licbuttons
+    - require:
+      - git: {{ sls }} licensebuttons repo
+
+
+{{ sls }} /srv/.fonts/cc-icons.ttf:
+  file.symlink:
+    - name: /srv/.fonts/cc-icons.ttf
+    - target: /srv/licensebuttons/www/cc-icons.ttf
+    - require:
+      - file: {{ sls }} /srv/.fonts
+
+
+{{ sls }} generate icons:
+  cmd.run:
+    - name: /usr/bin/python3 /srv/licensebuttons/scripts/genicons.py
+    - runas: licbuttons
+    - onchanges:
+      - git: {{ sls }} licensebuttons repo
+    - require:
+      - file: {{ sls }} /srv/.fonts/cc-icons.ttf
 
 
 {{ sls }} install {{ CERT_NAME }}_basic site:
