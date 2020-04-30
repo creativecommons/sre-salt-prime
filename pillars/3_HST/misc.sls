@@ -7,4 +7,4 @@ mounts:
     pass: 2
 states:
   mount: {{ sls }}
-  nginx.ccorg-misc: {{ sls }}
+  nginx.misc: {{ sls }}
