@@ -25,6 +25,7 @@ infra:
         ccengine__stage:  10.22.11.12
         ccengine__prod:   10.22.11.13
         misc__stage:      10.22.11.14
+        misc__prod:       10.22.11.15
         ###_Private-Two   10.22.12.0
       subnets:
         dmz:
