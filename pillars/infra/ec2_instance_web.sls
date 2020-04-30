@@ -20,7 +20,7 @@ infra:
       ccengine: 214
       chapters: 334
       dispatch: 214
-      licbuttons: ABSENT
+      licbuttons: 214
       openglam: 214
       sotc: 214
       summit: 214
