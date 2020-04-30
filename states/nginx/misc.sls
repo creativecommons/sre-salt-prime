@@ -32,9 +32,9 @@ include:
       - pkg: nginx installed packages
 
 
-{{ sls }} platform/toolkit directory:
+{{ sls }} platform directory:
   file.directory:
-    - name: /var/www/html/platform/toolkit
+    - name: /var/www/html/platform
     - makedirs: True
     - require:
       - git: {{ sls }} mp repo
@@ -43,7 +43,7 @@ include:
 
 {{ sls }} mp index symlink:
   file.symlink:
-    - name: /var/www/html/platform/toolkit/index.html
-    - target: /srv/mp/doc/platform-toolkit.html
+    - name: /var/www/html/platform/toolkit
+    - target: /srv/mp/hosted-version
     - require:
-      - file: {{ sls }} platform/toolkit directory
+      - file: {{ sls }} platform directory
