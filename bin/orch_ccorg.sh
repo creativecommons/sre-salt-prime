@@ -17,7 +17,7 @@ headerone() {
 
 run-orch(){
     echo
-    headerone ${ORCH}
+    headerone "${HST}__${POD}__${LOC} (${ORCH})"
     sudo salt-run state.orchestrate orch.${ORCH} \
         pillar="{'tgt_hst':'${HST}',
                  'tgt_pod':'${POD}',
@@ -41,4 +41,8 @@ run-orch ${@}
 
 HST='ccengine'
 ORCH='ccengine_host'
+run-orch ${@}
+
+HST='misc'
+ORCH='web_host'
 run-orch ${@}

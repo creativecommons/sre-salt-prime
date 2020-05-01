@@ -1,6 +1,6 @@
 {% set SERVER_503 = "http://127.0.0.1:8503" -%}
 {% set SERVER_CCENGINE = "http://10.22.11.13" -%}
-{% set SERVER_MISC = "https://5.28.62.166" -%}
+{% set SERVER_MISC = "http://10.22.11.15" -%}
 {% set SERVER_DEFAULT = "https://5.28.62.166" -%}
 
 
