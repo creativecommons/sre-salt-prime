@@ -1,6 +1,6 @@
 git_branch: master
 letsencrypt:
   domainsets:
-    new.licensebuttons.net: ~
+    licensebuttons.net: ~
 nginx:
-  cert_name: new.licensebuttons.net
+  cert_name: licensebuttons.net
