@@ -1,0 +1,9 @@
+# Managed by SaltStack: {{ SLS }}
+#
+# Process email to local users normally
+localdomain             :
+.localdomain            :
+# Process email to creativecommons.org users normally
+creativecommons.org     :
+# Discard all other email
+*                       discard
