@@ -34,3 +34,6 @@ smtpd_helo_required = yes
 smtpd_tls_ciphers = $smtp_tls_ciphers
 smtpd_tls_dh1024_param_file = /etc/ssl/private/dhparams.pem
 smtpd_tls_exclude_ciphers = $smtp_tls_exclude_ciphers
+{%- if pillar.pod == "stage" %}
+transport_maps = hash:/etc/postfix/transport
+{%- endif %}
