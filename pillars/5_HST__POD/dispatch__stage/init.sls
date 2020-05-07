@@ -4,6 +4,10 @@
 {% set SERVER_DEFAULT = SERVER_503 -%}
 
 
+include:
+  - 5_HST__POD.dispatch__stage.secrets
+
+
 letsencrypt:
   domainsets:
     stage.creativecommons.org:
