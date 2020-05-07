@@ -11,6 +11,10 @@ server {
         json_debug buffer=32k flush=2s;
     ssl_certificate /etc/letsencrypt/live/{{ CERT_NAME }}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/{{ CERT_NAME }}/privkey.pem;
+{%- if pillar.pod == "stage" %}
+    auth_basic "Staging Environment Restricted";
+    auth_basic_user_file /etc/nginx/htpasswd;
+{%- endif %}
     # NGINX Docs | NGINX Reverse Proxy
     # https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
 {%- for dispatch in pillar.nginx.dispatches %}

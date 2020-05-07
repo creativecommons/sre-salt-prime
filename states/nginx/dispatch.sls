@@ -24,6 +24,39 @@ include:
       - service: nginx service
 
 
+{%- if pillar.pod == "stage" %}
+
+
+{{ sls }} installed packages:
+  pkg.installed:
+    - pkgs:
+      - apache2-utils
+    - require:
+      - pkg: nginx installed packages
+
+
+{{ sls }} basic authentication user file:
+  file.managed:
+    - name: /etc/nginx/htpasswd
+    - source: ~
+    - group: www-data
+    - mode: '0440'
+    - replace: False
+    - require:
+      - pkg: {{ sls }} installed packages
+
+{{ sls }} basic authentication user exists:
+  webutil.user_exists:
+    - name: {{ pillar.nginx.auth_basic_user }}
+    - password: {{ pillar.nginx.auth_basic_pass }}
+    - htpasswd_file: /etc/nginx/htpasswd
+    - options: s
+    - update: True
+    - require:
+      - file: {{ sls }} basic authentication user file
+{%- endif %}
+
+
 {{ sls }} install {{ CERT_NAME }}_tls site:
   file.managed:
     - name: /etc/nginx/sites-available/{{ CERT_NAME }}_tls
@@ -35,6 +68,9 @@ include:
         SLS: {{ sls }}
     - require:
       - pkg: nginx installed packages
+{%- if pillar.pod == "stage" %}
+      - webutil: {{ sls }} basic authentication user exists
+{%- endif %}
     - watch_in:
       - service: nginx service
 
