@@ -11,8 +11,11 @@ mounts:
     opts: defaults
     freq: 0
     pass: 2
+nginx:
+  flavor: light
 states:
   mount: {{ sls }}
+  nginx: {{ sls }}
   #user.webdevs: {{ sls }}
   #wordpress.composer_site: {{ sls }}
 wordpress:
