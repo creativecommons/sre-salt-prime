@@ -1,3 +1,8 @@
+# Also see the www-data group stanza in:
+# - states/apache2/init.sls
+# - states/nginx/init.sls
+
+
 {% set admins = pillar.user.admins.keys()|sort %}
 {% for username in admins -%}
 {% set userdata = pillar["user"]["admins"][username] -%}
