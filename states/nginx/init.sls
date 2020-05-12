@@ -18,6 +18,29 @@ include:
       - file: tls dhparams.pem
 
 
+{{ sls }} www-data group:
+  group.present:
+    - name: www-data
+    - gid: 33
+{%- set admins = salt["pillar.get"]("user:admins", false) %}
+{%- set webdevs = salt["pillar.get"]("user:webdevs", false) %}
+{%- if admins or webdevs %}
+    - addusers:
+{%- if admins %}
+{%- for user in admins.keys() %}
+      - {{ user }}
+{%- endfor %}
+{%- endif %}
+{%- if webdevs %}
+{%- for user in webdevs.keys() %}
+      - {{ user }}
+{%- endfor %}
+{%- endif %}
+{%- endif %}
+    - require:
+      - pkg: {{ sls }} installed packages
+
+
 {{ sls }} service:
   service.running:
     - name: nginx
