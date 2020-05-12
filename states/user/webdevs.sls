@@ -1,4 +1,4 @@
-{%- for username in pillar.user.webdevs.keys() %}
+{%- for username in pillar.user.webdevs.keys()|sort %}
 {%- set userdata = pillar["user"]["webdevs"][username] %}
 {{ sls }} {{ username }} group:
   group.present:
@@ -69,25 +69,25 @@
 {% endfor -%}
 
 
+{% set admins = salt["pillar.get"]("user:admins", {}).keys()|sort -%}
+{% set webdevs = salt["pillar.get"]("user:webdevs", {}).keys()|sort -%}
+{% set users = admins + webdevs|sort -%}
 {{ sls }} webdev group:
   group.present:
     - name: webdev
     - gid: {{ pillar.groups.webdev }}
-{%- set admins = salt["pillar.get"]("user:admins", {}).keys() %}
-{%- set webdevs = salt["pillar.get"]("user:webdevs", {}).keys() %}
-{%- set users = admins + webdevs|sort %}
     - addusers:
-{%- for user in users %}
-      - {{ user }}
+{%- for username in users %}
+      - {{ username }}
 {%- endfor %}
     - require:
 {%- if admins %}
-{%- for user in admins %}
-      - user: user.admins {{ user }} user
+{%- for username in admins %}
+      - user: user.admins {{ username }} user
 {%- endfor %}
 {%- endif %}
 {%- if webdevs %}
-{%- for user in webdevs %}
-      - {{ user }}
+{%- for username in webdevs %}
+      - user: {{ sls }} {{ username }} user
 {%- endfor %}
 {%- endif %}
