@@ -98,3 +98,8 @@ infra:
         cc:product: wiki-internal
         cc:purpose: wikijs-hosting
         cc:team: internal-tech
+      wordpress__stage:
+        cc:environment: staging
+        cc:product: primary-website
+        cc:purpose: wordpress-hosting
+        cc:team: internal-tech

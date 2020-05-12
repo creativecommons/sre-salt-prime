@@ -6,6 +6,7 @@
 {% import_yaml "5_HST__POD/podcast__prod/secrets.yaml" as podcast__prod -%}
 {% import_yaml "5_HST__POD/sotc__prod/secrets.yaml" as sotc__prod -%}
 {% import_yaml "5_HST__POD/summit__prod/secrets.yaml" as summit__prod -%}
+{% import_yaml "5_HST__POD/wordpress__stage/secrets.yaml" as wordpress__stage -%}
 
 
 infra:
@@ -41,6 +42,7 @@ infra:
       podcast__prod: {{ podcast__prod.mysql.server.root_password }}
       sotc__prod: {{ sotc__prod.mysql.server.root_password }}
       summit__prod: {{ summit__prod.mysql.server.root_password }}
+      wordpress__stage: {{ wordpress__stage.mysql.server.root_password }}
     primary_username:
       # Default
       default: root
@@ -52,6 +54,7 @@ infra:
       podcast__prod: {{ podcast__prod.mysql.server.root_user }}
       sotc__prod: {{ sotc__prod.mysql.server.root_user }}
       summit__prod: {{ summit__prod.mysql.server.root_user }}
+      wordpress__stage: {{ wordpress__stage.mysql.server.root_user }}
     rds_secgroups:
       # Default
       default:
@@ -71,12 +74,15 @@ infra:
         - mysql-from-sotc_prod_secgroup
       summit__prod:
         - mysql-from-summit_prod_secgroup
+      wordpress__stage:
+        - mysql-from-wordpress_stage_secgroup
     storage:
       # Default
       default: 10
       # Specific (please maintain order)
       chapters: 334
       openglam: 214
+      wordpress: 214
     rds_subnets:
       default:
         - private-one_core_subnet
