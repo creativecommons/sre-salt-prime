@@ -1,4 +1,17 @@
-{%- for username in pillar.user.webdevs.keys() %}
+# Also see the www-data group stanza in:
+# - states/apache2/init.sls
+# - states/nginx/init.sls
+
+
+include:
+  - sudo.webdev
+
+
+{% set admins = salt["pillar.get"]("user:admins", {}).keys()|sort -%}
+{% set webdevs = salt["pillar.get"]("user:webdevs", {}).keys()|sort -%}
+
+
+{%- for username in webdevs %}
 {%- set userdata = pillar["user"]["webdevs"][username] %}
 {{ sls }} {{ username }} group:
   group.present:
@@ -67,3 +80,25 @@
 
 
 {% endfor -%}
+
+
+{% set users = admins + webdevs|sort -%}
+{{ sls }} webdev group:
+  group.present:
+    - name: webdev
+    - gid: {{ pillar.groups.webdev }}
+    - addusers:
+{%- for username in users %}
+      - {{ username }}
+{%- endfor %}
+    - require:
+{%- if admins %}
+{%- for username in admins %}
+      - user: user.admins {{ username }} user
+{%- endfor %}
+{%- endif %}
+{%- if webdevs %}
+{%- for username in webdevs %}
+      - user: {{ sls }} {{ username }} user
+{%- endfor %}
+{%- endif %}

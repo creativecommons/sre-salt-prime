@@ -20,28 +20,32 @@
 {%- endif %}
 
 
+# If you edit this stanze, also edit the same stanza in states/nginx/init.sls
+{% set admins = salt["pillar.get"]("user:admins", {}).keys()|sort -%}
+{% set webdevs = salt["pillar.get"]("user:webdevs", {}).keys()|sort -%}
+{% set users = admins + webdevs|sort -%}
 {{ sls }} www-data group:
   group.present:
     - name: www-data
     - gid: 33
-{%- set admins = salt["pillar.get"]("user:admins", false) %}
-{%- set webdevs = salt["pillar.get"]("user:webdevs", false) %}
-{%- if admins or webdevs %}
+{%- if users %}
     - addusers:
-{%- if admins %}
-{%- for user in admins.keys() %}
-      - {{ user }}
+{%- for username in users %}
+      - {{ username }}
 {%- endfor %}
-{%- endif %}
-{%- if webdevs %}
-{%- for user in webdevs.keys() %}
-      - {{ user }}
-{%- endfor %}
-{%- endif %}
 {%- endif %}
     - require:
       - pkg: {{ sls }} installed packages
-
+{%- if admins %}
+{%- for username in admins %}
+      - user: user.admins {{ username }} user
+{%- endfor %}
+{%- endif %}
+{%- if webdevs %}
+{%- for username in webdevs %}
+      - user: user.webdevs {{ username }} user
+{%- endfor %}
+{%- endif %}
 
 
 {{ sls }} service:

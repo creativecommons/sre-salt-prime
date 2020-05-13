@@ -18,6 +18,34 @@ include:
       - file: tls dhparams.pem
 
 
+# If you edit this stanze, also edit the same stanza in states/apache2/init.sls
+{% set admins = salt["pillar.get"]("user:admins", {}).keys()|sort -%}
+{% set webdevs = salt["pillar.get"]("user:webdevs", {}).keys()|sort -%}
+{% set users = admins + webdevs|sort -%}
+{{ sls }} www-data group:
+  group.present:
+    - name: www-data
+    - gid: 33
+{%- if users %}
+    - addusers:
+{%- for username in users %}
+      - {{ username }}
+{%- endfor %}
+{%- endif %}
+    - require:
+      - pkg: {{ sls }} installed packages
+{%- if admins %}
+{%- for username in admins %}
+      - user: user.admins {{ username }} user
+{%- endfor %}
+{%- endif %}
+{%- if webdevs %}
+{%- for username in webdevs %}
+      - user: user.webdevs {{ username }} user
+{%- endfor %}
+{%- endif %}
+
+
 {{ sls }} service:
   service.running:
     - name: nginx

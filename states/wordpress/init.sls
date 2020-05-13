@@ -10,3 +10,4 @@ include:
   - php.xml
   - php_cc.composer
   - wordpress.cli
+  - wordpress.norm_perms

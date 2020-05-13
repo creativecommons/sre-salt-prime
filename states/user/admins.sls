@@ -1,4 +1,10 @@
-{% for username in pillar.user.admins.keys() -%}
+# Also see the www-data group stanza in:
+# - states/apache2/init.sls
+# - states/nginx/init.sls
+
+
+{% set admins = pillar.user.admins.keys()|sort %}
+{% for username in admins -%}
 {% set userdata = pillar["user"]["admins"][username] -%}
 {{ sls }} {{ username }} group:
   group.present:
@@ -49,18 +55,20 @@
 {% endfor -%}
 {% endif -%}
 {% endfor -%}
-{% for group in pillar.user.admin_groups -%}
+
+
+{% for group in pillar.user.admin_groups|sort -%}
 {{ sls }} {{ group }} group:
   group.present:
     - name: {{ group }}
     - system: True
     - addusers:
-{%- for admin in pillar.user.admins.keys() %}
-      - {{ admin }}
+{%- for username in admins %}
+      - {{ username }}
 {%- endfor %}
     - require:
-{%- for admin in pillar.user.admins.keys() %}
-      - user: {{ sls }} {{ admin }} user
+{%- for username in admins %}
+      - user: {{ sls }} {{ username }} user
 {%- endfor %}
 
 
