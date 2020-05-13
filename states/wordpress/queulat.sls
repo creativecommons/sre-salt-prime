@@ -1,11 +1,14 @@
 # Provides support for the felipelavinz/queulat mu-plugin, if it is installed
+#
+# WARNINGS:
+# - If you updated the user/group within this file, be sure to also update the
+#   states/wordpress/files/norm_wp_perms.sh script
+#
 {% set DOCROOT = pillar.wordpress.docroot -%}
 {% set WP_CONTENT = "{}/wp-content".format(DOCROOT) -%}
 {% set MU_PLUGINS = "{}/mu-plugins".format(WP_CONTENT) -%}
 
 
-# If you updated the user/group of this stanza, be sure to also update
-# the states/wordpress/files/norm_wp_perms.sh script.
 {{ sls }} symlink vendor:
   file.symlink:
     - name: {{ DOCROOT }}/vendor

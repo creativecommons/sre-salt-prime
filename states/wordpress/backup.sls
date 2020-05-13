@@ -1,3 +1,7 @@
+# WARNINGS:
+# - If you updated the user/group within this file, be sure to also update the
+#   states/wordpress/files/norm_wp_perms.sh script
+#
 {% set DOCROOT = pillar.wordpress.docroot -%}
 
 

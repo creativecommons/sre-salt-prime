@@ -1,4 +1,9 @@
 # Provides support for the Wordfence plugin, if it is installed
+#
+# WARNINGS:
+# - If you updated the user/group within this file, be sure to also update the
+#   states/wordpress/files/norm_wp_perms.sh script
+#
 {% set DOCROOT = pillar.wordpress.docroot -%}
 {% set WP_CONTENT = "{}/wp-content".format(DOCROOT) -%}
 {% set PLUGINS = "{}/plugins".format(WP_CONTENT) -%}

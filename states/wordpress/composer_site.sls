@@ -1,6 +1,8 @@
 #
-# WARNING: Pod "Stage" minions execute composer with dev requirements
-#          (no_dev: False)
+# WARNINGS:
+# - Pod "Stage" minions execute composer with dev requirements (no_dev: False)
+# - If you updated the user/group within this file, be sure to also update the
+#   states/wordpress/files/norm_wp_perms.sh script
 #
 {% set DOCROOT = pillar.wordpress.docroot -%}
 {% set WP_CONTENT = "{}/wp-content".format(DOCROOT) -%}
