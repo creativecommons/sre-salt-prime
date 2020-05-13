@@ -4,4 +4,4 @@
 
 Cmnd_Alias NORM_WP_PERMS = /usr/local/sbin/norm_wp_perms.sh
 
-%webdev ALL = NORM_WP_PERMS
+%webdev ALL = NOPASSWD: NORM_WP_PERMS
