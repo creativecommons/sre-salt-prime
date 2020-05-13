@@ -6,7 +6,7 @@ include:
 {{ sls }} user:
   user.present:
     - name: composer
-    - gid: 4000
+    - gid: {{ pillar.groups.webdev }}
     - home: /opt/composer
     - password: '*'
     - shell: /usr/sbin/nologin
