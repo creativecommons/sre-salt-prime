@@ -10,6 +10,8 @@
   file.symlink:
     - name: {{ MU_PLUGINS }}/domain_mapping.php
     - target: ../plugins/wordpress-mu-domain-mapping/domain_mapping.php
+    - user: composer
+    - group: webdev
     - require:
       - composer: wordpress.composer_site composer update
     - onlyif:
@@ -20,6 +22,8 @@
   file.symlink:
     - name: {{ DOCROOT }}/wp-content/sunrise.php
     - target: plugins/wordpress-mu-domain-mapping/sunrise.php
+    - user: composer
+    - group: webdev
     - require:
       - file: {{ sls }} symlink domain_mapping.php
     - onlyif:
