@@ -8,10 +8,11 @@
   file.directory:
     - name: {{ PLUGINS }}/wordfence
     - mode: '2775'
-    - group: www-data
+    - user: composer
+    - group: webdev
     - require:
       - composer: wordpress.composer_site composer update
-      - group: php_cc.composer www-data group
+      - group: user.webdevs webdev group
     - onlyif:
       - test -d {{ PLUGINS }}/wordfence
 
@@ -20,8 +21,10 @@
   file.directory:
     - name: {{ DOCROOT }}/wp-content/wflogs
     - mode: '2775'
+    - user: composer
     - group: www-data
     - require:
       - file: {{ sls }} dir wp-content/plugins/wordfence
+      - group: php_cc.composer www-data group
     - onlyif:
       - test -d {{ PLUGINS }}/wordfence

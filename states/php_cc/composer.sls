@@ -1,43 +1,18 @@
-# - Members of user:webdevs are added to the composer Linux system group
-# - Members of user:admins are added to the composer Linux system group
 include:
   - php.composer
-
-
-{{ sls }} group:
-  group.present:
-    - name: composer
-    - system: True
-{%- set admins = salt["pillar.get"]("user:admins", false) %}
-{%- set webdevs = salt["pillar.get"]("user:webdevs", false) %}
-{%- if admins or webdevs %}
-    - addusers:
-{%- if admins %}
-{%- for user in admins.keys() %}
-      - {{ user }}
-{%- endfor %}
-{%- endif %}
-{%- if webdevs %}
-{%- for user in webdevs.keys() %}
-      - {{ user }}
-{%- endfor %}
-{%- endif %}
-{%- endif %}
-    - require_in:
-      - file: {{ sls }} config.json
+  - user.webdevs
 
 
 {{ sls }} user:
   user.present:
     - name: composer
+    - gid: 4000
     - home: /opt/composer
-    - gid_from_name: True
-    - createhome: False
     - password: '*'
     - shell: /usr/sbin/nologin
     - system: True
     - require:
-      - group: {{ sls }} group
+      - group: user.webdevs webdev group
     - require_in:
       - file: {{ sls }} config.json
 
@@ -47,7 +22,7 @@ include:
     - name: /opt/composer
     - mode: '0775'
     - user: composer
-    - group: composer
+    - group: webdev
     - require:
       - user: {{ sls }} user
 
@@ -66,7 +41,7 @@ include:
   file.directory:
     - name: /opt/composer/archive
     - mode: '2775'
-    - group: composer
+    - group: webdev
     - require:
       - file: {{ sls }} home
     - require_in:
@@ -77,7 +52,7 @@ include:
   file.directory:
     - name: /opt/composer/cache
     - mode: '2775'
-    - group: composer
+    - group: webdev
     - require:
       - file: {{ sls }} home
     - require_in:
@@ -88,7 +63,7 @@ include:
   file.directory:
     - name: /opt/composer/data
     - mode: '2775'
-    - group: composer
+    - group: webdev
     - require:
       - file: {{ sls }} dir cache
     - require_in:

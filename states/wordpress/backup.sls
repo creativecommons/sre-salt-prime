@@ -5,10 +5,10 @@
   file.directory:
     - name: {{ DOCROOT }}/backup
     - mode: '2770'
-    - group: composer
+    - group: webdev
     - require:
       - file: wordpress.composer_site docroot
-      - user: php_cc.composer user
+      - group: user.webdevs webdev group
 
 
 {{ sls }} backup script:

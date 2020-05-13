@@ -1,0 +1,7 @@
+# vim: ft=sudoers
+#
+# This file MUST be edited with `/usr/sbin/visudo -sf FILENAME`.
+
+Cmnd_Alias NORM_WP_PERMS = /usr/local/sbin/norm_wp_perms.sh
+
+%webdev ALL = NORM_WP_PERMS

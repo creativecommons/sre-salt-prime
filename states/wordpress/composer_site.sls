@@ -31,8 +31,9 @@ include:
   file.directory:
     - name: {{ DOCROOT }}
     - mode: '2775'
-    - group: composer
+    - group: webdev
     - require:
+      - group: user.webdevs webdev group
 {%- if pillar.mounts %}
 {%- for mount in pillar.mounts %}
       - mount: mount mount {{ mount.file }}
@@ -57,10 +58,10 @@ include:
   file.directory:
     - name: {{ DOCROOT }}/wp
     - mode: '2775'
-    - group: composer
+    - user: composer
+    - group: webdev
     - require:
       - file: {{ sls }} docroot
-      - user: php_cc.composer user
     - require_in:
       - composer: {{ sls }} composer update
 
@@ -83,10 +84,9 @@ include:
   file.directory:
     - name: {{ WP_CONTENT }}/{{ dir }}
     - mode: '2775'
-    - group: composer
+    - group: webdev
     - require:
       - file: {{ sls }} dir wp-content
-      - user: php_cc.composer user
     - require_in:
       - composer: {{ sls }} composer update
 {%- endfor %}
@@ -110,7 +110,8 @@ include:
     - source:
       - salt://wordpress/files/{{ HST }}-composer.json
       - salt://wordpress/files/default-composer.json
-    - mode: '0444'
+    - group: webdev
+    - mode: '0664'
     - template: jinja
     - require:
       - file: {{ sls }} docroot
@@ -125,10 +126,9 @@ include:
       - '{}'
     - replace: False
     - mode: '0664'
-    - group: composer
+    - group: webdev
     - require:
       - file: {{ sls }} docroot
-      - user: php_cc.composer user
     - require_in:
       - composer: {{ sls }} composer update
 
@@ -147,7 +147,8 @@ include:
     - user: composer
     - composer_home: /opt/composer
     - require:
-      - php_cc.composer config.json
+      - file: php_cc.composer config.json
+      - file: {{ sls }} docroot
     - unless:
       - test -f {{ DOCROOT }}/COMPOSER_SALTSTACK_LOCKED
 
@@ -168,10 +169,10 @@ include:
   file.directory:
     - name: {{ DOCROOT }}/wp
     - mode: '2775'
-    - group: composer
+    - group: webdev
     - require:
       - composer: {{ sls }} composer update
-      - user: php_cc.composer user
+      - file: {{ sls }} docroot
 
 
 {{ sls }} symlink wp-content:
@@ -181,5 +182,9 @@ include:
     - force: True
     - backupname: >-
         {{ DOCROOT }}/wp/wp-content.{{ None|strftime("%Y%m%d_%H%M%S") }}
+    - user: composer
+    - group: webdev
+    - require:
+      - file: {{ sls }} docroot
     - onlyif:
       - test -d {{ DOCROOT }}/wp/wp-content

@@ -3,7 +3,15 @@
 # - states/nginx/init.sls
 
 
-{%- for username in pillar.user.webdevs.keys()|sort %}
+include:
+  - sudo.webdev
+
+
+{% set admins = salt["pillar.get"]("user:admins", {}).keys()|sort -%}
+{% set webdevs = salt["pillar.get"]("user:webdevs", {}).keys()|sort -%}
+
+
+{%- for username in webdevs %}
 {%- set userdata = pillar["user"]["webdevs"][username] %}
 {{ sls }} {{ username }} group:
   group.present:
@@ -74,8 +82,6 @@
 {% endfor -%}
 
 
-{% set admins = salt["pillar.get"]("user:admins", {}).keys()|sort -%}
-{% set webdevs = salt["pillar.get"]("user:webdevs", {}).keys()|sort -%}
 {% set users = admins + webdevs|sort -%}
 {{ sls }} webdev group:
   group.present:
