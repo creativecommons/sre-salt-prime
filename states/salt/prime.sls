@@ -13,10 +13,10 @@
       - ipv6calc
       - python-boto
       - python-boto3
-      - python-pygit2
+      - python-git
       - python3-boto
       - python3-boto3
-      - python3-pygit2
+      - python3-git
       - salt-master
       - salt-ssh
 
