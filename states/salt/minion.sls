@@ -75,6 +75,8 @@
     - source: salt://salt/files/salt_minion.conf
     - mode: '0444'
     - template: jinja
+    - defaults:
+        SLS: {{ sls }}
     - follow_symlinks: False
     - require:
       - pkg: {{ sls }} installed packages
@@ -87,6 +89,9 @@
     - name: /etc/salt/minion.d/file-pillar_roots.conf
     - source: salt://salt/files/file-pillar_roots.conf
     - mode: '0444'
+    - template: jinja
+    - defaults:
+        SLS: {{ sls }}
     - follow_symlinks: False
     - require:
       - pkg: {{ sls }} installed packages
