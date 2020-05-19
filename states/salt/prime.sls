@@ -96,6 +96,8 @@
     - source: salt://salt/files/salt_master.conf
     - mode: '0444'
     - template: jinja
+    - defaults:
+        SLS: {{ sls }}
     - follow_symlinks: False
     - require:
       - file: {{ sls }} roster.d directory
@@ -107,6 +109,9 @@
     - name: /etc/salt/master.d/file-pillar_roots.conf
     - source: salt://salt/files/file-pillar_roots.conf
     - mode: '0444'
+    - template: jinja
+    - defaults:
+        SLS: {{ sls }}
     - follow_symlinks: False
     - require:
       - file: {{ sls }} master config file
