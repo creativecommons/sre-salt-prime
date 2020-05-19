@@ -15,6 +15,14 @@ mounts:
     opts: defaults
     freq: 0
     pass: 2
+# Also see pillars/php/init.sls
+php:
+  apache2:
+    ini:
+      settings:
+        PHP:
+          post_max_size: 110M
+          upload_max_filesize: 100M
 states:
   letsencrypt.cloudflare: {{ sls }}
   mount: {{ sls }}
