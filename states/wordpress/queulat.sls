@@ -16,7 +16,7 @@
     - user: composer
     - group: webdev
     - require:
-      - composer: wordpress.composer_site composer update
+      - composer: wordpress composer update
       - group: user.webdevs webdev group
       - pkg: nodejs installed packages
       - user: php_cc.composer user

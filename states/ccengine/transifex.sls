@@ -32,6 +32,7 @@ include:
     - require:
       - group: {{ sls }} group
       - file: ccengine /srv/ccengine
+      - file: postfix install alias source file aliases
 
 
 {{ sls }} .transifex config:

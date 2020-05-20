@@ -11,7 +11,7 @@
     - mode: '2770'
     - group: webdev
     - require:
-      - file: wordpress.composer_site docroot
+      - file: wordpress docroot
       - group: user.webdevs webdev group
 
 
