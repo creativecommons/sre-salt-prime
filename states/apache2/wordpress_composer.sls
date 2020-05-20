@@ -20,7 +20,7 @@ include:
         LE_CERT_PATH: {{ LE_CERT_PATH }}
         SERVER_NAME: {{ SERVER_NAME }}
     - require:
-      - composer: wordpress.composer_site composer update
+      - composer: wordpress composer update
       - pkg: apache2 installed packages
       - cron: letsencrypt cron certbot renew
     - watch_in:
