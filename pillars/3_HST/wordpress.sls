@@ -1,7 +1,7 @@
 include:
   - mysql
   - php
-  #- user.webdevs.secrets
+  - user.webdevs.secrets
 
 
 mounts:
@@ -15,10 +15,8 @@ nginx:
   flavor: light
 states:
   mount: {{ sls }}
-  nginx: {{ sls }}
-  #user.webdevs: {{ sls }}
-  #wordpress.composer_site: {{ sls }}
+  user.webdevs: {{ sls }}
+  wordpress.nginx_sheltered: {{ sls }}
 wordpress:
   docroot: /var/www/creativecommons
-  # Multisite
   multisite: False
