@@ -13,10 +13,10 @@
       - ipv6calc
       - python-boto
       - python-boto3
-      - python-pygit2
+      - python-git
       - python3-boto
       - python3-boto3
-      - python3-pygit2
+      - python3-git
       - salt-master
       - salt-ssh
 
@@ -96,6 +96,8 @@
     - source: salt://salt/files/salt_master.conf
     - mode: '0444'
     - template: jinja
+    - defaults:
+        SLS: {{ sls }}
     - follow_symlinks: False
     - require:
       - file: {{ sls }} roster.d directory
@@ -107,6 +109,9 @@
     - name: /etc/salt/master.d/file-pillar_roots.conf
     - source: salt://salt/files/file-pillar_roots.conf
     - mode: '0444'
+    - template: jinja
+    - defaults:
+        SLS: {{ sls }}
     - follow_symlinks: False
     - require:
       - file: {{ sls }} master config file

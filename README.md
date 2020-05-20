@@ -136,7 +136,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
   - Free/Open Source
   - Performance
   - Creative Commons is already using it and staff are familiar with it
-  - Version: `2019.2.4`
+  - Version: `3000.3`
     - For current targeted minion version, see `minion_target_version` in
       [`pillars/salt/init.sls`](pillars/salt/init.sls)
 
@@ -219,14 +219,13 @@ See [`docs/Orchestration.md`](docs/Orchestration.md).
 
 ## Formula Repositories
 
-- [creativecommons/mysql-formula][mysql-formula]: Install the MySQL client
+- [saltstack-formulas/mysql-formula][mysql-formula]: Install the MySQL client
   and/or server
-- [creativecommons/php-formula][php-formula]: Formula to set up and configure
-  php
+- [saltstack-formulas/php-formula][php-formula]: Formula to set up and
+  configure php
 
-[certbot]:https://github.com/certbot/certbot
-[mysql-formula]:https://github.com/creativecommons/mysql-formula
-[php-formula]:https://github.com/creativecommons/php-formula
+[mysql-formula]: https://github.com/saltstack-formulas/mysql-formula
+[php-formula]: https://github.com/saltstack-formulas/php-formula
 
 
 ## License

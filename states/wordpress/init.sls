@@ -1,13 +1,12 @@
 include:
-  - apache2.tls
   - letsencrypt
   - mysql_cc
   - nodejs
-  - php.apache2
   - php.cli
   - php.gd
   - php.mysqlnd
   - php.xml
+  - php_cc.apache2
   - php_cc.composer
   - wordpress.cli
   - wordpress.norm_perms
