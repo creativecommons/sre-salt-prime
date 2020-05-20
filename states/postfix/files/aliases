@@ -4,7 +4,7 @@
 
 # system accounts
 {%- set system_accounts = ["postmaster", "root", "webmaster", "www-data"] %}
-{%- if salt["pillar.get"]("states:wordpress:composer_site", false) %}
+{%- if salt["pillar.get"]("states:wordpress.composer_site", false) %}
 {%- set _ = system_accounts.append("composer") %}
 {%- endif %}
 {%- if salt["pillar.get"]("ccengine:translations_update", false) %}
