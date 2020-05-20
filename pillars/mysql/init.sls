@@ -1,5 +1,4 @@
 # Configuration for mysql-formula
-# https://github.com/creativecommons/mysql-formula
 {% set DEFAULT_CHARACTER_SET = "utf8mb4" -%}
 
 
