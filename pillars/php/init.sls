@@ -1,6 +1,5 @@
 # Configuration for php-formula
-# https://github.com/creativecommons/php-formula
-
+#
 # https://www.owasp.org/index.php/PHP_Configuration_Cheat_Sheet
 php:
   use_external_repo: False
