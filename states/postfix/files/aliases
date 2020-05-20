@@ -1,17 +1,21 @@
 # Managed by SaltStack: {{ SLS }}
 #
 # See man 5 aliases for format
-postmaster:  {{ pillar.postfix.root_mail }}
-root:        {{ pillar.postfix.root_mail }}
-{%- if ("ccengine" in pillar
-        and "translations_update" in pillar.ccengine
-        and pillar.ccengine.translations_update) %}
-transifex:   {{ pillar.postfix.root_mail }}
-{%- endif %}
-webmaster:   {{ pillar.postfix.root_mail }}
-www-data:    {{ pillar.postfix.root_mail }}
 
-{% for admin in pillar.user.admins.keys() -%}
-{% set mail = pillar.user.admins[admin]["mail"] -%}
-{{ admin }}:  {{ mail }}
-{% endfor -%}
+# system accounts
+{%- set system_accounts = ["postmaster", "root", "webmaster", "www-data"] %}
+{%- if salt["pillar.get"]("states:wordpress:composer_site", false) %}
+{%- set _ = system_accounts.append("composer") %}
+{%- endif %}
+{%- if salt["pillar.get"]("ccengine:translations_update", false) %}
+{%- set _ = system_accounts.append("transifex") %}
+{%- endif %}
+{%- for account in system_accounts|sort %}
+{{ "%-15s %s"|format(account + ":", pillar.postfix.root_mail) }}
+{%- endfor %}
+
+# user accounts
+{%- for account in pillar.user.admins.keys()|sort %}
+{%- set mail = pillar.user.admins[account]["mail"] %}
+{{ "%-15s %s"|format(account + ":", mail) }}
+{%- endfor %}
