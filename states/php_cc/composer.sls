@@ -15,6 +15,7 @@ include:
       - group: user.webdevs webdev group
     - require_in:
       - file: {{ sls }} config.json
+      - file: postfix install alias source file aliases
 
 
 {{ sls }} home:

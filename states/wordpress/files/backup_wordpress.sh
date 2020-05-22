@@ -77,7 +77,7 @@ prep_and_erase_backup_destination() {
     else
         mkdir "${DESTINATION}"
     fi
-    chmod g+w ${DESTINATION}
+    chmod g+w ${DESTINATION} 2>/dev/null || true
     local today=$(date -u '+%F')
     local hash=$(date | md5sum)
     local hash=${hash:1:7}
