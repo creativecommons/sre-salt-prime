@@ -18,7 +18,7 @@ mounts:
 states:
   mount: {{ sls }}
   user.webdevs: {{ sls }}
-  wordpress.composer_site: {{ sls }}
+  wordpress.apache2_tls: {{ sls }}
 wordpress:
   docroot: /var/www/podcast
   # Multisite

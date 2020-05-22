@@ -13,7 +13,7 @@
     - user: composer
     - group: webdev
     - require:
-      - composer: wordpress.composer_site composer update
+      - composer: wordpress composer update
     - onlyif:
       - test -d {{ PLUGINS }}/wordpress-mu-domain-mapping
 
