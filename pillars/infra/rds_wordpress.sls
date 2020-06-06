@@ -63,7 +63,7 @@ infra:
       biztool__prod:
         - mysql-from-biztool_prod_secgroup
       ccorgwp__stage:
-        - mysql-from-wordpress_stage_secgroup
+        - mysql-from-ccorgwp_stage_secgroup
       chapters__prod:
         - mysql-from-chapters_prod_secgroup
       chapters__stage:
@@ -80,9 +80,9 @@ infra:
       # Default
       default: 10
       # Specific (please maintain order)
+      ccorgwp: 214
       chapters: 334
       openglam: 214
-      wordpress: 214
     rds_subnets:
       default:
         - private-one_core_subnet
