@@ -1,12 +1,12 @@
 {% set HST, POD, LOC = grains.id.split("__") -%}
 {% import_yaml "5_HST__POD/biztool__prod/secrets.yaml" as biztool__prod -%}
+{% import_yaml "5_HST__POD/ccorgwp__stage/secrets.yaml" as ccorgwp__stage -%}
 {% import_yaml "5_HST__POD/chapters__prod/secrets.yaml" as chapters__prod -%}
 {% import_yaml "5_HST__POD/chapters__stage/secrets.yaml" as chapters__stage -%}
 {% import_yaml "5_HST__POD/openglam__prod/secrets.yaml" as openglam__prod -%}
 {% import_yaml "5_HST__POD/podcast__prod/secrets.yaml" as podcast__prod -%}
 {% import_yaml "5_HST__POD/sotc__prod/secrets.yaml" as sotc__prod -%}
 {% import_yaml "5_HST__POD/summit__prod/secrets.yaml" as summit__prod -%}
-{% import_yaml "5_HST__POD/wordpress__stage/secrets.yaml" as wordpress__stage -%}
 
 
 infra:
@@ -36,25 +36,25 @@ infra:
       default: '/@@/ INVALID - MUST SET NON-DEFAULT PASSWORD /@@/'
       # Specific (please maintain order)
       biztool__prod: {{ biztool__prod.mysql.server.root_password }}
+      ccorgwp__stage: {{ ccorgwp__stage.mysql.server.root_password }}
       chapters__prod: {{ chapters__prod.mysql.server.root_password }}
       chapters__stage: {{ chapters__stage.mysql.server.root_password }}
       openglam__prod: {{ openglam__prod.mysql.server.root_password }}
       podcast__prod: {{ podcast__prod.mysql.server.root_password }}
       sotc__prod: {{ sotc__prod.mysql.server.root_password }}
       summit__prod: {{ summit__prod.mysql.server.root_password }}
-      wordpress__stage: {{ wordpress__stage.mysql.server.root_password }}
     primary_username:
       # Default
       default: root
       # Specific (please maintain order)
       biztool__prod: {{ biztool__prod.mysql.server.root_user }}
+      ccorgwp__stage: {{ ccorgwp__stage.mysql.server.root_user }}
       chapters__prod: {{ chapters__prod.mysql.server.root_user }}
       chapters__stage: {{ chapters__stage.mysql.server.root_user }}
       openglam__prod: {{ openglam__prod.mysql.server.root_user }}
       podcast__prod: {{ podcast__prod.mysql.server.root_user }}
       sotc__prod: {{ sotc__prod.mysql.server.root_user }}
       summit__prod: {{ summit__prod.mysql.server.root_user }}
-      wordpress__stage: {{ wordpress__stage.mysql.server.root_user }}
     rds_secgroups:
       # Default
       default:
@@ -62,6 +62,8 @@ infra:
       # Specific (please maintain order)
       biztool__prod:
         - mysql-from-biztool_prod_secgroup
+      ccorgwp__stage:
+        - mysql-from-wordpress_stage_secgroup
       chapters__prod:
         - mysql-from-chapters_prod_secgroup
       chapters__stage:
@@ -74,8 +76,6 @@ infra:
         - mysql-from-sotc_prod_secgroup
       summit__prod:
         - mysql-from-summit_prod_secgroup
-      wordpress__stage:
-        - mysql-from-wordpress_stage_secgroup
     storage:
       # Default
       default: 10

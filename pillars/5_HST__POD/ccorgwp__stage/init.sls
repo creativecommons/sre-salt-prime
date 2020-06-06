@@ -8,7 +8,7 @@
 
 
 include:
-  - 5_HST__POD.wordpress__stage.secrets
+  - 5_HST__POD.ccorgwp__stage.secrets
 
 
 mysql:
@@ -18,7 +18,7 @@ mysql:
     host: {{ ENDPOINT }}
 wordpress:
   site: stage.creativecommons.org
-  # (also see 5_HST__POD.wordpress__stage.secrets)
+  # (also see 5_HST__POD.ccorgwp__stage.secrets)
   # Database
   db_host: {{ ENDPOINT }}
   # Developer
