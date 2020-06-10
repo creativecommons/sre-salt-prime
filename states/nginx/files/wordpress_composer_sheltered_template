@@ -1,0 +1,123 @@
+# Managed by SaltStack: {{ SLS }}
+#
+# https://wordpress.org/support/article/nginx/
+# https://www.nginx.com/resources/wiki/start/topics/recipes/wordpress/
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    # NGINX sheltered (no TLS): only allow localhost and private subnet
+    allow 127.0.0.0/8;
+    allow ::1/128;
+    allow 10.0.0.0/8;
+    deny all;
+
+    server_name {{ SERVER_NAME }};
+    root {{ DOCROOT }};
+    index index.php index.html index.htm;
+
+    # Match common URIs first
+    location = /robots.txt {
+        log_not_found off;
+        access_log off;
+    }
+    location = /favicon.ico {
+        log_not_found off;
+        access_log off;
+    }
+    location = / {
+        try_files $uri /wp/index.php;
+    }
+
+    # Restrictions: WordPress
+    location ~* ^[.]?wp-config[.]php {
+        deny all;
+        return 404;
+    }
+    location ~* ^/wp-content/uploads/[.]ph(?:p\d?|t|tml)$ {
+        deny all;
+        return 404;
+    }
+    location ~* /wp/wp-includes/js/tinymce/langs/.+[.]php {
+        deny all;
+        return 404;
+    }
+    location /wp/wp-includes/theme-compat {
+        deny all;
+        return 404;
+    }
+    location /wp/wp-admin/includes {
+        deny all;
+        return 404;
+    }
+
+    # Restrictions: WordPress Backups
+    location /backup {
+        deny all;
+        return 404;
+    }
+
+    # Restrictions: WordPress Plugins: Admin Menu Editor
+    location /wp-content/plugins/admin-menu-editor/includes {
+        deny all;
+        return 404;
+    }
+
+    # Restrictions: WordPress Plugins: Akismet
+    location (/wp-content/vendor/johnpbloch/wordpress-core)?/wp-content/plugins/akismet {
+        location ~* ^(form\.js|akismet\.js|akismet\.css)$ {
+            allow all;
+        }
+        location ~* ^logo-full-2x\.png$ {
+            allow all;
+        }
+        deny all;
+        return 404;
+    }
+
+    # Restrictions: WordPress Plugins: Wordfence
+    location /wp-content/plugins/wordfence {
+        location ~* ^(index|wordfence).php$ {
+            allow all;
+        }
+        location ~* [.]ph(?:p\d?|t|tml)$ {
+            deny all;
+            return 404;
+        }
+    }
+    location /wp-content/plugins/wordfence/tmp {
+        deny all;
+        return 404;
+    }
+    location /wp-content/wflogs {
+        deny all;
+        return 404;
+    }
+
+
+    location / {
+        try_files   $uri
+                    /wp/$uri
+                    $uri/index.php
+                    $uri/index.html
+                    $uri/index.htm
+                    /wp/index.php;
+    }
+
+    location ~* \.php$ {
+        #try_files $uri =404;
+        fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+        #fastcgi_split_path_info ^(/wp)(/.*)$;
+        #fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $request_filename;
+        fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+    }
+
+    # WP-API
+    rewrite ^(/wp-json/.*)$ /wp/index.php$1 last;
+    # Add trailing slash to /wp/wp-admin requests
+    rewrite /wp/wp-admin$   $scheme://$host$uri/ permanent;
+}
+# vim: ft=nginx:
