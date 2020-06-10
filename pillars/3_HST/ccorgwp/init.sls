@@ -2,6 +2,7 @@ include:
   - mysql
   - php
   - user.webdevs.secrets
+  - 3_HST.ccorgwp.secrets
 
 
 apache2:

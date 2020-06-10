@@ -15,9 +15,11 @@ include:
   - mysql_cc
   - nodejs
   - php.cli
+  - php.curl
   - php.gd
   - php.mysqlnd
   - php.xml
+  - php.zip
   - php_cc.composer
   - wordpress.backup
   - wordpress.cli
@@ -47,6 +49,8 @@ include:
       - mount: mount mount {{ mount.file }}
 {%- endfor %}
 {%- endif %}
+      - pkg: php_install_curl
+      - pkg: php_install_zip
       - user: php_cc.composer user
 
 
@@ -108,6 +112,19 @@ include:
     - require:
       - file: {{ sls }} dir wp-content
       - group: php_cc.composer www-data group
+    - require_in:
+      - composer: {{ sls }} composer update
+
+
+{{ sls }} composer .env:
+  file.managed:
+    - name: {{ DOCROOT }}/.env
+    - source: salt://wordpress/files/composer.env
+    - group: webdev
+    - mode: '0660'
+    - template: jinja
+    - require:
+      - file: {{ sls }} docroot
     - require_in:
       - composer: {{ sls }} composer update
 
