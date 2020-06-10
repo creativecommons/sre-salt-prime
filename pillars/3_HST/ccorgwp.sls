@@ -4,6 +4,8 @@ include:
   - user.webdevs.secrets
 
 
+apache2:
+  sheltered: True
 mounts:
   - spec: /dev/xvdf
     file: /var/www
@@ -11,12 +13,10 @@ mounts:
     opts: defaults
     freq: 0
     pass: 2
-nginx:
-  flavor: light
 states:
   mount: {{ sls }}
   user.webdevs: {{ sls }}
-  wordpress.nginx_sheltered: {{ sls }}
+  wordpress.apache2: {{ sls }}
 wordpress:
   docroot: /var/www/creativecommons
   multisite: False
