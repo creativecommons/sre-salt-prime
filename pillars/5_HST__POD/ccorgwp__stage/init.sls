@@ -23,5 +23,6 @@ wordpress:
   # (also see 5_HST__POD.ccorgwp__stage.secrets)
   # Database
   db_host: {{ ENDPOINT }}
+  table_prefix: mattl_
   # Developer
   wp_debug: False

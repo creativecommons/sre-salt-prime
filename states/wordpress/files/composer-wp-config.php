@@ -33,7 +33,7 @@ define('DB_PASSWORD',   '{{ pillar.wordpress.db_password }}');
 define('DB_HOST',       '{{ pillar.wordpress.db_host }}');
 define('DB_CHARSET',    '{{ pillar.mysql.default_character_set }}');
 define('DB_COLLATE',    '{{ pillar.mysql.default_collate }}');
-$table_prefix  = 'wp_';
+$table_prefix  = '{{ salt.pillar.get("wordpress:table_prefix", "wp_") }}';
 
 /* Authentication Unique Keys and Salts */
 define('AUTH_KEY',         '{{ pillar.wordpress.auth_key }}');
