@@ -116,17 +116,23 @@ include:
       - composer: {{ sls }} composer update
 
 
+{%- set GF_KEY = salt.pillar.get("wordpress:gf_key", false) %}
+{%- if GF_KEY %}
+
+
 {{ sls }} composer .env:
   file.managed:
     - name: {{ DOCROOT }}/.env
-    - source: salt://wordpress/files/composer.env
+    - contents:
+      - "# Managed by SaltStack: {{ sls }}"
+      - "GRAVITY_FORMS_KEY=\"{{ GF_KEY }}\""
     - group: webdev
     - mode: '0660'
-    - template: jinja
     - require:
       - file: {{ sls }} docroot
     - require_in:
       - composer: {{ sls }} composer update
+{%- endif %}
 
 
 {{ sls }} composer.json:
