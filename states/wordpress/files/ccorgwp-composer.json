@@ -46,7 +46,7 @@
           "junaidbhura/composer-wp-pro-plugins": "*"
         },
         "type": "wordpress-plugin",
-        "version": "2.4.18"
+        "version": "3.3"
       },
       "type": "package"
     },
@@ -62,7 +62,7 @@
           "junaidbhura/composer-wp-pro-plugins": "*"
         },
         "type": "wordpress-plugin",
-        "version": "2.4.18"
+        "version": "3.5"
       },
       "type": "package"
     }
