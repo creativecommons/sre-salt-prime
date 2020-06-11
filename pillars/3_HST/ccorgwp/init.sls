@@ -18,6 +18,7 @@ states:
   mount: {{ sls }}
   user.webdevs: {{ sls }}
   wordpress.apache2: {{ sls }}
+  wordpress.ccorg: {{ sls }}
 wordpress:
   docroot: /var/www/creativecommons
   multisite: False

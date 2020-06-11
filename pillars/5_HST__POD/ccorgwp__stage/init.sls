@@ -11,6 +11,8 @@ include:
   - 5_HST__POD.ccorgwp__stage.secrets
 
 
+ccorg:
+  branch: master
 mysql:
   server:
     root_user: {{ SECRETS.mysql.server.root_user }}
