@@ -19,11 +19,11 @@
     },
     "require": {
         "composer/installers":"1.9",
-        "johnpbloch/wordpress":"5.4.1",
-        "wpackagist-theme/twentynineteen":"1.5"
+        "johnpbloch/wordpress":"5.4.2",
+        "wpackagist-theme/twentynineteen":"1.6"
     },
     "require-dev": {
-        "wpackagist-plugin/debug-bar":"1.0",
+        "wpackagist-plugin/debug-bar":"1.0.1",
         "wpackagist-plugin/debug-bar-actions-and-filters-addon":"1.5.4"
     },
     "extra": {
