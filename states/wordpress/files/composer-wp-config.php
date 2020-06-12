@@ -1,9 +1,3 @@
-{% set SHELTERED = salt.pillar.get("apache2:sheltered", false) -%}
-{% if SHELTERED -%}
-{% set PROTOCOL = "http" -%}
-{% else -%}
-{% set PROTOCOL = "https" -%}
-{% endif -%}
 <?php
 /**
  * The base configuration for WordPress
@@ -16,19 +10,18 @@
 if ( !defined('ABSPATH') ) {
     define('ABSPATH', dirname(__FILE__) . '/');
 }
-{%- if SHELTERED %}
-define('FORCE_SSL_ADMIN', False);
-{%- else %}
-define('FORCE_SSL_ADMIN', True);
-{%- endif %}
+if($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'){
+    $_SERVER['HTTPS']       = 'on';
+    $_SERVER['SERVER_PORT'] = 443;
+}
 /* PHP notice: Undefined index on $_SERVER superglobal
  * https://make.wordpress.org/cli/handbook/common-issues/#php-notice-undefined-index-on-_server-superglobal
  */
 if ( defined( 'WP_CLI' ) && WP_CLI && ! isset( $_SERVER['SERVER_NAME'] ) ) {
     $_SERVER['SERVER_NAME'] = 'localhost';
 }
-define('WP_SITEURL',        '{{ PROTOCOL }}://'.$_SERVER['SERVER_NAME']);
-define('WP_HOME',           '{{ PROTOCOL }}://'.$_SERVER['SERVER_NAME']);
+define('WP_SITEURL',        'https://'.$_SERVER['SERVER_NAME']);
+define('WP_HOME',           'https://'.$_SERVER['SERVER_NAME']);
 define('WP_CONTENT_DIR',    dirname(__FILE__) . '/wp-content');
 define('WP_CONTENT_URL',    WP_SITEURL . '/wp-content');
 
