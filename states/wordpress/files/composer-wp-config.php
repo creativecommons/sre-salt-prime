@@ -1,3 +1,9 @@
+{% set SHELTERED = salt.pillar.get("apache2:sheltered", false) -%}
+{% if SHELTERED -%}
+{% set PROTOCOL = "http" -%}
+{% else -%}
+{% set PROTOCOL = "https" -%}
+{% endif -%}
 <?php
 /**
  * The base configuration for WordPress
@@ -10,7 +16,7 @@
 if ( !defined('ABSPATH') ) {
     define('ABSPATH', dirname(__FILE__) . '/');
 }
-{%- if salt.pillar.get("apache2:sheltered", false) %}
+{%- if SHELTERED %}
 define('FORCE_SSL_ADMIN', False);
 {%- else %}
 define('FORCE_SSL_ADMIN', True);
@@ -21,8 +27,8 @@ define('FORCE_SSL_ADMIN', True);
 if ( defined( 'WP_CLI' ) && WP_CLI && ! isset( $_SERVER['SERVER_NAME'] ) ) {
     $_SERVER['SERVER_NAME'] = 'localhost';
 }
-define('WP_SITEURL',        'https://'.$_SERVER['SERVER_NAME']);
-define('WP_HOME',           'https://'.$_SERVER['SERVER_NAME']);
+define('WP_SITEURL',        '{{ PROTOCOL }}://'.$_SERVER['SERVER_NAME']);
+define('WP_HOME',           '{{ PROTOCOL }}://'.$_SERVER['SERVER_NAME']);
 define('WP_CONTENT_DIR',    dirname(__FILE__) . '/wp-content');
 define('WP_CONTENT_URL',    WP_SITEURL . '/wp-content');
 
