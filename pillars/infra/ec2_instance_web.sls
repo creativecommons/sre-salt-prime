@@ -18,6 +18,7 @@ infra:
       default: 10
       # Specific (please maintain order)
       ccengine: 214
+      ccorgwp: 214
       chapters: 334
       dispatch: 214
       licbuttons: 214
@@ -30,6 +31,7 @@ infra:
       # Specific (please maintain order)
       bastion: t3.nano
       ccengine: t3.small
+      ccorgwp: t3.small
       chapters: t3.medium
       discourse: t3.small
       sotc: t3.medium
@@ -53,6 +55,11 @@ infra:
         - ssh-from-bastion_core_secgroup
         - web-from-dispatch_prod_secgroup
       ccengine__stage:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-from-dispatch_stage_secgroup
+      ccorgwp__stage:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
@@ -112,4 +119,5 @@ infra:
       default: dmz
       # Specific (please maintain order)
       ccengine: private-one
+      ccorgwp: private-one
       misc: private-one

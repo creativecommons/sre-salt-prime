@@ -1,8 +1,10 @@
 # Configuration for php-formula
 #
 # https://www.owasp.org/index.php/PHP_Configuration_Cheat_Sheet
+{%- set php_versions = {"stretch": 7.0, "buster": 7.3} %}
 php:
   use_external_repo: False
+  version: {{ php_versions[grains.oscodename] }}
   apache2:
     ini:
       opts:
