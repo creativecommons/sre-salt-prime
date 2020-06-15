@@ -27,7 +27,7 @@ states:
   letsencrypt.cloudflare: {{ sls }}
   mount: {{ sls }}
   user.webdevs: {{ sls }}
-  wordpress.apache2_tls: {{ sls }}
+  wordpress.apache2: {{ sls }}
 wordpress:
   docroot: /var/www/chapters
   # Multisite

@@ -28,6 +28,11 @@ infra:
         cc:product: primary-website
         cc:purpose: ccengine
         cc:team: internal-tech
+      ccorgwp__stage:
+        cc:environment: staging
+        cc:product: primary-website
+        cc:purpose: wordpress-hosting
+        cc:team: internal-tech
       chapters__prod:
         cc:environment: production
         cc:product: chapter-sites

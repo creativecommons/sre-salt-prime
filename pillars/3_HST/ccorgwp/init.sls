@@ -1,13 +1,12 @@
 include:
-  - letsencrypt
   - mysql
   - php
   - user.webdevs.secrets
+  - 3_HST.ccorgwp.secrets
 
 
-letsencrypt:
-  post_hooks:
-    restart_apache2.sh: /usr/sbin/service apache2 reload
+apache2:
+  sheltered: True
 mounts:
   - spec: /dev/xvdf
     file: /var/www
@@ -19,7 +18,7 @@ states:
   mount: {{ sls }}
   user.webdevs: {{ sls }}
   wordpress.apache2: {{ sls }}
+  wordpress.ccorg: {{ sls }}
 wordpress:
-  docroot: /var/www/openglam
-  # Multisite
+  docroot: /var/www/creativecommons
   multisite: False

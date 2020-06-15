@@ -1,5 +1,6 @@
 {% set HST, POD, LOC = grains.id.split("__") -%}
 {% import_yaml "5_HST__POD/biztool__prod/secrets.yaml" as biztool__prod -%}
+{% import_yaml "5_HST__POD/ccorgwp__stage/secrets.yaml" as ccorgwp__stage -%}
 {% import_yaml "5_HST__POD/chapters__prod/secrets.yaml" as chapters__prod -%}
 {% import_yaml "5_HST__POD/chapters__stage/secrets.yaml" as chapters__stage -%}
 {% import_yaml "5_HST__POD/openglam__prod/secrets.yaml" as openglam__prod -%}
@@ -35,6 +36,7 @@ infra:
       default: '/@@/ INVALID - MUST SET NON-DEFAULT PASSWORD /@@/'
       # Specific (please maintain order)
       biztool__prod: {{ biztool__prod.mysql.server.root_password }}
+      ccorgwp__stage: {{ ccorgwp__stage.mysql.server.root_password }}
       chapters__prod: {{ chapters__prod.mysql.server.root_password }}
       chapters__stage: {{ chapters__stage.mysql.server.root_password }}
       openglam__prod: {{ openglam__prod.mysql.server.root_password }}
@@ -46,6 +48,7 @@ infra:
       default: root
       # Specific (please maintain order)
       biztool__prod: {{ biztool__prod.mysql.server.root_user }}
+      ccorgwp__stage: {{ ccorgwp__stage.mysql.server.root_user }}
       chapters__prod: {{ chapters__prod.mysql.server.root_user }}
       chapters__stage: {{ chapters__stage.mysql.server.root_user }}
       openglam__prod: {{ openglam__prod.mysql.server.root_user }}
@@ -59,6 +62,8 @@ infra:
       # Specific (please maintain order)
       biztool__prod:
         - mysql-from-biztool_prod_secgroup
+      ccorgwp__stage:
+        - mysql-from-ccorgwp_stage_secgroup
       chapters__prod:
         - mysql-from-chapters_prod_secgroup
       chapters__stage:
@@ -75,6 +80,7 @@ infra:
       # Default
       default: 10
       # Specific (please maintain order)
+      ccorgwp: 214
       chapters: 334
       openglam: 214
     rds_subnets:

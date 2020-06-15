@@ -1,5 +1,9 @@
 include:
+{%- if salt.pillar.get("apache2:sheltered", false) %}
+  - apache2
+{%- else %}
   - apache2.tls
+{%- endif %}
   - php.apache2
 
 

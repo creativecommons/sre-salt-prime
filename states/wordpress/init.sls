@@ -15,9 +15,11 @@ include:
   - mysql_cc
   - nodejs
   - php.cli
+  - php.curl
   - php.gd
   - php.mysqlnd
   - php.xml
+  - php.zip
   - php_cc.composer
   - wordpress.backup
   - wordpress.cli
@@ -47,6 +49,8 @@ include:
       - mount: mount mount {{ mount.file }}
 {%- endfor %}
 {%- endif %}
+      - pkg: php_install_curl
+      - pkg: php_install_zip
       - user: php_cc.composer user
 
 
@@ -110,6 +114,25 @@ include:
       - group: php_cc.composer www-data group
     - require_in:
       - composer: {{ sls }} composer update
+
+
+{%- set GF_KEY = salt.pillar.get("wordpress:gf_key", false) %}
+{%- if GF_KEY %}
+
+
+{{ sls }} composer .env:
+  file.managed:
+    - name: {{ DOCROOT }}/.env
+    - contents:
+      - "# Managed by SaltStack: {{ sls }}"
+      - "GRAVITY_FORMS_KEY=\"{{ GF_KEY }}\""
+    - group: webdev
+    - mode: '0660'
+    - require:
+      - file: {{ sls }} docroot
+    - require_in:
+      - composer: {{ sls }} composer update
+{%- endif %}
 
 
 {{ sls }} composer.json:
