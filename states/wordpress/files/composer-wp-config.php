@@ -73,7 +73,6 @@ define('SUNRISE',               '{{ pillar.wordpress.sunrise }}');
 define('DISALLOW_FILE_EDIT', True);
 #define('DISALLOW_FILE_MODS', True);
 
-
 # Plugin: Jetpack
 {%- if POD == "stage" %}
 define( 'JETPACK_DEV_DEBUG', True );
