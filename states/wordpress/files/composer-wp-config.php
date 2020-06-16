@@ -73,5 +73,13 @@ define('SUNRISE',               '{{ pillar.wordpress.sunrise }}');
 define('DISALLOW_FILE_EDIT', True);
 #define('DISALLOW_FILE_MODS', True);
 
+
+# Plugin: Jetpack
+{%- if POD == "stage" %}
+define( 'JETPACK_DEV_DEBUG', True );
+{%- else %}
+define( 'JETPACK_DEV_DEBUG', False );
+{%- endif %}
+
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
