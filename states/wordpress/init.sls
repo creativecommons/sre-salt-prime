@@ -62,6 +62,8 @@ include:
       - salt://wordpress/files/composer-wp-config.php
     - mode: '0444'
     - template: jinja
+    - defaults:
+       POD: {{ POD }}
     - require:
       - file: {{ sls }} docroot
 
