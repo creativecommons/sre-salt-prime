@@ -26,6 +26,7 @@ php:
 states:
   letsencrypt.cloudflare: {{ sls }}
   mount: {{ sls }}
+  php.mbstring: {{ sls }}
   user.webdevs: {{ sls }}
   wordpress.apache2: {{ sls }}
 wordpress:
