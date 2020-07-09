@@ -59,14 +59,12 @@ def print_reminder(args):
     print()
     print("sudo salt \* saltutil.refresh_pillar")
     print()
-    pt("Then preview changes (assuming \"{}\" environment):"
-       .format(args.saltenv))
+    pt("Then preview changes:")
     print()
-    print("sudo salt \* state.apply user.admins saltenv={} test=True"
-          .format(args.saltenv))
+    print("sudo salt \* state.apply user.admins saltenv=${USER} test=True")
     print()
     pt("Last, if there are no unexpected changes, simply run again with"
-       " \"test=False\" and")
+       " \"test=\" and")
     pt("remember to ensure base environment is up-to-date.")
 
 
