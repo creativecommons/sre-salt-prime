@@ -3,8 +3,8 @@
 
 """Create markdown table of host information:
 
-sudo salt \* saltutil.sync_grains
-sudo salt --out yaml \* grains.item lsb_distrib_description \\
+sudo salt \\* saltutil.sync_grains
+sudo salt --out yaml \\* grains.item lsb_distrib_description \\
     meta-data:public-ipv4 fqdn_ip4 saltversion \\
     | bin/md_host_info.py
 """
@@ -15,6 +15,7 @@ import sys
 
 # Third-party
 import yaml
+
 
 def format_columns(rows, sep=None, align=None):
     """Convert a list (rows) of lists (columns) to a formatted list of lines.
@@ -64,10 +65,26 @@ def main():
     print()
     align = ["r", "l", "c", "l", "l", "r"]
     rows = list()
-    rows.append(["Cnt", "Host", "Public IP", "Operating System",
-                 "Salt Version", "Days Up"])
-    rows.append(["--:", "----", ":-------:", "----------------",
-                 "------------", "------:"])
+    rows.append(
+        [
+            "Cnt",
+            "Host",
+            "Public IP",
+            "Operating System",
+            "Salt Version",
+            "Days Up",
+        ]
+    )
+    rows.append(
+        [
+            "--:",
+            "----",
+            ":-------:",
+            "----------------",
+            "------------",
+            "------:",
+        ]
+    )
     i = 1
     for host in sorted(data.keys()):
         grains = data[host]
@@ -97,8 +114,9 @@ def main():
         uptime_f = "{}{:.2f}{}".format(b, uptime, b)
         if grains == "Minion did not return. [Not connected]":
             print(host, "| *N/A* | *Not connected*")
-            rows.append([count_f, host_f, "*N/A*", "Not connected", "*N/A*"
-                         "*N/A*"])
+            rows.append(
+                [count_f, host_f, "*N/A*", "Not connected", "*N/A*" "*N/A*"]
+            )
         else:
             rows.append([count_f, host_f, ip_f, os_f, salt_f, uptime_f])
         i += 1
