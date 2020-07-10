@@ -67,11 +67,11 @@ def print_reminder(args):
         " hosts. To update hosts, first update pillar data:"
     )
     print()
-    print("sudo salt \\* saltutil.refresh_pillar")
+    print(r"sudo salt \* saltutil.refresh_pillar")
     print()
     pt("Then preview changes:")
     print()
-    print("sudo salt \\* state.apply user.admins saltenv=${USER} test=True")
+    print(r"sudo salt \* state.apply user.admins saltenv=${USER} test=True")
     print()
     pt(
         "Last, if there are no unexpected changes, simply run again with"

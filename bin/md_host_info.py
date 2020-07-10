@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # vim: set fileencoding=utf-8 :
 
-"""Create markdown table of host information:
+r"""Create markdown table of host information:
 
-sudo salt \\* saltutil.sync_grains
-sudo salt --out yaml \\* grains.item lsb_distrib_description \\
-    meta-data:public-ipv4 fqdn_ip4 saltversion \\
+sudo salt \* saltutil.sync_grains
+sudo salt --out yaml \* grains.item lsb_distrib_description \
+    meta-data:public-ipv4 fqdn_ip4 saltversion \
     | bin/md_host_info.py
 """
 
