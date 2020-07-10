@@ -19,8 +19,12 @@ import ruamel.yaml
 
 
 PASS_MIN_LEN = 10
-COLOR = {"error": "\33[31m", "header": "\33[30m\33[107m", "reset": "\33[0m",
-         "text": "\33[97m"}
+COLOR = {
+    "error": "\33[31m",
+    "header": "\33[30m\33[107m",
+    "reset": "\33[0m",
+    "text": "\33[97m",
+}
 COLUMNS, __ = shutil.get_terminal_size()
 
 
@@ -45,8 +49,12 @@ def ph(header):
 def pt(text):
     """Print text.
     """
-    print(COLOR["text"], textwrap.fill(text, width=COLUMNS), COLOR["reset"],
-          sep="")
+    print(
+        COLOR["text"],
+        textwrap.fill(text, width=COLUMNS),
+        COLOR["reset"],
+        sep="",
+    )
 
 
 def print_reminder(args):
@@ -54,19 +62,21 @@ def print_reminder(args):
     """
     print()
     ph("REMINDER")
-    pt("You still need to commit changes and apply the new password on all"
-       " hosts. To update hosts, first update pillar data:")
+    pt(
+        "You still need to commit changes and apply the new password on all"
+        " hosts. To update hosts, first update pillar data:"
+    )
     print()
-    print("sudo salt \* saltutil.refresh_pillar")
+    print(r"sudo salt \* saltutil.refresh_pillar")
     print()
-    pt("Then preview changes (assuming \"{}\" environment):"
-       .format(args.saltenv))
+    pt("Then preview changes:")
     print()
-    print("sudo salt \* state.apply user.admins saltenv={} test=True"
-          .format(args.saltenv))
+    print(r"sudo salt \* state.apply user.admins saltenv=${USER} test=True")
     print()
-    pt("Last, if there are no unexpected changes, simply run again with"
-       " \"test=False\" and")
+    pt(
+        "Last, if there are no unexpected changes, simply run again with"
+        ' "test=" and'
+    )
     pt("remember to ensure base environment is up-to-date.")
 
 
@@ -90,19 +100,32 @@ def setup():
     """
     script_user = getpass.getuser()
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("-n", "--dryrun", action="store_true",
-                    help="Dry run: do not make any changes.")
-    ap.add_argument("-u", "--username", default=script_user,
-                    help="Username to set password for")
-    ap.add_argument("--script-user", default=script_user,
-                    help=argparse.SUPPRESS)
+    ap.add_argument(
+        "-n",
+        "--dryrun",
+        action="store_true",
+        help="Dry run: do not make any changes.",
+    )
+    ap.add_argument(
+        "-u",
+        "--username",
+        default=script_user,
+        help="Username to set password for",
+    )
+    ap.add_argument(
+        "--script-user", default=script_user, help=argparse.SUPPRESS
+    )
     args = ap.parse_args()
     path_script = os.path.dirname(os.path.abspath(inspect.stack()[0][1]))
     path_repo = os.path.dirname(path_script)
     args.saltenv = os.path.basename(path_repo)
-    args.path_passwords = os.path.join(path_repo, "pillars", "user",
-                                       "passwords", "{}.sls"
-                                       .format(args.username))
+    args.path_passwords = os.path.join(
+        path_repo,
+        "pillars",
+        "user",
+        "passwords",
+        "{}.sls".format(args.username),
+    )
     return args
 
 
@@ -115,8 +138,12 @@ def main():
         else:
             exit = True
         if len(newpass) < PASS_MIN_LEN:
-            pe("New password must be at least {} characters long"
-               .format(PASS_MIN_LEN), exit)
+            pe(
+                "New password must be at least {} characters long".format(
+                    PASS_MIN_LEN
+                ),
+                exit,
+            )
         hash_and_write(args, newpass)
         print_reminder(args)
     else:
