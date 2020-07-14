@@ -14,6 +14,7 @@ letsencrypt:
       - jp.creativecommons.org
       - ke-beta.creativecommons.org
       - mx-beta.creativecommons.org
+      - mx.creativecommons.org
       - nl.creativecommons.org
       - nl-beta.creativecommons.org
       - pl.creativecommons.org
@@ -63,8 +64,11 @@ nginx:
       src: ke-beta.creativecommons.org
       dst: ke-beta.creativecommons.net
     - crt: redirects.creativecommons.org
+      src: mx.creativecommons.org
+      dst: mx.creativecommons.net
+    - crt: redirects.creativecommons.org
       src: mx-beta.creativecommons.org
-      dst: mx-beta.creativecommons.net
+      dst: mx.creativecommons.net
     - crt: redirects.creativecommons.org
       src: nl.creativecommons.org
       dst: creativecommons.nl
