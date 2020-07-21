@@ -10,7 +10,7 @@
 
 
 infra:
-  orch.aws.rds_wordpress:
+  orch.aws.rds:
     engine:
       default: mariadb
     engine_family:

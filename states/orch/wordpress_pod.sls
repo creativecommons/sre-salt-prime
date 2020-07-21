@@ -70,10 +70,10 @@
       - salt: {{ sls }} orch.aws.secgroup_wordpress
 
 
-{{ sls }} orch.aws.rds_wordpress:
+{{ sls }} orch.aws.rds:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: orch.aws.rds_wordpress
+    - sls: orch.aws.rds
     - saltenv: {{ saltenv }}
     - kwarg:
       pillar:
