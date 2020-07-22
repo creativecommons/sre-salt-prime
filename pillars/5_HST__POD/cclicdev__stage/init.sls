@@ -7,3 +7,5 @@ letsencrypt:
       - cclicdev.creativecommons.org
 nginx:
   cert_name: cclicdev.creativecommons.org
+states:
+  sudo.dangerdev: {{ sls }}
