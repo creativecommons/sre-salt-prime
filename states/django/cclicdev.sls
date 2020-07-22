@@ -162,6 +162,7 @@ include:
     - contents:
       - "#!/bin/bash"
       - "# Managed by SaltStack: {{ sls }}"
+      - "cd {{ DIR_REPO }}"
       - "export DATABASE_URL={{ pillar.django.database_url }}"
       - "export DJANGO_SECRET_KEY={{ pillar.django.secret_key }}"
       - "export DJANGO_SETTINGS_MODULE=cc_licenses.settings.deploy"
