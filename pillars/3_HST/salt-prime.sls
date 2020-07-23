@@ -24,6 +24,10 @@ salt:
       url: https://github.com/saltstack-formulas/php-formula.git
       refs:
         base: v1.3.1
+    postgres-formula:
+      url: https://github.com/saltstack-formulas/postgres-formula.git
+      refs:
+        base: v0.41.1
 states:
   mount: {{ sls }}
   wikijs.reports: {{ sls }}

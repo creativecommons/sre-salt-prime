@@ -9,16 +9,29 @@
 {% import_yaml "5_HST__POD/summit__prod/secrets.yaml" as summit__prod -%}
 
 
+include:
+  - 5_HST__POD.cclicdev__stage.secrets
+
+
 infra:
-  orch.aws.rds_wordpress:
+  orch.aws.rds:
     engine:
+      # Default
       default: mariadb
+      # Specific (please maintain order)
+      cclicdev: postgres
     engine_family:
       # cmd: aws --region us-east-2 rds describe-db-engine-versions \
       #       --query "DBEngineVersions[].DBParameterGroupFamily"
+      # Default
       default: mariadb10.3
+      # Specific (please maintain order)
+      cclicdev: postgres12
     engine_version:
+      # Default
       default: 10.3
+      # Specific (please maintain order)
+      cclicdev: 12.3
     instance_class:
       # DB Instance class db.t2.micro does not support encryption at rest
       # Default
@@ -31,6 +44,7 @@ infra:
         collation_server: utf8mb4_general_ci
         innodb_log_file_size: 268435456 # 256 MiB
         time_zone: UTC
+      cclicdev: ABSENT  # requires that engine_family is set
     primary_password:
       # Default
       default: '/@@/ INVALID - MUST SET NON-DEFAULT PASSWORD /@@/'
@@ -62,6 +76,8 @@ infra:
       # Specific (please maintain order)
       biztool__prod:
         - mysql-from-biztool_prod_secgroup
+      cclicdev__stage:
+        - postgres-from-cclicdev_stage_secgroup
       ccorgwp__stage:
         - mysql-from-ccorgwp_stage_secgroup
       chapters__prod:
@@ -80,6 +96,7 @@ infra:
       # Default
       default: 10
       # Specific (please maintain order)
+      cclicdev: 214
       ccorgwp: 214
       chapters: 334
       openglam: 214

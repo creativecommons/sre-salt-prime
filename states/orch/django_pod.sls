@@ -40,10 +40,10 @@
         tgt_loc: {{ LOC }}
 
 
-{{ sls }} orch.aws.secgroup_wordpress:
+{{ sls }} orch.aws.secgroup_django:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
-    - sls: orch.aws.secgroup_wordpress
+    - sls: orch.aws.secgroup_django
     - saltenv: {{ saltenv }}
     - kwarg:
       pillar:
@@ -67,7 +67,7 @@
         tgt_net: {{ NET }}
         kms_key_storage: {{ KMS_KEY_STORAGE }}
     - require:
-      - salt: {{ sls }} orch.aws.secgroup_wordpress
+      - salt: {{ sls }} orch.aws.secgroup_django
 
 
 {{ sls }} orch.aws.rds:
