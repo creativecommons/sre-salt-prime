@@ -1,5 +1,5 @@
 include:
-  - python.pip
+  - wikijs.reports_shared
 
 
 {{ sls }} virtualenv:
@@ -9,7 +9,8 @@ include:
     - user: wikijs
     - cwd: /srv/wikijs/sre-report-to-wikijs/amazon_route53
     - require:
-      - file: wikijs.reports wikijs .venvs directory
+      - file: wikijs.reports_shared wikijs .venvs directory
+      - pkg: virtualenv installed packages
 
 
 {{ sls }} boto3:
@@ -17,7 +18,6 @@ include:
     - name: boto3
     - bin_env: /srv/wikijs/.venvs/amazon_route53
     - require:
-      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
 
 
@@ -26,7 +26,6 @@ include:
     - name: GitPython
     - bin_env: /srv/wikijs/.venvs/amazon_route53
     - require:
-      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
 
 

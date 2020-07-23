@@ -1,5 +1,5 @@
 include:
-  - python.pip
+  - wikijs.reports_shared
 
 
 {{ sls }} gandi token:
@@ -11,7 +11,7 @@ include:
     - contents:
       - {{ pillar.gandi.api_key }}
     - require:
-      - file: wikijs.reports wikijs directory
+      - file: wikijs.reports_shared wikijs directory
 
 
 {{ sls }} virtualenv:
@@ -21,7 +21,8 @@ include:
     - user: wikijs
     - cwd: /srv/wikijs/sre-report-to-wikijs/gandi
     - require:
-      - file: wikijs.reports wikijs .venvs directory
+      - file: wikijs.reports_shared wikijs .venvs directory
+      - pkg: virtualenv installed packages
 
 
 {{ sls }} GitPython:
@@ -29,7 +30,6 @@ include:
     - name: GitPython
     - bin_env: /srv/wikijs/.venvs/gandi
     - require:
-      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
 
 
@@ -38,7 +38,6 @@ include:
     - name: requests
     - bin_env: /srv/wikijs/.venvs/gandi
     - require:
-      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
 
 
