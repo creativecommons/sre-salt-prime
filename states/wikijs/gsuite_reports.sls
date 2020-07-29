@@ -1,10 +1,12 @@
+{% set SECRET = "/srv/wikijs/.gsuite_service_account_secret.json" -%}
+
 include:
   - wikijs.reports_shared
 
 
 {{ sls }} gsuite service account secret:
   file.managed:
-    - name: /srv/wikijs/.gsuite_service_account_secret.json
+    - name: {{ SECRET }}
     - source: salt://wikijs/files/gsuite_service_account_secret.json
     - user: wikijs
     - group: wikijs
@@ -44,11 +46,11 @@ include:
 
 
 {% set python3 = "/srv/wikijs/.venvs/gsuite/bin/python3" -%}
-{% set report_path = ("/srv/wikijs/sre-report-to-wikijs/gsuite/report-{}.py"
-                      .format(report)) -%}
+{% set run_report = ("{} /srv/wikijs/sre-report-to-wikijs/gsuite/report-{}.py"
+                     .format(python3, report)) -%}
 {{ sls }} {{ report }} cron job:
   cron.present:
-    - name: {{ python3 }} {{ report_path }} /srv/wikijs/sre-wiki-js
+    - name: {{ run_report }} --secret-file={{ SECRET }} /srv/wikijs/sre-wiki-js
     - user: wikijs
     - identifier: gsite_{{report}}_report
     - special: "@hourly"
