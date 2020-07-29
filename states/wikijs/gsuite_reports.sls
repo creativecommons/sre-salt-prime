@@ -34,23 +34,22 @@ include:
     - bin_env: /srv/wikijs/.venvs/gsuite
     - require:
       - virtualenv: {{ sls }} virtualenv
-    #- require_in:
-      #- cron: {{ sls }} cron job
+    - require_in:
+      - cron: {{ sls }} groups cron job
+      - cron: {{ sls }} users cron job
 {%- endfor %}
 
 
-{#
-{%- for report in ["users"] %}
+{%- for report in ["groups", "users"] %}
 
 
 {% set python3 = "/srv/wikijs/.venvs/gsuite/bin/python3" -%}
 {% set report_path = ("/srv/wikijs/sre-report-to-wikijs/gsuite/report-{}.py"
                       .format(report)) -%}
-{{ sls }} cron job:
+{{ sls }} {{ report }} cron job:
   cron.present:
     - name: {{ python3 }} {{ report_path }} /srv/wikijs/sre-wiki-js
     - user: wikijs
     - identifier: gsite_{{report}}_report
     - special: "@hourly"
 {%- endfor %}
-#}
