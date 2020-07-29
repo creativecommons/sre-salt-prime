@@ -2,6 +2,17 @@ include:
   - wikijs.reports_shared
 
 
+{{ sls }} gsuite service account secret:
+  file.managed:
+    - name: /srv/wikijs/.gsuite_service_account_secret.json
+    - source: salt://wikijs/files/gsuite_service_account_secret.json
+    - user: wikijs
+    - group: wikijs
+    - mode: '0400'
+    - require:
+      - file: wikijs.reports_shared wikijs directory
+
+
 {{ sls }} virtualenv:
   virtualenv.managed:
     - name: /srv/wikijs/.venvs/gsuite
@@ -13,7 +24,7 @@ include:
       - pkg: virtualenv installed packages
 
 
-{%- for package in ["google-api-python-client", "google-auth-httplib2",
+{%- for package in ["GitPython", "google-api-python-client",
                     "google-auth-oauthlib"] %}
 
 
