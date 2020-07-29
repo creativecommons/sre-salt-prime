@@ -1,5 +1,5 @@
 include:
-  - python.pip
+  - wikijs.reports_shared
 
 
 {{ sls }} cloudflare email:
@@ -11,7 +11,7 @@ include:
     - contents:
       - {{ pillar.cloudflare.email }}
     - require:
-      - file: wikijs.reports wikijs directory
+      - file: wikijs.reports_shared wikijs directory
 
 
 {{ sls }} cloudflare token:
@@ -23,7 +23,7 @@ include:
     - contents:
       - {{ pillar.cloudflare.api_key }}
     - require:
-      - file: wikijs.reports wikijs directory
+      - file: wikijs.reports_shared wikijs directory
 
 
 {{ sls }} virtualenv:
@@ -33,7 +33,8 @@ include:
     - user: wikijs
     - cwd: /srv/wikijs/sre-report-to-wikijs/cloudflare
     - require:
-      - file: wikijs.reports wikijs .venvs directory
+      - file: wikijs.reports_shared wikijs .venvs directory
+      - pkg: virtualenv installed packages
 
 
 {{ sls }} cloudflare:
@@ -41,7 +42,6 @@ include:
     - name: cloudflare
     - bin_env: /srv/wikijs/.venvs/cloudflare
     - require:
-      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
 
 
@@ -50,7 +50,6 @@ include:
     - name: GitPython
     - bin_env: /srv/wikijs/.venvs/cloudflare
     - require:
-      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
 
 

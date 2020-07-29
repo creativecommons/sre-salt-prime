@@ -30,4 +30,4 @@ salt:
         base: v0.41.1
 states:
   mount: {{ sls }}
-  wikijs.reports: {{ sls }}
+  wikijs.all_reports: {{ sls }}
