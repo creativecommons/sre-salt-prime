@@ -12,7 +12,7 @@ include:
 
 
 ccorg:
-  branch: master
+  branch: staging
 mysql:
   server:
     root_user: {{ SECRETS.mysql.server.root_user }}
