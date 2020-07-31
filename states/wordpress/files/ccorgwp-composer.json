@@ -19,6 +19,21 @@
       "url": "https://wpackagist.org"
     },
     {
+      "no-api": true,
+      "type": "vcs",
+      "url": "https://github.com/creativecommons/wp-theme-base"
+    },
+    {
+      "no-api": true,
+      "type": "vcs",
+      "url": "https://github.com/creativecommons/wp-theme-creativecommons.org"
+    },
+    {
+      "no-api": true,
+      "type": "vcs",
+      "url": "https://github.com/creativecommons/queulat"
+    },
+    {
       "package": {
         "dist": {
           "type": "zip",
@@ -69,6 +84,7 @@
   ],
   "require": {
     "composer/installers": "1.9",
+    "creativecommons/wp-theme-creativecommons.org": "2020.07.1",
     "johnpbloch/wordpress": "5.4.1",
     "junaidbhura/gravityforms": "*",
     "junaidbhura/gravityformspaypal": "*",
@@ -77,7 +93,6 @@
     "wpackagist-plugin/akismet": "4.1.6",
     "wpackagist-plugin/allow-epub-and-mobi-formats-upload": "1.0",
     "wpackagist-plugin/breadcrumb-navxt": "6.4.0",
-    "wpackagist-plugin/cas-maestro": "1.1.3",
     "wpackagist-plugin/classic-editor": "1.5",
     "wpackagist-plugin/co-authors-plus": "3.4.3",
     "wpackagist-plugin/easy-add-thumbnail": "1.1.3",
@@ -98,8 +113,7 @@
     "wpackagist-plugin/widgets-on-pages": "1.4.0",
     "wpackagist-plugin/wordpress-importer": "0.7",
     "wpackagist-plugin/wordpress-seo": "14.1",
-    "wpackagist-plugin/wp-rtl": "1.0",
-    "wpackagist-theme/twentysixteen": "2.1"
+    "wpackagist-plugin/wp-rtl": "1.0"
   },
   "require-dev": {
     "wpackagist-plugin/debug-bar": "1.0",
