@@ -13,20 +13,18 @@ include:
       - pkg: virtualenv installed packages
 
 
-{{ sls }} boto3:
+{%- for package in ["boto3", "GitPython"] %}
+
+
+{{ sls }} {{ package }}:
   pip.installed:
-    - name: boto3
+    - name: {{ package }}
     - bin_env: /srv/wikijs/.venvs/amazon_route53
     - require:
       - virtualenv: {{ sls }} virtualenv
-
-
-{{ sls }} GitPython:
-  pip.installed:
-    - name: GitPython
-    - bin_env: /srv/wikijs/.venvs/amazon_route53
-    - require:
-      - virtualenv: {{ sls }} virtualenv
+    - require_in:
+      - cron: {{ sls }} cron job
+{%- endfor %}
 
 
 {% set python3 = "/srv/wikijs/.venvs/amazon_route53/bin/python3" -%}
@@ -36,7 +34,4 @@ include:
     - name: {{ python3 }} {{ report }} /srv/wikijs/sre-wiki-js
     - user: wikijs
     - identifier: amazon_route53_report
-    - special: "@hourly"
-    - require:
-      - pip: {{ sls }} boto3
-      - pip: {{ sls }} GitPython
+    - minute: random
