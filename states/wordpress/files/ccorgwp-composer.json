@@ -21,7 +21,17 @@
     {
       "no-api": true,
       "type": "vcs",
+      "url": "https://github.com/creativecommons/wp-theme-base"
+    },
+    {
+      "no-api": true,
+      "type": "vcs",
       "url": "https://github.com/creativecommons/wp-theme-creativecommons.org"
+    },
+    {
+      "no-api": true,
+      "type": "vcs",
+      "url": "https://github.com/creativecommons/queulat"
     },
     {
       "package": {
