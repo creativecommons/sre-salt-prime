@@ -37,20 +37,18 @@ include:
       - pkg: virtualenv installed packages
 
 
-{{ sls }} cloudflare:
+{%- for package in ["cloudflare", "GitPython"] %}
+
+
+{{ sls }} {{ package }}:
   pip.installed:
-    - name: cloudflare
+    - name: {{ package }}
     - bin_env: /srv/wikijs/.venvs/cloudflare
     - require:
       - virtualenv: {{ sls }} virtualenv
-
-
-{{ sls }} GitPython:
-  pip.installed:
-    - name: GitPython
-    - bin_env: /srv/wikijs/.venvs/cloudflare
-    - require:
-      - virtualenv: {{ sls }} virtualenv
+    - require_in:
+      - cron: {{ sls }} cron job
+{%- endfor %}
 
 
 {% set python3 = "/srv/wikijs/.venvs/cloudflare/bin/python3" -%}
@@ -60,7 +58,4 @@ include:
     - name: {{ python3 }} {{ report }} /srv/wikijs/sre-wiki-js
     - user: wikijs
     - identifier: cloudflare_report
-    - special: "@hourly"
-    - require:
-      - pip: {{ sls }} cloudflare
-      - pip: {{ sls }} GitPython
+    - minute: random

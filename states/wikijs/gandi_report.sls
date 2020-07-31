@@ -25,20 +25,18 @@ include:
       - pkg: virtualenv installed packages
 
 
-{{ sls }} GitPython:
+{%- for package in ["GitPython", "requests"] %}
+
+
+{{ sls }} {{ package }}:
   pip.installed:
-    - name: GitPython
+    - name: {{ package }}
     - bin_env: /srv/wikijs/.venvs/gandi
     - require:
       - virtualenv: {{ sls }} virtualenv
-
-
-{{ sls }} requests:
-  pip.installed:
-    - name: requests
-    - bin_env: /srv/wikijs/.venvs/gandi
-    - require:
-      - virtualenv: {{ sls }} virtualenv
+    - require_in:
+      - cron: {{ sls }} cron job
+{%- endfor %}
 
 
 {% set python3 = "/srv/wikijs/.venvs/gandi/bin/python3" -%}
@@ -48,7 +46,4 @@ include:
     - name: {{ python3 }} {{ report }} /srv/wikijs/sre-wiki-js
     - user: wikijs
     - identifier: gandi_report
-    - special: "@hourly"
-    - require:
-      - pip: {{ sls }} GitPython
-      - pip: {{ sls }} requests
+    - minute: random
