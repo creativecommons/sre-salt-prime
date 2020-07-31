@@ -53,5 +53,5 @@ include:
     - name: {{ run_report }} --secret-file={{ SECRET }} /srv/wikijs/sre-wiki-js
     - user: wikijs
     - identifier: gsite_{{report}}_report
-    - special: "@hourly"
+    - minute: random
 {%- endfor %}
