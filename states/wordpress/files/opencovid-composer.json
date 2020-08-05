@@ -1,0 +1,32 @@
+{
+  "authors": [
+    {
+      "homepage": "https://github.com/creativecommons/sre-salt-prime",
+      "name": "Creative Commons"
+    }
+  ],
+  "config": {
+    "vendor-dir": "wp-content/vendor"
+  },
+  "description": "Creative Commons Open COVID Pledge WordPress Site via Composer",
+  "extra": {
+    "wordpress-install-dir": "wp"
+  },
+  "name": "creativecommons/wordpress-opencovid",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "composer/installers": "1.9",
+    "johnpbloch/wordpress": "5.4.2",
+    "wpackagist-theme/twentynineteen": "1.6"
+  },
+  "require-dev": {
+    "wpackagist-plugin/debug-bar": "1.0.1",
+    "wpackagist-plugin/debug-bar-actions-and-filters-addon": "1.5.4"
+  },
+  "type": "project"
+}
