@@ -1,0 +1,5 @@
+# vim: ft=sudoers
+#
+# This file MUST be edited with `/usr/sbin/visudo -sf FILENAME`.
+
+%sudo  ALL=(ALL) NOPASSWD: ALL

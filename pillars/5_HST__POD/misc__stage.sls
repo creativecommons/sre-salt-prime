@@ -1,1 +1,1 @@
-git_branch: master
+git_branch: staging

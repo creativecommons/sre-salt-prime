@@ -44,6 +44,6 @@ include:
 {{ sls }} mp index symlink:
   file.symlink:
     - name: /var/www/html/platform/toolkit
-    - target: /srv/mp/hosted-version
+    - target: /srv/mp/docs
     - require:
       - file: {{ sls }} platform directory

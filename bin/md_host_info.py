@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # vim: set fileencoding=utf-8 :
 
-"""Create markdown table of host information:
+r"""Create markdown table of host information:
 
 sudo salt \* saltutil.sync_grains
-sudo salt --out yaml \* grains.item lsb_distrib_description \\
-    meta-data:public-ipv4 fqdn_ip4 saltversion \\
+sudo salt --out yaml \* grains.item lsb_distrib_description \
+    meta-data:public-ipv4 fqdn_ip4 saltversion \
     | bin/md_host_info.py
 """
 
@@ -15,6 +15,7 @@ import sys
 
 # Third-party
 import yaml
+
 
 def format_columns(rows, sep=None, align=None):
     """Convert a list (rows) of lists (columns) to a formatted list of lines.
@@ -54,7 +55,7 @@ def format_columns(rows, sep=None, align=None):
                     formatted.append(str(col))
                 else:
                     formatted.append(str(col).ljust(widths[i]))
-        lines.append(sep.join(formatted))
+        lines.append("| {} |".format(sep.join(formatted)))
     return lines
 
 
@@ -62,21 +63,47 @@ def main():
     now = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
     data = yaml.safe_load(sys.stdin)
     print()
-    align = ["r", "l", "c", "l", "l", "r"]
+    align = ["l", "c", "l", "l", "l", "r"]
     rows = list()
-    rows.append(["Cnt", "Host", "Public IP", "Operating System",
-                 "Salt Version", "Days Up"])
-    rows.append(["--:", "----", ":-------:", "----------------",
-                 "------------", "------:"])
-    i = 1
+    rows.append(
+        [
+            "Host (Salt Minion ID)",
+            "Public IP",
+            "OS Rel",
+            "OS Code",
+            "Salt Ver",
+            "Days Up",
+        ]
+    )
+    rows.append(
+        [
+            "---------------------",
+            ":-------:",
+            "------",
+            "-------",
+            "--------",
+            "------:",
+        ]
+    )
     for host in sorted(data.keys()):
         grains = data[host]
-        uptime = grains["uptime_days"]
-        count_f = "{: 3d}".format(i)
-        if uptime > 90.0:
-            b = "**"
+        uptime = int(grains["uptime_days"])
+        if uptime <= 30:
+            uptime_desc = "0 - 30"
+        elif 30 < uptime <= 60:
+            uptime_desc = "30 - 60"
+        elif 60 < uptime <= 90:
+            uptime_desc = "60 - 90"
+        elif 90 < uptime <= 120:
+            uptime_desc = "90 - 120"
+        elif 120 < uptime <= 180:
+            uptime_desc = ":warning: **120 - 180**"
+        elif 180 < uptime <= 270:
+            uptime_desc = ":warning: **180 - 270**"
+        elif 270 < uptime <= 360:
+            uptime_desc = ":warning: **270 - 360**"
         else:
-            b = ""
+            uptime_desck = ":warning: **360+**"
         if "meta-data:public-ipv4" in grains:
             aws_ip = grains["meta-data:public-ipv4"]
         else:
@@ -92,25 +119,28 @@ def main():
         else:
             ip_f = ""
         host_f = "`{}`".format(host)
-        os_f = grains["lsb_distrib_description"]
+        os_rel = grains["lsb_distrib_release"]
+        os_code = grains["lsb_distrib_codename"].title()
         salt_f = "{}".format(grains["saltversion"])
-        uptime_f = "{}{:.2f}{}".format(b, uptime, b)
         if grains == "Minion did not return. [Not connected]":
             print(host, "| *N/A* | *Not connected*")
-            rows.append([count_f, host_f, "*N/A*", "Not connected", "*N/A*"
-                         "*N/A*"])
+            rows.append(
+                [host_f, "*N/A*", "*N/A*", "Not connected", "*N/A*" "*N/A*"]
+            )
         else:
-            rows.append([count_f, host_f, ip_f, os_f, salt_f, uptime_f])
-        i += 1
+            rows.append([host_f, ip_f, os_rel, os_code, salt_f, uptime_desc])
     print("\n".join(format_columns(rows, " | ", align=align)))
     print()
-    print("Generated {} via:".format(now))
-    print("```shell")
-    print("sudo salt \\* saltutil.sync_grains")
-    print("sudo salt --out yaml \\* grains.item lsb_distrib_description \\")
-    print("    meta-data:public-ipv4 fqdn_ip4 saltversion uptime_days \\")
-    print("    | bin/md_host_info.py")
-    print("```")
+    print("- **`{}`** total hosts".format(len(rows) - 2))
+    print("- All hosts are running the Debian GNU/Linux operating system (OS)")
+    print("- Generated {} via:".format(now))
+    print("    ```shell")
+    print(r"    sudo salt \* saltutil.sync_grains")
+    print(r"    sudo salt --out yaml \* grains.item lsb_distrib_release \ ")
+    print(r"        lsb_distrib_codename meta-data:public-ipv4 fqdn_ip4 \ ")
+    print(r"        saltversion uptime_days \ ")
+    print("        | bin/md_host_info.py")
+    print("    ```")
     print()
 
 

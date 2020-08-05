@@ -18,6 +18,11 @@ infra:
         cc:product: business-toolkit
         cc:purpose: wordpress-hosting
         cc:team: internal-tech
+      cclicdev__stage:
+        cc:environment: staging
+        cc:product: cc-licenses
+        cc:purpose: cc-licenses
+        cc:team: internal-tech
       ccengine__prod:
         cc:environment: production
         cc:product: primary-website

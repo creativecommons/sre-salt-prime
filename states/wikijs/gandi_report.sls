@@ -1,5 +1,5 @@
 include:
-  - python.pip
+  - wikijs.reports_shared
 
 
 {{ sls }} gandi token:
@@ -11,7 +11,7 @@ include:
     - contents:
       - {{ pillar.gandi.api_key }}
     - require:
-      - file: wikijs.reports wikijs directory
+      - file: wikijs.reports_shared wikijs directory
 
 
 {{ sls }} virtualenv:
@@ -21,25 +21,22 @@ include:
     - user: wikijs
     - cwd: /srv/wikijs/sre-report-to-wikijs/gandi
     - require:
-      - file: wikijs.reports wikijs .venvs directory
+      - file: wikijs.reports_shared wikijs .venvs directory
+      - pkg: virtualenv installed packages
 
 
-{{ sls }} GitPython:
+{%- for package in ["GitPython", "requests"] %}
+
+
+{{ sls }} {{ package }}:
   pip.installed:
-    - name: GitPython
+    - name: {{ package }}
     - bin_env: /srv/wikijs/.venvs/gandi
     - require:
-      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
-
-
-{{ sls }} requests:
-  pip.installed:
-    - name: requests
-    - bin_env: /srv/wikijs/.venvs/gandi
-    - require:
-      - pkg: python.pip installed packages
-      - virtualenv: {{ sls }} virtualenv
+    - require_in:
+      - cron: {{ sls }} cron job
+{%- endfor %}
 
 
 {% set python3 = "/srv/wikijs/.venvs/gandi/bin/python3" -%}
@@ -49,7 +46,4 @@ include:
     - name: {{ python3 }} {{ report }} /srv/wikijs/sre-wiki-js
     - user: wikijs
     - identifier: gandi_report
-    - special: "@hourly"
-    - require:
-      - pip: {{ sls }} GitPython
-      - pip: {{ sls }} requests
+    - minute: random

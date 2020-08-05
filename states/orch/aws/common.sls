@@ -11,6 +11,39 @@
 ### Security Groups
 
 
+{% set ident = ["ssh-all", "core", "secgroup"] -%}
+{% set name = ident|join("_") -%}
+{{ name }}:
+  boto_secgroup.present:
+    - region: {{ LOC }}
+    - name: {{ name }}
+    - description: Allow SSH from anyone
+    - vpc_name: {{ P_LOC.vpc.name }}
+    - rules:
+      - ip_protocol: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip:
+          - 0.0.0.0/0
+    {{ aws.tags(name, "core", "core", "secgroup") }}
+
+
+{% set ident = ["ssh-from-salt-prime", "core", "secgroup"] -%}
+{% set name = ident|join("_") -%}
+{{ name }}:
+  boto_secgroup.present:
+    - region: {{ LOC }}
+    - name: {{ name }}
+    - description: Allow SSH from salt-prime
+    - vpc_name: {{ P_LOC.vpc.name }}
+    - rules:
+      - ip_protocol: tcp
+        from_port: 22
+        to_port: 22
+        source_group_name: salt-vpc_core_secgroup
+    {{ aws.tags(name, "core", "core", "secgroup") }}
+
+
 {% set ident = ["web-all", "core", "secgroup"] -%}
 {% set name = ident|join("_") -%}
 {{ name }}:
@@ -30,22 +63,6 @@
         to_port: 443
         cidr_ip:
           - 0.0.0.0/0
-    {{ aws.tags(name, "core", "core", "secgroup") }}
-
-
-{% set ident = ["ssh-from-salt-prime", "core", "secgroup"] -%}
-{% set name = ident|join("_") -%}
-{{ name }}:
-  boto_secgroup.present:
-    - region: {{ LOC }}
-    - name: {{ name }}
-    - description: Allow SSH from salt-prime
-    - vpc_name: {{ P_LOC.vpc.name }}
-    - rules:
-      - ip_protocol: tcp
-        from_port: 22
-        to_port: 22
-        source_group_name: salt-vpc_core_secgroup
     {{ aws.tags(name, "core", "core", "secgroup") }}
 
 

@@ -22,8 +22,7 @@
       - pkg: {{ sls }} installed packages
 
 
-{%- for repo in ("new-creativecommons.org", "new-www-plugin",
-                 "new-www-theme") %}
+{%- for repo in ("new-creativecommons.org", "new-www-plugin") %}
 
 
 {{ sls }} {{ repo }} repo:
@@ -66,7 +65,7 @@
 {%- endfor %}
 
 
-{#- new-www-theme symlinks #}
+{#- new-www-plugin symlinks #}
 {%- for target in ("cc-author", "cc-donate", "cc-program", "cc-resource",
                    "cc-taxonomies", "cc-widgets") %}
 
@@ -79,12 +78,3 @@
     - require:
       - file: {{ sls }} new-www-plugin permissions
 {%- endfor %}
-
-
-{{ sls }} symlink new-www-theme:
-  file.symlink:
-    - name: {{ THEMES }}/cc
-    - target: {{ GIT }}/new-www-theme/cc
-    - force: True
-    - require:
-      - file: {{ sls }} new-www-theme permissions

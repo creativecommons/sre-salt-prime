@@ -40,6 +40,12 @@
     {{ aws.tags(name, POD, HST, POD) }}
 
 
+{% if salt.pillar.get("infra:orch.aws.rds:parameters:" + HST) == "ABSENT" -%}
+{% set custom_parameter_group = false -%}
+{% set name_parameter = (
+  "default." + salt.pillar.get("infra:orch.aws.rds:engine_family:" + HST)) -%}
+{% else -%}
+{% set custom_parameter_group = true -%}
 # RDS Parameter groups "Must contain only letters, digits, or hyphens".
 # Additionally, two ore more hyphens in a row will result in failure.
 {% set ident = [HST, POD, "rdsparameters"] -%}
@@ -55,11 +61,13 @@
     - parameters:
 {{- aws.infra_dictlist(sls, "parameters", HST, POD) }}{{ "    " -}}
     {{ aws.tags(name, POD, HST, POD) }}
+{%- endif %}
 
 
 # "[DBInstanceIdentifier] must begin with a letter; must contain only ASCII
 # letters, digits, and hyphens; and must not end with a hyphen or contain two
 # consecutive hyphens"
+{% set engine = aws.infra_value(sls, "engine", HST, POD) -%}
 {% set ident = [HST, POD, "rdsdb"] -%}
 {% set name = ident|join("-") -%}
 {{ name }}:
@@ -68,7 +76,7 @@
     - name: {{ name }}
     - allocated_storage: {{ aws.infra_value(sls, "storage", HST, POD) }}
     - db_instance_class: {{ aws.infra_value(sls, "instance_class", HST, POD) }}
-    - engine: {{ aws.infra_value(sls, "engine", HST, POD) }}
+    - engine: {{ engine }}
     - master_username: {{ aws.infra_value(sls, "primary_username", HST, POD) }}
     - master_user_password: >-
         {{ aws.infra_value(sls, "primary_password", HST, POD) }}
@@ -83,12 +91,18 @@
     - kms_keyid: {{ KMS_KEY_STORAGE }}
     - backup_retention_period: 35
     - preferred_backup_window: 05:00-06:00
+{%- if "mariadb" in engine|lower or "mysql" in engine|lower %}
     - port: 3306
+{%- elif  "postgres" in engine|lower %}
+    - port: 5432
+{%- endif %}
     - engine_version: {{ aws.infra_value(sls, "engine_version", HST, POD) }}
     - auto_minor_version_upgrade: True
     - publicly_accessible: False
     - wait_status: available
     {{ aws.tags(name, POD, HST, POD) }}
     - require:
+{%- if custom_parameter_group %}
       - boto_rds: {{ name_parameter }}
+{%- endif %}
       - boto_rds: {{ name_subnetgroup }}

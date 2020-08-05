@@ -21,6 +21,7 @@ infra:
         dispatch__stage:  10.22.10.23
         licbuttons__prod: 10.22.10.24
         dispatch__prod:   10.22.10.25
+        cclicdev__stage:  10.22.10.26
         ###_Private-One   10.22.11.0
         salt-prime__core: 10.22.11.11
         ccengine__stage:  10.22.11.12

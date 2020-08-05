@@ -1,5 +1,5 @@
 include:
-  - python.pip
+  - wikijs.reports_shared
 
 
 {{ sls }} cloudflare email:
@@ -11,7 +11,7 @@ include:
     - contents:
       - {{ pillar.cloudflare.email }}
     - require:
-      - file: wikijs.reports wikijs directory
+      - file: wikijs.reports_shared wikijs directory
 
 
 {{ sls }} cloudflare token:
@@ -23,7 +23,7 @@ include:
     - contents:
       - {{ pillar.cloudflare.api_key }}
     - require:
-      - file: wikijs.reports wikijs directory
+      - file: wikijs.reports_shared wikijs directory
 
 
 {{ sls }} virtualenv:
@@ -33,25 +33,22 @@ include:
     - user: wikijs
     - cwd: /srv/wikijs/sre-report-to-wikijs/cloudflare
     - require:
-      - file: wikijs.reports wikijs .venvs directory
+      - file: wikijs.reports_shared wikijs .venvs directory
+      - pkg: virtualenv installed packages
 
 
-{{ sls }} cloudflare:
+{%- for package in ["cloudflare", "GitPython"] %}
+
+
+{{ sls }} {{ package }}:
   pip.installed:
-    - name: cloudflare
+    - name: {{ package }}
     - bin_env: /srv/wikijs/.venvs/cloudflare
     - require:
-      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
-
-
-{{ sls }} GitPython:
-  pip.installed:
-    - name: GitPython
-    - bin_env: /srv/wikijs/.venvs/cloudflare
-    - require:
-      - pkg: python.pip installed packages
-      - virtualenv: {{ sls }} virtualenv
+    - require_in:
+      - cron: {{ sls }} cron job
+{%- endfor %}
 
 
 {% set python3 = "/srv/wikijs/.venvs/cloudflare/bin/python3" -%}
@@ -61,7 +58,4 @@ include:
     - name: {{ python3 }} {{ report }} /srv/wikijs/sre-wiki-js
     - user: wikijs
     - identifier: cloudflare_report
-    - special: "@hourly"
-    - require:
-      - pip: {{ sls }} cloudflare
-      - pip: {{ sls }} GitPython
+    - minute: random

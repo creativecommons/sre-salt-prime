@@ -10,6 +10,9 @@
 {%- if salt.cmd.run("/usr/bin/getent passwd transifex") %}
 {%- set _ = system_accounts.append("transifex") %}
 {%- endif %}
+{%- if salt.cmd.run("/usr/bin/getent passwd wikijs") %}
+{%- set _ = system_accounts.append("wikijs") %}
+{%- endif %}
 {%- for account in system_accounts|sort %}
 {{ "%-15s %s"|format(account + ":", pillar.postfix.root_mail) }}
 {%- endfor %}

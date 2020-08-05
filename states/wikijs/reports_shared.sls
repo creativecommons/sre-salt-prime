@@ -1,7 +1,5 @@
 include:
-  - wikijs.amazon_route53_report
-  - wikijs.cloudflare_report
-  - wikijs.gandi_report
+  - virtualenv
 
 
 {{ sls }} group:
@@ -33,16 +31,6 @@ include:
       - user: {{ sls }} user
 
 
-{{ sls }} installed packages:
-  pkg.installed:
-    - pkgs:
-      - python-pip
-      - python3-git
-      - python3-pip
-      - python3-virtualenv
-      - virtualenv
-
-
 {{ sls }} wikijs .venvs directory:
   file.directory:
     - name: /srv/wikijs/.venvs
@@ -50,7 +38,6 @@ include:
     - owner: wikijs
     - group: wikijs
     - require:
-      - pkg: {{ sls }} installed packages
       - user: {{ sls }} user
 
 
