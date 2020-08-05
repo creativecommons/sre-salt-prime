@@ -8,6 +8,10 @@
 {% set MODS_ENABLE = salt["pillar.get"]("apache2:mods:enable", []) -%}
 
 
+include:
+  - apache2.mpm_prefork
+
+
 {{ sls }} installed packages:
   pkg.installed:
     - pkgs:
