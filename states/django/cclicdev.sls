@@ -155,6 +155,29 @@ include:
 {%- endfor %}
 
 
+{{ sls }} run_django_admin.sh:
+  file.managed:
+    - name: {{ DIR_VENV }}/bin/run_django_admin.sh
+    - mode: '0775'
+    - contents:
+      - "#!/bin/bash"
+      - "# Managed by SaltStack: {{ sls }}"
+      - "cd {{ DIR_REPO }}"
+      - "export DATABASE_URL={{ pillar.django.database_url }}"
+      - "export DJANGO_SECRET_KEY={{ pillar.django.secret_key }}"
+      - "export DJANGO_SETTINGS_MODULE=cc_licenses.settings.deploy"
+      - "export DOMAIN={{ pillar.nginx.cert_name }}"
+      - "export ENVIRONMENT=staging"
+      - "export MEDIA_ROOT={{ DIR_MEDIA }}"
+      - "export STATIC_ROOT={{ DIR_STATIC }}"
+      - "sudo --preserve-env --set-home --user=www-data --group=www-data \\"
+      - "    {{ DIR_VENV }}/bin/python \\"
+      - "    manage.py \\"
+      - "    \"${@}\""
+    - require:
+      - virtualenv: {{ sls }} virtualenv
+
+
 {{ sls }} run_gunicorn.sh:
   file.managed:
     - name: {{ DIR_VENV }}/bin/run_gunicorn.sh
@@ -178,6 +201,8 @@ include:
       - "    {{ DIR_VENV }}/bin/gunicorn \\"
       - "    --bind unix:{{ PORTFILE }} \\"
       - "    cc_licenses.wsgi &"
+    - require:
+      - virtualenv: {{ sls }} virtualenv
 
 
 {{ sls }} execute run_gunicorn.sh:
