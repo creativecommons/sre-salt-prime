@@ -1,6 +1,6 @@
 # https://httpd.apache.org/docs/2.4/misc/perf-tuning.html#hardware
 #
-# The below results in the following worker configurations:
+# The WORKERS formula, below, results in the following worker configurations:
 #      Instance        Memory     Workers
 #   --------------    --------    -------
 #   t3.nano list       512 MiB         16
