@@ -1,4 +1,3 @@
-{#
 include:
   - letsencrypt
   - mysql
@@ -24,4 +23,3 @@ wordpress:
   docroot: /var/www/opencovid
   # Multisite
   multisite: False
-#}
