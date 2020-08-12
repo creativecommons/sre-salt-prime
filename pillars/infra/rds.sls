@@ -11,6 +11,7 @@
 
 include:
   - 5_HST__POD.cclicdev__stage.secrets
+  - 5_HST__POD.opencovid__prod.secrets
 
 
 infra:
@@ -84,6 +85,8 @@ infra:
         - mysql-from-chapters_prod_secgroup
       chapters__stage:
         - mysql-from-chapters_stage_secgroup
+      opencovid__prod:
+        - mysql-from-opencovid_prod_secgroup
       openglam__prod:
         - mysql-from-openglam_prod_secgroup
       podcast__prod:
@@ -99,6 +102,7 @@ infra:
       cclicdev: 214
       ccorgwp: 214
       chapters: 334
+      opencovid: 214
       openglam: 214
     rds_subnets:
       default:
