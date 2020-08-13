@@ -73,6 +73,11 @@ infra:
         cc:product: licensebuttons
         cc:purpose: static-hosting
         cc:team: internal-tech
+      opencovid__prod:
+        cc:environment: production
+        cc:product: open-covid-pledge
+        cc:purpose: wordpress-hosting
+        cc:team: internal-tech
       openglam__prod:
         cc:environment: production
         cc:product: openglam
