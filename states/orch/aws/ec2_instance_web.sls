@@ -81,6 +81,14 @@
 {%- endif %}
 
 
+# Sleep a few seconds to help ensure instance creation has fully completed
+{% set sleep = 5 -%}
+{{ sls }} sleep {{ sleep }}:
+  module.run:
+    - name: test.sleep
+    - length: {{ sleep }}
+
+
 # Set size to ABSENT to disable creation of xvdf
 {% set xvdf_size = aws.infra_value(sls, "ebs_size", HST, POD) -%}
 {% if xvdf_size != "~" -%}
@@ -100,6 +108,7 @@
     - kms_key_id: {{ KMS_KEY_STORAGE }}
     - require:
       - boto_ec2: {{ name_instance }}
+      - module: {{ sls }} sleep {{ sleep }}
 {%- endif %}
 
 

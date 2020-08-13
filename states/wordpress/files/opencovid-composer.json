@@ -1,0 +1,54 @@
+{
+  "authors": [
+    {
+      "homepage": "https://github.com/creativecommons/sre-salt-prime",
+      "name": "Creative Commons"
+    }
+  ],
+  "config": {
+    "vendor-dir": "wp-content/vendor"
+  },
+  "description": "Creative Commons Open COVID Pledge WordPress Site via Composer",
+  "extra": {
+    "wordpress-install-dir": "wp"
+  },
+  "name": "creativecommons/wordpress-opencovid",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "composer/installers": "1.9",
+    "johnpbloch/wordpress": "5.4.2",
+    "wpackagist-plugin/a3-lazy-load": "2.4.0",
+    "wpackagist-plugin/all-in-one-wp-migration": "7.26",
+    "wpackagist-plugin/all-in-one-wp-security-and-firewall": "4.4.4",
+    "wpackagist-plugin/antispam-bee": "2.9.2",
+    "wpackagist-plugin/broken-link-checker": "1.11.13",
+    "wpackagist-plugin/classic-editor": "1.6",
+    "wpackagist-plugin/contact-form-7": "5.2.1",
+    "wpackagist-plugin/duplicate-post": "3.2.5",
+    "wpackagist-plugin/elementor": "2.9.14",
+    "wpackagist-plugin/header-footer-elementor": "1.5.2",
+    "wpackagist-plugin/limit-login-attempts-reloaded": "2.15.1",
+    "wpackagist-plugin/ml-slider": "3.17.0",
+    "wpackagist-plugin/molongui-authorship": "4.1.2",
+    "wpackagist-plugin/mystickymenu": "2.4.3",
+    "wpackagist-plugin/statify": "1.8.0",
+    "wpackagist-plugin/tablepress": "1.12",
+    "wpackagist-plugin/the-events-calendar": "5.1.5",
+    "wpackagist-plugin/themeisle-companion": "2.9.16",
+    "wpackagist-plugin/tinymce-advanced": "5.5.0",
+    "wpackagist-plugin/wordpress-seo": "14.7",
+    "wpackagist-plugin/wp-mail-smtp": "2.2.1",
+    "wpackagist-plugin/wpforms-lite": "1.6.2.2",
+    "wpackagist-theme/neve": "2.7.6"
+  },
+  "require-dev": {
+    "wpackagist-plugin/debug-bar": "1.0.1",
+    "wpackagist-plugin/debug-bar-actions-and-filters-addon": "1.5.4"
+  },
+  "type": "project"
+}

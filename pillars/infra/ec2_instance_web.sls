@@ -9,6 +9,7 @@ infra:
       chapters: vpc
       dispatch: vpc
       licbuttons: vpc
+      opencovid: vpc
       openglam: vpc
       podcast: vpc
       redirects: vpc
@@ -24,6 +25,7 @@ infra:
       chapters: 334
       dispatch: 214
       licbuttons: 214
+      opencovid: 214
       openglam: 214
       sotc: 214
       summit: 214
@@ -36,6 +38,7 @@ infra:
       ccorgwp: t3.small
       chapters: t3.medium
       discourse: t3.small
+      opencovid: t3.small
       sotc: t3.medium
       wikijs: t3.small
     web_secgroups:
@@ -102,6 +105,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-from-dispatch_stage_secgroup
+      opencovid__prod:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-all-opencovid_prod_secgroup
       openglam__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
