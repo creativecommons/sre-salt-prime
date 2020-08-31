@@ -19,8 +19,8 @@
     },
     "require": {
         "composer/installers":"1.9",
-        "johnpbloch/wordpress":"5.4.2",
-        "wpackagist-theme/twentynineteen":"1.6"
+        "johnpbloch/wordpress":"5.5",
+        "wpackagist-theme/twentynineteen":"1.7"
     },
     "require-dev": {
         "wpackagist-plugin/debug-bar":"1.0.1",
