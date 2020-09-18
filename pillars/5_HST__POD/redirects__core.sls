@@ -7,6 +7,7 @@ letsencrypt:
       - au-beta.creativecommons.org
       - ca-beta.creativecommons.org
       - ca.creativecommons.org
+      - ccsearch.creativecommons.org
       - chapters.creativecommons.org
       - co.creativecommons.org
       - code.creativecommons.org
@@ -18,8 +19,9 @@ letsencrypt:
       - ke-beta.creativecommons.org
       - mx-beta.creativecommons.org
       - mx.creativecommons.org
-      - nl.creativecommons.org
+      - newsearch.creativecommons.org
       - nl-beta.creativecommons.org
+      - nl.creativecommons.org
       - pl.creativecommons.org
       - sotc.creativecommons.org
       - sv.creativecommons.org
@@ -46,6 +48,9 @@ nginx:
     - crt: redirects.creativecommons.org
       src: ca.creativecommons.org
       dst: ca.creativecommons.net
+    - crt: redirects.creativecommons.org
+      src: ccsearch.creativecommons.org
+      dst: search.creativecommons.org
     - crt: redirects.creativecommons.org
       src: co.creativecommons.org
       dst: co.creativecommons.net
@@ -74,17 +79,20 @@ nginx:
       src: ke-beta.creativecommons.org
       dst: ke-beta.creativecommons.net
     - crt: redirects.creativecommons.org
+      src: newsearch.creativecommons.org
+      dst: search.creativecommons.org
+    - crt: redirects.creativecommons.org
       src: mx.creativecommons.org
       dst: mx.creativecommons.net
     - crt: redirects.creativecommons.org
       src: mx-beta.creativecommons.org
       dst: mx.creativecommons.net
     - crt: redirects.creativecommons.org
-      src: nl.creativecommons.org
-      dst: creativecommons.nl
-    - crt: redirects.creativecommons.org
       src: nl-beta.creativecommons.org
       dst: nl-beta.creativecommons.net
+    - crt: redirects.creativecommons.org
+      src: nl.creativecommons.org
+      dst: creativecommons.nl
     - crt: redirects.creativecommons.org
       src: pl.creativecommons.org
       dst: creativecommons.pl
