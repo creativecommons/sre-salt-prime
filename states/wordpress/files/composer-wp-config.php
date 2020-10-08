@@ -74,7 +74,7 @@ define('DISALLOW_FILE_EDIT', True);
 #define('DISALLOW_FILE_MODS', True);
 
 # Plugin: Jetpack
-{%- if POD == "stage" %}
+{%- if POD.startswith("stage") %}
 define( 'JETPACK_DEV_DEBUG', True );
 {%- else %}
 define( 'JETPACK_DEV_DEBUG', False );
