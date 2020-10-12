@@ -2,3 +2,4 @@ core__us-east-2: core
 dev__us-east-2: core
 prod__us-east-2: core
 stage__us-east-2: core
+stagelegacy__us-east-2: core

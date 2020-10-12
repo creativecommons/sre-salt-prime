@@ -82,7 +82,7 @@
 
 
 # Sleep a few seconds to help ensure instance creation has fully completed
-{% set sleep = 5 -%}
+{% set sleep = 30 -%}
 {{ sls }} sleep {{ sleep }}:
   module.run:
     - name: test.sleep
