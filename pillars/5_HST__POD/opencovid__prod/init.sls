@@ -12,13 +12,16 @@ include:
 
 letsencrypt:
   domainsets:
-    opencovidpledge.org: ~
+    opencovidpledge.org:
+      - opencovidpledge.org
+      - www.opencovidpledge.org
 mysql:
   # (also see 5_HST__POD.opencovid__prod.secrets)
   server:
     host: {{ ENDPOINT }}
 wordpress:
   # (also see 5_HST__POD.opencovid__prod.secrets)
+  canonical: https://opencovidpledge.org
   site: opencovidpledge.org
   db_host: {{ ENDPOINT }}
   wp_debug: False

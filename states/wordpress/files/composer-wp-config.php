@@ -1,3 +1,9 @@
+{% set CANONICAL = salt.pillar.get("wordpress:canonical", false) -%}
+{% if CANONICAL -%}
+{% set SITEURL = "'{}'".format(CANONICAL) -%}
+{% else -%}
+{% set SITEURL = "'https://'.$_SERVER['SERVER_NAME']" -%}
+{% endif -%}
 <?php
 /**
  * The base configuration for WordPress
@@ -20,8 +26,8 @@ if ( isset ( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && $_SERVER['HTTP_X_FORWARDED_
 if ( defined( 'WP_CLI' ) && WP_CLI && ! isset( $_SERVER['SERVER_NAME'] ) ) {
     $_SERVER['SERVER_NAME'] = 'localhost';
 }
-define('WP_SITEURL',        'https://'.$_SERVER['SERVER_NAME']);
-define('WP_HOME',           'https://'.$_SERVER['SERVER_NAME']);
+define('WP_SITEURL',        {{ SITEURL }});
+define('WP_HOME',           {{ SITEURL }});
 define('WP_CONTENT_DIR',    dirname(__FILE__) . '/wp-content');
 define('WP_CONTENT_URL',    WP_SITEURL . '/wp-content');
 
@@ -59,8 +65,8 @@ define('NONCE_SALT',       '{{ pillar.wordpress.nonce_salt }}');
 define('WP_DEBUG', {{ pillar.wordpress.wp_debug }});
 
 /* Multisite */
-define('MULTISITE',             {{ pillar.wordpress.multisite }});
 {%- if pillar.wordpress.multisite %}
+define('MULTISITE',             {{ pillar.wordpress.multisite }});
 define('WP_ALLOW_MULTISITE',    True);
 define('SUBDOMAIN_INSTALL',     {{ pillar.wordpress.subdomain_install }});
 define('DOMAIN_CURRENT_SITE',   '{{ pillar.wordpress.domain_current_site }}');
@@ -68,6 +74,8 @@ define('PATH_CURRENT_SITE',     '{{ pillar.wordpress.path_current_site }}');
 define('SITE_ID_CURRENT_SITE',  {{ pillar.wordpress.site_id_current_site }});
 define('BLOG_ID_CURRENT_SITE',  {{ pillar.wordpress.blog_id_current_site }});
 define('SUNRISE',               '{{ pillar.wordpress.sunrise }}');
+{%- else %}
+define('MULTISITE', {{ pillar.wordpress.multisite }});
 {%- endif %}
 
 define('DISALLOW_FILE_EDIT', True);
