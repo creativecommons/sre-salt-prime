@@ -11,6 +11,7 @@
 
 include:
   - 5_HST__POD.cclicdev__stage.secrets
+  - 5_HST__POD.ccorgwp__stagelegacy.secrets
   - 5_HST__POD.opencovid__prod.secrets
 
 
@@ -81,6 +82,8 @@ infra:
         - postgres-from-cclicdev_stage_secgroup
       ccorgwp__stage:
         - mysql-from-ccorgwp_stage_secgroup
+      ccorgwp__stagelegacy:
+        - mysql-from-ccorgwp_stagelegacy_secgroup
       chapters__prod:
         - mysql-from-chapters_prod_secgroup
       chapters__stage:

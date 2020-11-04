@@ -1,32 +1,32 @@
 {
-    "name":"creativecommons/wordpress",
-    "description":"Creative Commons WordPress Site via Composer",
-    "authors": [
-        {
-            "name":"Creative Commons",
-            "homepage":"https://github.com/creativecommons/sre-salt-prime"
-        }
-    ],
-    "type": "project",
-    "repositories": [
-        {
-            "type":"composer",
-            "url":"https://wpackagist.org"
-        }
-    ],
-    "config": {
-        "vendor-dir":"wp-content/vendor"
-    },
-    "require": {
-        "composer/installers":"1.9",
-        "johnpbloch/wordpress":"5.4.2",
-        "wpackagist-theme/twentynineteen":"1.6"
-    },
-    "require-dev": {
-        "wpackagist-plugin/debug-bar":"1.0.1",
-        "wpackagist-plugin/debug-bar-actions-and-filters-addon":"1.5.4"
-    },
-    "extra": {
-        "wordpress-install-dir":"wp"
+  "authors": [
+    {
+      "homepage": "https://github.com/creativecommons/sre-salt-prime",
+      "name": "Creative Commons"
     }
+  ],
+  "config": {
+    "vendor-dir": "wp-content/vendor"
+  },
+  "description": "Creative Commons WordPress Site via Composer",
+  "extra": {
+    "wordpress-install-dir": "wp"
+  },
+  "name": "creativecommons/wordpress",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "composer/installers": "1.9",
+    "johnpbloch/wordpress": "5.5",
+    "wpackagist-theme/twentynineteen": "1.7"
+  },
+  "require-dev": {
+    "wpackagist-plugin/debug-bar": "1.0.1",
+    "wpackagist-plugin/debug-bar-actions-and-filters-addon": "1.5.4"
+  },
+  "type": "project"
 }

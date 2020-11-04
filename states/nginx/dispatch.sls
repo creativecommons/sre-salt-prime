@@ -24,7 +24,7 @@ include:
       - service: nginx service
 
 
-{%- if pillar.pod == "stage" %}
+{%- if pillar.pod.startswith("stage") %}
 
 
 {{ sls }} installed packages:
@@ -68,7 +68,7 @@ include:
         SLS: {{ sls }}
     - require:
       - pkg: nginx installed packages
-{%- if pillar.pod == "stage" %}
+{%- if pillar.pod.startswith("stage") %}
       - webutil: {{ sls }} basic authentication user exists
 {%- endif %}
     - watch_in:

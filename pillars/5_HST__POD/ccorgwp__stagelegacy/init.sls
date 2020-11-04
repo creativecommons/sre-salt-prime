@@ -7,21 +7,16 @@
 
 
 include:
-  - 5_HST__POD.opencovid__prod.secrets
+  - 5_HST__POD.ccorgwp__stagelegacy.secrets
 
 
-letsencrypt:
-  domainsets:
-    opencovidpledge.org:
-      - opencovidpledge.org
-      - www.opencovidpledge.org
+ccorg:
+  branch: master
 mysql:
-  # (also see 5_HST__POD.opencovid__prod.secrets)
   server:
     host: {{ ENDPOINT }}
 wordpress:
-  # (also see 5_HST__POD.opencovid__prod.secrets)
-  canonical: https://opencovidpledge.org
-  site: opencovidpledge.org
+  site: legacy.creativecommons.org
   db_host: {{ ENDPOINT }}
+  table_prefix: mattl_
   wp_debug: False

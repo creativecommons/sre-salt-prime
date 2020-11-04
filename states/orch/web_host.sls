@@ -81,6 +81,7 @@
       - salt: {{ sls }} orch.aws.ec2_instance_web
 
 
+{#-
 # Phase Three: Highstate
 
 
@@ -103,3 +104,4 @@
     - highstate: True
     - require:
       - salt: {{ sls }} verify minion
+#}

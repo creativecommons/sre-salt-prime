@@ -75,6 +75,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-from-dispatch_stage_secgroup
+      ccorgwp__stagelegacy:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-from-dispatch_stagelegacy_secgroup
       chapters__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup

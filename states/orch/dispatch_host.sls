@@ -89,6 +89,7 @@
       - salt: {{ sls }} orch.aws.ec2_instance_web
 
 
+{#-
 # Phase Three: Highstate
 
 
@@ -116,3 +117,4 @@
       - salt: {{ sls }} verify minion
     - onlyif:
       - test -f /etc/salt/pki/master/minions/{{ MID }}
+#}

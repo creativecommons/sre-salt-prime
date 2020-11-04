@@ -172,7 +172,7 @@ include:
     - composer: /usr/local/bin/composer
     - php: /usr/bin/php
     - optimize: True
-{%- if POD == "stage" %}
+{%- if POD.startswith("stage") %}
     - no_dev: False
 {%- else %}
     - no_dev: True
