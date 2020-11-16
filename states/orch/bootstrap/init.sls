@@ -48,6 +48,16 @@
       - salt: {{ sls }} minion already up
 
 
+{{ sls }} install salt on minion:
+  salt.state:
+    - tgt: {{ MID }}
+    - sls: salt
+    - saltenv: {{ saltenv }}
+    - ssh: True
+    - require:
+      - salt: {{ sls }} salt-prime minion bootstrap prep
+
+
 {{ sls }} bootstrap minion:
   salt.state:
     - tgt: {{ MID }}
@@ -58,7 +68,7 @@
       pillar:
         tgt_mid: {{ MID }}
     - require:
-      - salt: {{ sls }} salt-prime minion bootstrap prep
+      - salt: {{ sls }} install salt on minion
     - onlyif:
       - test -d {{ TMP }}
 
