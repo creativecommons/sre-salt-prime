@@ -17,9 +17,16 @@ mounts:
     pass: 2
 states:
   mount: {{ sls }}
+  php.mbstring: {{ sls }}
   user.webdevs: {{ sls }}
-  #wordpress.apache2: {{ sls }}
+  wordpress.apache2: {{ sls }}
+  wordpress.git_install: {{ sls }}
 wordpress:
   docroot: /var/www/cert
   # Multisite
   multisite: True
+  subdomain_install: True
+  path_current_site: /
+  site_id_current_site: 1
+  blog_id_current_site: 1
+  sunrise: 'off'

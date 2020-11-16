@@ -26,6 +26,11 @@
     {
       "no-api": true,
       "type": "vcs",
+      "url": "https://github.com/creativecommons/queulat"
+    },
+    {
+      "no-api": true,
+      "type": "vcs",
       "url": "https://github.com/lumenlearning/candela-utility"
     },
     {

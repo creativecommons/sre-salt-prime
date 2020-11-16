@@ -4,6 +4,7 @@
 {% set kwargs = {"name": [HST, POD, "rdsdb"]|join("-"), "region": LOC,
                  "jmespath": "DBInstances[0].Endpoint.Address"} -%}
 {% set ENDPOINT = salt.boto_rds.describe_db_instances(**kwargs)[0] -%}
+{% set WEBNAME = "certificate.creativecommons.org" -%}
 
 
 include:
@@ -12,15 +13,26 @@ include:
 
 letsencrypt:
   domainsets:
-    certificate.creativecommons.org:
-      - certificate.creativecommons.org
+    {{ WEBNAME }}:
+      - {{ WEBNAME }}
 mysql:
   # (also see 5_HST__POD.cert__prod.secrets)
   server:
     host: {{ ENDPOINT }}
 wordpress:
   # (also see 5_HST__POD.cert__prod.secrets)
-  canonical: https://certificate.creativecommons.org
-  site: certificate.creativecommons.org
+  advanced-custom-fields-pro:
+    repo:
+    version: 5.9.1
+  #canonical: https://{{ WEBNAME }}
+  site: {{ WEBNAME }}
   db_host: {{ ENDPOINT }}
   wp_debug: False
+  # for plugins and themes that are not available to be installed via composer
+  git_install:
+    - target: advanced-custom-fields-pro
+      rev: 5.8.7
+      type: plugins
+      repo: https://github.com/wp-premium/advanced-custom-fields-pro.git
+  # Multisite
+  domain_current_site: {{ WEBNAME }}
