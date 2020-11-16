@@ -6,6 +6,7 @@ infra:
       # Specific (please maintain order)
       biztool: vpc
       cclicdev: vpc
+      cert: vpc
       chapters: vpc
       dispatch: vpc
       licbuttons: vpc
@@ -22,6 +23,7 @@ infra:
       ccengine: 214
       cclicdev: 214
       ccorgwp: 214
+      cert: 214
       chapters: 334
       dispatch: 214
       licbuttons: 214
@@ -36,6 +38,7 @@ infra:
       bastion: t3.nano
       ccengine: t3.small
       ccorgwp: t3.small
+      cert: t3.small
       chapters: t3.medium
       discourse: t3.small
       opencovid: t3.small
@@ -80,6 +83,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-from-dispatch_stagelegacy_secgroup
+      cert__prod:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-from-dispatch_prod_secgroup
       chapters__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
