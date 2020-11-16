@@ -56,6 +56,8 @@
     - ssh: True
     - require:
       - salt: {{ sls }} salt-prime minion bootstrap prep
+    - onlyif:
+      - test -d {{ TMP }}
 
 
 {{ sls }} bootstrap minion:
@@ -85,6 +87,7 @@
     # NOTE: onfail_any requires failhard: False
     #       See: https://github.com/saltstack/salt/issues/20496
     - onfail_any:
+      - salt: {{ sls }} install salt on minion
       - salt: {{ sls }} salt-prime minion bootstrap prep
       - salt: {{ sls }} bootstrap minion
 
@@ -100,7 +103,8 @@
         tgt_mid: {{ MID }}
         tgt_ip: {{ IP }}
         tgt_tmp: {{ TMP }}
-    - require:
+    - require_any:
+      - salt: {{ sls }} minion already up
       - salt: {{ sls }} bootstrap minion
     - onlyif:
       - test -d {{ TMP }}
