@@ -21,7 +21,7 @@
     {
       "no-api": true,
       "type": "vcs",
-      "url": "https://github.com/lumenlearning/candela-citation"
+      "url": "https://github.com/creativecommons/creativecommons-certificate"
     },
     {
       "no-api": true,
@@ -31,7 +31,7 @@
     {
       "no-api": true,
       "type": "vcs",
-      "url": "https://github.com/lumenlearning/candela-utility"
+      "url": "https://github.com/creativecommons/wp-theme-base"
     },
     {
       "no-api": true,
@@ -41,20 +41,16 @@
   ],
   "require": {
     "composer/installers": "1.9",
+    "creativecommons/creativecommons-certificate": "2020.11.2",
     "johnpbloch/wordpress": "5.5.3",
-    "lumenlearning/candela-citation": "0.2.2",
-    "lumenlearning/candela-utility": "0.4.0",
     "pressbooks/pressbooks": "5.17.2",
     "wpackagist-plugin/advanced-sidebar-menu": "8.0.4",
     "wpackagist-plugin/akismet": "4.1.7",
     "wpackagist-plugin/bbpress": "2.6.5",
-    "wpackagist-plugin/breadcrumb-navxt": "6.6.0",
     "wpackagist-plugin/hypothesis": "0.6.0",
     "wpackagist-plugin/the-events-calendar": "5.2.1",
     "wpackagist-plugin/vaultpress": "2.1.4",
-    "wpackagist-plugin/wordpress-importer": "0.7",
     "wpackagist-plugin/wordpress-seo": "15.2.1",
-    "wpackagist-plugin/worker": "4.9.7",
     "wpackagist-plugin/wp-super-cache": "1.7.1",
     "wpackagist-theme/twentysixteen": "2.2"
   },
