@@ -87,7 +87,7 @@ infra:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
-        - web-from-dispatch_prod_secgroup
+        - web-all-cert_prod_secgroup
       chapters__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
