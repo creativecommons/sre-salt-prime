@@ -20,7 +20,7 @@ states:
   php.mbstring: {{ sls }}
   user.webdevs: {{ sls }}
   wordpress.apache2: {{ sls }}
-  wordpress.git_install: {{ sls }}
+  wordpress.pressbooks_book_theme: {{ sls }}
 wordpress:
   docroot: /var/www/cert
   # Multisite
