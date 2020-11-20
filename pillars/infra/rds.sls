@@ -12,6 +12,7 @@
 include:
   - 5_HST__POD.cclicdev__stage.secrets
   - 5_HST__POD.ccorgwp__stagelegacy.secrets
+  - 5_HST__POD.cert__prod.secrets
   - 5_HST__POD.opencovid__prod.secrets
 
 
@@ -84,6 +85,8 @@ infra:
         - mysql-from-ccorgwp_stage_secgroup
       ccorgwp__stagelegacy:
         - mysql-from-ccorgwp_stagelegacy_secgroup
+      cert__prod:
+        - mysql-from-cert_prod_secgroup
       chapters__prod:
         - mysql-from-chapters_prod_secgroup
       chapters__stage:
@@ -104,6 +107,7 @@ infra:
       # Specific (please maintain order)
       cclicdev: 214
       ccorgwp: 214
+      cert: 214
       chapters: 334
       opencovid: 214
       openglam: 214

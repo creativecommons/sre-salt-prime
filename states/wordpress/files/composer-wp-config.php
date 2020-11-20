@@ -1,4 +1,6 @@
 {% set CANONICAL = salt.pillar.get("wordpress:canonical", false) -%}
+{% set MULTISITE = salt.pillar.get("wordpress:multisite", false) -%}
+{% set SUNRISE = salt.pillar.get("wordpress:sunrise", false) -%}
 {% if CANONICAL -%}
 {% set SITEURL = "'{}'".format(CANONICAL) -%}
 {% else -%}
@@ -65,17 +67,19 @@ define('NONCE_SALT',       '{{ pillar.wordpress.nonce_salt }}');
 define('WP_DEBUG', {{ pillar.wordpress.wp_debug }});
 
 /* Multisite */
-{%- if pillar.wordpress.multisite %}
-define('MULTISITE',             {{ pillar.wordpress.multisite }});
+{%- if MULTISITE %}
+define('MULTISITE',             {{ MULTISITE }});
 define('WP_ALLOW_MULTISITE',    True);
 define('SUBDOMAIN_INSTALL',     {{ pillar.wordpress.subdomain_install }});
 define('DOMAIN_CURRENT_SITE',   '{{ pillar.wordpress.domain_current_site }}');
 define('PATH_CURRENT_SITE',     '{{ pillar.wordpress.path_current_site }}');
 define('SITE_ID_CURRENT_SITE',  {{ pillar.wordpress.site_id_current_site }});
 define('BLOG_ID_CURRENT_SITE',  {{ pillar.wordpress.blog_id_current_site }});
-define('SUNRISE',               '{{ pillar.wordpress.sunrise }}');
+{%- if SUNRISE %}
+define('SUNRISE',               '{{ SUNRISE }}');
+{%- endif %}
 {%- else %}
-define('MULTISITE', {{ pillar.wordpress.multisite }});
+define('MULTISITE', {{ MULTISITE }});
 {%- endif %}
 
 define('DISALLOW_FILE_EDIT', True);
