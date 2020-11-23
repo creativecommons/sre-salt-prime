@@ -25,7 +25,6 @@
     - target: {{ GIT }}/candela-utility/themes/bombadil
     - require:
       - file: wordpress dir wp-content/themes
-      - git: wordpress.git_install candela-utility repo
     - onlyif:
       - test -d {{ GIT }}/candela-utility/themes/bombadil
 
@@ -36,19 +35,5 @@
     - target: {{ GIT }}/candela-utility/themes/candela
     - require:
       - file: wordpress dir wp-content/themes
-      - git: wordpress.git_install candela-utility repo
     - onlyif:
       - test -d {{ GIT }}/candela-utility/themes/candela
-
-
-{{ sls }} install pressbooks-book theme from zip:
-  archive.extracted:
-    - name: {{ THEMES }}
-    - source: https://github.com/pressbooks/pressbooks-book/releases/download/2.2.1/pressbooks-book-2.2.1.zip
-    - source_hash: 314cf15e6660ce80f27dfd2972532c0aea731a73a00830aa807178ec59bf8d6f
-    - user: composer
-    - group: webdev
-    - require:
-      - file: wordpress dir wp-content/themes
-      - group: user.webdevs webdev group
-      - user: php_cc.composer user
