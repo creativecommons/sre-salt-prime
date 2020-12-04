@@ -13,6 +13,7 @@
 {% set DIR_VENV = pillar.cc_licenses.venv -%}
 {# Misc variables -#}
 {% set PORTFILE = pillar.cc_licenses.portfile -%}
+{% set TRANS_DEPLOY_KEY = pillar.django.translation_repo_deploy_key -%}
 
 
 include:
@@ -87,8 +88,12 @@ include:
 {{ sls }} docroot dir:
   file.directory:
     - name: {{ DIR_DOCROOT }}
+    - owner: www-data
+    - group: www-data
+    - mode: '2775'
     - require:
       - git: {{ sls }} cc-licenses repo
+      - pkg: nginx installed packages # nginx provides www-data group and user
 
 
 {{ sls }} media dir:
@@ -160,7 +165,7 @@ include:
     - name: {{ DIR_VENV }}/bin/run_django_admin.sh
     - mode: '0775'
     - contents:
-      - "#!/bin/bash"
+      - "#!/bin/sh"
       - "# Managed by SaltStack: {{ sls }}"
       - "cd {{ DIR_REPO }}"
       - "export DATABASE_URL={{ pillar.django.database_url }}"
@@ -170,6 +175,8 @@ include:
       - "export ENVIRONMENT=staging"
       - "export MEDIA_ROOT={{ DIR_MEDIA }}"
       - "export STATIC_ROOT={{ DIR_STATIC }}"
+      - "export TRANSIFEX_API_TOKEN={{ pillar.django.transifex_api_token }}"
+      - "export TRANSLATION_REPOSITORY_DEPLOY_KEY={{ TRANS_DEPLOY_KEY }}"
       - "sudo --preserve-env --set-home --user=www-data --group=www-data \\"
       - "    {{ DIR_VENV }}/bin/python \\"
       - "    manage.py \\"
@@ -183,7 +190,7 @@ include:
     - name: {{ DIR_VENV }}/bin/run_gunicorn.sh
     - mode: '0775'
     - contents:
-      - "#!/bin/bash"
+      - "#!/bin/sh"
       - "# Managed by SaltStack: {{ sls }}"
       - "cd {{ DIR_REPO }}"
       - "export DATABASE_URL={{ pillar.django.database_url }}"
@@ -193,13 +200,16 @@ include:
       - "export ENVIRONMENT=staging"
       - "export MEDIA_ROOT={{ DIR_MEDIA }}"
       - "export STATIC_ROOT={{ DIR_STATIC }}"
-      - "if [[ -S {{ PORTFILE }} ]]; then"
+      - "export TRANSIFEX_API_TOKEN={{ pillar.django.transifex_api_token }}"
+      - "export TRANSLATION_REPOSITORY_DEPLOY_KEY={{ TRANS_DEPLOY_KEY }}"
+      - "if [ -S {{ PORTFILE }} ]; then"
       - "    echo 'ERROR: gunicorn is already running' 1>&2"
       - "    exit 1"
       - "fi"
       - "sudo --preserve-env --set-home --user=www-data --group=www-data \\"
       - "    {{ DIR_VENV }}/bin/gunicorn \\"
       - "    --bind unix:{{ PORTFILE }} \\"
+      - "    --error-logfile=/var/log/nginc/gunicorn.log --capture-output \\"
       - "    cc_licenses.wsgi &"
     - require:
       - virtualenv: {{ sls }} virtualenv
