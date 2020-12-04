@@ -11,6 +11,7 @@ mounts:
     pass: 2
 cc_licenses:
   docroot: {{ DIR_DOCROOT }}
+  log: {{ DIR_REPO }}/log
   media: {{ DIR_DOCROOT }}/media
   repo: {{ DIR_REPO }}
   static: {{ DIR_DOCROOT }}/static
