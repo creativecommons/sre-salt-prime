@@ -5,7 +5,7 @@
 {% set ROOT_DB_USER = pillar.postgres.root_user -%}
 {% set ROOT_DB_PASS = pillar.postgres.root_pass -%}
 {# Directory variables -#}
-{% set DIR_DOCROOT = pillar.cc_licenses.docroot -%}
+{% set DIR_PUBLIC = pillar.cc_licenses.public -%}
 {% set DIR_LOG = pillar.cc_licenses.log -%}
 {% set DIR_MEDIA = pillar.cc_licenses.media -%}
 {% set DIR_REPO = pillar.cc_licenses.repo -%}
@@ -87,10 +87,9 @@ include:
       - postgres_database: {{ sls }} django postgres db
 
 
-
-{{ sls }} docroot dir:
+{{ sls }} public dir:
   file.directory:
-    - name: {{ DIR_DOCROOT }}
+    - name: {{ DIR_PUBLIC }}
     - owner: www-data
     - group: www-data
     - mode: '2775'
@@ -106,7 +105,7 @@ include:
     - group: www-data
     - mode: '2775'
     - require:
-      - file: {{ sls }} docroot dir
+      - file: {{ sls }} public dir
       - pkg: nginx installed packages # nginx provides www-data group and user
 
 
@@ -117,7 +116,7 @@ include:
     - group: www-data
     - mode: '2775'
     - require:
-      - file: {{ sls }} docroot dir
+      - file: {{ sls }} public dir
       - pkg: nginx installed packages # nginx provides www-data group and user
 
 
