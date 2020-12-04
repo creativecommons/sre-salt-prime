@@ -1,5 +1,6 @@
 include:
   - python.pip
+  - sudo.letsencrypt
   - tls
 
 
@@ -98,9 +99,9 @@ include:
   cmd.run:
     - name: >-
 {%- if pillar.letsencrypt.domainsets[domainset] is none %}
-        /usr/local/bin/certbot certonly -d {{ domainset }}
+        /usr/local/bin/certbot --quiet certonly -d {{ domainset }}
 {%- else %}
-        /usr/local/bin/certbot certonly -d {{ domainset }} \
+        /usr/local/bin/certbot --quiet certonly -d {{ domainset }} \
 {%- for domain in pillar.letsencrypt.domainsets[domainset]|sort() %}
 {%- if loop.last %}
           -d {{ domain }}
@@ -118,7 +119,7 @@ include:
 
 {{ sls }} cron certbot renew:
   cron.present:
-    - name: /usr/local/bin/certbot renew
+    - name: /usr/local/bin/certbot --quiet renew
     - identifier: certbot_renew
     - minute: random
     - hour: '0,12'
