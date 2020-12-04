@@ -23,7 +23,6 @@ letsencrypt:
     expand: True
     keep-until-expiring: True
     preferred-challenges: dns-01
-    quiet: True
     renew-with-new-domains: True
     server: https://acme-v02.api.letsencrypt.org/directory
   domainsets:
