@@ -5,14 +5,17 @@
 {% set ROOT_DB_USER = pillar.postgres.root_user -%}
 {% set ROOT_DB_PASS = pillar.postgres.root_pass -%}
 {# Directory variables -#}
-{% set DIR_DOCROOT = pillar.cc_licenses.docroot -%}
+{% set DIR_PUBLIC = pillar.cc_licenses.public -%}
+{% set DIR_LOG = pillar.cc_licenses.log -%}
 {% set DIR_MEDIA = pillar.cc_licenses.media -%}
 {% set DIR_REPO = pillar.cc_licenses.repo -%}
 {% set DIR_STATIC = pillar.cc_licenses.static -%}
 {% set DIR_STATIC_ORIGIN = pillar.cc_licenses.static_origin -%}
 {% set DIR_VENV = pillar.cc_licenses.venv -%}
 {# Misc variables -#}
+{% set NOW = None|strftime("%Y%m%d_%H%M%S") -%}
 {% set PORTFILE = pillar.cc_licenses.portfile -%}
+{% set TRANS_DEPLOY_KEY = pillar.django.translation_repo_deploy_key -%}
 
 
 include:
@@ -84,11 +87,15 @@ include:
       - postgres_database: {{ sls }} django postgres db
 
 
-{{ sls }} docroot dir:
+{{ sls }} public dir:
   file.directory:
-    - name: {{ DIR_DOCROOT }}
+    - name: {{ DIR_PUBLIC }}
+    - owner: www-data
+    - group: www-data
+    - mode: '2775'
     - require:
       - git: {{ sls }} cc-licenses repo
+      - pkg: nginx installed packages # nginx provides www-data group and user
 
 
 {{ sls }} media dir:
@@ -96,23 +103,32 @@ include:
     - name: {{ DIR_MEDIA }}
     - owner: www-data
     - group: www-data
-    - dir_mode: '2775'
-    - file_mode: '0664'
-    - recurse:
-      - user
-      - group
-      - mode
+    - mode: '2775'
     - require:
-      - file: {{ sls }} docroot dir
+      - file: {{ sls }} public dir
       - pkg: nginx installed packages # nginx provides www-data group and user
 
 
-{{ sls }} static symlink:
-  file.symlink:
+{{ sls }} static dir:
+  file.directory:
     - name: {{ DIR_STATIC }}
-    - target: {{ DIR_STATIC_ORIGIN }}
+    - owner: www-data
+    - group: www-data
+    - mode: '2775'
     - require:
-      - file: {{ sls }} media dir
+      - file: {{ sls }} public dir
+      - pkg: nginx installed packages # nginx provides www-data group and user
+
+
+{{ sls }} log dir:
+  file.directory:
+    - name: {{ DIR_LOG }}
+    - owner: www-data
+    - group: www-data
+    - mode: '2775'
+    - require:
+      - git: {{ sls }} cc-licenses repo
+      - pkg: nginx installed packages # nginx provides www-data group and user
 
 
 {{ sls }} virtualenv:
@@ -148,7 +164,7 @@ include:
       - MEDIA_ROOT: {{ DIR_MEDIA }}
       - STATIC_ROOT: {{ DIR_STATIC }}
     - require:
-      - file: {{ sls }} static symlink
+      - file: {{ sls }} static dir
       - pip: {{ sls }} requirements
     - onchanges:
       - git: {{ sls }} cc-licenses repo
@@ -160,7 +176,7 @@ include:
     - name: {{ DIR_VENV }}/bin/run_django_admin.sh
     - mode: '0775'
     - contents:
-      - "#!/bin/bash"
+      - "#!/bin/sh"
       - "# Managed by SaltStack: {{ sls }}"
       - "cd {{ DIR_REPO }}"
       - "export DATABASE_URL={{ pillar.django.database_url }}"
@@ -170,6 +186,8 @@ include:
       - "export ENVIRONMENT=staging"
       - "export MEDIA_ROOT={{ DIR_MEDIA }}"
       - "export STATIC_ROOT={{ DIR_STATIC }}"
+      - "export TRANSIFEX_API_TOKEN={{ pillar.django.transifex_api_token }}"
+      - "export TRANSLATION_REPOSITORY_DEPLOY_KEY={{ TRANS_DEPLOY_KEY }}"
       - "sudo --preserve-env --set-home --user=www-data --group=www-data \\"
       - "    {{ DIR_VENV }}/bin/python \\"
       - "    manage.py \\"
@@ -183,7 +201,7 @@ include:
     - name: {{ DIR_VENV }}/bin/run_gunicorn.sh
     - mode: '0775'
     - contents:
-      - "#!/bin/bash"
+      - "#!/bin/sh"
       - "# Managed by SaltStack: {{ sls }}"
       - "cd {{ DIR_REPO }}"
       - "export DATABASE_URL={{ pillar.django.database_url }}"
@@ -193,15 +211,19 @@ include:
       - "export ENVIRONMENT=staging"
       - "export MEDIA_ROOT={{ DIR_MEDIA }}"
       - "export STATIC_ROOT={{ DIR_STATIC }}"
-      - "if [[ -S {{ PORTFILE }} ]]; then"
+      - "export TRANSIFEX_API_TOKEN={{ pillar.django.transifex_api_token }}"
+      - "export TRANSLATION_REPOSITORY_DEPLOY_KEY={{ TRANS_DEPLOY_KEY }}"
+      - "if [ -S {{ PORTFILE }} ]; then"
       - "    echo 'ERROR: gunicorn is already running' 1>&2"
       - "    exit 1"
       - "fi"
       - "sudo --preserve-env --set-home --user=www-data --group=www-data \\"
       - "    {{ DIR_VENV }}/bin/gunicorn \\"
       - "    --bind unix:{{ PORTFILE }} \\"
+      - "    --error-logfile={{ DIR_LOG }}/gunicorn.log --capture-output \\"
       - "    cc_licenses.wsgi &"
     - require:
+      - file: {{ sls }} log dir
       - virtualenv: {{ sls }} virtualenv
 
 

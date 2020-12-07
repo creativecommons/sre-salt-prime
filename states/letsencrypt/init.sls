@@ -1,6 +1,19 @@
 include:
   - python.pip
+  - sudo.letsencrypt
   - tls
+
+
+{% if grains.oscodename == "stretch" -%}
+# Ensure compatible dependencies are installed on Debian 9 (Stretch)
+{{ sls }} install parsedatetime:
+  pip.installed:
+    - name: parsedatetime == 2.5
+    - require:
+      - pkg: python.pip installed packages
+    - require_in:
+      - pip: {{ sls }} install certbot
+{%- endif %}
 
 
 {% if grains['oscodename'] == "buster" -%}
@@ -98,9 +111,9 @@ include:
   cmd.run:
     - name: >-
 {%- if pillar.letsencrypt.domainsets[domainset] is none %}
-        /usr/local/bin/certbot certonly -d {{ domainset }}
+        /usr/local/bin/certbot --quiet certonly -d {{ domainset }}
 {%- else %}
-        /usr/local/bin/certbot certonly -d {{ domainset }} \
+        /usr/local/bin/certbot --quiet certonly -d {{ domainset }} \
 {%- for domain in pillar.letsencrypt.domainsets[domainset]|sort() %}
 {%- if loop.last %}
           -d {{ domain }}
@@ -118,7 +131,7 @@ include:
 
 {{ sls }} cron certbot renew:
   cron.present:
-    - name: /usr/local/bin/certbot renew
+    - name: /usr/local/bin/certbot --quiet renew
     - identifier: certbot_renew
     - minute: random
     - hour: '0,12'

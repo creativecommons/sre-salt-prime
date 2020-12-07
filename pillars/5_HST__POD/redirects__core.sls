@@ -65,7 +65,7 @@ nginx:
       dst: de.creativecommons.net
     - crt: redirects.creativecommons.org
       src: donate.creativecommons.org
-      dst: us.netdonor.net/page/6650/donate/1
+      dst: classy.org/give/313412/#!/donation/checkout
     - crt: redirects.creativecommons.org
       src: i.creativecommons.org
       dst: licensebuttons.net
@@ -109,4 +109,3 @@ nginx:
     - crt: redirects.sciencecommons.org
       src: scholars.sciencecommons.org
       dst: labs.creativecommons.org/scholars
-

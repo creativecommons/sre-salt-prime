@@ -38,6 +38,11 @@ infra:
         cc:product: primary-website
         cc:purpose: wordpress-hosting
         cc:team: internal-tech
+      cert__prod:
+        cc:environment: production
+        cc:product: certificate
+        cc:purpose: wordpress-hosting
+        cc:team: internal-tech
       chapters__prod:
         cc:environment: production
         cc:product: chapter-sites

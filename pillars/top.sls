@@ -1,8 +1,4 @@
-{% set HST, POD, LOC = grains.id.split("__") -%}
-{% set LOC = LOC.replace("_master", "") -%}
-{% set POD__LOC = "{}__{}".format(POD, LOC) -%}
-{% set HST__POD = "{}__{}".format(HST, POD) -%}
-{% set ID = grains.id -%}
+{% set ID, HST, POD, LOC, POD__LOC, HST__POD = salt.meta.classify() -%}
 {% set LOOKUP = {"1_LOC": ["(location)", LOC],
                  "2_POD": ["(pod/group)", POD],
                  "3_HST": ["(host/role)", HST],

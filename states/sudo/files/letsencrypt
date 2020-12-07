@@ -1,0 +1,7 @@
+# vim: ft=sudoers
+#
+# This file MUST be edited with `/usr/sbin/visudo -sf FILENAME`.
+
+Cmnd_Alias CERTBOT_CERTIFICATES = /usr/local/bin/certbot certificates
+
+%sudo ALL = NOPASSWD: CERTBOT_CERTIFICATES

@@ -4,8 +4,11 @@
 
 
 {% set admins = pillar.user.admins.keys()|sort %}
-{% for username in admins -%}
-{% set userdata = pillar["user"]["admins"][username] -%}
+{%- for username in admins %}
+{%- set userdata = pillar.user.admins[username] %}
+
+
+
 {{ sls }} {{ username }} group:
   group.present:
     - name: {{ username }}
@@ -24,11 +27,14 @@
       - group: {{ sls }} {{ username }} group
 
 
-{# This assumes a Debian osrelease_info -#}
-{% if ("ed25519" in userdata.sshpub and
-       grains["saltversioninfo"][0] > 2014 and
-       grains["osrelease_info"][0] > 7) -%}
-{% for pubkey in userdata.sshpub.ed25519 -%}
+{%- set ed25519 = salt.pillar.get(
+  "user:admins:{}:sshpub:ed25519".format(username), none) %}
+{%- set rsa = salt.pillar.get(
+  "user:admins:{}:sshpub:rsa".format(username), none) %}
+{%- if ed25519 %}
+{%- for pubkey in ed25519|sort %}
+
+
 {{ sls }} {{ username }} sshauth ed25519 {{ loop.index }}:
   ssh_auth:
     - present
@@ -37,11 +43,11 @@
     - source: salt://user/files/{{ pubkey }}
     - require:
       - user: {{ sls }} {{ username }} user
+{%- endfor %}
+{%- elif rsa %}
+{%- for pubkey in rsa|sort %}
 
 
-{% endfor -%}
-{% else -%}
-{% for pubkey in userdata.sshpub.rsa -%}
 {{ sls }} {{ username }} sshauth rsa {{ loop.index }}:
   ssh_auth:
     - present
@@ -50,14 +56,14 @@
     - source: salt://user/files/{{ pubkey }}
     - require:
       - user: {{ sls }} {{ username }} user
+{%- endfor %}
+{%- endif %}
+{%- endfor %}
 
 
-{% endfor -%}
-{% endif -%}
-{% endfor -%}
+{%- for group in pillar.user.admin_groups|sort %}
 
 
-{% for group in pillar.user.admin_groups|sort -%}
 {{ sls }} {{ group }} group:
   group.present:
     - name: {{ group }}
@@ -70,6 +76,4 @@
 {%- for username in admins %}
       - user: {{ sls }} {{ username }} user
 {%- endfor %}
-
-
-{% endfor -%}
+{%- endfor %}

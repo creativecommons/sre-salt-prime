@@ -9,8 +9,7 @@ letsencrypt:
     email: {{ secrets.email }}
     expand: True
     keep-until-expiring: True
-    quiet: True
     renew-with-new-domains: True
     server: https://acme-v02.api.letsencrypt.org/directory
     webroot-path: /var/www/html
-  version: "1.0.0"
+  version: "1.10.1"

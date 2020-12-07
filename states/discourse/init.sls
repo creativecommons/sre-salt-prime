@@ -1,4 +1,9 @@
 # https://github.com/discourse/discourse/blob/master/docs/INSTALL-cloud.md
+{% set ADMIN_EMAILS = [] -%}
+{%- for account in pillar.user.admins.keys()|sort %}
+{%- set _ = ADMIN_EMAILS.append(pillar.user.admins[account]["mail"]) %}
+{%- endfor %}
+{% set DEV_EMAILS = ",".join(ADMIN_EMAILS + pillar.discourse.dev_emails) -%}
 
 
 include:
@@ -29,7 +34,7 @@ include:
     - template: jinja
     - defaults:
         HOSTNAME: {{ pillar.discourse.hostname }}
-        DEVELOPER_EMAILS: {{ pillar.discourse.dev_emails }}
+        DEVELOPER_EMAILS: {{ DEV_EMAILS }}
         SMTP_ADDRESS: {{ pillar.postfix.onlyhost }}
         SMTP_USER_NAME: {{ pillar.postfix.relayuser }}
         SMTP_PASSWORD: {{ pillar.postfix.relaypass }}

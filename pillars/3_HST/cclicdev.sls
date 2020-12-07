@@ -1,5 +1,5 @@
 {% set DIR_REPO = "/var/www/cc-licenses" -%}
-{% set DIR_DOCROOT = "{}/docroot".format(DIR_REPO) -%}
+{% set DIR_PUBLIC = "{}/public".format(DIR_REPO) -%}
 {% set DIR_VENV = "{}/venv".format(DIR_REPO) -%}
 
 mounts:
@@ -10,13 +10,14 @@ mounts:
     freq: 0
     pass: 2
 cc_licenses:
-  docroot: {{ DIR_DOCROOT }}
-  media: {{ DIR_DOCROOT }}/media
+  log: {{ DIR_REPO }}/log
+  media: {{ DIR_PUBLIC }}/media
+  portfile: /tmp/gunicron_portfile
+  public: {{ DIR_PUBLIC }}
   repo: {{ DIR_REPO }}
-  static: {{ DIR_DOCROOT }}/static
+  static: {{ DIR_PUBLIC }}/static
   static_origin: {{ DIR_REPO }}/cc_licenses/static
   venv: {{ DIR_VENV }}
-  portfile: /tmp/gunicron_portfile
 nginx:
   flavor: light
 states:

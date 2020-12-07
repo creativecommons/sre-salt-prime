@@ -24,7 +24,7 @@
       - module: {{ sls }} verify host is reachable
 
 
-{{ sls }} backup previous minion key on prime :
+{{ sls }} backup previous minion key on prime:
   file.copy:
     - name: /etc/salt/pki/master/minions/{{ MID }}.BAK
     - source: /etc/salt/pki/master/minions/{{ MID }}
@@ -53,13 +53,17 @@
     - name: hashutil.digest_file
     - kwarg:
       infile: {{ TMP }}/minion.pub
+    - require:
+      - file: {{ sls }} ensure tmpdir exists
 
 
-{{ sls }} install minion pub on prime :
+{{ sls }} install minion pub on prime:
   file.copy:
     - name: /etc/salt/pki/master/minions/{{ MID }}
     - source: {{ TMP }}/minion.pub
     - force: True
+    - require:
+      - module: {{ sls }} digest of minion pub in TEMP
 
 
 {{ sls }} digest of minion pub on salt-prime:
@@ -67,6 +71,8 @@
     - name: hashutil.digest_file
     - kwarg:
       infile: /etc/salt/pki/master/minions/{{ MID }}
+    - require:
+      - file: {{ sls }} install minion pub on prime
 
 
 {{ sls }} write minion roster:
@@ -82,3 +88,5 @@
       - "{{ MID }}:"
       - "  host: {{ IP }}"
     - mode: '0444'
+    - require:
+      - ssh_known_hosts: {{ sls }} add ssh known host entry

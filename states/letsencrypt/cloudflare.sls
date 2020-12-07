@@ -1,6 +1,5 @@
 include:
   - letsencrypt
-  - python.pip
 
 
 {{ sls }} root secrets dir:

@@ -1,6 +1,4 @@
-{% set HST, POD, LOC = grains.id.split("__") -%}
-{% set LOC = LOC.replace("_master", "") -%}
-{% set POD__LOC = "{}__{}".format(POD, LOC) -%}
+{% set ID, HST, POD, LOC, POD__LOC, HST__POD = salt.meta.classify() -%}
 {% import_yaml "/srv/{}/pillars/infra/networks.yaml".format(saltenv) as nets %}
 hst: {{ HST }}
 pod: {{ POD }}

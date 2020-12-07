@@ -16,7 +16,7 @@ server {
     auth_basic "Staging Environment Restricted";
     auth_basic_user_file /etc/nginx/htpasswd;
 {%- endif %}
-    root {{ pillar.cc_licenses.docroot }};
+    root {{ pillar.cc_licenses.public }};
     location / {
         client_max_body_size 500M;
         proxy_set_header X-Real-IP $remote_addr;
