@@ -4,6 +4,18 @@ include:
   - tls
 
 
+{% if grains.oscodename == "stretch" -%}
+# Ensure compatible dependencies are installed on Debian 9 (Stretch)
+{{ sls }} install parsedatetime:
+  pip.installed:
+    - name: parsedatetime == 2.5
+    - require:
+      - pkg: python.pip installed packages
+    - require_in:
+      - pip: {{ sls }} install certbot
+{%- endif %}
+
+
 {% if grains['oscodename'] == "buster" -%}
 # Ensure compatible dependencies are installed on Debian 10 (Buster)
 {{ sls }} installed packges:
