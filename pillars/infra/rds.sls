@@ -1,4 +1,3 @@
-{% set HST, POD, LOC = grains.id.split("__") -%}
 {% import_yaml "5_HST__POD/biztool__prod/secrets.yaml" as biztool__prod -%}
 {% import_yaml "5_HST__POD/ccorgwp__stage/secrets.yaml" as ccorgwp__stage -%}
 {% import_yaml "5_HST__POD/chapters__prod/secrets.yaml" as chapters__prod -%}
