@@ -27,6 +27,7 @@ infra:
       chapters: 334
       dispatch: 214
       licbuttons: 214
+      licenses: 214
       opencovid: 214
       openglam: 214
       sotc: 214
@@ -41,6 +42,7 @@ infra:
       cert: t3.small
       chapters: t3.medium
       discourse: t3.small
+      licenses: t3.small
       opencovid: t3.small
       sotc: t3.medium
       wikijs: t3.small
@@ -108,6 +110,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-dispatch_stage_secgroup
+      licenses__stage:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-from-dispatch_stage_secgroup
       misc__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
@@ -149,4 +156,5 @@ infra:
       # Specific (please maintain order)
       ccengine: private-one
       ccorgwp: private-one
+      licenses: private-one
       misc: private-one
