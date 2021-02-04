@@ -34,7 +34,7 @@ include:
       - git
 
 
-{{ sls }} create postgres user:
+{{ sls }} create {{ DJANGO_DB_USER }} postgres user:
   postgres_user.present:
     - name: {{ DJANGO_DB_USER }}
     - encrypted: True
