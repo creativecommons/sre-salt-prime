@@ -58,7 +58,7 @@ include:
     - db_user: {{ ROOT_DB_USER }}
     - db_password: {{ ROOT_DB_PASS }}
     - require:
-      - postgres_user: {{ sls }} create postgres user
+      - postgres_user: {{ sls }} create {{ DJANGO_DB_USER }} postgres user
 
 
 {{ sls }} django postgres db:
@@ -148,7 +148,7 @@ include:
 
 {{ sls }} requirements:
   pip.installed:
-    - requirements: {{ DIR_REPO }}/requirements/production.txt
+    - requirements: {{ DIR_REPO }}/requirements/dev.txt
     - bin_env: {{ DIR_VENV }}
     - require:
       - virtualenv: {{ sls }} virtualenv
