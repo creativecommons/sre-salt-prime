@@ -93,6 +93,54 @@ include:
       - postgres_database: {{ sls }} django postgres db
 
 
+{{ sls }} cc-licenses-data repo:
+  git.latest:
+    - name: https://github.com/creativecommons/cc-licenses-data.git
+    - target: /var/www/cc-licenses-data
+    - rev: develop
+    - branch: develop
+    - fetch_tags: False
+    - require:
+{%- if pillar.mounts %}
+{%- for mount in pillar.mounts %}
+      - mount: mount mount {{ mount.file }}
+{%- endfor %}
+{%- endif %}
+      - pkg: {{ sls }} installed packages
+
+
+{{ sls }} creativecommons.org repo:
+  git.latest:
+    - name: https://github.com/creativecommons/creativecommons.org.git
+    - target: /var/www/creativecommons.org
+    - rev: master
+    - branch: master
+    - fetch_tags: False
+    - require:
+{%- if pillar.mounts %}
+{%- for mount in pillar.mounts %}
+      - mount: mount mount {{ mount.file }}
+{%- endfor %}
+{%- endif %}
+      - pkg: {{ sls }} installed packages
+
+
+{{ sls }} primary-site-includes repo:
+  git.latest:
+    - name: https://github.com/creativecommons/primary-site-includes.git
+    - target: /var/www/primary-site-includes
+    - rev: main
+    - branch: main
+    - fetch_tags: False
+    - require:
+{%- if pillar.mounts %}
+{%- for mount in pillar.mounts %}
+      - mount: mount mount {{ mount.file }}
+{%- endfor %}
+{%- endif %}
+      - pkg: {{ sls }} installed packages
+
+
 {{ sls }} public dir:
   file.directory:
     - name: {{ DIR_PUBLIC }}
