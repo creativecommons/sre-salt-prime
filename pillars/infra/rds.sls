@@ -128,6 +128,8 @@ infra:
         - mysql-from-sotc_prod_secgroup
       summit__prod:
         - mysql-from-summit_prod_secgroup
+    secgroup_ec2:
+      licenses__stage: web-from-dispatch_stage_secgroup
     storage:
       # Default
       default: 10
