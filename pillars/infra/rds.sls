@@ -30,10 +30,11 @@ infra:
       #   aws --output text --region us-east-2 rds \
       #     describe-db-engine-versions \
       #     --query 'DBEngineVersions[].DBParameterGroupFamily' \
-      #     --engine postgres | sed -e's/\t/\n/g' | sort -uV
+      #     --engine mariadb | sed -e's/\t/\n/g' | sort -uV
       #
       # Notes:
-      # * replace "mariadb" with "postgres" for that DB
+      # - The command above is for MariaDB. Replace "mariadb" with "postgres"
+      #   for PostgreSQL.
       #
       # Default
       default: mariadb10.3
@@ -49,8 +50,10 @@ infra:
       #     --engine mariadb | sed -e's/\t/\n/g' | sort -uV
       #
       # Notes:
-      # * replace "mariadb" with "postgres" for that DB
-      # * remove patch version for mariadb (10.3.23 => 10.3)
+      # - Be ware that MariaDB Engine Version on AWS only uses major and minor
+      #   versions parts. For example, for MariaDB 10.3.23, simply use "10.3".
+      # - The command above is for MariaDB. Replace "mariadb" with "postgres"
+      #   for PostgreSQL.
       #
       # Default
       default: 10.3
