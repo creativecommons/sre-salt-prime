@@ -30,8 +30,8 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
   prevent commit and push actions. Please use your development environment and
   pull the changes to base.
 - **Sign your commits:**
-  - The master branch has the Require signed commits (Include administrators)
-    GitHub branch protection enabled.
+  - The main branch (*default branch*) has the Require signed commits (Include
+    administrators) GitHub branch protection enabled.
     - [About required commit signing - User Documentation][signing]
   - Ensure you are using `RemoteForward` in your SSH configuration to forward
     your GnuPG agent to `salt-prime` (see the example configuration, under
@@ -101,7 +101,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 - Use AWS well, but avoid technologies that create AWS lock-in (ex. Confidant)
 - Salt Prime must not contain any exclusive data (use Git)
 - Git repository must not contain any unencrypted secrets
-- Git repository commits must be signed and applied to the master branch via
+- Git repository commits must be signed and applied to the main branch via
   Pull Requests
 - A compromised minion must not be able to escalate access
   - SysAdmins must not forward their SSH agent
