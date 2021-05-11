@@ -45,6 +45,7 @@ include:
     - name: {{ package }}
     - bin_env: /srv/wikijs/.venvs/cloudflare
     - require:
+      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
     - require_in:
       - cron: {{ sls }} cron job
