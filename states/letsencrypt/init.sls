@@ -5,6 +5,7 @@ include:
 
 
 {% if grains.oscodename == "stretch" -%}
+{%- set VERSION = "1.11.0" %}
 # Ensure compatible dependencies are installed on Debian 9 (Stretch)
 {{ sls }} install parsedatetime:
   pip.installed:
@@ -13,10 +14,9 @@ include:
       - pkg: python.pip installed packages
     - require_in:
       - pip: {{ sls }} install certbot
-{%- endif %}
-
-
-{% if grains['oscodename'] == "buster" -%}
+# Let's Encrypt 1.11.0 is last version to support Python2
+{%- else %}
+{%- set VERSION = pillar.letsencrypt.version %}
 # Ensure compatible dependencies are installed on Debian 10 (Buster)
 {{ sls }} installed packges:
   pkg.installed:
@@ -29,7 +29,7 @@ include:
 
 {{ sls }} install certbot:
   pip.installed:
-    - name: certbot == {{ pillar.letsencrypt.version }}
+    - name: certbot == {{ VERSION }}
     - require:
       - pkg: python.pip installed packages
 

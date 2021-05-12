@@ -6,13 +6,32 @@
 {% set HST = pillar.tgt_hst -%}
 {% set POD = pillar.tgt_pod -%}
 {% set LOC = pillar.tgt_loc -%}
+{% set HST__POD = "{}__{}".format(HST, POD) -%}
 
 {% set P_LOC = pillar.infra[LOC] -%}
+{% set label = "infra:orch.aws.rds:secgroup_ec2:{}".format(HST__POD) -%}
+{% set EC2_SECGROUP = salt.pillar.get(label, False) -%}
 
 
 ### Security Groups
 
 
+{% if EC2_SECGROUP -%}
+{% set ident = ["postgres-from-{}".format(HST), POD, "secgroup"] -%}
+{% set name = ident|join("_") -%}
+{{ name }}:
+  boto_secgroup.present:
+    - region: {{ LOC }}
+    - name: {{ name }}
+    - description: Allow PostgreSQL from {{ EC2_SECGROUP }}
+    - vpc_name: {{ P_LOC.vpc.name }}
+    - rules:
+      - ip_protocol: tcp
+        from_port: 5432
+        to_port: 5432
+        source_group_name: {{ EC2_SECGROUP }}
+    {{ aws.tags(name, POD, HST, POD) }}
+{% else -%}
 {% set ident = ["web-all-{}".format(HST), POD, "secgroup"] -%}
 {% set name = ident|join("_") -%}
 {% set name_secgroup_web = name -%}
@@ -51,3 +70,4 @@
         to_port: 5432
         source_group_name: {{ name_secgroup_web }}
     {{ aws.tags(name, POD, HST, POD) }}
+{% endif -%}

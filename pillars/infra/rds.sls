@@ -12,6 +12,7 @@ include:
   - 5_HST__POD.cclicdev__stage.secrets
   - 5_HST__POD.ccorgwp__stagelegacy.secrets
   - 5_HST__POD.cert__prod.secrets
+  - 5_HST__POD.licenses__stage.secrets
   - 5_HST__POD.opencovid__prod.secrets
 
 
@@ -22,20 +23,47 @@ infra:
       default: mariadb
       # Specific (please maintain order)
       cclicdev: postgres
+      licenses: postgres
     engine_family:
-      # cmd: aws --region us-east-2 rds describe-db-engine-versions \
-      #       --query "DBEngineVersions[].DBParameterGroupFamily"
+      # List valid engine families:
+      #
+      #   aws --output text --region us-east-2 rds \
+      #     describe-db-engine-versions \
+      #     --query 'DBEngineVersions[].DBParameterGroupFamily' \
+      #     --engine mariadb | sed -e's/\t/\n/g' | sort -uV
+      #
+      # Notes:
+      # - The command above is for MariaDB. Replace "mariadb" with "postgres"
+      #   for PostgreSQL.
+      #
       # Default
       default: mariadb10.3
       # Specific (please maintain order)
       cclicdev: postgres12
+      licenses: postgres12
     engine_version:
+      # List valid engine versions:
+      #
+      #   aws --output text --region us-east-2 rds \
+      #     describe-db-engine-versions \
+      #     --query 'DBEngineVersions[].EngineVersion' \
+      #     --engine mariadb | sed -e's/\t/\n/g' | sort -uV
+      #
+      # Notes:
+      # - Be ware that MariaDB Engine Version on AWS only uses major and minor
+      #   versions parts. For example, for MariaDB 10.3.23, simply use "10.3".
+      # - The command above is for MariaDB. Replace "mariadb" with "postgres"
+      #   for PostgreSQL.
+      #
       # Default
       default: 10.3
       # Specific (please maintain order)
       cclicdev: 12.3
+      licenses: 12.5
     instance_class:
-      # DB Instance class db.t2.micro does not support encryption at rest
+      # Notes:
+      # * DB Instance class db.t2.micro does not support encryption at rest
+      #
       # Default
       default: db.t2.small
       # Specific (please maintain order)
@@ -46,7 +74,8 @@ infra:
         collation_server: utf8mb4_general_ci
         innodb_log_file_size: 268435456 # 256 MiB
         time_zone: UTC
-      cclicdev: ABSENT  # requires that engine_family is set
+      cclicdev: ABSENT  # requires that PostgreSQL engine_family is set
+      licenses: ABSENT  # requires that PostgreSQL engine_family is set
     primary_password:
       # Default
       default: '/@@/ INVALID - MUST SET NON-DEFAULT PASSWORD /@@/'
@@ -90,6 +119,8 @@ infra:
         - mysql-from-chapters_prod_secgroup
       chapters__stage:
         - mysql-from-chapters_stage_secgroup
+      licenses__stage:
+        - postgres-from-licenses_stage_secgroup
       opencovid__prod:
         - mysql-from-opencovid_prod_secgroup
       openglam__prod:
@@ -100,6 +131,8 @@ infra:
         - mysql-from-sotc_prod_secgroup
       summit__prod:
         - mysql-from-summit_prod_secgroup
+    secgroup_ec2:
+      licenses__stage: web-from-dispatch_stage_secgroup
     storage:
       # Default
       default: 10
@@ -108,6 +141,7 @@ infra:
       ccorgwp: 214
       cert: 214
       chapters: 334
+      licenses: 214
       opencovid: 214
       openglam: 214
     rds_subnets:

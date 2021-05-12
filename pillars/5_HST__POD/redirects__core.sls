@@ -3,8 +3,12 @@ letsencrypt:
     creativecommons.dk:
       - creativecommons.dk
       - www.creativecommons.dk
+    creativecommons.ru:
+      - creativecommons.ru
+      - www.creativecommons.ru
     redirects.creativecommons.org:
       - au-beta.creativecommons.org
+      - br.creativecommons.org
       - ca-beta.creativecommons.org
       - ca.creativecommons.org
       - ccsearch.creativecommons.org
@@ -38,10 +42,20 @@ nginx:
     - crt: creativecommons.dk
       src: www.creativecommons.dk
       dst: dk.creativecommons.net
+    # creativecommons.ru
+    - crt: creativecommons.ru
+      src: creativecommons.ru
+      dst: network.creativecommons.org/chapter
+    - crt: creativecommons.ru
+      src: www.creativecommons.ru
+      dst: network.creativecommons.org/chapter
     # redirects.creativecommons.org
     - crt: redirects.creativecommons.org
       src: au-beta.creativecommons.org
       dst: au-beta.creativecommons.net
+    - crt: redirects.creativecommons.org
+      src: br.creativecommons.org
+      dst: br.creativecommons.net
     - crt: redirects.creativecommons.org
       src: ca-beta.creativecommons.org
       dst: ca-beta.creativecommons.net
