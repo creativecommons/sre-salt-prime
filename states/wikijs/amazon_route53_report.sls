@@ -21,6 +21,7 @@ include:
     - name: {{ package }}
     - bin_env: /srv/wikijs/.venvs/amazon_route53
     - require:
+      - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
     - require_in:
       - cron: {{ sls }} cron job
