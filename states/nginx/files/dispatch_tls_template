@@ -9,6 +9,7 @@ server {
         json_archive buffer=32k flush=2s;
     access_log {{ pillar.nginx.custom_log_dir }}/access_debug.log
         json_debug buffer=32k flush=2s;
+    client_max_body_size 11m;
     ssl_certificate /etc/letsencrypt/live/{{ CERT_NAME }}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/{{ CERT_NAME }}/privkey.pem;
 {%- if pillar.pod.startswith("stage") %}
