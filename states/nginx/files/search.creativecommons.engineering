@@ -8,6 +8,9 @@ server {
         search-prod.creativecommons.org
         search-dev.creativecommons.org;
     access_log off;
+    if ( $is_args ) {
+        set $sep_args "&";
+    }
     # Enable letsencrypt authorization
     location /.well-known {
         default_type "text/plain";
@@ -15,12 +18,12 @@ server {
     }
     # Redirect special image files
     location /static/img/ {
-        return 301 https://search.openverse.engineering$uri?referrer=creativecommons.org&$args;
+        return 301 https://search.openverse.engineering$uri?referrer=creativecommons.org$sep_args$args;
 
     }
     # Redirect everything else
     location / {
-        return 301 https://wordpress.org/openverse$uri?referrer=creativecommons.org&$args;
+        return 301 https://wordpress.org/openverse$uri?referrer=creativecommons.org$sep_args$args;
     }
 }
 
@@ -34,13 +37,16 @@ server {
     access_log off;
     ssl_certificate /etc/letsencrypt/live/creativecommons.engineering/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/creativecommons.engineering/privkey.pem;
+    if ( $is_args ) {
+        set $sep_args "&";
+    }
     # Redirect special image files
     location /static/img/ {
-        return 301 https://search.openverse.engineering$uri?referrer=creativecommons.org&$args;
+        return 301 https://search.openverse.engineering$uri?referrer=creativecommons.org$sep_args$args;
 
     }
     # Redirect everything else
     location / {
-        return 301 https://wordpress.org/openverse$uri?referrer=creativecommons.org&$args;
+        return 301 https://wordpress.org/openverse$uri?referrer=creativecommons.org$sep_args$args;
     }
 }
