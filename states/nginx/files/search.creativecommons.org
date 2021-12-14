@@ -1,0 +1,48 @@
+# vim: ft=nginx:
+
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name search.creativecommons.org;
+    access_log off;
+    if ( $is_args ) {
+        set $sep_args "&";
+    }
+    # Enable letsencrypt authorization
+    location /.well-known {
+        default_type "text/plain";
+        root /var/www/html;
+    }
+    # Redirect special image files
+    location /static/img/ {
+        return 301 https://search.openverse.engineering$uri?referrer=creativecommons.org$sep_args$args;
+
+    }
+    # Redirect everything else
+    location / {
+        return 301 https://wordpress.org/openverse$uri?referrer=creativecommons.org$sep_args$args;
+    }
+}
+
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name search.creativecommons.org;
+    access_log off;
+    ssl_certificate /etc/letsencrypt/live/redirects.creativecommons.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/redirects.creativecommons.org/privkey.pem;
+    if ( $is_args ) {
+        set $sep_args "&";
+    }
+    # Redirect special image files
+    location /static/img/ {
+        return 301 https://search.openverse.engineering$uri?referrer=creativecommons.org$sep_args$args;
+
+    }
+    # Redirect everything else
+    location / {
+        return 301 https://wordpress.org/openverse$uri?referrer=creativecommons.org$sep_args$args;
+    }
+}

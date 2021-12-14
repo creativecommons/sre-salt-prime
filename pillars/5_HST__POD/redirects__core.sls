@@ -3,6 +3,11 @@ letsencrypt:
     creativecommons.dk:
       - creativecommons.dk
       - www.creativecommons.dk
+    creativecommons.engineering:
+      - api.creativecommons.engineering
+      - api-dev.creativecommons.engineering
+      - search-dev.creativecommons.engineering
+      - search-prod.creativecommons.engineering
     creativecommons.ru:
       - creativecommons.ru
       - www.creativecommons.ru
@@ -27,6 +32,7 @@ letsencrypt:
       - nl-beta.creativecommons.org
       - nl.creativecommons.org
       - pl.creativecommons.org
+      - search.creativecommons.org
       - sotc.creativecommons.org
       - sv.creativecommons.org
       - za.creativecommons.org

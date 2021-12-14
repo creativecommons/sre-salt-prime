@@ -63,4 +63,68 @@ include:
 {%- endfor %}
 
 
+# CC Search sites require non-standard redirects
+
+{{ sls }} install site search.creativecommons.engineering:
+  file.managed:
+    - name: /etc/nginx/sites-available/search.creativecommons.engineering
+    - source: salt://nginx/files/search.creativecommons.engineering
+    - mode: '0444'
+    - require:
+      - file: {{ sls }} enable site {{ DEFAULT_CERT }}
+    - watch_in:
+      - service: nginx service
+
+
+{{ sls }} enable site search.creativecommons.engineering:
+  file.symlink:
+    - name: /etc/nginx/sites-enabled/search.creativecommons.engineering
+    - target: /etc/nginx/sites-available/search.creativecommons.engineering
+    - require:
+      - file: {{ sls }} install site search.creativecommons.engineering
+    - watch_in:
+      - service: nginx service
+
+
+{{ sls }} install site search.creativecommons.org:
+  file.managed:
+    - name: /etc/nginx/sites-available/search.creativecommons.org
+    - source: salt://nginx/files/search.creativecommons.org
+    - mode: '0444'
+    - require:
+      - file: {{ sls }} enable site {{ DEFAULT_CERT }}
+    - watch_in:
+      - service: nginx service
+
+
+{{ sls }} enable site search.creativecommons.org:
+  file.symlink:
+    - name: /etc/nginx/sites-enabled/search.creativecommons.org
+    - target: /etc/nginx/sites-available/search.creativecommons.org
+    - require:
+      - file: {{ sls }} install site search.creativecommons.org
+    - watch_in:
+      - service: nginx service
+
+{{ sls }} install site api.creativecommons.engineering:
+  file.managed:
+    - name: /etc/nginx/sites-available/api.creativecommons.engineering
+    - source: salt://nginx/files/api.creativecommons.engineering
+    - mode: '0444'
+    - require:
+      - file: {{ sls }} enable site {{ DEFAULT_CERT }}
+    - watch_in:
+      - service: nginx service
+
+
+{{ sls }} enable site api.creativecommons.engineering:
+  file.symlink:
+    - name: /etc/nginx/sites-enabled/api.creativecommons.engineering
+    - target: /etc/nginx/sites-available/api.creativecommons.engineering
+    - require:
+      - file: {{ sls }} install site api.creativecommons.engineering
+    - watch_in:
+      - service: nginx service
+
+
 {{ nginx.disable_sites(sls, ["default"]) -}}
