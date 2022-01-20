@@ -35,7 +35,7 @@ include:
 {{ sls }} user:
   user.present:
     - name: licbuttons
-    - gid_from_name: True
+    - gid: licbuttons
     - home: /srv
     - password: '!'
     - shell: /usr/sbin/nologin

@@ -23,7 +23,7 @@ include:
   user.present:
     - name: {{ username }}
     - uid: {{ userdata.id }}
-    - gid_from_name: True
+    - gid: {{ username }}
     - fullname: {{ userdata.fullname }}
     - shell: {{ userdata.shell }}
     - password: '{{ pillar["user"]["passwords"][username] }}'

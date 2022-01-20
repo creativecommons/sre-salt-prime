@@ -24,7 +24,7 @@ include:
 {{ sls }} user:
   user.present:
     - name: transifex
-    - gid_from_name: True
+    - gid: transifex
     - home: {{ DIR_HOME }}
     - password: '!'
     - shell: /usr/sbin/nologin
