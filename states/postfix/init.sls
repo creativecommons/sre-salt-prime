@@ -37,9 +37,6 @@ include:
 
 {{ pf.install_alias(sls, "0444", "/etc/aliases", "aliases") -}}
 {{ pf.install_map(sls, "0400", "/etc/postfix/sasl_passwd", "sasl_passwd") -}}
-{% if pillar.hst == "cclicdev" and pillar.pod.startswith("stage") -%}
-{{ pf.install_map(sls, "0400", "/etc/postfix/transport",
-                  "transport_stage_caktus") -}}
-{% elif pillar.pod.startswith("stage") -%}
+{% if pillar.pod.startswith("stage") -%}
 {{ pf.install_map(sls, "0400", "/etc/postfix/transport", "transport_stage") -}}
 {% endif -%}
