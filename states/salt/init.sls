@@ -12,15 +12,10 @@ include:
       - python-apt
 
 
-{% set salt_version_major = pillar.salt.minion_target_version.split(".")[0] -%}
+{% set salt_version_major = pillar.salt.minion_target_version[0:4] -%}
 {% set os = grains['oscodename'] -%}
-{% if os == "stretch" -%}
-  {% set repo_url = ("https://repo.saltstack.com/apt/debian/9/amd64/{}"
-                     .format(salt_version_major)) -%}
-{% else -%}
-  {% set repo_url = ("https://repo.saltstack.com/py3/debian/{}/amd64/{}"
-                     .format(grains['osmajorrelease'], salt_version_major)) -%}
-{% endif -%}
+{% set repo_url = ("https://repo.saltstack.com/py3/debian/{}/amd64/{}"
+                   .format(grains['osmajorrelease'], salt_version_major)) -%}
 {{ sls }} SaltStack Repository:
   pkgrepo.managed:
     - name: deb {{ repo_url }} {{ os }} main

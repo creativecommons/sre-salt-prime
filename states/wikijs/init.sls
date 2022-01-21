@@ -29,7 +29,7 @@ include:
   user.present:
     - name: wikijs
     - home: /srv/wikijs
-    - gid_from_name: True
+    - gid: wikijs
     - createhome: False
     - password: '*'
     - shell: /usr/sbin/nologin
