@@ -5,7 +5,6 @@ infra:
       default: ABSENT
       # Specific (please maintain order)
       biztool: vpc
-      cclicdev: vpc
       cert: vpc
       chapters: vpc
       dispatch: vpc
@@ -21,7 +20,6 @@ infra:
       default: 10
       # Specific (please maintain order)
       ccengine: 214
-      cclicdev: 214
       ccorgwp: 214
       cert: 214
       chapters: 334
@@ -69,22 +67,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-from-dispatch_stage_secgroup
-      cclicdev__stage:
-        - pingtrace-all_core_secgroup
-        - ssh-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
-        - web-all-cclicdev_stage_secgroup
       ccorgwp__stage:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-from-dispatch_stage_secgroup
-      ccorgwp__stagelegacy:
-        - pingtrace-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
-        - web-from-dispatch_stagelegacy_secgroup
       cert__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup

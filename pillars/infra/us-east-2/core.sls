@@ -21,9 +21,7 @@ infra:
         dispatch__stage:        10.22.10.23
         licbuttons__prod:       10.22.10.24
         dispatch__prod:         10.22.10.25
-        cclicdev__stage:        10.22.10.26
         opencovid__prod:        10.22.10.27
-        dispatch__stagelegacy:  10.22.10.28
         cert__prod:             10.22.10.29
         ###_Private-One         10.22.11.0
         salt-prime__core:       10.22.11.11
@@ -32,7 +30,6 @@ infra:
         misc__stage:            10.22.11.14
         misc__prod:             10.22.11.15
         ccorgwp__stage:         10.22.11.16
-        ccorgwp__stagelegacy:   10.22.11.17
         licenses__stage:        10.22.11.18
         ###_Private-Two         10.22.12.0
       subnets:

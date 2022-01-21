@@ -9,8 +9,6 @@
 
 
 include:
-  - 5_HST__POD.cclicdev__stage.secrets
-  - 5_HST__POD.ccorgwp__stagelegacy.secrets
   - 5_HST__POD.cert__prod.secrets
   - 5_HST__POD.licenses__stage.secrets
   - 5_HST__POD.opencovid__prod.secrets
@@ -22,7 +20,6 @@ infra:
       # Default
       default: mariadb
       # Specific (please maintain order)
-      cclicdev: postgres
       licenses: postgres
     engine_family:
       # List valid engine families:
@@ -39,7 +36,6 @@ infra:
       # Default
       default: mariadb10.3
       # Specific (please maintain order)
-      cclicdev: postgres12
       licenses: postgres12
     engine_version:
       # List valid engine versions:
@@ -58,7 +54,6 @@ infra:
       # Default
       default: 10.3
       # Specific (please maintain order)
-      cclicdev: 12.3
       licenses: 12.5
     instance_class:
       # Notes:
@@ -74,7 +69,6 @@ infra:
         collation_server: utf8mb4_general_ci
         innodb_log_file_size: 268435456 # 256 MiB
         time_zone: UTC
-      cclicdev: ABSENT  # requires that PostgreSQL engine_family is set
       licenses: ABSENT  # requires that PostgreSQL engine_family is set
     primary_password:
       # Default
@@ -107,12 +101,8 @@ infra:
       # Specific (please maintain order)
       biztool__prod:
         - mysql-from-biztool_prod_secgroup
-      cclicdev__stage:
-        - postgres-from-cclicdev_stage_secgroup
       ccorgwp__stage:
         - mysql-from-ccorgwp_stage_secgroup
-      ccorgwp__stagelegacy:
-        - mysql-from-ccorgwp_stagelegacy_secgroup
       cert__prod:
         - mysql-from-cert_prod_secgroup
       chapters__prod:
@@ -137,7 +127,6 @@ infra:
       # Default
       default: 10
       # Specific (please maintain order)
-      cclicdev: 214
       ccorgwp: 214
       cert: 214
       chapters: 334
