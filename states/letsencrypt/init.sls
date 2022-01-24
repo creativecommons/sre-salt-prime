@@ -2,36 +2,49 @@ include:
   - python.pip
   - sudo.letsencrypt
   - tls
+  - virtualenv
 
 
-{% if grains.oscodename == "stretch" -%}
-{%- set VERSION = "1.11.0" %}
-# Ensure compatible dependencies are installed on Debian 9 (Stretch)
-{{ sls }} install parsedatetime:
-  pip.installed:
-    - name: parsedatetime == 2.5
-    - require:
-      - pkg: python.pip installed packages
-    - require_in:
-      - pip: {{ sls }} install certbot
-# Let's Encrypt 1.11.0 is last version to support Python2
-{%- else %}
-{%- set VERSION = pillar.letsencrypt.version %}
-# Ensure compatible dependencies are installed on Debian 10 (Buster)
-{{ sls }} installed packges:
+# Ensure compatible dependencies are installed (and avoid need to compile)
+{{ sls }} installed packages:
   pkg.installed:
     - pkgs:
+      - python3-cffi
       - python3-openssl
-    - require_in:
-      - pip: {{ sls }} install certbot
-{%- endif %}
+
+
+{{ sls }} virtualenv:
+  virtualenv.managed:
+    - name: /opt/certbot_virtualenv
+    - system_site_packages: True
+    - python: /usr/bin/python3
+    - require:
+      - pkg: {{ sls }} installed packages
+      - pkg: python.pip installed packages
+      - pkg: virtualenv installed packages
 
 
 {{ sls }} install certbot:
   pip.installed:
-    - name: certbot == {{ VERSION }}
+    - name: certbot == {{ pillar.letsencrypt.version }}
+    - bin_env: /opt/certbot_virtualenv
+    - upgrade: True
     - require:
-      - pkg: python.pip installed packages
+      - virtualenv: {{ sls }} virtualenv
+
+
+{{ sls }} directory /usr/local/bin:
+  file.directory:
+    - name: /usr/local/bin
+
+
+{{ sls }} symlink certbot binary:
+  file.symlink:
+    - name: /usr/local/bin/certbot
+    - target: /opt/certbot_virtualenv/bin/certbot
+    - require:
+      - file: {{ sls }} directory /usr/local/bin
+      - pip: {{ sls }} install certbot
 
 
 {%- for dir in ["deploy", "post", "pre"] %}
@@ -53,7 +66,7 @@ include:
 {%- endfor %}
     - require:
       - file: {{ sls }} config dir deploy
-      - pip: {{ sls }} install certbot
+      - file: {{ sls }} symlink certbot binary
 
 
 {{ sls }} deploy_hook manage_new_certs.sh:
@@ -63,6 +76,7 @@ include:
     - mode: '0555'
     - require:
       - file: {{ sls }} config dir post
+      - file: {{ sls }} symlink certbot binary
 
 
 {%- set post_hooks = salt["pillar.get"]("letsencrypt:post_hooks", false) %}
@@ -82,6 +96,7 @@ include:
     - mode: '0555'
     - require:
       - file: {{ sls }} config dir post
+      - file: {{ sls }} symlink certbot binary
     - require_in:
       - cron: {{ sls }} cron certbot renew
       - file: {{ sls }} domainsets
@@ -97,7 +112,6 @@ include:
     - mode: '0444'
     - require:
       - file: {{ sls }} cli.ini
-      - file: {{ sls }} config dir deploy
       - file: {{ sls }} deploy_hook manage_new_certs.sh
 
 

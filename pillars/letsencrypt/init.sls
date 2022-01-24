@@ -12,5 +12,9 @@ letsencrypt:
     renew-with-new-domains: True
     server: https://acme-v02.api.letsencrypt.org/directory
     webroot-path: /var/www/html
-  # See state for version used on older systems (ex. Stretch)
-  version: "1.15.0"
+  {%- if grains.pythonversion[1] == 5 %}
+  {#- last supported version on Python 3.5 #}
+  version: "1.7.0"
+  {%- else %}
+  version: "1.22.0"
+  {%- endif %}
