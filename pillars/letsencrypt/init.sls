@@ -13,8 +13,8 @@ letsencrypt:
     server: https://acme-v02.api.letsencrypt.org/directory
     webroot-path: /var/www/html
   {%- if grains.pythonversion[1] == 5 %}
-  {#- last supported version on Python 3.5 #}
-  version: "1.7.0"
+  {#- last supported version on Python 3.5 without a nag/warning #}
+  version: "1.6.0"
   {%- else %}
   version: "1.22.0"
   {%- endif %}
