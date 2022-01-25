@@ -89,10 +89,9 @@ sudo salt-call --local --log-level=debug --log-file-level=warning \
 
 ### Debian
 
-- [Cloud/AmazonEC2Image/Buster - Debian Wiki][debianaws]
+- [Cloud/AmazonEC2Image/Bullseye - Debian Wiki][debianaws]
 
-
-[debianaws]:https://wiki.debian.org/Cloud/AmazonEC2Image/Buster
+[debianaws]: https://wiki.debian.org/Cloud/AmazonEC2Image/Bullseye
 
 
 ### SaltStack
