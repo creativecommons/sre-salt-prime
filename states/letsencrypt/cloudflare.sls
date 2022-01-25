@@ -23,9 +23,10 @@ include:
 {{ sls }} install certbot-dns-cloudflare:
   pip.installed:
     - name: certbot-dns-cloudflare == {{ pillar.letsencrypt.version }}
+    - bin_env: /opt/certbot_virtualenv
     - upgrade: True
     - require:
-      - pkg: python.pip installed packages
       - file: {{ sls }} cloudflare_api.ini
+      - virtualenv: letsencrypt virtualenv
     - require_in:
       - pip: letsencrypt install certbot
