@@ -2,7 +2,6 @@
   pkg.installed:
     - pkgs:
       - apt-transport-https
-      - python-apt
 
 
 # Manual installation - nodesource/distributions/README.md

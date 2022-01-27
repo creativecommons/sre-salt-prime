@@ -9,12 +9,12 @@ include:
   pkg.installed:
     - pkgs:
       - apt-transport-https
-      - python-apt
+      - gnupg
 
 
 {% set salt_version_major = pillar.salt.minion_target_version[0:4] -%}
 {% set os = grains['oscodename'] -%}
-{% set repo_url = ("https://repo.saltstack.com/py3/debian/{}/amd64/{}"
+{% set repo_url = ("https://repo.saltproject.io/py3/debian/{}/amd64/{}"
                    .format(grains['osmajorrelease'], salt_version_major)) -%}
 {{ sls }} SaltStack Repository:
   pkgrepo.managed:

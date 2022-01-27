@@ -11,9 +11,6 @@
       - git-crypt
       - git-doc
       - ipv6calc
-      - python-boto
-      - python-boto3
-      - python-git
       - python3-boto
       - python3-boto3
       - python3-git

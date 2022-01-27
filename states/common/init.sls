@@ -10,7 +10,6 @@ include:
       - dnsutils
       - htop
       - nvme-cli
-      - python-apt
       - rsync
       - silversearcher-ag
       - time

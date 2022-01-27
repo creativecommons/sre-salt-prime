@@ -2,7 +2,6 @@
   pkg.installed:
     - pkgs:
       - apt-transport-https
-      - python-apt
 
 
 # Install MongoDB Community Edition on Debian — MongoDB Manual
