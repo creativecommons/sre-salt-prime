@@ -1,5 +1,6 @@
-# This state assumes Debian 9 (Stretch) or Debian 10 (buster). For each section
-# below, the stanzas are in order they appear in /etc/ssh/sshd_config.
+# This state assumes Debian 11 (Bullseye), Debian 10 (Buster), or
+# Debian 9 (Stretch). For each section below, the stanzas are in order they
+# appear in /etc/ssh/sshd_config.
 
 
 {{ sls }} installed packages:
