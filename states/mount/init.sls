@@ -17,15 +17,21 @@
     - require:
       - pkg: common installed packages
     - unless:
-      - test -d {{ mount.file }}/lost+found
+      - test -h {{ spec_long }}
 
 
 {{ sls }} format {{ spec_long }} as {{ mount.type }}:
   blockdev.formatted:
     - name: {{ spec_long }}
     - fs_type: {{ mount.type }}
-    - onchanges:
-      - {{ sls }} add convience symlink
+    - require:
+      - cmd: {{ sls }} add convience symlink
+    - unless:
+      # Use shell or ("||") so that this state only runs if all are false
+      # (salstack unless means the state runs if any are false)
+      - |
+        test -d {{ mount.file }}/lost+found \
+        || lsblk -n -oFSTYPE {{ spec_long }} | grep -q '^ext4'
 
 
 {{ sls }} label {{ spec_long }} as {{ label }}:
@@ -33,13 +39,6 @@
     - name: e2label {{ spec_long }} {{ label }}
     - onchanges:
       - blockdev: {{ sls }} format {{ spec_long }} as {{ mount.type }}
-
-
-{{ sls }} remove convience symlink:
-  file.absent:
-    - name: {{ spec_long }}
-    - require:
-      - cmd: {{ sls }} label {{ spec_long }} as {{ label }}
 
 
 {{ sls }} mount {{ mount.file }}:
@@ -53,6 +52,7 @@
     - pass_num: {{ mount.pass }}
     - match_on: name
     - require:
+      - cmd: {{ sls }} add convience symlink
       - cmd: {{ sls }} label {{ spec_long }} as {{ label }}
 
 
