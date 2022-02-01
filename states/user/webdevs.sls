@@ -8,10 +8,11 @@ include:
 
 
 {% set admins = salt["pillar.get"]("user:admins", {}).keys()|sort -%}
-{% set webdevs = salt["pillar.get"]("user:webdevs", {}).keys()|sort -%}
+{% set webdevs = salt["pillar.get"]("user:webdevs", {}) -%}
 
 
-{%- for username in webdevs %}
+{%- if webdevs %}
+{%- for username in webdevs.keys()|sort %}
 {%- set userdata = pillar["user"]["webdevs"][username] %}
 {{ sls }} {{ username }} group:
   group.present:
@@ -80,9 +81,15 @@ include:
 
 
 {% endfor -%}
+{% endif -%}
 
 
+{% if webdevs -%}
 {% set users = admins + webdevs|sort -%}
+{% else -%}
+{% set users = admins -%}
+{% endif -%}
+
 {{ sls }} webdev group:
   group.present:
     - name: webdev

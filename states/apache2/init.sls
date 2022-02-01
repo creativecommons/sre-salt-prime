@@ -26,15 +26,21 @@ include:
 
 # If you edit this stanze, also edit the same stanza in states/nginx/init.sls
 {% set admins = salt["pillar.get"]("user:admins", {}).keys()|sort -%}
-{% set webdevs = salt["pillar.get"]("user:webdevs", {}).keys()|sort -%}
-{% set users = admins + webdevs|sort -%}
+{% set webdevs = salt["pillar.get"]("user:webdevs", {}) -%}
+
+{% if webdevs -%}
+{% set users = admins + webdevs.keys() -%}
+{% else -%}
+{% set users = admins -%}
+{% endif -%}
+
 {{ sls }} www-data group:
   group.present:
     - name: www-data
     - gid: 33
 {%- if users %}
     - addusers:
-{%- for username in users %}
+{%- for username in users|sort %}
       - {{ username }}
 {%- endfor %}
 {%- endif %}
@@ -46,7 +52,7 @@ include:
 {%- endfor %}
 {%- endif %}
 {%- if webdevs %}
-{%- for username in webdevs %}
+{%- for username in webdevs.keys()|sort %}
       - user: user.webdevs {{ username }} user
 {%- endfor %}
 {%- endif %}
