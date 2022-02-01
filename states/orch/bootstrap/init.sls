@@ -53,7 +53,7 @@
   salt.function:
     - name: cmd.run
     - arg:
-      - ssh -i /root/.ssh/saltstack_rsa_provisioning_20181221 admin@{{ IP }} sudo DEBIAN_FRONTEND=noninteractive apt-get install -yq python3-distro
+      - ssh -i /root/.ssh/saltstack_rsa_provisioning_20181221 admin@{{ IP }} 'sudo apt-get update >/dev/null; sudo DEBIAN_FRONTEND=noninteractive apt-get install -yq python3-distro'
     - tgt: {{ pillar.location.salt_prime_id }}
     - saltenv: {{ saltenv }}
     - require:
