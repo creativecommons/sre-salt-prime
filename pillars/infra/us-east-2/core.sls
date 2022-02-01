@@ -21,6 +21,7 @@ infra:
         licbuttons__prod:       10.22.10.24
         dispatch__prod:         10.22.10.25
         opencovid__prod:        10.22.10.27
+        ccorg__stage:           10.22.10.26
         cert__prod:             10.22.10.29
         ###_Private-One         10.22.11.0
         salt-prime__core:       10.22.11.11

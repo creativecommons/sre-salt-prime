@@ -8,6 +8,7 @@
 
 
 include:
+  - 5_HST__POD.ccorg__stage.secrets
   - 5_HST__POD.cert__prod.secrets
   - 5_HST__POD.opencovid__prod.secrets
 
@@ -31,7 +32,7 @@ infra:
       #   for PostgreSQL.
       #
       # Default
-      default: mariadb10.3
+      default: mariadb10.6
       # Specific (please maintain order)
     engine_version:
       # List valid engine versions:
@@ -48,7 +49,7 @@ infra:
       #   for PostgreSQL.
       #
       # Default
-      default: 10.3
+      default: 10.6
       # Specific (please maintain order)
     instance_class:
       # Notes:
@@ -93,6 +94,8 @@ infra:
       # Specific (please maintain order)
       biztool__prod:
         - mysql-from-biztool_prod_secgroup
+      ccorg__stage:
+        - mysql-from-ccorg_stage_secgroup
       cert__prod:
         - mysql-from-cert_prod_secgroup
       chapters__prod:
@@ -113,6 +116,7 @@ infra:
       # Default
       default: 10
       # Specific (please maintain order)
+      ccorg: 214
       cert: 214
       chapters: 334
       opencovid: 214
