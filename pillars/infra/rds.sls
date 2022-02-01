@@ -1,5 +1,4 @@
 {% import_yaml "5_HST__POD/biztool__prod/secrets.yaml" as biztool__prod -%}
-{% import_yaml "5_HST__POD/ccorgwp__stage/secrets.yaml" as ccorgwp__stage -%}
 {% import_yaml "5_HST__POD/chapters__prod/secrets.yaml" as chapters__prod -%}
 {% import_yaml "5_HST__POD/chapters__stage/secrets.yaml" as chapters__stage -%}
 {% import_yaml "5_HST__POD/openglam__prod/secrets.yaml" as openglam__prod -%}
@@ -10,7 +9,6 @@
 
 include:
   - 5_HST__POD.cert__prod.secrets
-  - 5_HST__POD.licenses__stage.secrets
   - 5_HST__POD.opencovid__prod.secrets
 
 
@@ -20,7 +18,6 @@ infra:
       # Default
       default: mariadb
       # Specific (please maintain order)
-      licenses: postgres
     engine_family:
       # List valid engine families:
       #
@@ -36,7 +33,6 @@ infra:
       # Default
       default: mariadb10.3
       # Specific (please maintain order)
-      licenses: postgres12
     engine_version:
       # List valid engine versions:
       #
@@ -54,7 +50,6 @@ infra:
       # Default
       default: 10.3
       # Specific (please maintain order)
-      licenses: 12.5
     instance_class:
       # Notes:
       # * DB Instance class db.t2.micro does not support encryption at rest
@@ -69,13 +64,11 @@ infra:
         collation_server: utf8mb4_general_ci
         innodb_log_file_size: 268435456 # 256 MiB
         time_zone: UTC
-      licenses: ABSENT  # requires that PostgreSQL engine_family is set
     primary_password:
       # Default
       default: '/@@/ INVALID - MUST SET NON-DEFAULT PASSWORD /@@/'
       # Specific (please maintain order)
       biztool__prod: {{ biztool__prod.mysql.server.root_password }}
-      ccorgwp__stage: {{ ccorgwp__stage.mysql.server.root_password }}
       chapters__prod: {{ chapters__prod.mysql.server.root_password }}
       chapters__stage: {{ chapters__stage.mysql.server.root_password }}
       openglam__prod: {{ openglam__prod.mysql.server.root_password }}
@@ -87,7 +80,6 @@ infra:
       default: root
       # Specific (please maintain order)
       biztool__prod: {{ biztool__prod.mysql.server.root_user }}
-      ccorgwp__stage: {{ ccorgwp__stage.mysql.server.root_user }}
       chapters__prod: {{ chapters__prod.mysql.server.root_user }}
       chapters__stage: {{ chapters__stage.mysql.server.root_user }}
       openglam__prod: {{ openglam__prod.mysql.server.root_user }}
@@ -101,16 +93,12 @@ infra:
       # Specific (please maintain order)
       biztool__prod:
         - mysql-from-biztool_prod_secgroup
-      ccorgwp__stage:
-        - mysql-from-ccorgwp_stage_secgroup
       cert__prod:
         - mysql-from-cert_prod_secgroup
       chapters__prod:
         - mysql-from-chapters_prod_secgroup
       chapters__stage:
         - mysql-from-chapters_stage_secgroup
-      licenses__stage:
-        - postgres-from-licenses_stage_secgroup
       opencovid__prod:
         - mysql-from-opencovid_prod_secgroup
       openglam__prod:
@@ -121,16 +109,12 @@ infra:
         - mysql-from-sotc_prod_secgroup
       summit__prod:
         - mysql-from-summit_prod_secgroup
-    secgroup_ec2:
-      licenses__stage: web-from-dispatch_stage_secgroup
     storage:
       # Default
       default: 10
       # Specific (please maintain order)
-      ccorgwp: 214
       cert: 214
       chapters: 334
-      licenses: 214
       opencovid: 214
       openglam: 214
     rds_subnets:

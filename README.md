@@ -223,12 +223,9 @@ See [`docs/Orchestration.md`](docs/Orchestration.md).
   and/or server
 - [saltstack-formulas/php-formula][php-formula]: Formula to set up and
   configure php
-- [saltstack-formulas/postgres-formula][postgres-formula]: A formula to
-  install and configure PostgreSQL server.
 
 [mysql-formula]: https://github.com/saltstack-formulas/mysql-formula
 [php-formula]: https://github.com/saltstack-formulas/php-formula
-[postgres-formula]: https://github.com/saltstack-formulas/postgres-formula
 
 
 ## License
