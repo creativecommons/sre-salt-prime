@@ -54,6 +54,26 @@ sudo salt-call --local --log-level=debug --log-file-level=warning \
   errors to be seen in the compiled pillar and state files.
 
 
+#### `salt-ssh`
+
+Per [Debugging salt-ssh - Salt SSH][debug-salt-ssh], to see errors from a
+`salt-ssh` state or command line invocation:
+1. Assuming that `orch.bootstrap install salt on minion` failed
+2. Apply the states manually with trace level logging:
+    ```
+    sudo salt-ssh ccorg__stage__us-east-2 -l trace --log-file-level=warning --sudo state.apply salt
+    ```
+3. Search output for `SALT_ARGV`
+4. SSH into target machine from `salt-prime` (replace `TARGET_IP` with
+   appropriate IP address):
+    ```
+    sudo ssh -i /root/.ssh/saltstack_rsa_provisioning_20181221 admin@TARGET_IP
+    ```
+5. Execute `SALT_ARGV` command from step 2 without `'--out json` and `-l quiet`
+
+[debug-salt-ssh]: https://docs.saltproject.io/en/latest/topics/ssh/index.html#debugging-salt-ssh
+
+
 ## References
 
 
@@ -89,10 +109,9 @@ sudo salt-call --local --log-level=debug --log-file-level=warning \
 
 ### Debian
 
-- [Cloud/AmazonEC2Image/Buster - Debian Wiki][debianaws]
+- [Cloud/AmazonEC2Image/Bullseye - Debian Wiki][debianaws]
 
-
-[debianaws]:https://wiki.debian.org/Cloud/AmazonEC2Image/Buster
+[debianaws]: https://wiki.debian.org/Cloud/AmazonEC2Image/Bullseye
 
 
 ### SaltStack

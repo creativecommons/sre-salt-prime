@@ -48,6 +48,20 @@
       - salt: {{ sls }} minion already up
 
 
+# https://github.com/saltstack/salt/issues/61535
+{{ sls }} install dependency python3-distro:
+  salt.function:
+    - name: cmd.run
+    - arg:
+      - ssh -i /root/.ssh/saltstack_rsa_provisioning_20181221 admin@{{ IP }} sudo DEBIAN_FRONTEND=noninteractive apt-get install -yq python3-distro
+    - tgt: {{ pillar.location.salt_prime_id }}
+    - saltenv: {{ saltenv }}
+    - require:
+      - salt: {{ sls }} salt-prime minion bootstrap prep
+    - onlyif:
+      - test -d {{ TMP }}
+
+
 {{ sls }} install salt on minion:
   salt.state:
     - tgt: {{ MID }}
@@ -55,7 +69,7 @@
     - saltenv: {{ saltenv }}
     - ssh: True
     - require:
-      - salt: {{ sls }} salt-prime minion bootstrap prep
+      - salt: {{ sls }} install dependency python3-distro
     - onlyif:
       - test -d {{ TMP }}
 

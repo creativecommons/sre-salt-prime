@@ -27,7 +27,6 @@
     - pkgs:
       - apt-transport-https
       - gnupg2
-      - python-apt
       - software-properties-common
     - require:
       - file: {{ sls }} /var/lib/docker symlink

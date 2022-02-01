@@ -1,8 +1,8 @@
 infra:
   us-east-2:
-    # url: https://wiki.debian.org/Cloud/AmazonEC2Image/Buster
-    debian_ami_name: debian-10-amd64-20210201-535
-    debian_ami_id: ami-0988470f4e830799f
+    # url: https://wiki.debian.org/Cloud/AmazonEC2Image/Bullseye
+    debian_ami_name: debian-11-amd64-20220121-894
+    debian_ami_id: ami-04dd0542609808c50
     instance_iam_role: ec2_core_iam_role
     kms_key_id_storage: storage_core_kmskey
     vendor: aws
