@@ -45,8 +45,7 @@
 
 #### Module Documentation
 
-AWS orchestration (including bootstrap) makes use of the boto/boto3 state
-modules:
+WordPress configurations make use of the state modules:
 - [Salt Module Reference][moduleref]
   - [state modules][statemodules]
     - [salt.states.composer][statescomposer]
