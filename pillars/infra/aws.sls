@@ -23,16 +23,6 @@ infra:
         cc:product: primary-website
         cc:purpose: ccengine
         cc:team: internal-tech
-      ccengine__stage:
-        cc:environment: staging
-        cc:product: primary-website
-        cc:purpose: ccengine
-        cc:team: internal-tech
-      ccorgwp__stage:
-        cc:environment: staging
-        cc:product: primary-website
-        cc:purpose: wordpress-hosting
-        cc:team: internal-tech
       cert__prod:
         cc:environment: production
         cc:product: certificate
@@ -63,20 +53,10 @@ infra:
         cc:product: primary-website
         cc:purpose: dispatch-urls
         cc:team: internal-tech
-      dispatch__stage:
-        cc:environment: staging
-        cc:product: primary-website
-        cc:purpose: dispatch-urls
-        cc:team: internal-tech
       licbuttons__prod:
         cc:environment: production
         cc:product: licensebuttons
         cc:purpose: static-hosting
-        cc:team: internal-tech
-      licenses__stage:
-        cc:environment: staging
-        cc:product: primary-website
-        cc:purpose: licenses
         cc:team: internal-tech
       opencovid__prod:
         cc:environment: production
