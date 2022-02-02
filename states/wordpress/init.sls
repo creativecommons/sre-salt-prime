@@ -38,6 +38,12 @@ include:
     - special: '@daily'
 
 
+{{ sls }} install packages:
+  pkg.installed:
+    - pkgs:
+      - git
+
+
 {{ sls }} docroot:
   file.directory:
     - name: {{ DOCROOT }}
@@ -52,6 +58,7 @@ include:
 {%- endif %}
       - pkg: php_install_curl
       - pkg: php_install_zip
+      - pkg: {{ sls }} install packages
       - user: php_cc.composer user
 
 
