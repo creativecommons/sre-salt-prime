@@ -21,6 +21,7 @@ states:
   user.webdevs: {{ sls }}
   wordpress.apache2: {{ sls }}
   wordpress.pressbooks_book_theme: {{ sls }}
+  wordpress.queulat: {{ sls }}
 wordpress:
   docroot: /var/www/cert
   # Multisite

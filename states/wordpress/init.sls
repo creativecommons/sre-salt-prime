@@ -27,7 +27,6 @@ include:
   - wordpress.git_install
   - wordpress.norm_perms
   - wordpress.pressbooks
-  - wordpress.queulat
   - wordpress.wordfence
 
 

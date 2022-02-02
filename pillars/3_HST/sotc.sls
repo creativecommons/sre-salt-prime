@@ -19,6 +19,7 @@ states:
   mount: {{ sls }}
   user.webdevs: {{ sls }}
   wordpress.apache2: {{ sls }}
+  wordpress.queulat: {{ sls }}
 wordpress:
   docroot: /var/www/sotc
   # Multisite
