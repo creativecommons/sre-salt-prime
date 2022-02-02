@@ -1,7 +1,7 @@
 # Configuration for php-formula
 #
 # https://cheatsheetseries.owasp.org/cheatsheets/PHP_Configuration_Cheat_Sheet.html
-{%- set php_versions = {"bullseye": "7.5", "buster": "7.3",
+{%- set php_versions = {"bullseye": "7.4", "buster": "7.3",
                         "stretch": "7.0"} %}
 php:
   use_external_repo: False
