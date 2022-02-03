@@ -1,16 +1,56 @@
+{% set POD = pillar.pod -%}
 {% set DOCROOT = pillar.wordpress.docroot -%}
 {% set GIT = "/var/www/git" -%}
 {% set WP_CONTENT = "{}/wp-content".format(DOCROOT) -%}
 {% set PLUGINS = "{}/plugins".format(WP_CONTENT) -%}
 {% set THEMES = "{}/themes".format(WP_CONTENT) -%}
+{% set STAGE_USER = salt.pillar.get("apache2:stage_username", false) -%}
+{% set STAGE_PASS = salt.pillar.get("apache2:stage_password", false) -%}
+
+
+{% if POD.startswith("stage") -%}
+{{ sls }} disallow robots:
+  file.managed:
+    - name: {{ DOCROOT }}/robots.txt
+    - contents:
+      - 'User-agent: *'
+      - 'Disallow: /'
+    - mode: '0400'
+    - require:
+      - file: wordpress docroot
+{%- endif %}
+
+
+{% if STAGE_USER and STAGE_PASS -%}
+{{ sls }} basic authentication user file:
+  file.managed:
+    - name: /var/www/htpasswd
+    - source: ~
+    - group: www-data
+    - mode: '0440'
+    - replace: False
+    - require:
+      - pkg: {{ sls }} installed packages
+
+
+{{ sls }} basic authentication user exists:
+  webutil.user_exists:
+    - name: {{ STAGE_USER }}
+    - password: {{ STAGE_PASS }}
+    - htpasswd_file: /var/www/htpasswd
+    - options: s
+    - update: True
+    - require:
+      - file: {{ sls }} basic authentication user file
+{%- endif %}
 
 
 {{ sls }} installed packages:
   pkg.installed:
     - pkgs:
-      - git
+      - apache2-utils
     - require:
-      - file: wordpress symlink wp-content
+      - pkg: apache2 installed packages
 
 
 {{ sls }} {{ GIT }} directory:
@@ -19,10 +59,11 @@
     - mode: '2775'
     - group: webdev
     - require:
+      - file: wordpress docroot
       - pkg: {{ sls }} installed packages
 
 
-{%- for repo in ("new-creativecommons.org", "new-www-plugin") %}
+{%- for repo in ("cc-legal-tools-data", "mp") %}
 
 
 {{ sls }} {{ repo }} repo:
@@ -48,33 +89,4 @@
       - group
     - require:
       - git: {{ sls }} {{ repo }} repo
-{%- endfor %}
-
-
-{#- new-creativecommons.org symlinks #}
-{%- for target in ("favicon.ico", "icons", "images", "includes") %}
-
-
-{{ sls }} symlink new-creativecommons.org {{ target }}:
-  file.symlink:
-    - name: {{ DOCROOT }}/{{ target }}
-    - target: {{ GIT }}/new-creativecommons.org/docroot/{{ target }}
-    - force: True
-    - require:
-      - file: {{ sls }} new-creativecommons.org permissions
-{%- endfor %}
-
-
-{#- new-www-plugin symlinks #}
-{%- for target in ("cc-author", "cc-donate", "cc-program", "cc-resource",
-                   "cc-taxonomies", "cc-widgets") %}
-
-
-{{ sls }} symlink new-www-plugin {{ target }}:
-  file.symlink:
-    - name: {{ PLUGINS }}/{{ target }}
-    - target: {{ GIT }}/new-www-plugin/{{ target }}
-    - force: True
-    - require:
-      - file: {{ sls }} new-www-plugin permissions
 {%- endfor %}

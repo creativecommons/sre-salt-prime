@@ -1,0 +1,49 @@
+{
+  "authors": [
+    {
+      "homepage": "https://github.com/creativecommons/sre-salt-prime",
+      "name": "Creative Commons"
+    }
+  ],
+  "config": {
+    "vendor-dir": "wp-content/vendor"
+  },
+  "description": "Creative Commons Primary WordPress Site via Composer",
+  "extra": {
+    "wordpress-install-dir": "wp"
+  },
+  "name": "creativecommons/wordpress-creativecommons-org",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    },
+    {
+      "no-api": true,
+      "type": "vcs",
+      "url": "https://github.com/creativecommons/creativecommons-base"
+    },
+    {
+      "no-api": true,
+      "type": "vcs",
+      "url": "https://github.com/creativecommons/wp-plugin-creativecommons-website"
+    },
+    {
+      "no-api": true,
+      "type": "vcs",
+      "url": "https://github.com/creativecommons/wp-theme-creativecommons.org"
+    }
+  ],
+  "require": {
+    "composer/installers": "^1.0",
+    "creativecommons/wp-plugin-creativecommons-website": "2022.2.1",
+    "johnpbloch/wordpress": "5.9.0",
+    "wpackagist-plugin/ultimate-addons-for-gutenberg": "1.25.3",
+    "wpackagist-plugin/wordpress-seo": "18.0"
+  },
+  "require-dev": {
+    "wpackagist-plugin/debug-bar": "1.0",
+    "wpackagist-plugin/debug-bar-actions-and-filters-addon": "1.5.4"
+  },
+  "type": "project"
+}
