@@ -15,6 +15,7 @@
 {% set ADMIN_USER = salt.pillar.get("wordpress:admin_user", false) -%}
 {% set ADMIN_EMAIL = salt.pillar.get("wordpress:admin_email", false) -%}
 {% set GF_KEY = salt.pillar.get("wordpress:gf_key", false) -%}
+{% set WPCLI = "/usr/local/bin/wp --quiet --no-color --require=/opt/wp-cli/silence.php" -%}
 
 
 include:
@@ -239,20 +240,31 @@ include:
 {% if TITLE and ADMIN_USER and ADMIN_EMAIL -%}
 {{ sls }} WordPress install:
   cmd.run:
-    - name: /usr/local/bin/wp --quiet --no-color --require=/opt/wp-cli/silence.php core install --url='{{ SITE }}' --title='{{ TITLE }}' --admin_user='{{ ADMIN_USER }}' --admin_email='{{ ADMIN_EMAIL }}' --skip-email
+    - name: >-
+        {{ WPCLI }} core install --url='{{ SITE }}' --title='{{ TITLE }}'
+        --admin_user='{{ ADMIN_USER }}' --admin_email='{{ ADMIN_EMAIL }}'
+        --skip-email
     # ' this comment fixes a color syntax highlighting error in vim
     - cwd: {{ WP_DIR }}
     - runas: composer
     - unless:
-      - /usr/local/bin/wp --quiet --no-color --require=/opt/wp-cli/silence.php core is-installed
+      - {{ WPCLI }} core is-installed
     - require:
       - file: {{ sls }} composer saltstack locked
-      - file: {{ sls }} update dir wp
       - file: {{ sls }} symlink wp-content
-      # mysql.user
+      - file: {{ sls }} update dir wp
       - mysql_grants: mysql_user_{{ pillar.wordpress.db_user }}_%_0
-      # wordpress.cli
-      - file: wordpress.cli install wp-cli
-      - file: wordpress.cli silence PHP file
-      - file: wordpress.cli add wp-cli to local path
+      - test: wordpress.cli ready
+    - require_in:
+      - test: {{ sls }} ready
 {% endif %}
+
+
+{{ sls }} ready:
+  test.nop:
+    - require:
+      - file: {{ sls }} composer saltstack locked
+      - file: {{ sls }} symlink wp-content
+      - file: {{ sls }} update dir wp
+      - mysql_grants: mysql_user_{{ pillar.wordpress.db_user }}_%_0
+      - test: wordpress.cli ready
