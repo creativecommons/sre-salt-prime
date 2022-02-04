@@ -27,7 +27,6 @@ include:
   - wordpress.git_install
   - wordpress.norm_perms
   - wordpress.pressbooks
-  - wordpress.queulat
   - wordpress.wordfence
 
 
@@ -37,6 +36,12 @@ include:
     - user: root
     - identifier: update_webdev_group_perms
     - special: '@daily'
+
+
+{{ sls }} install packages:
+  pkg.installed:
+    - pkgs:
+      - git
 
 
 {{ sls }} docroot:
@@ -53,6 +58,7 @@ include:
 {%- endif %}
       - pkg: php_install_curl
       - pkg: php_install_zip
+      - pkg: {{ sls }} install packages
       - user: php_cc.composer user
 
 

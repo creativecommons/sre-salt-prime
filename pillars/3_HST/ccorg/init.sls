@@ -1,9 +1,8 @@
 include:
+  - 3_HST.ccorg.secrets
   - letsencrypt
   - mysql
   - php
-  - user.webdevs.secrets
-
 
 letsencrypt:
   post_hooks:
@@ -17,10 +16,8 @@ mounts:
     pass: 2
 states:
   mount: {{ sls }}
-  user.webdevs: {{ sls }}
   wordpress.apache2: {{ sls }}
-  wordpress.queulat: {{ sls }}
+  wordpress.ccorg: {{ sls }}
 wordpress:
-  docroot: /var/www/sotc
-  # Multisite
   multisite: False
+  site_conf: creativecommons_org.conf

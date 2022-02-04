@@ -1,5 +1,7 @@
 {% import "apache2/jinja2.sls" as a2 with context -%}
 
+{% set SITE_CONF = salt.pillar.get("wordpress:site_conf",
+                                   "wordpress_composer.conf") -%}
 {% set SERVER_NAME = pillar.wordpress.site -%}
 {% set SHELTERED = salt.pillar.get("apache2:sheltered", false) -%}
 {% if not SHELTERED -%}
@@ -20,7 +22,7 @@ include:
 {{ sls }} site config:
   file.managed:
     - name: /etc/apache2/sites-available/{{ SERVER_NAME }}.conf
-    - source: salt://apache2/files/wordpress_composer.conf
+    - source: salt://apache2/files/{{ SITE_CONF }}
     - template: jinja
     - defaults:
         DOCROOT: {{ pillar.wordpress.docroot }}

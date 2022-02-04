@@ -29,6 +29,7 @@ states:
   php.mbstring: {{ sls }}
   user.webdevs: {{ sls }}
   wordpress.apache2: {{ sls }}
+  wordpress.queulat: {{ sls }}
 wordpress:
   docroot: /var/www/chapters
   # Multisite
