@@ -40,6 +40,7 @@
   ],
   "require": {
     "composer/installers": "^1.0",
+    "creativecommons/wp-plugin-creativecommons-website": "dev-main",
     "creativecommons/wp-theme-creativecommons.org": "2022.02.1",
     "johnpbloch/wordpress": "5.9.0",
     "wpackagist-plugin/ultimate-addons-for-gutenberg": "1.25.3",
