@@ -18,10 +18,20 @@
     - mode: '0400'
     - require:
       - file: wordpress docroot
+    - require_in:
+      - cmd: wordpress WordPress install
 {%- endif %}
 
 
 {% if STAGE_USER and STAGE_PASS -%}
+{{ sls }} installed packages:
+  pkg.installed:
+    - pkgs:
+      - apache2-utils
+    - require:
+      - pkg: apache2 installed packages
+
+
 {{ sls }} basic authentication user file:
   file.managed:
     - name: /var/www/htpasswd
@@ -42,15 +52,9 @@
     - update: True
     - require:
       - file: {{ sls }} basic authentication user file
+    - require_in:
+      - cmd: wordpress WordPress install
 {%- endif %}
-
-
-{{ sls }} installed packages:
-  pkg.installed:
-    - pkgs:
-      - apache2-utils
-    - require:
-      - pkg: apache2 installed packages
 
 
 {{ sls }} {{ GIT }} directory:
