@@ -20,7 +20,8 @@ mysql:
 wordpress:
   # (also see 5_HST__POD.ccorg__stage.secrets)
   #canonical: https://{{ WEBNAME }}
+  db_host: {{ ENDPOINT }}
   docroot: /var/www/{{ WEBNAME }}
   site: {{ WEBNAME }}
-  db_host: {{ ENDPOINT }}
+  title: Creative Commons
   wp_debug: False

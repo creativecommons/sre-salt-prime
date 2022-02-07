@@ -4,11 +4,17 @@
 #   states/wordpress/files/norm_wp_perms.sh script
 #
 {% set DOCROOT = pillar.wordpress.docroot -%}
+{% set WP_DIR = "{}/wp".format(DOCROOT) -%}
 {% set WP_CONTENT = "{}/wp-content".format(DOCROOT) -%}
 {% set MU_PLUGINS = "{}/mu-plugins".format(WP_CONTENT) -%}
 {% set PLUGINS = "{}/plugins".format(WP_CONTENT) -%}
 {% set HST = pillar.hst -%}
 {% set POD = pillar.pod -%}
+{% set SITE = pillar.wordpress.site -%}
+{% set TITLE = salt.pillar.get("wordpress:title", false) -%}
+{% set ADMIN_USER = salt.pillar.get("wordpress:admin_user", false) -%}
+{% set ADMIN_EMAIL = salt.pillar.get("wordpress:admin_email", false) -%}
+{% set GF_KEY = salt.pillar.get("wordpress:gf_key", false) -%}
 
 
 include:
@@ -78,7 +84,7 @@ include:
 
 {{ sls }} create dir wp:
   file.directory:
-    - name: {{ DOCROOT }}/wp
+    - name: {{ WP_DIR }}
     - mode: '2775'
     - user: composer
     - group: webdev
@@ -116,7 +122,7 @@ include:
 
 {{ sls }} dir wp-content/uploads:
   file.directory:
-    - name: {{ DOCROOT }}/wp-content/uploads
+    - name: {{ WP_CONTENT }}/uploads
     - mode: '2775'
     - group: www-data
     - require:
@@ -126,7 +132,6 @@ include:
       - composer: {{ sls }} composer update
 
 
-{%- set GF_KEY = salt.pillar.get("wordpress:gf_key", false) %}
 {%- if GF_KEY %}
 
 
@@ -194,7 +199,7 @@ include:
       - test -f {{ DOCROOT }}/COMPOSER_SALTSTACK_LOCKED
 
 
-{{ sls }} composer lock:
+{{ sls }} composer saltstack locked:
   file.managed:
     - name: {{ DOCROOT }}/COMPOSER_SALTSTACK_LOCKED
     - contents:
@@ -229,3 +234,25 @@ include:
       - file: {{ sls }} docroot
     - onlyif:
       - test -d {{ DOCROOT }}/wp/wp-content
+
+
+{% if TITLE and ADMIN_USER and ADMIN_EMAIL -%}
+{{ sls }} WordPress install:
+  cmd.run:
+    - name: /usr/local/bin/wp --quiet --no-color --require=/opt/wp-cli/silence.php core install --url='{{ SITE }}' --title='{{ TITLE }}' --admin_user='{{ ADMIN_USER }}' --admin_email='{{ ADMIN_EMAIL }}' --skip-email
+    # ' this comment fixes a color syntax highlighting error in vim
+    - cwd: {{ WP_DIR }}
+    - runas: composer
+    - unless:
+      - /usr/local/bin/wp --quiet --no-color --require=/opt/wp-cli/silence.php core is-installed
+    - require:
+      - file: {{ sls }} composer saltstack locked
+      - file: {{ sls }} update dir wp
+      - file: {{ sls }} symlink wp-content
+      # mysql.user
+      - mysql_grants: mysql_user_{{ pillar.wordpress.db_user }}_%_0
+      # wordpress.cli
+      - file: wordpress.cli install wp-cli
+      - file: wordpress.cli silence PHP file
+      - file: wordpress.cli add wp-cli to local path
+{% endif %}
