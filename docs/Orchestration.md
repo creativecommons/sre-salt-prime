@@ -144,7 +144,7 @@ modules:
 
 - [An example of a complex, multi-host Salt Orchestrate state that performs
   status checks as it goes][statechecks] (2017-08-11)
-- [Dynamic Test Servers with Salt | Lincoln Loop][lincoln]a (2017-09-12)
+- [Dynamic Test Servers with Salt | Lincoln Loop][lincoln] (2017-09-12)
 - [SaltStack as an Alternative to Terraform for AWS Orchestration][terraform]
   (2017-08-30, Salt 2017.7.1 was stable version)
 - [Running Salt States Using Amazon EC2 Systems Manager | AWS Management Tools
