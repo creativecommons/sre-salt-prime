@@ -14,6 +14,14 @@ mounts:
     opts: defaults
     freq: 0
     pass: 2
+# Also see pillars/php/init.sls
+php:
+  apache2:
+    ini:
+      settings:
+        PHP:
+          post_max_size: 41M
+          upload_max_filesize: 40M
 states:
   mount: {{ sls }}
   wordpress.apache2: {{ sls }}
