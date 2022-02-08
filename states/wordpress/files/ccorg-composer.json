@@ -44,6 +44,7 @@
     "creativecommons/wp-theme-creativecommons.org": "2022.02.1",
     "johnpbloch/wordpress": "5.9.0",
     "wpackagist-plugin/ultimate-addons-for-gutenberg": "1.25.3",
+    "wpackagist-plugin/wordpress-importer": "0.7",
     "wpackagist-plugin/wordpress-seo": "18.0"
   },
   "require-dev": {
