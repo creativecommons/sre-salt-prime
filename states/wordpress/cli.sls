@@ -41,3 +41,11 @@
     - mode: '0444'
     - require:
       - file: {{ sls }} home
+
+
+{{ sls }} ready:
+  test.nop:
+    - require:
+      - file: {{ sls }} install wp-cli
+      - file: {{ sls }} silence PHP file
+      - file: {{ sls }} add wp-cli to local path
