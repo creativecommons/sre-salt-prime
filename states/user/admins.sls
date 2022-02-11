@@ -8,7 +8,6 @@
 {%- set userdata = pillar.user.admins[username] %}
 
 
-
 {{ sls }} {{ username }} group:
   group.present:
     - name: {{ username }}
@@ -22,7 +21,7 @@
     - gid: {{ username }}
     - fullname: {{ userdata.fullname }}
     - shell: {{ userdata.shell }}
-    - password: '{{ pillar["user"]["passwords"][username] }}'
+    - password: '{{ pillar.user.passwords[username] }}'
     - require:
       - group: {{ sls }} {{ username }} group
 
@@ -44,6 +43,8 @@
     - require:
       - user: {{ sls }} {{ username }} user
 {%- endfor %}
+
+
 {%- elif rsa %}
 {%- for pubkey in rsa|sort %}
 
@@ -76,4 +77,6 @@
 {%- for username in admins %}
       - user: {{ sls }} {{ username }} user
 {%- endfor %}
+
+
 {%- endfor %}
