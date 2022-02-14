@@ -6,7 +6,7 @@ from random import choice
 
 # Third-party
 from locust import TaskSet, between, task
-from locust.contrib.fasthttp import FastHttpLocust
+from locust.contrib.fasthttp import FastHttpUser
 
 HOST_STAGE = "https://stage.creativecommons.org"
 PATH_BY = "/licenses/by"
@@ -119,9 +119,10 @@ def client_get(browselegaltools, *argv):
     """
     GET deed/legalcode/rdf URI (after combining the provided URI components)
     """
+    bustcache = os.environ.get("BUSTCACHE", False)
     uri = os.path.join(*argv)
-    if "BUSTCACHE" in os.environ and os.environ["BUSTCACHE"]:
-        uri = f"{uri}?{os.environ['BUSTCACHE']}"
+    if bustcache:
+        uri = f"{uri}?{bustcache}"
     browselegaltools.client.get(uri)
 
 
@@ -215,7 +216,7 @@ class BrowseLegalTools(TaskSet):
         )
 
 
-class LegalToolsUser(FastHttpLocust):
+class LegalToolsUser(FastHttpUser):
     host = HOST_STAGE
-    task_set = BrowseLegalTools
+    tasks = [BrowseLegalTools]
     wait_time = between(2, 16)
