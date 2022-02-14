@@ -1,13 +1,12 @@
 # vim: set fileencoding=utf-8:
 
 # Standard library
-from random import choice
 import os.path
+from random import choice
 
 # Third-party
 from locust import TaskSet, between, task
 from locust.contrib.fasthttp import FastHttpLocust
-
 
 HOST_STAGE = "https://stage.creativecommons.org"
 PATH_BY = "/licenses/by"
