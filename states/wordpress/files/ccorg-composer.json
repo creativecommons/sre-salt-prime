@@ -40,15 +40,15 @@
   ],
   "require": {
     "composer/installers": "^1.0",
-    "creativecommons/wp-plugin-creativecommons-website": "0.2.0",
-    "creativecommons/wp-theme-creativecommons.org": "2022.02.1",
-    "johnpbloch/wordpress": "5.9.0",
-    "wpackagist-plugin/ultimate-addons-for-gutenberg": "1.25.3",
+    "creativecommons/wp-plugin-creativecommons-website": "0.5.0",
+    "creativecommons/wp-theme-creativecommons.org": "2022.03.2",
+    "johnpbloch/wordpress": "5.9.3",
+    "wpackagist-plugin/ultimate-addons-for-gutenberg": "1.25.4",
     "wpackagist-plugin/wordpress-importer": "0.7",
-    "wpackagist-plugin/wordpress-seo": "18.0"
+    "wpackagist-plugin/wordpress-seo": "18.5.1"
   },
   "require-dev": {
-    "wpackagist-plugin/debug-bar": "1.0",
+    "wpackagist-plugin/debug-bar": "1.1.2",
     "wpackagist-plugin/debug-bar-actions-and-filters-addon": "1.5.4"
   },
   "type": "project"
