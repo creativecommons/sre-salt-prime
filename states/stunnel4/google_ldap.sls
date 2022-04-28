@@ -17,8 +17,8 @@ include:
 
 {{ sls }} google ldap cert:
   file.managed:
-    - name: /etc/stunnel/Google_2022_01_04_62076.crt
-    - source: salt://stunnel4/files/Google_2022_01_04_62076.crt
+    - name: /etc/stunnel/Google_2025_04_25_75409.crt
+    - source: salt://stunnel4/files/Google_2025_04_25_75409.crt
     - mode: '0444'
     - user: stunnel4
     - group: stunnel4
@@ -28,8 +28,8 @@ include:
 
 {{ sls }} google ldap key:
   file.managed:
-    - name: /etc/stunnel/Google_2022_01_04_62076.key
-    - source: salt://stunnel4/files/Google_2022_01_04_62076.key
+    - name: /etc/stunnel/Google_2025_04_25_75409.key
+    - source: salt://stunnel4/files/Google_2025_04_25_75409.key
     - mode: '0440'
     - user: stunnel4
     - group: stunnel4
@@ -45,8 +45,8 @@ include:
       - client = yes
       - accept = 127.0.0.1:1636
       - connect = ldap.google.com:636
-      - cert = /etc/stunnel/Google_2022_01_04_62076.crt
-      - key = /etc/stunnel/Google_2022_01_04_62076.key
+      - cert = /etc/stunnel/Google_2025_04_25_75409.crt
+      - key = /etc/stunnel/Google_2025_04_25_75409.key
       - setuid = stunnel4
       - setgid = stunnel4
     - mode: '0444'
