@@ -41,7 +41,7 @@
     },
     "require": {
         "composer/installers":"1.6",
-        "creativecommons/wp-theme-cctoolkit":"dev-master",
+        "creativecommons/wp-theme-cctoolkit":"dev-main",
         "elliotcondon/advanced-custom-fields-pro":"5.7.13",
         "johnpbloch/wordpress":"5.1.1",
         "qtranslate/qtranslate-xt":"dev-master",
