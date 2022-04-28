@@ -4,7 +4,7 @@ include:
 
 ccengine:
   # set the default here (may be overridden by subsequent sls)
-  branch: master
+  branch: main
 mounts:
   - spec: /dev/xvdf
     file: /srv
