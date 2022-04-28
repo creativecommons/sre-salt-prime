@@ -12,7 +12,7 @@ footer.footer(class=['is-' + appconfig.theme.footer], ref='footer')
     | .
   ul
     if pageData && pageData.meta && pageData.meta.path
-      li: a.icon(href='https://github.com/creativecommons/sre-wiki-js/blob/master/' + pageData.meta.path + '.md')
+      li: a.icon(href='https://github.com/creativecommons/sre-wiki-js/blob/main/' + pageData.meta.path + '.md')
         i.icon-github
     else
       = ''
