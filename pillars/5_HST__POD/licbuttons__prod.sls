@@ -1,4 +1,4 @@
-git_branch: master
+git_branch: main
 letsencrypt:
   domainsets:
     licensebuttons.net: ~
