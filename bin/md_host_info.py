@@ -10,6 +10,7 @@ sudo salt --out yaml \* grains.item saltenv=${USER} debian_version \
     | bin/md_host_info.py
 """
 
+# Standard library
 # Standard Libary
 import datetime
 import sys
