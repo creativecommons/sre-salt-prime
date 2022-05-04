@@ -3,11 +3,11 @@
 
 
 def set_grains():
-     grains = dict()
-     with open("/etc/debian_version", "r") as f:
+    grains = dict()
+    with open("/etc/debian_version", "r") as f:
         debian_version = f.readline().strip()
-     grains["debian_version"] = debian_version
-     return grains
+    grains["debian_version"] = debian_version
+    return grains
 
 
 if __name__ == "__main__":
