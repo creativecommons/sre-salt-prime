@@ -104,7 +104,7 @@ def main():
         elif 270 < uptime <= 360:
             uptime_desc = ":warning: **270 - 360**"
         else:
-            uptime_desck = ":warning: **360+**"
+            uptime_desc = ":warning: **360+**"
         if "meta-data:public-ipv4" in grains:
             aws_ip = grains["meta-data:public-ipv4"]
         else:
