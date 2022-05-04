@@ -3,12 +3,14 @@
 
 r"""Create markdown table of host information:
 
-sudo salt \* saltutil.sync_grains
-sudo salt --out yaml \* grains.item lsb_distrib_description \
-    meta-data:public-ipv4 fqdn_ip4 saltversion \
+sudo salt \* saltutil.sync_grains saltenv=${USER}
+sudo salt --out yaml \* grains.item saltenv=${USER} debian_version \
+    lsb_distrib_codename meta-data:public-ipv4 fqdn_ip4 saltversion \
+    uptime_days \
     | bin/md_host_info.py
 """
 
+# Standard library
 # Standard Libary
 import datetime
 import sys
@@ -103,7 +105,7 @@ def main():
         elif 270 < uptime <= 360:
             uptime_desc = ":warning: **270 - 360**"
         else:
-            uptime_desck = ":warning: **360+**"
+            uptime_desc = ":warning: **360+**"
         if "meta-data:public-ipv4" in grains:
             aws_ip = grains["meta-data:public-ipv4"]
         else:
@@ -119,7 +121,7 @@ def main():
         else:
             ip_f = ""
         host_f = "`{}`".format(host)
-        os_rel = grains["lsb_distrib_release"]
+        os_rel = grains["debian_version"]
         os_code = grains["lsb_distrib_codename"].title()
         salt_f = "{}".format(grains["saltversion"])
         if grains == "Minion did not return. [Not connected]":
@@ -135,10 +137,16 @@ def main():
     print("- All hosts are running the Debian GNU/Linux operating system (OS)")
     print("- Generated {} via:".format(now))
     print("    ```shell")
-    print(r"    sudo salt \* saltutil.sync_grains")
-    print(r"    sudo salt --out yaml \* grains.item lsb_distrib_release \ ")
-    print(r"        lsb_distrib_codename meta-data:public-ipv4 fqdn_ip4 \ ")
-    print(r"        saltversion uptime_days \ ")
+    print("    sudo salt \\* saltutil.sync_grains saltenv=${USER}")
+    print(
+        "    sudo salt --out yaml \\* grains.item saltenv=${USER}"
+        " debian_version \\"
+    )
+    print(
+        "        lsb_distrib_codename meta-data:public-ipv4 fqdn_ip4"
+        " saltversion \\"
+    )
+    print("        uptime_days \\")
     print("        | bin/md_host_info.py")
     print("    ```")
     print()

@@ -8,15 +8,14 @@
 import argparse
 import crypt
 import getpass
-import os
 import inspect
+import os
 import shutil
 import sys
 import textwrap
 
 # Third-party
 import ruamel.yaml
-
 
 PASS_MIN_LEN = 10
 COLOR = {
@@ -29,8 +28,7 @@ COLUMNS, __ = shutil.get_terminal_size()
 
 
 def pe(error, exit=None):
-    """Print error.
-    """
+    """Print error."""
     exit = True if exit is None else exit
     print()
     print(COLOR["error"], "ERROR: ", error, COLOR["reset"], sep="")
@@ -39,16 +37,14 @@ def pe(error, exit=None):
 
 
 def ph(header):
-    """Print header.
-    """
+    """Print header."""
     header = "### {}".format(header)
     padding = " " * (COLUMNS - len(header))
     print(COLOR["header"], header, padding, COLOR["reset"], sep="")
 
 
 def pt(text):
-    """Print text.
-    """
+    """Print text."""
     print(
         COLOR["text"],
         textwrap.fill(text, width=COLUMNS),
@@ -58,8 +54,7 @@ def pt(text):
 
 
 def print_reminder(args):
-    """Print post password change reminder instructions.
-    """
+    """Print post password change reminder instructions."""
     print()
     ph("REMINDER")
     pt(
