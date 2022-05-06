@@ -1,13 +1,13 @@
-{% set SECRET = "/srv/wikijs/.gsuite_service_account_secret.json" -%}
+{% set SECRET = "/srv/wikijs/.workspace_service_account_secret.json" -%}
 
 include:
   - wikijs.reports_shared
 
 
-{{ sls }} gsuite service account secret:
+{{ sls }} workspace service account secret:
   file.managed:
     - name: {{ SECRET }}
-    - source: salt://wikijs/files/gsuite_service_account_secret.json
+    - source: salt://wikijs/files/workspace_service_account_secret.json
     - user: wikijs
     - group: wikijs
     - mode: '0400'
@@ -17,10 +17,10 @@ include:
 
 {{ sls }} virtualenv:
   virtualenv.managed:
-    - name: /srv/wikijs/.venvs/gsuite
+    - name: /srv/wikijs/.venvs/workspace
     - python: /usr/bin/python3
     - user: wikijs
-    - cwd: /srv/wikijs/sre-report-to-wikijs/gsuite
+    - cwd: /srv/wikijs/sre-report-to-wikijs/workspace
     - require:
       - file: wikijs.reports_shared wikijs .venvs directory
       - pkg: virtualenv installed packages
@@ -33,7 +33,7 @@ include:
 {{ sls }} {{ package }}:
   pip.installed:
     - name: {{ package }}
-    - bin_env: /srv/wikijs/.venvs/gsuite
+    - bin_env: /srv/wikijs/.venvs/workspace
     - require:
       - pkg: python.pip installed packages
       - virtualenv: {{ sls }} virtualenv
@@ -46,13 +46,15 @@ include:
 {%- for report in ["groups", "users"] %}
 
 
-{% set python3 = "/srv/wikijs/.venvs/gsuite/bin/python3" -%}
-{% set run_report = ("{} /srv/wikijs/sre-report-to-wikijs/gsuite/report-{}.py"
-                     .format(python3, report)) -%}
+{% set python3 = "/srv/wikijs/.venvs/workspace/bin/python3" -%}
+{% set run_report = (
+  "{} /srv/wikijs/sre-report-to-wikijs/workspace/report-{}.py"
+  .format(python3, report)
+) -%}
 {{ sls }} {{ report }} cron job:
   cron.present:
     - name: {{ run_report }} --secret-file={{ SECRET }} /srv/wikijs/sre-wiki-js
     - user: wikijs
-    - identifier: gsite_{{report}}_report
+    - identifier: workspace_{{report}}_report
     - minute: random
 {%- endfor %}
