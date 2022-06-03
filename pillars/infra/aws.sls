@@ -48,11 +48,6 @@ infra:
         cc:product: infrastructure
         cc:purpose: security-group
         cc:team: internal-tech
-      discourse__dev:
-        cc:environment: development
-        cc:product: cc-create
-        cc:purpose: discourse-hosting
-        cc:team: internal-tech
       dispatch__prod:
         cc:environment: production
         cc:product: primary-website

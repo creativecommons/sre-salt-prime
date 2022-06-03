@@ -37,7 +37,6 @@ infra:
       ccorg: t3.small
       cert: t3.small
       chapters: t3.medium
-      discourse: t3.small
       opencovid: t3.small
       wikijs: t3.small
     web_secgroups:
