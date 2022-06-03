@@ -15,7 +15,6 @@ infra:
         biztool__prod:          10.22.10.17
         chapters__stage:        10.22.10.18
         redirects__core:        10.22.10.19
-        sotc__prod:             10.22.10.20
         openglam__prod:         10.22.10.21
         summit__prod:           10.22.10.22
         licbuttons__prod:       10.22.10.24

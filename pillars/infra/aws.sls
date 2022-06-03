@@ -93,11 +93,6 @@ infra:
         cc:product: infrastructure
         cc:purpose: saltstack
         cc:team: internal-tech
-      sotc__prod:
-        cc:environment: production
-        cc:product: state-of-the-commons
-        cc:purpose: wordpress-hosting
-        cc:team: internal-tech
       summit__prod:
         cc:environment: production
         cc:product: global-summit
