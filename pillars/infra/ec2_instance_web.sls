@@ -14,7 +14,6 @@ infra:
       openglam: vpc
       podcast: vpc
       redirects: vpc
-      sotc: vpc
       summit: vpc
     ebs_size:
       # Default
@@ -28,7 +27,6 @@ infra:
       licbuttons: 214
       opencovid: 214
       openglam: 214
-      sotc: 214
       summit: 214
     instance_type:
       # Default
@@ -39,9 +37,7 @@ infra:
       ccorg: t3.small
       cert: t3.small
       chapters: t3.medium
-      discourse: t3.small
       opencovid: t3.small
-      sotc: t3.medium
       wikijs: t3.small
     web_secgroups:
       # Default
@@ -106,11 +102,6 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-podcast_prod_secgroup
-      sotc__prod:
-        - pingtrace-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
-        - web-all-sotc_prod_secgroup
       summit__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup

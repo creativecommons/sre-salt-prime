@@ -3,7 +3,6 @@
 {% import_yaml "5_HST__POD/chapters__stage/secrets.yaml" as chapters__stage -%}
 {% import_yaml "5_HST__POD/openglam__prod/secrets.yaml" as openglam__prod -%}
 {% import_yaml "5_HST__POD/podcast__prod/secrets.yaml" as podcast__prod -%}
-{% import_yaml "5_HST__POD/sotc__prod/secrets.yaml" as sotc__prod -%}
 {% import_yaml "5_HST__POD/summit__prod/secrets.yaml" as summit__prod -%}
 
 
@@ -74,7 +73,6 @@ infra:
       chapters__stage: {{ chapters__stage.mysql.server.root_password }}
       openglam__prod: {{ openglam__prod.mysql.server.root_password }}
       podcast__prod: {{ podcast__prod.mysql.server.root_password }}
-      sotc__prod: {{ sotc__prod.mysql.server.root_password }}
       summit__prod: {{ summit__prod.mysql.server.root_password }}
     primary_username:
       # Default
@@ -85,7 +83,6 @@ infra:
       chapters__stage: {{ chapters__stage.mysql.server.root_user }}
       openglam__prod: {{ openglam__prod.mysql.server.root_user }}
       podcast__prod: {{ podcast__prod.mysql.server.root_user }}
-      sotc__prod: {{ sotc__prod.mysql.server.root_user }}
       summit__prod: {{ summit__prod.mysql.server.root_user }}
     rds_secgroups:
       # Default
@@ -108,8 +105,6 @@ infra:
         - mysql-from-openglam_prod_secgroup
       podcast__prod:
         - mysql-from-podcast_prod_secgroup
-      sotc__prod:
-        - mysql-from-sotc_prod_secgroup
       summit__prod:
         - mysql-from-summit_prod_secgroup
     storage:

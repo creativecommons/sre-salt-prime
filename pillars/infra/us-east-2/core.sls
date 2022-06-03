@@ -11,11 +11,9 @@ infra:
         #_NAT_Gateway:          10.22.10.13
         chapters__prod:         10.22.10.14
         podcast__prod:          10.22.10.15
-        discourse__dev:         10.22.10.16
         biztool__prod:          10.22.10.17
         chapters__stage:        10.22.10.18
         redirects__core:        10.22.10.19
-        sotc__prod:             10.22.10.20
         openglam__prod:         10.22.10.21
         summit__prod:           10.22.10.22
         licbuttons__prod:       10.22.10.24
