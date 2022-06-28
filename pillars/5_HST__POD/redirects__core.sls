@@ -36,8 +36,6 @@ letsencrypt:
       - sotc.creativecommons.org
       - sv.creativecommons.org
       - za.creativecommons.org
-    redirects.sciencecommons.org:
-      - scholars.sciencecommons.org
 nginx:
   redirect_default: redirects.creativecommons.org
   redirects:
@@ -125,7 +123,3 @@ nginx:
     - crt: redirects.creativecommons.org
       src: za.creativecommons.org
       dst: za.creativecommons.net
-    # redirects.sciencecommons.org
-    - crt: redirects.sciencecommons.org
-      src: scholars.sciencecommons.org
-      dst: labs.creativecommons.org/scholars
