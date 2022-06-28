@@ -1,8 +1,8 @@
 infra:
   us-east-2:
     # url: https://wiki.debian.org/Cloud/AmazonEC2Image/Bullseye
-    debian_ami_name: debian-11-amd64-20220503-998
-    debian_ami_id: ami-0c7c4e3c6b4941f0f
+    debian_ami_name: debian-11-amd64-20220613-1045
+    debian_ami_id: ami-0f2b58cdb443f0b76
     instance_iam_role: ec2_core_iam_role
     kms_key_id_storage: storage_core_kmskey
     vendor: aws
