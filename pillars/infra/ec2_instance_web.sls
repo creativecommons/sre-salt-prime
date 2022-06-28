@@ -14,7 +14,6 @@ infra:
       openglam: vpc
       podcast: vpc
       redirects: vpc
-      summit: vpc
     ebs_size:
       # Default
       default: 10
@@ -27,7 +26,6 @@ infra:
       licbuttons: 214
       opencovid: 214
       openglam: 214
-      summit: 214
     instance_type:
       # Default
       default: t3.micro
@@ -102,11 +100,6 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-podcast_prod_secgroup
-      summit__prod:
-        - pingtrace-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
-        - web-all-summit_prod_secgroup
     web_subnet:
       # Default
       default: dmz
