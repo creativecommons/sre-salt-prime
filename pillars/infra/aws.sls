@@ -88,11 +88,6 @@ infra:
         cc:product: infrastructure
         cc:purpose: saltstack
         cc:team: internal-tech
-      summit__prod:
-        cc:environment: production
-        cc:product: global-summit
-        cc:purpose: wordpress-hosting
-        cc:team: internal-tech
       wikijs__core:
         cc:environment: production
         cc:product: wiki-internal
