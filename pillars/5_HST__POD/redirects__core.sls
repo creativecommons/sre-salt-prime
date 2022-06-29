@@ -123,3 +123,6 @@ nginx:
     - crt: redirects.creativecommons.org
       src: za.creativecommons.org
       dst: za.creativecommons.net
+    #    api.creativecommons.engineering has custom configuration, see state
+    # search.creativecommons.engineering has custom configuration, see state
+    # search.creativecommons.org has custom configuration, see state

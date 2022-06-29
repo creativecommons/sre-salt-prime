@@ -75,7 +75,6 @@ include:
     - watch_in:
       - service: nginx service
 
-
 {{ sls }} enable site search.creativecommons.engineering:
   file.symlink:
     - name: /etc/nginx/sites-enabled/search.creativecommons.engineering
@@ -96,7 +95,6 @@ include:
     - watch_in:
       - service: nginx service
 
-
 {{ sls }} enable site search.creativecommons.org:
   file.symlink:
     - name: /etc/nginx/sites-enabled/search.creativecommons.org
@@ -105,6 +103,7 @@ include:
       - file: {{ sls }} install site search.creativecommons.org
     - watch_in:
       - service: nginx service
+
 
 {{ sls }} install site api.creativecommons.engineering:
   file.managed:
@@ -115,7 +114,6 @@ include:
       - file: {{ sls }} enable site {{ DEFAULT_CERT }}
     - watch_in:
       - service: nginx service
-
 
 {{ sls }} enable site api.creativecommons.engineering:
   file.symlink:
