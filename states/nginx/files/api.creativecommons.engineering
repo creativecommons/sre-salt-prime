@@ -28,8 +28,8 @@ server {
         api.creativecommons.engineering
         api-dev.creativecommons.engineering;
     access_log off;
-    ssl_certificate /etc/letsencrypt/live/creativecommons.engineering/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/creativecommons.engineering/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/api.creativecommons.engineering/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/api.creativecommons.engineering/privkey.pem;
     # Redirect everything
     # (will purposely break API calls, but bring humans to current documentation)
     return 301 https://api.openverse.engineering/?referrer=creativecommons.org;

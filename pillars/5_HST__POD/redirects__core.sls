@@ -3,9 +3,10 @@ letsencrypt:
     creativecommons.dk:
       - creativecommons.dk
       - www.creativecommons.dk
-    creativecommons.engineering:
+    api.creativecommons.engineering:
       - api.creativecommons.engineering
       - api-dev.creativecommons.engineering
+      - search.creativecommons.engineering
       - search-dev.creativecommons.engineering
       - search-prod.creativecommons.engineering
     creativecommons.ru:
