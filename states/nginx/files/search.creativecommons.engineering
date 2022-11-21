@@ -35,8 +35,8 @@ server {
         search-prod.creativecommons.org
         search-dev.creativecommons.org;
     access_log off;
-    ssl_certificate /etc/letsencrypt/live/creativecommons.engineering/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/creativecommons.engineering/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/api.creativecommons.engineering/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/api.creativecommons.engineering/privkey.pem;
     if ( $is_args ) {
         set $sep_args "&";
     }
