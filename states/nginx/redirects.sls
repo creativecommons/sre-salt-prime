@@ -34,6 +34,7 @@ include:
 {%- set CERT_NAME = redir.crt %}
 {%- set SOURCE = redir.src %}
 {%- set DESTINATION = redir.dst %}
+{%- set IGNORE_REQUEST_URI = redir.get("ignore_request_uri", false) %}
 
 
 {{ sls }} install site {{ SOURCE }}:
@@ -46,6 +47,7 @@ include:
         CERT_NAME: {{ CERT_NAME }}
         SOURCE: {{ SOURCE }}
         DESTINATION: {{ DESTINATION }}
+        IGNORE_REQUEST_URI: {{ IGNORE_REQUEST_URI }}
     - require:
       - file: {{ sls }} enable site {{ DEFAULT_CERT }}
     - watch_in:

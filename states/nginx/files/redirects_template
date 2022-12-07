@@ -1,4 +1,9 @@
 # vim: ft=nginx:
+{%- if IGNORE_REQUEST_URI %}
+  {%- set DESTINATION = "https://" + DESTINATION %}
+{%- else %}
+  {%- set DESTINATION = "https://" + DESTINATION + "$request_uri" %}
+{%- endif %}
 
 
 server {
@@ -13,7 +18,7 @@ server {
     }
     # Redirect everything else
     location / {
-        return 301 https://{{ DESTINATION }}$request_uri;
+        return 301 {{ DESTINATION }};
     }
 }
 
@@ -26,5 +31,5 @@ server {
     ssl_certificate /etc/letsencrypt/live/{{ CERT_NAME }}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/{{ CERT_NAME }}/privkey.pem;
     # Redirect everything
-    return 301 https://{{ DESTINATION }}$request_uri;
+    return 301 {{ DESTINATION }};
 }
