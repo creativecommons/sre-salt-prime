@@ -35,6 +35,7 @@ letsencrypt:
       - nl.creativecommons.org
       - pl.creativecommons.org
       - search.creativecommons.org
+      - support.creativecommons.org
       - sotc.creativecommons.org
       - sv.creativecommons.org
       - za.creativecommons.org
@@ -89,6 +90,7 @@ nginx:
     - crt: redirects.creativecommons.org
       src: e-donate.creativecommons.org
       dst: 'www.classy.org/campaign/20th-anniversary-better-sharing-campaign/c338989?c_src=email&c_src2=signature'
+      ignore_request_uri: true
     - crt: redirects.creativecommons.org
       src: i.creativecommons.org
       dst: licensebuttons.net
@@ -119,6 +121,10 @@ nginx:
     - crt: redirects.creativecommons.org
       src: pl.creativecommons.org
       dst: creativecommons.pl
+    - crt: redirects.creativecommons.org
+      src: support.creativecommons.org
+      dst: classy.org/give/313412/#!/donation/checkout
+      ignore_request_uri: true
     - crt: redirects.creativecommons.org
       src: sotc.creativecommons.org
       dst: stateof.creativecommons.org
