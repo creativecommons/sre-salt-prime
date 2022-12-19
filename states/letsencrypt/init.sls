@@ -39,8 +39,8 @@ include:
     - bin_env: /opt/certbot_virtualenv
     - upgrade: True
     - require:
-      - virtualenv: {{ sls }} virtualenv
       - pip: {{ sls }} install acme
+      - virtualenv: {{ sls }} virtualenv
 
 
 {{ sls }} directory /usr/local/bin:
