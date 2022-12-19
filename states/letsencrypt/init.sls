@@ -24,6 +24,15 @@ include:
       - pkg: virtualenv installed packages
 
 
+{{ sls }} install acme:
+  pip.installed:
+    - name: acme == {{ pillar.letsencrypt.version }}
+    - bin_env: /opt/certbot_virtualenv
+    - upgrade: True
+    - require:
+      - virtualenv: {{ sls }} virtualenv
+
+
 {{ sls }} install certbot:
   pip.installed:
     - name: certbot == {{ pillar.letsencrypt.version }}
@@ -31,6 +40,7 @@ include:
     - upgrade: True
     - require:
       - virtualenv: {{ sls }} virtualenv
+      - pip: {{ sls }} install acme
 
 
 {{ sls }} directory /usr/local/bin:
