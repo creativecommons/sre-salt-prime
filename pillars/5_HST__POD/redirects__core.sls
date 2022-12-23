@@ -89,7 +89,7 @@ nginx:
       dst: classy.org/give/313412/#!/donation/checkout
     - crt: redirects.creativecommons.org
       src: e-donate.creativecommons.org
-      dst: 'www.classy.org/campaign/20th-anniversary-better-sharing-campaign/c338989?c_src=email&c_src2=signature'
+      dst: 'classy.org/give/313412/#!/donation/checkout'
       ignore_request_uri: true
     - crt: redirects.creativecommons.org
       src: i.creativecommons.org
