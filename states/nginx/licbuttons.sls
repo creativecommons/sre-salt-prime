@@ -96,7 +96,7 @@ include:
 {{ sls }} install {{ CERT_NAME }}_basic site:
   file.managed:
     - name: /etc/nginx/sites-available/{{ CERT_NAME }}_basic
-    - source: salt://nginx/files/licbuttons_basic_template
+    - source: salt://nginx/files/basic_template
     - mode: '0444'
     - template: jinja
     - defaults:
