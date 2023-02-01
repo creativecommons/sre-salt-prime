@@ -28,6 +28,11 @@ infra:
         cc:product: primary-website
         cc:purpose: wordpress-hosting
         cc:team: internal-tech
+      ccstatic__prod:
+        cc:environment: production
+        cc:product: ccstatic
+        cc:purpose: static-hosting
+        cc:team: internal-tech
       cert__prod:
         cc:environment: production
         cc:product: certificate

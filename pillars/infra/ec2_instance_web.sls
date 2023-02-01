@@ -6,6 +6,7 @@ infra:
       # Specific (please maintain order)
       biztool: vpc
       ccorg: vpc
+      ccstatic: vpc
       cert: vpc
       chapters: vpc
       dispatch: vpc
@@ -15,11 +16,12 @@ infra:
       podcast: vpc
       redirects: vpc
     ebs_size:
-      # Default
+      # Default/
       default: 10
       # Specific (please maintain order)
       ccengine: 214
       ccorg: 214
+      ccstatic: 214
       cert: 214
       chapters: 334
       dispatch: 214
