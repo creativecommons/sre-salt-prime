@@ -13,4 +13,4 @@ nginx:
   custom_log_dir: /srv/log-nginx-custom
 states:
   mount: {{ sls }}
-  #nginx.ccstatic: {{ sls }}
+  nginx.ccstatic: {{ sls }}
