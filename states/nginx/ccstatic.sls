@@ -9,88 +9,23 @@ include:
   - letsencrypt
 
 
-{{ sls }} installed packages:
-  pkg.installed:
-    - pkgs:
-      - git
-      - gir1.2-pango-1.0
-      - libnginx-mod-http-fancyindex
-      - python3-gi-cairo
+{{ sls }} /srv/ccstatic:
+  file.directory:
+    - name: /srv/ccstatic
+    - user: www-data
+    - group: www-data
+    - dir_mode: '2775'
+    - file_mode: '0664'
     - require:
       - pkg: nginx installed packages
 
 
-{{ sls }} group:
-  group.present:
-    - name: licbuttons
-    - system: True
-{%- if pillar.mounts %}
-    - require:
-{%- for mount in pillar.mounts %}
-      - mount: mount mount {{ mount.file }}
-{%- endfor %}
-{%- endif %}
-
-
-{{ sls }} user:
-  user.present:
-    - name: licbuttons
-    - gid: licbuttons
-    - home: /srv
-    - password: '!'
-    - shell: /usr/sbin/nologin
-    - system: True
-    - require:
-      - group: {{ sls }} group
-
-
-{{ sls }} /srv/licensebuttons:
-  file.directory:
-    - name: /srv/licensebuttons
-    - user: licbuttons
-    - group: licbuttons
-    - require:
-      - user: {{ sls }} user
-
-
-{{ sls }} licensebuttons repo:
-  git.latest:
-    - name: 'https://github.com/creativecommons/licensebuttons.git'
-    - target: /srv/licensebuttons
-    - rev: {{ pillar.git_branch }}
-    - branch: {{ pillar.git_branch }}
-    - user: licbuttons
-    - fetch_tags: False
-    - require:
-      - pkg: {{ sls }} installed packages
-      - user: {{ sls }} user
-
-
-{{ sls }} /srv/.fonts:
-  file.directory:
-    - name: /srv/.fonts
-    - user: licbuttons
-    - group: licbuttons
-    - require:
-      - git: {{ sls }} licensebuttons repo
-
-
-{{ sls }} /srv/.fonts/cc-icons.ttf:
+{{ sls }} expected location symlink:
   file.symlink:
-    - name: /srv/.fonts/cc-icons.ttf
-    - target: /srv/licensebuttons/www/cc-icons.ttf
+    - name: /var/www/ccstatic
+    - target: /srv/ccstatic
     - require:
-      - file: {{ sls }} /srv/.fonts
-
-
-{{ sls }} generate icons:
-  cmd.run:
-    - name: /usr/bin/python3 /srv/licensebuttons/scripts/genicons.py
-    - runas: licbuttons
-    - onchanges:
-      - git: {{ sls }} licensebuttons repo
-    - require:
-      - file: {{ sls }} /srv/.fonts/cc-icons.ttf
+      - file: {{ sls }} /srv/ccstatic
 
 
 {{ sls }} install {{ CERT_NAME }}_basic site:
@@ -113,7 +48,7 @@ include:
 {{ sls }} install {{ CERT_NAME }}_tls site:
   file.managed:
     - name: /etc/nginx/sites-available/{{ CERT_NAME }}_tls
-    - source: salt://nginx/files/licbuttons_tls_template
+    - source: salt://nginx/files/ccstatic_tls_template
     - mode: '0444'
     - template: jinja
     - defaults:
