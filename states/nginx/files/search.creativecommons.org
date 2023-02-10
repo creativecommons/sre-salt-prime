@@ -21,7 +21,7 @@ server {
     }
     # Redirect everything else
     location / {
-        return 301 https://wordpress.org/openverse$uri?referrer=creativecommons.org$sep_args$args;
+        return 301 https://openverse.org$uri?referrer=creativecommons.org$sep_args$args;
     }
 }
 
@@ -43,6 +43,6 @@ server {
     }
     # Redirect everything else
     location / {
-        return 301 https://wordpress.org/openverse$uri?referrer=creativecommons.org$sep_args$args;
+        return 301 https://openverse.org$uri?referrer=creativecommons.org$sep_args$args;
     }
 }
