@@ -35,8 +35,9 @@ letsencrypt:
       - nl.creativecommons.org
       - pl.creativecommons.org
       - search.creativecommons.org
-      - support.creativecommons.org
+      - slack-signup.creativecommons.org
       - sotc.creativecommons.org
+      - support.creativecommons.org
       - sv.creativecommons.org
       - za.creativecommons.org
 nginx:
@@ -121,6 +122,10 @@ nginx:
     - crt: redirects.creativecommons.org
       src: pl.creativecommons.org
       dst: creativecommons.pl
+    - crt: redirects.creativecommons.org
+      src: slack-signup.creativecommons.org
+      dst: communityinviter.com/apps/creativecommons/cc
+      ignore_request_uri: true
     - crt: redirects.creativecommons.org
       src: support.creativecommons.org
       dst: classy.org/give/313412/#!/donation/checkout
