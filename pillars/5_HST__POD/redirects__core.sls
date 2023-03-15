@@ -33,8 +33,8 @@ letsencrypt:
       - newsearch.creativecommons.org
       - nl-beta.creativecommons.org
       - nl.creativecommons.org
+      - oldsearch.creativecommons.org
       - pl.creativecommons.org
-      - search.creativecommons.org
       - slack-signup.creativecommons.org
       - sotc.creativecommons.org
       - support.creativecommons.org
@@ -120,6 +120,9 @@ nginx:
       src: nl.creativecommons.org
       dst: creativecommons.nl
     - crt: redirects.creativecommons.org
+      src: oldsearch.creativecommons.org
+      dst: search.creativecommons.org
+    - crt: redirects.creativecommons.org
       src: pl.creativecommons.org
       dst: creativecommons.pl
     - crt: redirects.creativecommons.org
@@ -141,4 +144,3 @@ nginx:
       dst: za.creativecommons.net
     #    api.creativecommons.engineering has custom configuration, see state
     # search.creativecommons.engineering has custom configuration, see state
-    # search.creativecommons.org has custom configuration, see state
