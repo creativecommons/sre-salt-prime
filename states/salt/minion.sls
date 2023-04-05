@@ -27,7 +27,12 @@
     - follow_symlinks: False
 
 
+{% if grains['osmajorrelease'] < 10 -%}
+# Hardcode SaltStack version for Debian 9 (Stretch) :`(
+{% set target = "3004.2+ds-1" -%}
+{% else -%}
 {% set target = pillar["salt"]["minion_target_version"] -%}
+{% endif -%}
 {{ sls }} upgrade minion:
   cmd.run:
     - name: nohup /usr/local/sbin/upgrade_minion.sh {{ target }}

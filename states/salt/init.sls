@@ -12,7 +12,12 @@ include:
       - gnupg
 
 
+{% if grains['osmajorrelease'] < 10 -%}
+# Hardcode SaltStack version for Debian 9 (Stretch) :`(
+{% set salt_version_major = 3004 -%}
+{% else -%}
 {% set salt_version_major = pillar.salt.minion_target_version[0:4] -%}
+{% endif -%}
 {% set os = grains['oscodename'] -%}
 {% set repo_url = ("https://repo.saltproject.io/py3/debian/{}/amd64/{}"
                    .format(grains['osmajorrelease'], salt_version_major)) -%}
