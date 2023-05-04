@@ -10,12 +10,12 @@ The following command does a test orchestration run of
 [`states/orch/web_host.sls`](../states/orch/web_host.sls):
 ```shell
 sudo salt-run state.orchestrate orch.web_host \
-    pillar='{"tgt_hst":"wikijs", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
+    pillar='{"tgt_hst":"SERVERNAME", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
     saltenv=timidrobot test=True
 ```
 - `pillar=` is required
   - Infrastructure creation is targeted with CLI pillar
-    (`pillar='{"tgt_hst":"wikijs", "tgt_pod":"core", "tgt_loc":"us-east-2"}'`)
+    (`pillar='{"tgt_hst":"SERVERNAME", "tgt_pod":"core", "tgt_loc":"us-east-2"}'`)
 - `saltenv=` is optional
   - The command above uses Pillars and States from a development environment
     (`saltenv=timidrobot`). Remove or change to `base` to use production
@@ -34,7 +34,7 @@ The following command shows how the SLS is rendered and outputs it as YAML:
 [`states/orch/aws/ec2_instance_web.sls`](../states/orch/aws/ec2_instance_web.sls):
 ```shell
 sudo salt-call --local --out=yaml state.show_sls orch.aws.ec2_instance_web \
-    pillar='{"tgt_hst":"wikijs", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
+    pillar='{"tgt_hst":"SERVERNAME", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
     saltenv=timidrobot
 ```
 
@@ -46,7 +46,7 @@ The following command does a local test apply of
 ```shell
 sudo salt-call --local --log-level=debug --log-file-level=warning \
     state.apply orch.aws.ec2_instance_web \
-    pillar='{"tgt_hst":"wikijs", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
+    pillar='{"tgt_hst":"SERVERNAME", "tgt_pod":"core", "tgt_loc":"us-east-2"}' \
     saltenv=timidrobot test=True
 ```
 - Using `salt-call` to run individual states can aid in the troubleshooting of

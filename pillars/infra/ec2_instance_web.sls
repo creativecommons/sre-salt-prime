@@ -38,7 +38,6 @@ infra:
       cert: t3.small
       chapters: t3.medium
       opencovid: t3.small
-      wikijs: t3.small
     web_secgroups:
       # Default
       default:
