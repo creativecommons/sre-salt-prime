@@ -1,5 +1,5 @@
 include:
-  - 3_HST.wikijs.secrets
+  - 3_HST.salt-prime.secrets
   - cloudflare.secrets
   - gandi.secrets
   - infra

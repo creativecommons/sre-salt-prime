@@ -93,8 +93,3 @@ infra:
         cc:product: infrastructure
         cc:purpose: saltstack
         cc:team: internal-tech
-      wikijs__core:
-        cc:environment: production
-        cc:product: wiki-internal
-        cc:purpose: wikijs-hosting
-        cc:team: internal-tech
