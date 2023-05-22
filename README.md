@@ -214,8 +214,8 @@ See [`docs/Orchestration.md`](docs/Orchestration.md).
 
 ## Testing
 
-- `testing/locust-ccengine/`
-  - [`README.md`](testing/locust-ccengine/README.md)
+- `testing/locust-cc-legal-tools/`
+  - [`README.md`](testing/locust-cc-legal-tools/README.md)
 
 
 ## Formula Repositories
