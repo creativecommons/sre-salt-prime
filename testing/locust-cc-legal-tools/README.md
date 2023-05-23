@@ -1,6 +1,6 @@
-# locust-ccengine
+# locust-cc-legal-tools
 
-Performance testing for ccEngine.
+Performance testing for CC Legal Tools.
 
 :warning: **Use of this code against Creative Commons infrastructure by persons
 not explicitly authorized by Creative Commons constitutes abuse.**
@@ -11,18 +11,15 @@ not explicitly authorized by Creative Commons constitutes abuse.**
 1. Install dependencies
    - [pipenv][pipenvdocs]
    - macOS:
-     - [Installing Locust on macOS - Installation — Locust 0.14.5
+     - [Installing Locust on macOS - Installation — Locust
        documentation][locustdocs]
 1. Install locust via pipenv:
     ```shell
-    pipenv install --pre
+    pipenv install
     ```
-   - `--pre` is required until [Installing 0.12.1 requires "pipenv lock --pre"
-     · Issue #1116 · locustio/locust][locustbug] is resolved
 
-[pipenvdocs]:https://pipenv.readthedocs.io/en/latest/
-[locustdocs]:https://docs.locust.io/en/stable/installation.html#installing-locust-on-macos
-[locustbug]:https://github.com/locustio/locust/issues/1116
+[pipenvdocs]: https://pipenv.readthedocs.io/en/latest/
+[locustdocs]: https://docs.locust.io/en/stable/installation.html#installing-locust-on-macos
 
 
 ### pipenv Troubleshooting
