@@ -2,5 +2,8 @@
 bootstrap-aws/temp-bootstrap/
 states/orch/bootstrap/TEMP__*
 
+# Formuals directory
+formulas
+
 # Vim
 *.swp
