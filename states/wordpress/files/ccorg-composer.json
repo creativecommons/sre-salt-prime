@@ -21,35 +21,16 @@
     {
       "type": "composer",
       "url": "https://wpackagist.org"
-    },
-    {
-      "no-api": true,
-      "type": "vcs",
-      "url": "https://github.com/creativecommons/creativecommons-base"
-    },
-    {
-      "no-api": true,
-      "type": "vcs",
-      "url": "https://github.com/creativecommons/wp-plugin-creativecommons-website"
-    },
-    {
-      "no-api": true,
-      "type": "vcs",
-      "url": "https://github.com/creativecommons/wp-theme-creativecommons.org"
     }
   ],
   "require": {
-    "composer/installers": "^1.0",
-    "creativecommons/wp-plugin-creativecommons-website": "0.5.0",
-    "creativecommons/wp-theme-creativecommons.org": "2022.03.2",
-    "johnpbloch/wordpress": "5.9.3",
-    "wpackagist-plugin/ultimate-addons-for-gutenberg": "1.25.4",
-    "wpackagist-plugin/wordpress-importer": "0.7",
-    "wpackagist-plugin/wordpress-seo": "18.5.1"
+    "composer/installers": "^2.2",
+    "johnpbloch/wordpress": "6.2",
+    "wpackagist-plugin/wordpress-importer": "0.8.1"
   },
   "require-dev": {
-    "wpackagist-plugin/debug-bar": "1.1.2",
-    "wpackagist-plugin/debug-bar-actions-and-filters-addon": "1.5.4"
+    "wpackagist-plugin/debug-bar": "1.1.4",
+    "wpackagist-plugin/debug-bar-actions-and-filters-addon": "1.5.5"
   },
   "type": "project"
 }
