@@ -42,7 +42,6 @@ if (( ${UID} != 0 ))
 then
     error_exit 'Must be root (invoke with sudo)'
 fi
-return 0
 
 # Find WordPress installations
 WP_CONFIGS=$(find /var/www -maxdepth 2 -type f -name 'wp-config.php' \
