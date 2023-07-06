@@ -37,24 +37,34 @@ headertwo() {
 
 #### MAIN #############################################################
 
+# Require sudo
+if (( ${UID} != 0 ))
+then
+    echo 'Must be root (invoke with sudo)' 1>&2
+    exit 1
+fi
+
 # Find WordPress installations
 WP_CONFIGS=$(find /var/www -maxdepth 2 -type f -name 'wp-config.php' \
                 2>/dev/null \
                 || true)
-for _wp_config in ${WP_CONFIGS}; do
+for _wp_config in ${WP_CONFIGS}
+do
     WP_DIR="${_wp_config%/*}"
     headerone 'Normalzing permissions on WordPress top directory:'
     # composer.json file
     TARGET="${WP_DIR}/composer.json"
     headertwo "${TARGET}"
-    if [[ -f "${TARGET}" ]]; then
+    if [[ -f "${TARGET}" ]]
+    then
         chgrp -ch webdev "${TARGET}"
         chmod -c 00664 "${TARGET}"
     fi
     # backup directory
     TARGET="${WP_DIR}/backup"
     headertwo "${TARGET}"
-    if [[ -d "${TARGET}" ]]; then
+    if [[ -d "${TARGET}" ]]
+    then
         chown -ch root "${TARGET}"
         chgrp -chR webdev "${TARGET}"
         chmod -c 2770 "${TARGET}"
@@ -66,14 +76,16 @@ for _wp_config in ${WP_CONFIGS}; do
     # vendor symlink - unnecessary aesthetics ¯\_(ツ)_/¯
     TARGET="${WP_DIR}/vendor"
     headertwo "$(printf '%-43s (symlink)\n' "${TARGET}")"
-    if [[ -L "${TARGET}" ]]; then
-        chown -ch composer:webdev "${TARGET}"
+    if [[ -L "${TARGET}" ]]
+    then
+        chown -chR composer:webdev "${TARGET}"
     fi
     # wp directory
     TARGET="${WP_DIR}/wp"
     headertwo "${TARGET}"
-    if [[ -d "${TARGET}" ]]; then
-        chown -ch composer:webdev "${TARGET}"
+    if [[ -d "${TARGET}" ]]
+    then
+        chown -chR composer:webdev "${TARGET}"
         chmod -c 2775 "${TARGET}"
         /usr/bin/find "${TARGET}" \
             -type d -exec chmod -c 2775 {} + \
@@ -83,11 +95,13 @@ for _wp_config in ${WP_CONFIGS}; do
     # wp-content directory
     TARGET="${WP_DIR}/wp-content"
     headertwo "${TARGET}"
-    if [[ -d "${TARGET}" ]]; then
+    if [[ -d "${TARGET}" ]]
+    then
         chown -ch root:root "${TARGET}"
         chmod -c 00555 "${TARGET}"
         # wp-content subdirectories
-        for _dir in $(/usr/bin/find "${TARGET}" -maxdepth 1 -type d); do
+        for _dir in $(/usr/bin/find "${TARGET}" -maxdepth 1 -type d)
+        do
             TARGET_USER=composer
             TARGET_GROUP=webdev
             TARGET_FMODE=00664
