@@ -40,7 +40,8 @@ headertwo() {
 # Require sudo
 if (( ${UID} != 0 ))
 then
-    error_exit 'Must be root (invoke with sudo)'
+    echo 'Must be root (invoke with sudo)' 1>&2
+    exit 1
 fi
 
 # Find WordPress installations
