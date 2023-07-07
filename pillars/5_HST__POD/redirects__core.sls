@@ -47,8 +47,6 @@ nginx:
     - crt: creativecommons.dk
       src: www.creativecommons.dk
       dst: dk.creativecommons.net
-      dst: network.creativecommons.org/chapter
-      dst: network.creativecommons.org/chapter
     # redirects.creativecommons.org
     - crt: redirects.creativecommons.org-0001
       src: au-beta.creativecommons.org
