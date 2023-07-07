@@ -9,9 +9,6 @@ letsencrypt:
       - search.creativecommons.engineering
       - search-dev.creativecommons.engineering
       - search-prod.creativecommons.engineering
-    creativecommons.ru:
-      - creativecommons.ru
-      - www.creativecommons.ru
     redirects.creativecommons.org:
       - au-beta.creativecommons.org
       - br.creativecommons.org
@@ -50,13 +47,6 @@ nginx:
     - crt: creativecommons.dk
       src: www.creativecommons.dk
       dst: dk.creativecommons.net
-    # creativecommons.ru
-    - crt: creativecommons.ru
-      src: creativecommons.ru
-      dst: network.creativecommons.org/chapter
-    - crt: creativecommons.ru
-      src: www.creativecommons.ru
-      dst: network.creativecommons.org/chapter
     # redirects.creativecommons.org
     - crt: redirects.creativecommons.org-0001
       src: au-beta.creativecommons.org
