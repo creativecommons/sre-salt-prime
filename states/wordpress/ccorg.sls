@@ -80,8 +80,9 @@
     - fetch_tags: False
     - require:
       - file: {{ sls }} {{ GIT }} directory
-
-
+ 
+{#- commented as it changes all file permissions leading to issue while 
+ #  updating the repo
 {{ sls }} {{ repo }} permissions:
   file.directory:
     - name: {{ GIT }}/{{ repo }}
@@ -93,4 +94,5 @@
       - group
     - require:
       - git: {{ sls }} {{ repo }} repo
+#}
 {%- endfor %}
