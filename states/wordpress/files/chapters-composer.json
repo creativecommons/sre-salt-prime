@@ -30,7 +30,7 @@
     }
   ],
   "require": {
-    "composer/installers": "^2.2",
+    "composer/installers": "1.9",
     "creativecommons/wp-theme-cc-chapter": "2019.8.2",
     "johnpbloch/wordpress": "5.5.12",
     "wpackagist-plugin/advanced-custom-fields": "5.9",
@@ -45,15 +45,15 @@
     "wpackagist-plugin/redirection": "4.8",
     "wpackagist-plugin/ultimate-addons-for-gutenberg": "1.17",
     "wpackagist-plugin/widget-css-classes": "1.5.4",
-    "wpackagist-plugin/wordpress-importer": "0.8.1",
+    "wpackagist-plugin/wordpress-importer": "0.7",
     "wpackagist-plugin/wordpress-mu-domain-mapping": "0.5.5.1",
     "wpackagist-plugin/wordpress-seo": "14.8",
     "wpackagist-plugin/wp-latest-posts": "4.8.3",
     "wpackagist-plugin/wp-mail-smtp": "2.2.1"
   },
   "require-dev": {
-    "wpackagist-plugin/debug-bar": "1.1.4",
-    "wpackagist-plugin/debug-bar-actions-and-filters-addon": "1.5.5"
+    "wpackagist-plugin/debug-bar": "1.0",
+    "wpackagist-plugin/debug-bar-actions-and-filters-addon": "1.5.4"
   },
   "type": "project"
 }
