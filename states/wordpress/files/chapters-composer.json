@@ -32,7 +32,7 @@
   "require": {
     "composer/installers": "1.9",
     "creativecommons/wp-theme-cc-chapter": "2019.8.2",
-    "johnpbloch/wordpress": "5.5",
+    "johnpbloch/wordpress": "5.5.12",
     "wpackagist-plugin/advanced-custom-fields": "5.9",
     "wpackagist-plugin/advanced-menu-widget": "0.4.1",
     "wpackagist-plugin/advanced-sidebar-menu": "8.0.2",
