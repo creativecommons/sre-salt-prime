@@ -21,12 +21,37 @@
     {
       "type": "composer",
       "url": "https://wpackagist.org"
+    },
+    {
+      "no-api": true,
+      "type": "vcs",
+      "url": "https://github.com/creativecommons/vocabulary-theme"
+    },
+    {
+      "package": {
+        "dist": {
+          "type": "zip",
+          "url": "https://github.com/reyhoun/acf-menu-chooser/archive/refs/tags/v1.1.0.zip"
+        },
+        "name": "reyhoun/acf-menu-chooser",
+        "type": "wordpress-plugin",
+        "version": "1.1"
+      },
+      "type": "package"
     }
   ],
   "require": {
     "composer/installers": "^2.2",
+    "creativecommons/vocabulary-theme": "0.4.0",
     "johnpbloch/wordpress": "6.2",
-    "wpackagist-plugin/wordpress-importer": "0.8.1"
+    "reyhoun/acf-menu-chooser": "1.1",
+    "wpackagist-plugin/advanced-custom-fields": "6.1.8",
+    "wpackagist-plugin/classic-editor": "1.6.3",
+    "wpackagist-plugin/redirection": "4.9.2",
+    "wpackagist-plugin/tablepress": "1.14",
+    "wpackagist-plugin/wordfence": "7.10.3",
+    "wpackagist-plugin/wordpress-importer": "0.8.1",
+    "wpackagist-theme/twentytwentythree": "1.2"
   },
   "require-dev": {
     "wpackagist-plugin/debug-bar": "1.1.4",
