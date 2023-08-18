@@ -54,7 +54,7 @@ infra:
       # * DB Instance class db.t2.micro does not support encryption at rest
       #
       # Default
-      default: db.t2.small
+      default: db.t3.small
       # Specific (please maintain order)
       chapters: db.t2.medium
     parameters:
