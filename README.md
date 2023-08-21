@@ -136,10 +136,9 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
   - Free/Open Source
   - Performance
   - Creative Commons is already using it and staff are familiar with it
-  - Version: `3005.1`
+  - Version: `3005.2`
     - For current targeted minion version, see `minion_target_version` in
       [`pillars/salt/init.sls`](pillars/salt/init.sls)
-    - Debian 9 (Stretch) uses a hardcoded value of `3004.2`
 
 [gitcrypt]: https://www.agwa.name/projects/git-crypt/
 
