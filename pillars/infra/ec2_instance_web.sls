@@ -5,7 +5,7 @@ infra:
       default: ABSENT
       # Specific (please maintain order)
       biztool: vpc
-      ccorg: vpc
+      index: vpc
       ccstatic: vpc
       cert: vpc
       chapters: vpc
@@ -20,7 +20,7 @@ infra:
       default: 10
       # Specific (please maintain order)
       ccengine: 214
-      ccorg: 214
+      index: 214
       ccstatic: 214
       cert: 214
       chapters: 334
@@ -34,7 +34,7 @@ infra:
       # Specific (please maintain order)
       bastion: t3.nano
       ccengine: t3.small
-      ccorg: t3.small
+      index: t3.small
       cert: t3.small
       chapters: t3.medium
       opencovid: t3.small
@@ -56,11 +56,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-from-dispatch_prod_secgroup
-      ccorg__stage:
+      index__stage:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
-        - web-all-ccorg_stage_secgroup
+        - web-all-index_stage_secgroup
       cert__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup

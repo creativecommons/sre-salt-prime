@@ -6,7 +6,7 @@
 
 
 include:
-  - 5_HST__POD.ccorg__stage.secrets
+  - 5_HST__POD.index__stage.secrets
   - 5_HST__POD.cert__prod.secrets
   - 5_HST__POD.opencovid__prod.secrets
 
@@ -56,7 +56,7 @@ infra:
       # Default
       default: db.t2.small
       # Specific (please maintain order)
-      ccorg: db.t3.small
+      index: db.t3.small
       chapters: db.t2.medium
     parameters:
       default:
@@ -89,8 +89,8 @@ infra:
       # Specific (please maintain order)
       biztool__prod:
         - mysql-from-biztool_prod_secgroup
-      ccorg__stage:
-        - mysql-from-ccorg_stage_secgroup
+      index__stage:
+        - mysql-from-index_stage_secgroup
       cert__prod:
         - mysql-from-cert_prod_secgroup
       chapters__prod:
@@ -107,7 +107,7 @@ infra:
       # Default
       default: 10
       # Specific (please maintain order)
-      ccorg: 214
+      index: 214
       cert: 214
       chapters: 334
       opencovid: 214

@@ -61,7 +61,7 @@ Per [Debugging salt-ssh - Salt SSH][debug-salt-ssh], to see errors from a
 1. Assuming that `orch.bootstrap install salt on minion` failed
 2. Apply the states manually with trace level logging:
     ```
-    sudo salt-ssh ccorg__stage__us-east-2 -l trace --log-file-level=warning --sudo state.apply salt
+    sudo salt-ssh index__stage__us-east-2 -l trace --log-file-level=warning --sudo state.apply salt
     ```
 3. Search output for `SALT_ARGV`
 4. SSH into target machine from `salt-prime` (replace `TARGET_IP` with
