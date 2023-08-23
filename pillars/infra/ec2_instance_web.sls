@@ -20,7 +20,7 @@ infra:
       default: 10
       # Specific (please maintain order)
       ccengine: 214
-      index: 334
+      index: 214
       ccstatic: 214
       cert: 214
       chapters: 334

@@ -107,7 +107,7 @@ infra:
       # Default
       default: 10
       # Specific (please maintain order)
-      index: 214
+      index: 334
       cert: 214
       chapters: 334
       opencovid: 214
