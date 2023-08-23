@@ -27,5 +27,6 @@ states:
   wordpress.apache2: {{ sls }}
   wordpress.index: {{ sls }}
 wordpress:
+  docroot: /var/www/index
   multisite: False
   site_conf: creativecommons_org.conf
