@@ -42,7 +42,7 @@
   ],
   "require": {
     "composer/installers": "^2.2",
-    "creativecommons/vocabulary-theme": "0.4.0",
+    "creativecommons/vocabulary-theme": "0.6.0",
     "johnpbloch/wordpress": "6.2",
     "reyhoun/acf-menu-chooser": "1.1",
     "wpackagist-plugin/advanced-custom-fields": "6.1.8",
