@@ -23,7 +23,7 @@ infra:
         cc:product: primary-website
         cc:purpose: ccengine
         cc:team: internal-tech
-      ccorg__stage:
+      index__stage:
         cc:environment: staging
         cc:product: primary-website
         cc:purpose: wordpress-hosting

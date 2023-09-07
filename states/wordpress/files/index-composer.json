@@ -1,0 +1,61 @@
+{
+  "authors": [
+    {
+      "homepage": "https://github.com/creativecommons/sre-salt-prime",
+      "name": "Creative Commons"
+    }
+  ],
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "johnpbloch/wordpress-core-installer": true
+    },
+    "vendor-dir": "wp-content/vendor"
+  },
+  "description": "Creative Commons Primary WordPress Site via Composer",
+  "extra": {
+    "wordpress-install-dir": "wp"
+  },
+  "name": "creativecommons/wordpress-creativecommons-org",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    },
+    {
+      "no-api": true,
+      "type": "vcs",
+      "url": "https://github.com/creativecommons/vocabulary-theme"
+    },
+    {
+      "package": {
+        "dist": {
+          "type": "zip",
+          "url": "https://github.com/reyhoun/acf-menu-chooser/archive/refs/tags/v1.1.0.zip"
+        },
+        "name": "reyhoun/acf-menu-chooser",
+        "type": "wordpress-plugin",
+        "version": "1.1"
+      },
+      "type": "package"
+    }
+  ],
+  "require": {
+    "composer/installers": "^2.2",
+    "creativecommons/vocabulary-theme": "0.7.0",
+    "johnpbloch/wordpress": "6.2",
+    "reyhoun/acf-menu-chooser": "1.1",
+    "wpackagist-plugin/advanced-custom-fields": "6.1.8",
+    "wpackagist-plugin/classic-editor": "1.6.3",
+    "wpackagist-plugin/redirection": "4.9.2",
+    "wpackagist-plugin/tablepress": "1.14",
+    "wpackagist-plugin/wordfence": "7.10.3",
+    "wpackagist-plugin/wordpress-importer": "0.8.1",
+    "wpackagist-theme/twentytwentythree": "1.2"
+  },
+  "require-dev": {
+    "wpackagist-plugin/debug-bar": "1.1.4",
+    "wpackagist-plugin/debug-bar-actions-and-filters-addon": "1.5.5"
+  },
+  "type": "project"
+}

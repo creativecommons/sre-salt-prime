@@ -1,5 +1,5 @@
 include:
-  - 3_HST.ccorg.secrets
+  - 3_HST.index.secrets
   - letsencrypt
   - mysql
   - php
@@ -25,7 +25,8 @@ php:
 states:
   mount: {{ sls }}
   wordpress.apache2: {{ sls }}
-  wordpress.ccorg: {{ sls }}
+  wordpress.index: {{ sls }}
 wordpress:
+  docroot: /var/www/index
   multisite: False
   site_conf: creativecommons_org.conf

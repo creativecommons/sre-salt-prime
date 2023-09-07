@@ -74,8 +74,8 @@
   git.latest:
     - name: 'https://github.com/creativecommons/{{ repo }}.git'
     - target: {{ GIT }}/{{ repo }}
-    - rev: {{ pillar.ccorg.branch }}
-    - branch: {{ pillar.ccorg.branch }}
+    - rev: {{ pillar.index.branch }}
+    - branch: {{ pillar.index.branch }}
     - user: composer
     - fetch_tags: False
     - require:
