@@ -61,6 +61,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-index_stage_secgroup
+      index__prod:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-all-index_prod_secgroup
       cert__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
