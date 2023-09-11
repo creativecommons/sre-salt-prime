@@ -1,6 +1,6 @@
 {% set ID, HST, POD, LOC, POD__LOC, HST__POD = salt.meta.classify() -%}
 {% set ENDPOINT = salt.meta.rds_endpoint() -%}
-{% set WEBNAME = "stage.creativecommons.org" -%}
+{% set WEBNAME = "fresh.creativecommons.org" -%}
 
 include:
   - 5_HST__POD.index__stage.secrets
