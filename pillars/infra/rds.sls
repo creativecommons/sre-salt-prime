@@ -90,10 +90,10 @@ infra:
       # Specific (please maintain order)
       biztool__prod:
         - mysql-from-biztool_prod_secgroup
-      index__stage:
-        - mysql-from-index_stage_secgroup
       index__prod:
         - mysql-from-index_prod_secgroup
+      index__stage:
+        - mysql-from-index_stage_secgroup
       cert__prod:
         - mysql-from-cert_prod_secgroup
       chapters__prod:

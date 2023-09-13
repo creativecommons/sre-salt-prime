@@ -23,13 +23,13 @@ infra:
         cc:product: primary-website
         cc:purpose: ccengine
         cc:team: internal-tech
-      index__stage:
-        cc:environment: staging
+      index__prod:
+        cc:environment: production
         cc:product: primary-website
         cc:purpose: wordpress-hosting
         cc:team: internal-tech
-      index__prod:
-        cc:environment: production
+      index__stage:
+        cc:environment: staging
         cc:product: primary-website
         cc:purpose: wordpress-hosting
         cc:team: internal-tech
