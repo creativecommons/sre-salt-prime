@@ -18,7 +18,7 @@ infra:
         openglam__prod:         10.22.10.21
         licbuttons__prod:       10.22.10.24
         dispatch__prod:         10.22.10.25
-        ccorg__stage:           10.22.10.26
+        index__prod:            10.22.10.26
         opencovid__prod:        10.22.10.27
         cert__prod:             10.22.10.29
         ###_Private-One         10.22.11.0

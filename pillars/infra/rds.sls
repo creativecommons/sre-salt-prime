@@ -6,6 +6,7 @@
 
 
 include:
+  - 5_HST__POD.index__prod.secrets
   - 5_HST__POD.index__stage.secrets
   - 5_HST__POD.cert__prod.secrets
   - 5_HST__POD.opencovid__prod.secrets
@@ -89,6 +90,8 @@ infra:
       # Specific (please maintain order)
       biztool__prod:
         - mysql-from-biztool_prod_secgroup
+      index__prod:
+        - mysql-from-index_prod_secgroup
       index__stage:
         - mysql-from-index_stage_secgroup
       cert__prod:
