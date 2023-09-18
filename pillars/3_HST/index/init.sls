@@ -29,4 +29,4 @@ states:
 wordpress:
   docroot: /var/www/index
   multisite: False
-  site_conf: creativecommons_org.conf
+  site_conf: index.conf
