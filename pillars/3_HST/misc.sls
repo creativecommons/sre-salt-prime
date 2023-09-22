@@ -7,4 +7,3 @@ mounts:
     pass: 2
 states:
   mount: {{ sls }}
-  nginx.misc: {{ sls }}
