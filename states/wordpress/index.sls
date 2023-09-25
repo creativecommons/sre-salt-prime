@@ -67,7 +67,7 @@
       - pkg: {{ sls }} installed packages
 
 
-{%- for repo in ("cc-legal-tools-data", "mp") %}
+{%- for repo in ("cc-legal-tools-data", "faq", "mp") %}
 
 
 {{ sls }} {{ repo }} repo:
