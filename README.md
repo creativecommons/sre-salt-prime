@@ -211,12 +211,6 @@ See [`docs/Orchestration.md`](docs/Orchestration.md).
   - [`WordPress.md`](docs/WordPress.md)
 
 
-## Testing
-
-- `testing/locust-cc-legal-tools/`
-  - [`README.md`](testing/locust-cc-legal-tools/README.md)
-
-
 ## Formula Repositories
 
 - [saltstack-formulas/mysql-formula][mysql-formula]: Install the MySQL client
