@@ -64,7 +64,9 @@
     - group: webdev
     - require:
       - file: wordpress docroot
+  {% if STAGE_USER and STAGE_PASS -%}
       - pkg: {{ sls }} installed packages
+  {%- endif %}
 
 
 {%- for repo in ("cc-legal-tools-data", "faq", "mp") %}
