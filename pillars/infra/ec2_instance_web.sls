@@ -34,7 +34,7 @@ infra:
       # Specific (please maintain order)
       bastion: t3.nano
       ccengine: t3.small
-      index: t3.small
+      index: t3.medium
       cert: t3.small
       chapters: t3.medium
       opencovid: t3.small
