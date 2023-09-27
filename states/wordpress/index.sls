@@ -64,9 +64,9 @@
     - group: webdev
     - require:
       - file: wordpress docroot
-  {% if STAGE_USER and STAGE_PASS -%}
+{%- if STAGE_USER and STAGE_PASS %}
       - pkg: {{ sls }} installed packages
-  {%- endif %}
+{%- endif %}
 
 
 {%- for repo in ("cc-legal-tools-data", "faq", "mp") %}
@@ -82,8 +82,8 @@
     - fetch_tags: False
     - require:
       - file: {{ sls }} {{ GIT }} directory
- 
-{#- commented as it changes all file permissions leading to issue while 
+
+{#- commented as it changes all file permissions leading to issue while
  #  updating the repo
 {{ sls }} {{ repo }} permissions:
   file.directory:
