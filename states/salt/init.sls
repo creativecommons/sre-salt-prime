@@ -1,3 +1,6 @@
+{% set HST = pillar.hst -%}
+{% set OS = grains['oscodename'] -%}
+
 include:
   - .minion
 {%- if salt.match.glob("salt-prime__*") %}
@@ -12,20 +15,22 @@ include:
       - gnupg
 
 
-{% if grains['osmajorrelease'] < 10 -%}
-# Hardcode SaltStack version for Debian 9 (Stretch) :`(
-{% set salt_version_major = 3004 -%}
+{% if HST == "salt-prime" or grains['osmajorrelease'] > 11 %}
+{% set salt_version_major = "3006" %}
+{% set salt_gpg_key = "SALT-PROJECT-GPG-PUBKEY-2023.pub" %}
+{% set repo_url = ("https://repo.saltproject.io/salt/py3/debian/{}/amd64/{}"
+                   .format(grains['osmajorrelease'], salt_version_major)) -%}
 {% else -%}
 {% set salt_version_major = pillar.salt.minion_target_version[0:4] -%}
-{% endif -%}
-{% set os = grains['oscodename'] -%}
+{% set salt_gpg_key = "SALTSTACK-GPG-KEY.pub" %}
 {% set repo_url = ("https://repo.saltproject.io/py3/debian/{}/amd64/{}"
                    .format(grains['osmajorrelease'], salt_version_major)) -%}
+{% endif -%}
 {{ sls }} SaltStack Repository:
   pkgrepo.managed:
-    - name: deb {{ repo_url }} {{ os }} main
+    - name: deb {{ repo_url }} {{ OS }} main
     - file: /etc/apt/sources.list.d/saltstack.list
-    - key_url: {{ repo_url }}/SALTSTACK-GPG-KEY.pub
+    - key_url: {{ repo_url }}/{{ salt_gpg_key }}
     - clean_file: True
     - require:
       - pkg: {{ sls }} dependencies
