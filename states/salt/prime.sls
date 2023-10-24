@@ -18,6 +18,16 @@
       - salt-ssh
 
 
+{{ sls }} installed salt-pip boto:
+  pip.installed:
+    - name: boto
+
+
+{{ sls }} installed salt-pip boto3:
+  pip.installed:
+    - name: boto3
+
+
 {{ sls }} root ssh directory:
   file.directory:
     - name: /root/.ssh
@@ -84,6 +94,8 @@
     - enable: True
     - require:
       - file: {{ sls }} roster.d directory
+      - pip: {{ sls }} installed salt-pip boto
+      - pip: {{ sls }} installed salt-pip boto3
       - pkg: {{ sls }} installed packages
 
 
