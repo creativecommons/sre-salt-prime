@@ -18,7 +18,8 @@ include:
 {% if HST == "salt-prime" or grains['osmajorrelease'] > 11 %}
 {% set salt_version_major = "3006" %}
 {% set salt_gpg_key = "SALT-PROJECT-GPG-PUBKEY-2023.pub" %}
-{% set repo_url = ("https://repo.saltproject.io/salt/py3/debian/{}/amd64/{}"
+{% set OS  = "bullseye" %}
+{% set repo_url = ("https://repo.saltproject.io/salt/py3/debian/11/amd64/3006"
                    .format(grains['osmajorrelease'], salt_version_major)) -%}
 {% else -%}
 {% set salt_version_major = pillar.salt.minion_target_version[0:4] -%}
