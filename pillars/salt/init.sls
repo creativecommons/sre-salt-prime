@@ -1,2 +1,2 @@
 salt:
-  minion_target_version: 3005.2+ds-1
+  minion_target_version: 3006.3+ds-1
