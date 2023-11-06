@@ -10,9 +10,12 @@ trap '_es=${?};
     exit ${_es}' ERR
 
 # shellcheck disable=SC1091
-source .env
+WP_ADMIN_USER=${1}
+WP_ADMIN_PASS=${2}
+WP_ADMIN_EMAIL=${3}
 WEB_WP_DIR=/var/www/html
 WEB_WP_URL=http://localhost:8080
+echo $WP_ADMIN_USER, $WP_ADMIN_PASS, $WP_ADMIN_EMAIL
 
 # Call WP-CLI with appropriate site arguments 
 
