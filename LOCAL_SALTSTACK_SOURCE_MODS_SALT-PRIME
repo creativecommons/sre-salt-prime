@@ -1,0 +1,15 @@
+--- /usr/lib/python3/dist-packages/salt/modules/boto_rds.py.BAK	2021-10-12 15:43:35.000000000 +0000
++++ /usr/lib/python3/dist-packages/salt/modules/boto_rds.py	2022-01-31 21:16:58.909617998 +0000
+@@ -219,7 +219,8 @@
+         rds = conn.describe_db_subnet_groups(DBSubnetGroupName=name)
+         return {"exists": bool(rds)}
+     except ClientError as e:
+-        if "DBSubnetGroupNotFoundFault" in e.message:
++        # https://github.com/saltstack/salt/issues/61555
++        if "DBSubnetGroupNotFoundFault" in str(e):
+             return {"exists": False}
+         else:
+             return {"error": __utils__["boto3.get_error"](e)}
+
+
+

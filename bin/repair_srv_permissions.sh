@@ -9,6 +9,7 @@ trap '_es=${?};
     echo "${0}: line ${_lo}: \"${_co}\" exited with a status of ${_es}";
     exit ${_es}' ERR
 
+ENV_GROUP=salt
 
 #### FUNCTIONS ########################################################
 
@@ -28,23 +29,40 @@ configure_git_shared_repo() {
 
 ensure_all_are_group_writeable() {
     headerone 'Ensure all user writeable dirs/files are also group writeable'
+    # man find excerpt:
+    # "Never follow symbolic links. This is the default behaviour."
     find . -perm /u+w -not -perm /g+w -exec chmod -v g+w {} +
     headertwo DONE
     echo
 }
 
 
-ensure_all_grouped_by_sudo() {
+ensure_all_grouped_correctly() {
     headerone 'Ensure all files have sudo group'
-    find . -not -group sudo -exec chgrp -v sudo {} +
+    # man find excerpt:
+    # "Never follow symbolic links. This is the default behaviour."
+    find . -not -group "${ENV_GROUP}" -exec chgrp -v "${ENV_GROUP}" {} +
     headertwo DONE
     echo
 }
 
 
 ensure_dirs_have_set_group_id() {
-    headerone 'Ensure all directories have set-group-iD'
+    headerone 'Ensure all directories have set-group-id'
+    # man find excerpt:
+    # "Never follow symbolic links. This is the default behaviour."
     find . -type d -not -perm /g+s -exec chmod -v g+s {} +
+    headertwo DONE
+    echo
+}
+
+
+ensure_other_has_no_permisions() {
+    headerone 'Ensure other has no permissions'
+    # man chmod excerpt:
+    # "chmod ignores symbolic links encountered during recursive directory
+    # traversals."
+    chmod --preserve-root --recursive o-rwx .
     headertwo DONE
     echo
 }
@@ -102,7 +120,8 @@ require_sudo
 pushd "${0%/*}/.." >/dev/null
 # Repair permissions
 replace_admin
-ensure_all_grouped_by_sudo
+ensure_other_has_no_permisions
+ensure_all_grouped_correctly
 ensure_all_are_group_writeable
 ensure_dirs_have_set_group_id
 configure_git_shared_repo
