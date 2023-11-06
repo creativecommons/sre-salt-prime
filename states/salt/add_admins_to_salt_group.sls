@@ -1,15 +1,18 @@
-## adding admins to salt group
+# adding admins to salt group
 
-{% set admins = salt["pillar.get"]("user:admins", {}).keys()|sort -%}
 
 {{ sls }} salt group:
   group.present:
     - name: salt
     - gid: 118
-  {%- if admins %}
-  {%- for username in admins %}
-    - adduser: {{ username }}
+
+
+{% set admins = salt["pillar.get"]("user:admins", {}).keys()|sort -%}
+{%- if admins %}
+{%- for username in admins %}
+{{ username }}:
+  user.present:
     - groups:
       - salt  
-  {%- endfor %}
-  {%- endif %}
+{%- endfor %}
+{%- endif %}
