@@ -5,6 +5,7 @@ include:
   - .minion
 {%- if salt.match.glob("salt-prime__*") %}
   - .prime
+  - .add_admins_to_salt_group
 {%- endif %}
 
 

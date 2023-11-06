@@ -6,8 +6,10 @@
   group.present:
     - name: salt
     - gid: 118
-{%- if admins %}
-{%- for username in admins %}
-      - user: user.admins {{ username }} user
-{%- endfor %}
-{%- endif %}
+  {%- if admins %}
+  {%- for username in admins %}
+    - adduser: {{ username }}
+    - groups:
+      - salt  
+  {%- endfor %}
+  {%- endif %}
