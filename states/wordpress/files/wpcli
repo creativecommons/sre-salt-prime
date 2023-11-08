@@ -13,18 +13,14 @@ trap '_es=${?};
 WP_ADMIN_USER=${1}
 WP_ADMIN_PASS=${2}
 WP_ADMIN_EMAIL=${3}
+WEB_WP_URL=${4}
 WEB_WP_DIR=/var/www/html
-WEB_WP_URL=http://localhost:8080
-echo $WP_ADMIN_USER, $WP_ADMIN_PASS, $WP_ADMIN_EMAIL
+echo $WP_ADMIN_USER, $WP_ADMIN_PASS, $WP_ADMIN_EMAIL, $WEB_WP_URL >> /usr/local/bin/test.txt
 
 # Call WP-CLI with appropriate site arguments 
 
-exec \
-    --env WP_ADMIN_USER="${WP_ADMIN_USER}" \
-    --env WP_ADMIN_PASS="${WP_ADMIN_PASS}" \
-    --env WP_ADMIN_EMAIL="${WP_ADMIN_EMAIL}" \
-    index-wpcli \
-        /usr/local/bin/wp \
-            --path="${WEB_WP_DIR}" \
-            --url="${WEB_WP_URL}" \
-            "${@}"
+
+#/usr/local/bin/wp \
+#  --path="${WEB_WP_DIR}" \
+# --url="${WEB_WP_URL}" \
+#  --skip-email
