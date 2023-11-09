@@ -35,7 +35,7 @@ include:
   - wordpress.norm_perms
   - wordpress.pressbooks
   - wordpress.wordfence
-  - wordpress.wordpress_setup
+  - wordpress.initial_wordpress_setup
 
 
 {{ sls }} update webdev group perms cron:
