@@ -22,7 +22,7 @@
 
 {{ sls }} run wpcli script:
   cmd.run:
-    - name: /usr/local/bin/wpcli '{{ ADMIN_USER }}' '{{ ADMIN_PASS }}'     '{{ ADMIN_EMAIL }}' '{{ WEBNAME  }}'
+    - name: /usr/local/bin/wpcli '{{ ADMIN_USER }}' '{{ ADMIN_PASS }}' '{{ ADMIN_EMAIL }}' '{{ WEBNAME  }}' --allow-root
     - user: root
     - require:
       - file: {{ sls }} install wpcli script 

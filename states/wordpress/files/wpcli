@@ -15,12 +15,43 @@ WP_ADMIN_PASS=${2}
 WP_ADMIN_EMAIL=${3}
 WEB_WP_URL=${4}
 WEB_WP_DIR=/var/www/html
-echo $WP_ADMIN_USER, $WP_ADMIN_PASS, $WP_ADMIN_EMAIL, $WEB_WP_URL >> /usr/local/bin/test.txt
 
-# Call WP-CLI with appropriate site arguments 
+#### FUNCTIONS ################################################################
 
+install_wordpress() {
+    local _err
+    echo 'Install WordPress'
+    if [[ -n "${WP_ADMIN_EMAIL}" ]] && [[ -n "${WP_ADMIN_USER}" ]] \
+        && [[ -n "${WP_ADMIN_PASS}" ]]
+    then
+        echo $WP_ADMIN_EMAIL
+        echo $WP_ADMIN_USER
+        echo $WP_ADMIN_PASS
+    else
+        _err='The following variables must be set in .env (see .env.example):'
+        _err="${_err} WP_ADMIN_EMAIL, WP_ADMIN_USER, WP_ADMIN_PASS"
+        error_exit "${_err}"
+    fi
+ echo
+    if wpcli --no-color --quiet core is-installed &> /dev/null
+    then
+        echo 'already installed'
+    else
+        wpcli \
+            --admin_email="${WP_ADMIN_EMAIL}" \
+            --admin_user="${WP_ADMIN_USER}" \
+            --admin_password="${WP_ADMIN_PASS}" \
+            --skip-email
+    fi
+    echo
+}
 
-#/usr/local/bin/wp \
-#  --path="${WEB_WP_DIR}" \
-# --url="${WEB_WP_URL}" \
-#  --skip-email
+wpcli() {
+    # Call WP-CLI with appropriate site arguments
+            /usr/local/bin/wp --path="${WEB_WP_DIR}" --url="${WEB_WP_URL}" --admin_email="${WP_ADMIN_EMAIL}" --admin_user="${WP_ADMIN_USER}" --admin_password="${WP_ADMIN_PASS}" 
+}
+
+#### MAIN #####################################################################
+
+install_wordpress
+
