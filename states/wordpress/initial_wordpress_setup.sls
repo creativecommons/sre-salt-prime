@@ -20,8 +20,7 @@
     - mode: '0775'
     - user: root
 
-{% set wpcli_installed = salt['cmd.run_all']('wpcli --no-color --quiet core is-installed') %}
-
+{% set wpcli_installed = salt['cmd.run_all']('/usr/local/bin/wp --path=/var/www/index/wp --no-color --quiet core is-installed') %}
 {% if wpcli_installed.retcode == 0 %}
 {{ sls }} wpcli_already_installed:
     cmd.run:
