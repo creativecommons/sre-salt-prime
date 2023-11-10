@@ -4,6 +4,8 @@
 {% set ADMIN_PASS = salt.pillar.get("wordpress:admin_pass", false) -%}
 {% set ADMIN_EMAIL = salt.pillar.get("wordpress:admin_email", false) -%}
 {% set POD = pillar.pod -%}
+{% set DOCROOT = pillar.wordpress.docroot -%}
+{% set WP_DIR = "{}/wp".format(DOCROOT) -%}
 {% if POD.startswith("stage") -%}
 {% set WEBNAME = "stage.creativecommons.org" -%}
 {% else -%}
@@ -20,20 +22,15 @@
     - mode: '0775'
     - user: root
 
-{% set wpcli_installed = salt['cmd.run_all']('/usr/local/bin/wp --path=/var/www/index/wp --no-color --quiet core is-installed') %}
-{% if wpcli_installed.retcode == 0 %}
-{{ sls }} wpcli_already_installed:
-    cmd.run:
-      - name: echo 'already installed'
-{% else %}
-{{ sls }} wpcli_not_installed:
+{{ sls }} wpcli_is_installed:
   cmd.run:
-    - name: echo 'not installed'
+    - name: echo 'installed'
+    - onlyif: /usr/local/bin/wp --path='{{ WP_DIR }}' --no-color --quiet cor    e is-installed
 #{{ sls }} run wpcli script:
 #    cmd.run:
-#      - name: /usr/local/bin/wpcli '{{ ADMIN_USER }}' '{{ ADMIN_PASS }}' '{{ ADMIN_EMAIL }}' '{{ WEBNAME  }}' 
+#      - name: /usr/local/bin/wpcli '{{ ADMIN_USER }}' '{{ ADMIN_PASS }}' '{{ ADMIN_EMAIL }}' '{{ WP_DIR }}' '{{ WEBNAME  }}' 
 #      - user: root
 #      - require:
 #        - file: {{ sls }} install wpcli script 
-{% endif %}
+#    - unless: /usr/local/bin/wp --path='{{ WP_DIR }}' --no-color --quiet core is-installed
 {% endif %}
