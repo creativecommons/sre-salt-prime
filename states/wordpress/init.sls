@@ -265,7 +265,6 @@ include:
 
 # Initial wordpress setup, it  copies the wpcli script on the destination server and execute it if wordpress is not installed
 
-{% if ADMIN_USER and ADMIN_PASS and ADMIN_EMAIL -%}
 {{ sls }} install wpcli script:
   file.managed:
     - name: /usr/local/bin/wpcli
@@ -281,7 +280,6 @@ include:
     - require:
       - file: {{ sls }} install wpcli script
     - unless: /usr/local/bin/wp --path='{{ WP_DIR }}' --no-color --quiet core is-installed ; echo $? 
-{% endif %}
 
 
 {{ sls }} ready:
