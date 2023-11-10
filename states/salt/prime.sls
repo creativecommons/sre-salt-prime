@@ -124,3 +124,21 @@
     - follow_symlinks: False
     - require:
       - file: {{ sls }} master config file
+
+
+{% set admins = salt["pillar.get"]("user:admins", {}).keys()|sort -%}
+{% if admins -%}
+{{ sls }} salt group:
+  group.present:
+    - name: salt
+    - system: True
+    - addusers:
+{%- for username in admins|sort %}
+        - {{ username }}
+{%- endfor %}
+    - require:
+      - pkg: {{ sls }} installed packages
+{%- for username in admins %}
+      - user: user.admins {{ username }} user
+{%- endfor %}
+{%- endif %}
