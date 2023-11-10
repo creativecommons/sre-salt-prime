@@ -276,7 +276,7 @@ include:
  
 {{ sls }} run wpcli script:
   cmd.run:
-    - name: /usr/local/bin/wpcli '{{ ADMIN_USER }}' '{{ ADMIN_PASS }}' '{{ ADMIN_EMAIL }}' '{{ WP_DIR }}'
+    - name: /usr/local/bin/wpcli '{{ WP_DIR }}' '{{ ADMIN_USER }}' '{{ ADMIN_PASS }}' '{{ ADMIN_EMAIL }}'
     - user: root
     - require:
       - file: {{ sls }} install wpcli script

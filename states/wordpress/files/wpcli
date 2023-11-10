@@ -10,25 +10,10 @@ trap '_es=${?};
     exit ${_es}' ERR
 
 # shellcheck disable=SC1091
-WP_ADMIN_USER=${1}
-WP_ADMIN_PASS=${2}
-WP_ADMIN_EMAIL=${3}
-WEB_WP_DIR=${4}
+WEB_WP_DIR=${1}
 
 
 echo 'Install WordPress'
-if [[ -n "${WP_ADMIN_EMAIL}" ]] && [[ -n "${WP_ADMIN_USER}" ]] && [[ -n "${WP_ADMIN_PASS}" ]]
-  then
-    echo $WP_ADMIN_EMAIL
-    echo $WP_ADMIN_USER
-    echo $WP_ADMIN_PASS
-else
-    _err='The following variables must be set:'
-    _err="${_err} WP_ADMIN_EMAIL, WP_ADMIN_USER, WP_ADMIN_PASS"
-      error_exit "${_err}"
-fi
- echo
-
 # Call WP-CLI with appropriate site arguments
 /usr/local/bin/wp --path="${WEB_WP_DIR}"\
   "${@}" 
