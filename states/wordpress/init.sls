@@ -16,6 +16,9 @@
 {% set ADMIN_EMAIL = salt.pillar.get("wordpress:admin_email", false) -%}
 {% set GF_KEY = salt.pillar.get("wordpress:gf_key", false) -%}
 {% set WPCLI = "/usr/local/bin/wp --quiet --no-color --require=/opt/wp-cli/silence.php" -%}
+{% set ADMIN_USER = salt.pillar.get("wordpress:admin_user", false) -%}
+{% set ADMIN_PASS = salt.pillar.get("wordpress:admin_pass", false) -%}
+{% set ADMIN_EMAIL = salt.pillar.get("wordpress:admin_email", false) -%}
 
 
 include:
@@ -35,7 +38,6 @@ include:
   - wordpress.norm_perms
   - wordpress.pressbooks
   - wordpress.wordfence
-  - wordpress.initial_wordpress_setup
 
 
 {{ sls }} update webdev group perms cron:
@@ -258,6 +260,27 @@ include:
       - test: wordpress.cli ready
     - require_in:
       - test: {{ sls }} ready
+{% endif %}
+
+
+# Initial wordpress setup, it  copies the wpcli script on the destination server and execute it if wordpress is not installed
+
+{% if ADMIN_USER and ADMIN_PASS and ADMIN_EMAIL -%}
+{{ sls }} install wpcli script:
+  file.managed:
+    - name: /usr/local/bin/wpcli
+    - source: salt://wordpress/files/wpcli
+    - mode: '0775'
+    - user: root
+
+ 
+{{ sls }} run wpcli script:
+  cmd.run:
+    - name: /usr/local/bin/wpcli '{{ ADMIN_USER }}' '{{ ADMIN_PASS }}' '{{ ADMIN_EMAIL }}' '{{ WP_DIR }}'
+    - user: root
+    - require:
+      - file: {{ sls }} install wpcli script
+    - unless: /usr/local/bin/wp --path='{{ WP_DIR }}' --no-color --quiet cor    e is-installed ; echo $?
 {% endif %}
 
 

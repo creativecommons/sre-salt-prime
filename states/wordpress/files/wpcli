@@ -13,8 +13,7 @@ trap '_es=${?};
 WP_ADMIN_USER=${1}
 WP_ADMIN_PASS=${2}
 WP_ADMIN_EMAIL=${3}
-WEB_WP_URL=${4}
-WEB_WP_DIR=/var/www/html
+WEB_WP_DIR=${4}
 
 
 echo 'Install WordPress'
@@ -24,7 +23,7 @@ if [[ -n "${WP_ADMIN_EMAIL}" ]] && [[ -n "${WP_ADMIN_USER}" ]] && [[ -n "${WP_AD
     echo $WP_ADMIN_USER
     echo $WP_ADMIN_PASS
 else
-    _err='The following variables must be set in .env (see .env.example):'
+    _err='The following variables must be set:'
     _err="${_err} WP_ADMIN_EMAIL, WP_ADMIN_USER, WP_ADMIN_PASS"
       error_exit "${_err}"
 fi
