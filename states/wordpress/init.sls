@@ -280,7 +280,7 @@ include:
     - user: root
     - require:
       - file: {{ sls }} install wpcli script
-    - unless: /usr/local/bin/wp --path='{{ WP_DIR }}' --no-color --quiet cor    e is-installed ; echo $?
+    - unless: /usr/local/bin/wp --path='{{ WP_DIR }}' --no-color --quiet core is-installed ; echo $? 
 {% endif %}
 
 
