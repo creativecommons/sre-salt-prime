@@ -265,7 +265,7 @@ include:
 
 # Initial wordpress setup, it  copies the wpcli script on the destination server and execute it if wordpress is not installed
 
-{{ sls }} install wpcli script:
+{{ sls }} create wpcli template:
   file.managed:
     - name: /usr/local/bin/wpcli
     - source: salt://wordpress/files/wpcli
@@ -273,7 +273,7 @@ include:
     - user: root
 
  
-{{ sls }} run wpcli script:
+{{ sls }} run wpcli template:
   cmd.run:
     - name: /usr/local/bin/wpcli '{{ WP_DIR }}' '{{ ADMIN_USER }}' '{{ ADMIN_PASS }}' '{{ ADMIN_EMAIL }}'
     - user: root
