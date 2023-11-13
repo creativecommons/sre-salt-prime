@@ -245,12 +245,15 @@ include:
     - user: root
 
 {{ sls }} append the value:
-  file.prepend:
+  file.blockreplace:
     - name: /usr/local/bin/wpcli
-    - text: |
-       {% if salt.file.contains('/usr/local/bin/wpcli', 'WP_DIR={{ WP_DIR }}') %}
-       {{ 'WP_DIR={{ WP_DIR }}' }}
-       {% endif %}
+    - marker_start: "# shellcheck disable=SC1091"
+    - marker_end: "echo 'Install WordPress'"
+    - content: |
+       WP_DIR={{ WP_DIR }}
+                                    
+                           
+    - append_if_not_found: true
     - require:
       - file: {{ sls }} create wpcli script
 
@@ -258,11 +261,10 @@ include:
 {{ sls }} WordPress install:
   cmd.run:
     - name: >-
-        /usr/local/bin/wpcli --url='{{ SITE }}' --title='{{ TITLE }}'
+        /usr/local/bin/wpcli core install --url='{{ SITE }}' --title='{{ TITLE }}'
         --admin_user='{{ ADMIN_USER }}' --admin_email='{{ ADMIN_EMAIL }}' 
         --skip-email
     # ' this comment fixes a color syntax highlighting error in vim
-    - cwd: {{ WP_DIR }}
     - runas: composer
     - unless:
       - {{ WPCLI }} core is-installed

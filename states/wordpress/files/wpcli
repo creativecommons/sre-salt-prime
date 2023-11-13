@@ -14,4 +14,4 @@ trap '_es=${?};
 
 echo 'Install WordPress' 
 # Call WP-CLI with appropriate site arguments
-#/usr/local/bin/wp --path="${WP_DIR} "${@}" 
+/usr/local/bin/wp --path="${WP_DIR}" "${@}" 
