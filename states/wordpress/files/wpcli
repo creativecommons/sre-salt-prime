@@ -10,10 +10,8 @@ trap '_es=${?};
     exit ${_es}' ERR
 
 # shellcheck disable=SC1091
-WEB_WP_DIR=${1}
 
 
-echo 'Install WordPress at'  $WEB_WP_DIR
+echo 'Install WordPress' 
 # Call WP-CLI with appropriate site arguments
-/usr/local/bin/wp --path="${WEB_WP_DIR}"\
-  "${@}" 
+#/usr/local/bin/wp --path="${WP_DIR} "${@}" 

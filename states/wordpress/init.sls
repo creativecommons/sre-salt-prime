@@ -16,9 +16,6 @@
 {% set ADMIN_EMAIL = salt.pillar.get("wordpress:admin_email", false) -%}
 {% set GF_KEY = salt.pillar.get("wordpress:gf_key", false) -%}
 {% set WPCLI = "/usr/local/bin/wp --quiet --no-color --require=/opt/wp-cli/silence.php" -%}
-{% set ADMIN_USER = salt.pillar.get("wordpress:admin_user", false) -%}
-{% set ADMIN_PASS = salt.pillar.get("wordpress:admin_pass", false) -%}
-{% set ADMIN_EMAIL = salt.pillar.get("wordpress:admin_email", false) -%}
 
 
 include:
@@ -240,12 +237,29 @@ include:
       - test -d {{ DOCROOT }}/wp/wp-content
 
 
+{{ sls }} create wpcli script:
+  file.managed:
+    - name: /usr/local/bin/wpcli
+    - source: salt://wordpress/files/wpcli
+    - mode: '0775'
+    - user: root
+
+{{ sls }} append the value:
+  file.prepend:
+    - name: /usr/local/bin/wpcli
+    - text: |
+       {% if salt.file.contains('/usr/local/bin/wpcli', 'WP_DIR={{ WP_DIR }}') %}
+       {{ 'WP_DIR={{ WP_DIR }}' }}
+       {% endif %}
+    - require:
+      - file: {{ sls }} create wpcli script
+
 {% if TITLE and ADMIN_USER and ADMIN_EMAIL -%}
 {{ sls }} WordPress install:
   cmd.run:
     - name: >-
-        {{ WPCLI }} core install --url='{{ SITE }}' --title='{{ TITLE }}'
-        --admin_user='{{ ADMIN_USER }}' --admin_email='{{ ADMIN_EMAIL }}'
+        /usr/local/bin/wpcli --url='{{ SITE }}' --title='{{ TITLE }}'
+        --admin_user='{{ ADMIN_USER }}' --admin_email='{{ ADMIN_EMAIL }}' 
         --skip-email
     # ' this comment fixes a color syntax highlighting error in vim
     - cwd: {{ WP_DIR }}
@@ -256,30 +270,12 @@ include:
       - file: {{ sls }} composer saltstack locked
       - file: {{ sls }} symlink wp-content
       - file: {{ sls }} update dir wp
+      - file: {{ sls }} create wpcli script
       - mysql_grants: mysql_user_{{ pillar.wordpress.db_user }}_%_0
       - test: wordpress.cli ready
     - require_in:
       - test: {{ sls }} ready
 {% endif %}
-
-
-# Initial wordpress setup, it  copies the wpcli script on the destination server and execute it if wordpress is not installed
-
-{{ sls }} create wpcli script:
-  file.managed:
-    - name: /usr/local/bin/wpcli
-    - source: salt://wordpress/files/wpcli
-    - mode: '0775'
-    - user: root
-
- 
-{{ sls }} run wpcli script:
-  cmd.run:
-    - name: /usr/local/bin/wpcli '{{ WP_DIR }}' '{{ ADMIN_USER }}' '{{ ADMIN_PASS }}' '{{ ADMIN_EMAIL }}'
-    - user: root
-    - require:
-      - file: {{ sls }} create wpcli script
-    - unless: /usr/local/bin/wp --path='{{ WP_DIR }}' --no-color --quiet core is-installed ; echo $? 
 
 
 {{ sls }} ready:
