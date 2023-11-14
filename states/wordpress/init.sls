@@ -267,7 +267,7 @@ include:
     # ' this comment fixes a color syntax highlighting error in vim
     - runas: composer
     - unless:
-      - {{ WPCLI }} core is-installed
+      - /usr/local/bin/wpcli --quiet --no-color --require=/opt/wp-cli/silence.php core is-installed
     - require:
       - file: {{ sls }} composer saltstack locked
       - file: {{ sls }} symlink wp-content
