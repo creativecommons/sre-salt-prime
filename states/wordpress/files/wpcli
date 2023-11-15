@@ -1,0 +1,15 @@
+#!/bin/bash
+set -o errexit
+set -o errtrace
+set -o nounset
+
+# shellcheck disable=SC2154
+trap '_es=${?};
+    printf "${0}: line ${LINENO}: \"${BASH_COMMAND}\"";
+    printf " exited with a status of ${_es}\n";
+    exit ${_es}' ERR
+
+WP_DIR="{{ WP_DIR }}"  
+
+
+/usr/local/bin/wp --path="${WP_DIR}" "${@}" 
