@@ -1,8 +1,7 @@
 # Configuration for php-formula
 #
 # https://cheatsheetseries.owasp.org/cheatsheets/PHP_Configuration_Cheat_Sheet.html
-{%- set php_versions = {"bookworm": "8.2", "bullseye": "7.4", "buster": "7.3",
-                        "stretch": "7.0"} %}
+{%- set php_versions = {"bookworm": "8.2", "bullseye": "7.4"} %}
 php:
   use_external_repo: False
   version: {{ php_versions[grains.oscodename] }}
