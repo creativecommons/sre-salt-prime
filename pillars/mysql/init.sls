@@ -5,6 +5,7 @@
 # The configuration below assumes Debian and the mysql_cc.debian_integration
 # state is applied.
 mysql:
+  clientpkg: mariadb-client
   config_directory: /etc/mysql/conf.d/
   default_character_set: {{ DEFAULT_CHARACTER_SET }}
   default_collate: utf8mb4_general_ci
