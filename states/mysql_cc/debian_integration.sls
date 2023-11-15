@@ -12,7 +12,7 @@
       - test -L /etc/mysql/my.cnf
     - require:
       - file: mysql_config_directory
-      - pkg: mysql
+      - pkg: default-mysql
     - require_in:
       - file: mysql_config
 
@@ -25,7 +25,7 @@
     - backupname: /etc/mysql/mariadb.cnf.DISABLED
     - require:
       - file: mysql_config
-      - pkg: mysql
+      - pkg: default-mysql
 
 
 {{ sls }} my.cnf.fallback:
@@ -38,7 +38,7 @@
     - replace: True
     - require:
       - file: mysql_config
-      - pkg: mysql
+      - pkg: default-mysql
 
 
 # Disable unused configs (unused by settings installed by formula-mysql)
@@ -54,5 +54,5 @@
     - force: True
     - require:
       - file: mysql_config
-      - pkg: mysql
+      - pkg: default-mysql
 {%- endfor %}
