@@ -1,34 +1,48 @@
 {
-    "name":"creativecommons/wordpress-podcast",
-    "description":"Creative Commons Podcast WordPress Site via Composer",
-    "authors": [
-        {
-            "name":"Creative Commons",
-            "homepage":"https://github.com/creativecommons/sre-salt-prime"
-        }
-    ],
-    "type": "project",
-    "repositories": [
-        {
-            "type":"composer",
-            "url":"https://wpackagist.org"
-        }
-    ],
-    "config": {
-        "vendor-dir":"wp-content/vendor"
-    },
-    "require": {
-        "composer/installers":"1.6",
-        "johnpbloch/wordpress":"5.0.3",
-        "wpackagist-plugin/wordfence":"7.2.1",
-        "wpackagist-plugin/wordpress-seo":"9.6",
-        "wpackagist-theme/twentynineteen":"1.2"
-    },
-    "require-dev": {
-        "wpackagist-plugin/debug-bar":"1.0",
-        "wpackagist-plugin/debug-bar-actions-and-filters-addon":"1.5.4"
-    },
-    "extra": {
-        "wordpress-install-dir":"wp"
+  "authors": [
+    {
+      "homepage": "https://github.com/creativecommons/sre-salt-prime",
+      "name": "Creative Commons"
     }
+  ],
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "johnpbloch/wordpress-core-installer": true
+    },
+    "vendor-dir": "wp-content/vendor"
+  },
+  "description": "Creative Commons Podcast WordPress Site via Composer",
+  "extra": {
+    "wordpress-install-dir": "wp"
+  },
+  "name": "creativecommons/wordpress-podcast",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    },
+    {
+      "no-api": true,
+      "type": "vcs",
+      "url": "https://github.com/qtranslate/qtranslate-xt"
+    },
+    {
+      "no-api": true,
+      "type": "vcs",
+      "url": "https://github.com/creativecommons/wp-theme-cctoolkit"
+    }
+  ],
+  "require": {
+    "composer/installers": "2.2",
+    "johnpbloch/wordpress": "6.4",
+    "wpackagist-plugin/wordfence": "7.4.10",
+    "wpackagist-plugin/wordpress-seo": "21.6",
+    "wpackagist-theme/twentynineteen": "1.2"
+  },
+  "require-dev": {
+    "wpackagist-plugin/debug-bar": "1.0.1",
+    "wpackagist-plugin/debug-bar-actions-and-filters-addon": "1.5.4"
+  },
+  "type": "project"
 }
