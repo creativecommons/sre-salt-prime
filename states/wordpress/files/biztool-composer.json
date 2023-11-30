@@ -1,66 +1,70 @@
 {
-    "name":"creativecommons/wordpress-biztool",
-    "description":"Creative Commons Business Toolkit WordPress Site via Composer",
-    "authors": [
-        {
-            "name":"Creative Commons",
-            "homepage":"https://github.com/creativecommons/sre-salt-prime"
-        }
-    ],
-    "type": "project",
-    "repositories": [
-        {
-            "type":"composer",
-            "url":"https://wpackagist.org"
-        },
-        {
-          "type": "package",
-          "package": {
-            "name": "elliotcondon/advanced-custom-fields-pro",
-            "version": "5.7.13",
-            "type": "wordpress-plugin",
-            "dist": {
-              "type": "zip",
-              "url": "{{ pillar.wordpress.acf_pro_zip_url }}"
-            }
-          }
-        },
-        {
-            "type":"vcs",
-            "url":"https://github.com/qtranslate/qtranslate-xt",
-            "no-api":true
-        },
-        {
-            "type":"vcs",
-            "url":"https://github.com/creativecommons/wp-theme-cctoolkit",
-            "no-api":true
-        }
-    ],
-    "config": {
-        "vendor-dir":"wp-content/vendor"
-    },
-    "require": {
-        "composer/installers":"1.6",
-        "creativecommons/wp-theme-cctoolkit":"dev-main",
-        "elliotcondon/advanced-custom-fields-pro":"5.7.13",
-        "johnpbloch/wordpress":"5.1.1",
-        "qtranslate/qtranslate-xt":"dev-master",
-        "wpackagist-plugin/acf-qtranslate":"1.7.25",
-        "wpackagist-plugin/admin-menu-editor":"1.8.8",
-        "wpackagist-plugin/advanced-custom-fields":"5.7.12",
-        "wpackagist-plugin/classic-editor":"1.4",
-        "wpackagist-plugin/custom-post-type-ui":"1.6.1",
-        "wpackagist-plugin/dashicons-cpt":"1.0.2",
-        "wpackagist-plugin/disable-comments":"1.9.0",
-        "wpackagist-plugin/simple-custom-post-order":"2.4.2",
-        "wpackagist-plugin/wordfence":"7.2.4",
-        "wpackagist-plugin/wordpress-seo":"10.1.3"
-    },
-    "require-dev": {
-        "wpackagist-plugin/debug-bar":"1.0",
-        "wpackagist-plugin/debug-bar-actions-and-filters-addon":"1.5.4"
-    },
-    "extra": {
-        "wordpress-install-dir":"wp"
+  "authors": [
+    {
+      "homepage": "https://github.com/creativecommons/sre-salt-prime",
+      "name": "Creative Commons"
     }
+  ],
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "johnpbloch/wordpress-core-installer": true
+    },
+    "vendor-dir": "wp-content/vendor"
+  },
+  "description": "Creative Commons Business Toolkit WordPress Site via Composer",
+  "extra": {
+    "wordpress-install-dir": "wp"
+  },
+  "name": "creativecommons/wordpress-biztool",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    },
+    {
+      "package": {
+        "dist": {
+          "type": "zip",
+          "url": "{{ pillar.wordpress.acf_pro_zip_url }}"
+        },
+        "name": "elliotcondon/advanced-custom-fields-pro",
+        "type": "wordpress-plugin",
+        "version": "5.9.0"
+      },
+      "type": "package"
+    },
+    {
+      "no-api": true,
+      "type": "vcs",
+      "url": "https://github.com/qtranslate/qtranslate-xt"
+    },
+    {
+      "no-api": true,
+      "type": "vcs",
+      "url": "https://github.com/creativecommons/wp-theme-cctoolkit"
+    }
+  ],
+  "require": {
+    "composer/installers": "2.2",
+    "creativecommons/wp-theme-cctoolkit": "dev-main",
+    "elliotcondon/advanced-custom-fields-pro": "5.9.0",
+    "johnpbloch/wordpress": "6.4",
+    "qtranslate/qtranslate-xt": "dev-master",
+    "wpackagist-plugin/acf-qtranslate": "1.7.25",
+    "wpackagist-plugin/admin-menu-editor": "1.9.6",
+    "wpackagist-plugin/advanced-custom-fields": "5.9.0",
+    "wpackagist-plugin/classic-editor": "1.6",
+    "wpackagist-plugin/custom-post-type-ui": "1.8.0",
+    "wpackagist-plugin/dashicons-cpt": "1.0.2",
+    "wpackagist-plugin/disable-comments": "1.10.3",
+    "wpackagist-plugin/simple-custom-post-order": "2.5.0",
+    "wpackagist-plugin/wordfence": "7.4.10",
+    "wpackagist-plugin/wordpress-seo": "21.6"
+  },
+  "require-dev": {
+    "wpackagist-plugin/debug-bar": "1.1.4",
+    "wpackagist-plugin/debug-bar-actions-and-filters-addon": "1.5.5"
+  },
+  "type": "project"
 }
