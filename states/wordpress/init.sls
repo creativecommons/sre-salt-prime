@@ -23,6 +23,7 @@ include:
   - php.cli
   - php.curl
   - php.gd
+  - php.intl
   - php.mysqlnd
   - php.xml
   - php.zip
