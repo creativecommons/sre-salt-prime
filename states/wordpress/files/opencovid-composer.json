@@ -20,7 +20,7 @@
     }
   ],
   "require": {
-    "composer/installers": "1.9",
+    "composer/installers": "2.2",
     "johnpbloch/wordpress": "5.4.2",
     "wpackagist-plugin/a3-lazy-load": "2.4.0",
     "wpackagist-plugin/all-in-one-wp-migration": "7.26",

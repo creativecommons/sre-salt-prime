@@ -30,10 +30,10 @@
     }
   ],
   "require": {
-    "composer/installers": "1.9",
+    "composer/installers": "^2.2",
     "creativecommons/wp-theme-cc-chapter": "2019.8.2",
     "johnpbloch/wordpress": "5.5.12",
-    "wpackagist-plugin/advanced-custom-fields": "5.9",
+    "wpackagist-plugin/advanced-custom-fields": "5.9.0",
     "wpackagist-plugin/advanced-menu-widget": "0.4.1",
     "wpackagist-plugin/advanced-sidebar-menu": "8.0.2",
     "wpackagist-plugin/be-subpages-widget": "1.7",
@@ -43,7 +43,7 @@
     "wpackagist-plugin/import-markdown": "1.05",
     "wpackagist-plugin/jetpack": "8.8.2",
     "wpackagist-plugin/redirection": "4.8",
-    "wpackagist-plugin/ultimate-addons-for-gutenberg": "1.17",
+    "wpackagist-plugin/ultimate-addons-for-gutenberg": "1.17.0",
     "wpackagist-plugin/widget-css-classes": "1.5.4",
     "wpackagist-plugin/wordpress-importer": "0.7",
     "wpackagist-plugin/wordpress-mu-domain-mapping": "0.5.5.1",
@@ -52,8 +52,8 @@
     "wpackagist-plugin/wp-mail-smtp": "2.2.1"
   },
   "require-dev": {
-    "wpackagist-plugin/debug-bar": "1.0",
-    "wpackagist-plugin/debug-bar-actions-and-filters-addon": "1.5.4"
+    "wpackagist-plugin/debug-bar": "1.1.4",
+    "wpackagist-plugin/debug-bar-actions-and-filters-addon": "1.5.5"
   },
   "type": "project"
 }
