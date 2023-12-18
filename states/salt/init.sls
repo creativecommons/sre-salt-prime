@@ -1,5 +1,5 @@
 {% set HST = pillar.hst -%}
-{% set SALT_VERSION_MAJOR = pillar.salt.minion_target_version[0:5] -%}
+{% set SALT_VERSION_MAJOR = pillar.salt.minion_target_version -%}
 
 
 include:
@@ -49,7 +49,7 @@ include:
     - require:
       - pkg: {{ sls }} dependencies
     - require_in:
-{%- if salt.match.glob("salt-prime__*") %}
+{%- if HST == "salt-prime" %}
       - pkg: salt.prime installed packages
 {%- else %}
       - pkg: salt.minion installed packages
