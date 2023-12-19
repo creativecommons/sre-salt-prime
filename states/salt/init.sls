@@ -26,7 +26,7 @@ include:
 {# uses variables defined above -#}
 {% set repo_url = ("https://repo.saltproject.io/salt/py3/debian/11/amd64/3006"
                    .format(grains['osmajorrelease'], SALT_VERSION_MAJOR)) -%}
-{% elif SALT_VERSION_MAJOR == 3006.4 -%}
+{% elif SALT_VERSION_MAJOR == 3006.5 -%}
 {% set repo_os  = "bullseye" -%}
 {% set salt_gpg_key = "SALT-PROJECT-GPG-PUBKEY-2023.pub" -%}
 {% set SALT_VERSION_MAJOR = "3006" -%}
