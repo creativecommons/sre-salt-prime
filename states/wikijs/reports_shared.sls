@@ -102,7 +102,6 @@ include:
     - user: wikijs
     - fetch_tags: False
     - identity: /srv/wikijs/.ssh/{{ pillar.wikijs.git_ssh_key }}
-    - force_reset: True
     - require:
       - git: {{ sls }} set git user.email
 
