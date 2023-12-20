@@ -1,6 +1,6 @@
 {% set HST = pillar.hst -%}
-{% set REPO_PREFIX = "https://repo.saltproject.io/salt/py3/debian" -%}
 {% set SALT_VERSION_MAJOR = pillar.salt.minion_target_version -%}
+{% set REPO_PREFIX = "https://repo.saltproject.io/salt/py3/debian" -%}
 
 
 include:
@@ -24,11 +24,13 @@ include:
 -#}
 {% set repo_os = "bullseye" -%}
 {% set minion_os_major = 11 -%}
+{% set SALT_VERSION_MAJOR = 3006 -%}
 {% else %}
 {% set repo_os = grains['oscodename'] -%}
 {% set minion_os_major = grains['osmajorrelease'] -%}
 {% endif %}
 {% set salt_gpg_key = "SALT-PROJECT-GPG-PUBKEY-2023.pub" -%}
+{% set SALT_VERSION_MAJOR = 3006 -%}
 {% set repo_url = ("{}/{}/amd64/{}".format(
   REPO_PREFIX, minion_os_major, SALT_VERSION_MAJOR)) -%}
 {{ sls }} SaltStack Repository:
