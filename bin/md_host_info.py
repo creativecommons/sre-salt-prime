@@ -123,6 +123,11 @@ def main():
         host_f = "`{}`".format(host)
         os_rel = grains["debian_version"]
         os_code = grains["lsb_distrib_codename"].title()
+        # Compensate for poor support of Debian by Salt
+        if not os_code and os_rel.startswith("12."):
+            os_code = "Bookworm"
+        elif not os_code and os_rel.startswith("11."):
+            os_code = "Bullseye"
         salt_f = "{}".format(grains["saltversion"])
         if grains == "Minion did not return. [Not connected]":
             print(host, "| *N/A* | *Not connected*")
