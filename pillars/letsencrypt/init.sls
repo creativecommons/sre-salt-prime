@@ -16,5 +16,5 @@ letsencrypt:
   {#- last supported version on Python 3.5 without a nag/warning #}
   version: "1.6.0"
   {%- else %}
-  version: "2.6.0"
+  version: "2.8.0"
   {%- endif %}
