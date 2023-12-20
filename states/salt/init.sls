@@ -1,8 +1,11 @@
 {% set HST = pillar.hst -%}
+{% set SALT_VERSION_MAJOR = pillar.salt.minion_target_version -%}
+{% set REPO_PREFIX = "https://repo.saltproject.io/salt/py3/debian" -%}
+
 
 include:
   - .minion
-{%- if salt.match.glob("salt-prime__*") %}
+{%- if HST == "salt-prime" %}
   - .prime
 {%- endif %}
 
@@ -14,24 +17,22 @@ include:
       - gnupg
 
 
-{# As of 2023-11-15, Salt does not maintain a Debian repository for Debian 12
+{% if HST == "salt-prime" or grains['osmajorrelease'] > 11 -%}
+{#
+ # As of 2023-11-15, Salt does not maintain a Debian repository for Debian 12
  # (Bookworm). Also see: https://github.com/saltstack/salt/issues/64223
 -#}
-{% if HST == "salt-prime" or grains['osmajorrelease'] > 11 -%}
-{% set repo_os  = "bullseye" -%}
-{% set salt_gpg_key = "SALT-PROJECT-GPG-PUBKEY-2023.pub" -%}
-{% set salt_version_major = "3006" -%}
-{# uses variables defined above -#}
-{% set repo_url = ("https://repo.saltproject.io/salt/py3/debian/11/amd64/3006"
-                   .format(grains['osmajorrelease'], salt_version_major)) -%}
-{% else -%}
+{% set repo_os = "bullseye" -%}
+{% set minion_os_major = 11 -%}
+{% set SALT_VERSION_MAJOR = 3006 -%}
+{% else %}
 {% set repo_os = grains['oscodename'] -%}
-{% set salt_gpg_key = "SALTSTACK-GPG-KEY.pub" -%}
-{% set salt_version_major = pillar.salt.minion_target_version[0:4] -%}
-{# uses variables defined above -#}
-{% set repo_url = ("https://repo.saltproject.io/py3/debian/{}/amd64/{}"
-                   .format(grains['osmajorrelease'], salt_version_major)) -%}
-{% endif -%}
+{% set minion_os_major = grains['osmajorrelease'] -%}
+{% endif %}
+{% set salt_gpg_key = "SALT-PROJECT-GPG-PUBKEY-2023.pub" -%}
+{% set SALT_VERSION_MAJOR = 3006 -%}
+{% set repo_url = ("{}/{}/amd64/{}".format(
+  REPO_PREFIX, minion_os_major, SALT_VERSION_MAJOR)) -%}
 {{ sls }} SaltStack Repository:
   pkgrepo.managed:
     - name: deb {{ repo_url }} {{ repo_os }} main
@@ -41,7 +42,7 @@ include:
     - require:
       - pkg: {{ sls }} dependencies
     - require_in:
-{%- if salt.match.glob("salt-prime__*") %}
+{%- if HST == "salt-prime" %}
       - pkg: salt.prime installed packages
 {%- else %}
       - pkg: salt.minion installed packages
