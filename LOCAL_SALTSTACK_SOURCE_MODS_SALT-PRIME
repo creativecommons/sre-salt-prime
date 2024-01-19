@@ -11,5 +11,19 @@
          else:
              return {"error": __utils__["boto3.get_error"](e)}
 
-
-
+--- /opt/saltstack/salt/lib/python3.10/site-packages/salt/loader/context.py.BAK	2023-12-12 17:52:33.000000000 +0000
++++ /opt/saltstack/salt/lib/python3.10/site-packages/salt/loader/context.py	2024-01-19 16:11:57.578425498 +0000
+@@ -84,7 +84,12 @@
+         self.value()[item] = value
+ 
+     def __bool__(self):
+-        return bool(self.value())
++        # https://github.com/saltstack/salt/issues/65691
++        try:
++            self.loader
++        except LookupError:
++            return False
++        return True
+ 
+     def __len__(self):
+         return self.value().__len__()
