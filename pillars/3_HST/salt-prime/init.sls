@@ -19,7 +19,7 @@ salt:
     mysql-formula:
       url: https://github.com/saltstack-formulas/mysql-formula.git
       refs:
-        base: v0.56.3
+        base: v0.56.6
     php-formula:
       url: https://github.com/saltstack-formulas/php-formula.git
       refs:

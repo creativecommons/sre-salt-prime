@@ -136,7 +136,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
   - Free/Open Source
   - Performance
   - Creative Commons is already using it and staff are familiar with it
-  - Version: `3006.5`
+  - Version: `3006.7`
     - For current targeted minion version, see `minion_target_version` in
       [`pillars/salt/init.sls`](pillars/salt/init.sls)
 
