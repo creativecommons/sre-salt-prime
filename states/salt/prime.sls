@@ -7,6 +7,7 @@
     - pkgs:
       - awscli
       - colordiff
+      - gh
       - git
       - git-crypt
       - git-doc
