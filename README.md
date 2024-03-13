@@ -32,7 +32,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 - **Sign your commits:**
   - The commit signing option has been adjusted in the repository to facilitate 
    smoother collaboration. This modification is intended to ease the contribution 
-   process. However, it is strongly encourge that staff members continue to 
+   process. However, it is strongly encourged that staff members continue to 
    adhere to best practices by using GPG for all signed commits, ensuring the 
    security and integrity of the project.
 
