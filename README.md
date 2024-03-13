@@ -31,10 +31,13 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
   pull the changes to base.
 - **Sign your commits:**
   - The commit signing option has been adjusted in the repository to facilitate 
-   smoother collaboration. This modification is intended to ease the 
-   contribution process. However, it is strongly encourge that staff members   continue to adhere to best practices by using GPG for all signed commits,   ensuring the security and integrity of the project
+   smoother collaboration. This modification is intended to ease the contribution 
+   process. However, it is strongly encourge that staff members continue to 
+   adhere to best practices by using GPG for all signed commits, ensuring the 
+   security and integrity of the project.
 
     - [About required commit signing - User Documentation][signing]
+
   - Ensure you are using `RemoteForward` in your SSH configuration to forward
     your GnuPG agent to `salt-prime` (see the example configuration, under
     [Setup](#Setup), below).
