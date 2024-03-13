@@ -54,11 +54,14 @@ infra:
       # Notes:
       # * DB Instance class db.t2.micro does not support encryption at rest
       #
+      # * Deprecation of Amazon RDS M4, R4, and T2 database instance type 
+      # Recommended migration: t2 --> t3
+      #
       # Default
-      default: db.t2.small
+      default: db.t3.small
       # Specific (please maintain order)
       index: db.t3.small
-      chapters: db.t2.medium
+      chapters: db.t3.medium
     parameters:
       default:
         character_set_server: utf8mb4
