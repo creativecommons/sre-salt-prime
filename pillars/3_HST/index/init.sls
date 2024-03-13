@@ -4,6 +4,10 @@ include:
   - mysql
   - php
 
+apache2:
+  mods:
+    enable:
+      - headers
 letsencrypt:
   post_hooks:
     restart_apache2.sh: /usr/sbin/service apache2 reload
