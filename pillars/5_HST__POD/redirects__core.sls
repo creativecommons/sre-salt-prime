@@ -1,8 +1,5 @@
 letsencrypt:
   domainsets:
-    creativecommons.dk:
-      - creativecommons.dk
-      - www.creativecommons.dk
     api.creativecommons.engineering:
       - api.creativecommons.engineering
       - api-dev.creativecommons.engineering
@@ -40,13 +37,6 @@ letsencrypt:
 nginx:
   redirect_default: redirects.creativecommons.org
   redirects:
-    # creativecommons.dk
-    - crt: creativecommons.dk
-      src: creativecommons.dk
-      dst: dk.creativecommons.net
-    - crt: creativecommons.dk
-      src: www.creativecommons.dk
-      dst: dk.creativecommons.net
     # redirects.creativecommons.org
     - crt: redirects.creativecommons.org-0001
       src: au-beta.creativecommons.org
