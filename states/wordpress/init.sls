@@ -15,6 +15,10 @@
 {% set ADMIN_USER = salt.pillar.get("wordpress:admin_user", false) -%}
 {% set ADMIN_EMAIL = salt.pillar.get("wordpress:admin_email", false) -%}
 {% set GF_KEY = salt.pillar.get("wordpress:gf_key", false) -%}
+{% set WPCLI = "/usr/local/bin/wp --quiet --no-color --require=/opt/wp-cli/silence.php" -%}
+{% set wp_version = salt['cmd.run'](WPCLI + " core version") | float %}
+
+
 
 
 include:
@@ -132,6 +136,31 @@ include:
     - require_in:
       - composer: {{ sls }} composer update
 
+{% if wp_version >= 6.3 %}
+
+
+{{ sls }} dir wp-content/upgrade-temp-back:
+    file.directory:
+      - name: {{ DOCROOT }}/wp-content/upgrade-temp-back
+      - mode: '2775'
+      - group: webdev
+      - require:
+        - file: {{ sls }} dir wp-content
+      - require_in:
+        - composer: {{ sls }} composer update
+
+{%- for dir in ["plugins", "themes"] %}
+{{ sls }} dir wp-content/upgrade-temp-back/{{ dir }}:
+    file.directory:
+      - name: {{ DOCROOT }}/wp-content/upgrade-temp-back/{{ dir }}
+      - mode: '2775'
+      - group: webdev
+      - require:
+        - file: {{ sls }} dir wp-content/upgrade-temp-back
+      - require_in:
+        - composer: {{ sls }} composer update
+{%- endfor %}
+{% endif %}
 
 {%- if GF_KEY %}
 
