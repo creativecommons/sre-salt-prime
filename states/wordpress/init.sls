@@ -133,9 +133,9 @@ include:
       - composer: {{ sls }} composer update
 
 
-{{ sls }} dir wp-content/upgrade-temp-back:
+{{ sls }} dir wp-content/upgrade-temp-backup:
     file.directory:
-      - name: {{ DOCROOT }}/wp-content/upgrade-temp-back
+      - name: {{ DOCROOT }}/wp-content/upgrade-temp-backup
       - mode: '2775'
       - group: webdev
       - require:
@@ -144,13 +144,13 @@ include:
         - composer: {{ sls }} composer update
 
 {%- for dir in ["plugins", "themes"] %}
-{{ sls }} dir wp-content/upgrade-temp-back/{{ dir }}:
+{{ sls }} dir wp-content/upgrade-temp-backup/{{ dir }}:
     file.directory:
-      - name: {{ DOCROOT }}/wp-content/upgrade-temp-back/{{ dir }}
+      - name: {{ DOCROOT }}/wp-content/upgrade-temp-backup/{{ dir }}
       - mode: '2775'
       - group: webdev
       - require:
-        - file: {{ sls }} dir wp-content/upgrade-temp-back
+        - file: {{ sls }} dir wp-content/upgrade-temp-backup
       - require_in:
         - composer: {{ sls }} composer update
 {%- endfor %}
