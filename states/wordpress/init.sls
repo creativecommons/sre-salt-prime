@@ -133,6 +133,29 @@ include:
       - composer: {{ sls }} composer update
 
 
+{{ sls }} dir wp-content/upgrade-temp-backup:
+    file.directory:
+      - name: {{ DOCROOT }}/wp-content/upgrade-temp-backup
+      - mode: '2775'
+      - group: webdev
+      - require:
+        - file: {{ sls }} dir wp-content
+      - require_in:
+        - composer: {{ sls }} composer update
+
+{%- for dir in ["plugins", "themes"] %}
+{{ sls }} dir wp-content/upgrade-temp-backup/{{ dir }}:
+    file.directory:
+      - name: {{ DOCROOT }}/wp-content/upgrade-temp-backup/{{ dir }}
+      - mode: '2775'
+      - group: webdev
+      - require:
+        - file: {{ sls }} dir wp-content/upgrade-temp-backup
+      - require_in:
+        - composer: {{ sls }} composer update
+{%- endfor %}
+
+
 {%- if GF_KEY %}
 
 
