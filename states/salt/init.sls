@@ -26,6 +26,8 @@ include:
 {% set salt_deb_repo = "saltproject-deb" -%}
 {% set pkg_state = "stable" -%}
 {% set salt_gpg_key = "api/security/keypair/SaltProjectKey/public" -%}
+{% set signed_key = "signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.pgp" -%}
+{% set arch_value = "arch=amd64" -%}
 {% set repo_url = ("{}/{}/".format(
   repo_path, salt_deb_repo)) -%}
 
@@ -38,7 +40,7 @@ include:
 
 {{ sls }} SaltStack Repository:
   pkgrepo.managed:
-    - name: deb {{ repo_url }} {{ pkg_state }} main
+    - name: deb [{{arch_value}} {{signed_key}}] {{ repo_url }} {{ pkg_state }} main
     - file: /etc/apt/sources.list.d/saltstack.list
     - key_url: /etc/apt/keyrings/salt-archive-keyring-2023.pgp
     - clean_file: True
