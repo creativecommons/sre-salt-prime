@@ -47,6 +47,7 @@ include:
     - clean_file: True
     - require:
       - pkg: {{ sls }} dependencies
+      - cmd: {{ sls }} download public Salt GPG key
     - require_in:
 {%- if HST == "salt-prime" %}
       - pkg: salt.prime installed packages
