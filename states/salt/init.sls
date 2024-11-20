@@ -19,18 +19,28 @@ include:
 {#
  # As of 2024-11-19, Salt has migrated repository to broadcom
  # Also see: https://saltproject.io/blog/salt-project-package-repo-migration-and-guidance/
+ #  Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details. migrate to the new recommended approach, which involves storing GPG keys in /etc/apt/keyrings/
 -#}
+
 {% set repo_path = "https://packages.broadcom.com/artifactory" -%}
 {% set salt_deb_repo = "saltproject-deb" -%}
 {% set pkg_state = "stable" -%}
 {% set salt_gpg_key = "api/security/keypair/SaltProjectKey/public" -%}
 {% set repo_url = ("{}/{}/".format(
   repo_path, salt_deb_repo)) -%}
+
+{{ sls }} download public Salt GPG key:
+  cmd.run:
+    - name: curl -fsSL {{ repo_path }}/{{ salt_gpg_key }} | sudo tee /etc/apt/keyrings/salt-archive-keyring-2023.pgp
+    - unless: test -f /etc/apt/keyrings/salt-archive-keyring-2023.pgp
+    - require:
+      - pkg: {{ sls }} dependencies
+
 {{ sls }} SaltStack Repository:
   pkgrepo.managed:
     - name: deb {{ repo_url }} {{ pkg_state }} main
     - file: /etc/apt/sources.list.d/saltstack.list
-    - key_url: {{ repo_path }}/{{ salt_gpg_key }}
+    - key_url: /etc/apt/keyrings/salt-archive-keyring-2023.pgp
     - clean_file: True
     - require:
       - pkg: {{ sls }} dependencies
