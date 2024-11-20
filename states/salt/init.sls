@@ -19,7 +19,6 @@ include:
 {#
  # As of 2024-11-19, Salt has migrated repository to broadcom
  # Also see: https://saltproject.io/blog/salt-project-package-repo-migration-and-guidance/
- #  Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details. migrate to the new recommended approach, which involves storing GPG keys in /etc/apt/keyrings/
 -#}
 {% set arch_value = "arch=amd64" -%}
 {% set pkg_state = "stable" -%}
@@ -33,7 +32,6 @@ include:
 {#
  # Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details. migrate to the new recommended approach, which involves storing GPG keys in /etc/apt/keyrings/
 -#}
-
 {{ sls }} download public Salt GPG key:
   cmd.run:
     - name: curl -fsSL {{ repo_path }}/{{ salt_gpg_key }} | sudo tee /etc/apt/keyrings/salt-archive-keyring-2023.pgp
