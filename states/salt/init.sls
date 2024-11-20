@@ -21,13 +21,12 @@ include:
  # Also see: https://saltproject.io/blog/salt-project-package-repo-migration-and-guidance/
  #  Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details. migrate to the new recommended approach, which involves storing GPG keys in /etc/apt/keyrings/
 -#}
-
+{% set arch_value = "arch=amd64" -%}
+{% set pkg_state = "stable" -%}
 {% set repo_path = "https://packages.broadcom.com/artifactory" -%}
 {% set salt_deb_repo = "saltproject-deb" -%}
-{% set pkg_state = "stable" -%}
 {% set salt_gpg_key = "api/security/keypair/SaltProjectKey/public" -%}
 {% set signed_key = "signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.pgp" -%}
-{% set arch_value = "arch=amd64" -%}
 {% set repo_url = ("{}/{}/".format(
   repo_path, salt_deb_repo)) -%}
 
