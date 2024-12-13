@@ -1,6 +1,5 @@
 {% set HST = pillar.hst -%}
 {% set SALT_VERSION_MAJOR = pillar.salt.minion_target_version -%}
-{% set REPO_PREFIX = "https://repo.saltproject.io/salt/py3/debian" -%}
 
 
 include:
@@ -17,30 +16,45 @@ include:
       - gnupg
 
 
-{% if HST == "salt-prime" or grains['osmajorrelease'] > 11 -%}
 {#
- # As of 2023-11-15, Salt does not maintain a Debian repository for Debian 12
- # (Bookworm). Also see: https://github.com/saltstack/salt/issues/64223
+ # As of 2024-11-19, Salt has migrated repository to broadcom
+ # Also see: https://saltproject.io/blog/salt-project-package-repo-migration-and-guidance/
 -#}
-{% set repo_os = "bullseye" -%}
-{% set minion_os_major = 11 -%}
-{% set SALT_VERSION_MAJOR = 3006 -%}
-{% else %}
-{% set repo_os = grains['oscodename'] -%}
-{% set minion_os_major = grains['osmajorrelease'] -%}
-{% endif %}
-{% set salt_gpg_key = "SALT-PROJECT-GPG-PUBKEY-2023.pub" -%}
-{% set SALT_VERSION_MAJOR = 3006 -%}
-{% set repo_url = ("{}/{}/amd64/{}".format(
-  REPO_PREFIX, minion_os_major, SALT_VERSION_MAJOR)) -%}
+{% set arch_value = "arch=amd64" -%}
+{% set pkg_state = "stable" -%}
+{% set repo_path = "https://packages.broadcom.com/artifactory" -%}
+{% set salt_deb_repo = "saltproject-deb" -%}
+{% set salt_gpg_key = "api/security/keypair/SaltProjectKey/public" -%}
+{% set signed_key = "signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.pgp" -%}
+{% set repo_url = ("{}/{}/".format(
+  repo_path, salt_deb_repo)) -%}
+
+{#
+ # Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details. migrate to the new recommended approach, which involves storing GPG keys in /etc/apt/keyrings/
+-#}
+{{ sls }} create keyrings directory:
+  file.directory:
+    - name: /etc/apt/keyrings
+    - mode: '0755'
+    - makedirs: True
+
+{{ sls }} download public Salt GPG key:
+  cmd.run:
+    - name: curl -fsSL {{ repo_path }}/{{ salt_gpg_key }} | sudo tee /etc/apt/keyrings/salt-archive-keyring-2023.pgp
+    - unless: test -f /etc/apt/keyrings/salt-archive-keyring-2023.pgp
+    - require:
+      - file: {{ sls }} create keyrings directory
+      - pkg: {{ sls }} dependencies
+
 {{ sls }} SaltStack Repository:
   pkgrepo.managed:
-    - name: deb {{ repo_url }} {{ repo_os }} main
+    - name: deb [{{arch_value}} {{signed_key}}] {{ repo_url }} {{ pkg_state }} main
     - file: /etc/apt/sources.list.d/saltstack.list
-    - key_url: {{ repo_url }}/{{ salt_gpg_key }}
+    - key_url: /etc/apt/keyrings/salt-archive-keyring-2023.pgp
     - clean_file: True
     - require:
       - pkg: {{ sls }} dependencies
+      - cmd: {{ sls }} download public Salt GPG key
     - require_in:
 {%- if HST == "salt-prime" %}
       - pkg: salt.prime installed packages
