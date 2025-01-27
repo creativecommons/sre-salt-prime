@@ -31,7 +31,7 @@ infra:
       #   for PostgreSQL.
       #
       # Default
-      default: mariadb10.6
+      default: mariadb10.11
       # Specific (please maintain order)
     engine_version:
       # List valid engine versions:
@@ -47,8 +47,11 @@ infra:
       # - The command above is for MariaDB. Replace "mariadb" with "postgres"
       #   for PostgreSQL.
       #
+      # * Deprecation of db engine version 10.3, 10.4, & 10.6
+      # Recommended migration: 10.4 --> 10.11
+      #                        10.6 --> 10.11
       # Default
-      default: 10.6
+      default: 10.11
       # Specific (please maintain order)
     instance_class:
       # Notes:
