@@ -70,7 +70,6 @@ infra:
         character_set_server: utf8mb4
         collation_server: utf8mb4_general_ci
         innodb_log_file_size: 268435456 # 256 MiB
-        time_zone: UTC
     primary_password:
       # Default
       default: '/@@/ INVALID - MUST SET NON-DEFAULT PASSWORD /@@/'
