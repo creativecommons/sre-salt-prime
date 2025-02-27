@@ -98,3 +98,8 @@ infra:
         cc:product: infrastructure
         cc:purpose: saltstack
         cc:team: internal-tech
+      wiki__prod:
+        cc:environment: production
+        cc:product: primary-website
+        cc:purpose: wordpress-hosting
+        cc:team: internal-tech
