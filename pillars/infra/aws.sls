@@ -53,11 +53,6 @@ infra:
         cc:product: infrastructure
         cc:purpose: security-group
         cc:team: internal-tech
-      dispatch__prod:
-        cc:environment: production
-        cc:product: primary-website
-        cc:purpose: dispatch-urls
-        cc:team: internal-tech
       licbuttons__prod:
         cc:environment: production
         cc:product: licensebuttons
