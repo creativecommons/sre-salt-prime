@@ -72,10 +72,6 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-chapters_stage_secgroup
-      misc__prod:
-        - pingtrace-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
       opencovid__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
@@ -95,4 +91,3 @@ infra:
       # Default
       default: dmz
       # Specific (please maintain order)
-      misc: private-one

@@ -58,11 +58,6 @@ infra:
         cc:product: licensebuttons
         cc:purpose: static-hosting
         cc:team: internal-tech
-      misc__prod:
-        cc:environment: production
-        cc:product: primary-website
-        cc:purpose: static-hosting
-        cc:team: internal-tech
       opencovid__prod:
         cc:environment: production
         cc:product: open-covid-pledge
