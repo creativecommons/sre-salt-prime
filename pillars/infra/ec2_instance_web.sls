@@ -19,7 +19,6 @@ infra:
       # Default/
       default: 10
       # Specific (please maintain order)
-      ccengine: 214
       index: 214
       ccstatic: 214
       cert: 214
@@ -33,7 +32,6 @@ infra:
       default: t3.micro
       # Specific (please maintain order)
       bastion: t3.nano
-      ccengine: t3.small
       index: t3.medium
       cert: t3.small
       chapters: t3.medium
@@ -51,11 +49,6 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-biztool_prod_secgroup
-      ccengine__prod:
-        - pingtrace-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
-        - web-from-dispatch_prod_secgroup
       index__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
@@ -110,5 +103,4 @@ infra:
       # Default
       default: dmz
       # Specific (please maintain order)
-      ccengine: private-one
       misc: private-one
