@@ -12,7 +12,6 @@ infra:
       licbuttons: vpc
       opencovid: vpc
       openglam: vpc
-      podcast: vpc
       redirects: vpc
     ebs_size:
       # Default/
@@ -86,11 +85,6 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-openglam_prod_secgroup
-      podcast__prod:
-        - pingtrace-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
-        - web-all-podcast_prod_secgroup
     web_subnet:
       # Default
       default: dmz

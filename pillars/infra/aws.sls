@@ -73,11 +73,6 @@ infra:
         cc:product: openglam
         cc:purpose: wordpress-hosting
         cc:team: internal-tech
-      podcast__prod:
-        cc:environment: production
-        cc:product: podcast-plays-well-with-others
-        cc:purpose: wordpress-hosting
-        cc:team: internal-tech
       redirects__core:
         cc:environment: production
         cc:product: web-redirects
