@@ -22,7 +22,6 @@ infra:
         cert__prod:             10.22.10.29
         ###_Private-One         10.22.11.0
         salt-prime__core:       10.22.11.11
-        ccengine__prod:         10.22.11.13
         misc__prod:             10.22.11.15
         ###_Private-Two         10.22.12.0
       subnets:
