@@ -9,7 +9,6 @@ infra:
       ccstatic: vpc
       cert: vpc
       chapters: vpc
-      dispatch: vpc
       licbuttons: vpc
       opencovid: vpc
       openglam: vpc
@@ -24,7 +23,6 @@ infra:
       ccstatic: 214
       cert: 214
       chapters: 334
-      dispatch: 214
       licbuttons: 214
       opencovid: 214
       openglam: 214
@@ -55,7 +53,6 @@ infra:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
-        - web-from-dispatch_prod_secgroup
       index__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
@@ -81,16 +78,10 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-chapters_stage_secgroup
-      dispatch__prod:
-        - pingtrace-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
-        - web-all-dispatch_prod_secgroup
       misc__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
-        - web-from-dispatch_prod_secgroup
       opencovid__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
