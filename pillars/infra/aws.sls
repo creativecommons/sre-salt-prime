@@ -53,11 +53,6 @@ infra:
         cc:product: licensebuttons
         cc:purpose: static-hosting
         cc:team: internal-tech
-      misc__prod:
-        cc:environment: production
-        cc:product: primary-website
-        cc:purpose: static-hosting
-        cc:team: internal-tech
       opencovid__prod:
         cc:environment: production
         cc:product: open-covid-pledge
@@ -66,11 +61,6 @@ infra:
       openglam__prod:
         cc:environment: production
         cc:product: openglam
-        cc:purpose: wordpress-hosting
-        cc:team: internal-tech
-      podcast__prod:
-        cc:environment: production
-        cc:product: podcast-plays-well-with-others
         cc:purpose: wordpress-hosting
         cc:team: internal-tech
       redirects__core:

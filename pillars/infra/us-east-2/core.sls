@@ -9,7 +9,6 @@ infra:
         bastion__core:          10.22.10.10
         #_NAT_Gateway:          10.22.10.13
         chapters__prod:         10.22.10.14
-        podcast__prod:          10.22.10.15
         ccstatic__prod:         10.22.10.16
         biztool__prod:          10.22.10.17
         chapters__stage:        10.22.10.18
@@ -21,7 +20,6 @@ infra:
         opencovid__prod:        10.22.10.27
         ###_Private-One         10.22.11.0
         salt-prime__core:       10.22.11.11
-        misc__prod:             10.22.11.15
         ###_Private-Two         10.22.12.0
       subnets:
         dmz:
