@@ -18,7 +18,6 @@ infra:
         licbuttons__prod:       10.22.10.24
         index__prod:            10.22.10.26
         opencovid__prod:        10.22.10.27
-        cert__prod:             10.22.10.29
         ###_Private-One         10.22.11.0
         salt-prime__core:       10.22.11.11
         ###_Private-Two         10.22.12.0

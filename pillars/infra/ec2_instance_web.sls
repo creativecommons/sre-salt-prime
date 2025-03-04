@@ -7,7 +7,6 @@ infra:
       biztool: vpc
       index: vpc
       ccstatic: vpc
-      cert: vpc
       chapters: vpc
       licbuttons: vpc
       opencovid: vpc
@@ -19,7 +18,6 @@ infra:
       # Specific (please maintain order)
       index: 214
       ccstatic: 214
-      cert: 214
       chapters: 334
       licbuttons: 214
       opencovid: 214
@@ -30,7 +28,6 @@ infra:
       # Specific (please maintain order)
       bastion: t3.nano
       index: t3.medium
-      cert: t3.small
       chapters: t3.medium
       opencovid: t3.small
     web_secgroups:
@@ -56,11 +53,6 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-index_stage_secgroup
-      cert__prod:
-        - pingtrace-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
-        - web-all-cert_prod_secgroup
       chapters__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
