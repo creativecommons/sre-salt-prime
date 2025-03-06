@@ -21,6 +21,7 @@ infra:
         ###_Private-One         10.22.11.0
         salt-prime__core:       10.22.11.11
         ###_Private-Two         10.22.12.0
+        wiki__prod:             10.22.10.25
       subnets:
         dmz:
           cidr: 10.22.10.0/24
