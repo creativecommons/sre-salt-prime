@@ -22,6 +22,7 @@ infra:
       licbuttons: 214
       opencovid: 214
       openglam: 214
+      wiki: 214
     instance_type:
       # Default
       default: t3.micro
@@ -30,6 +31,7 @@ infra:
       index: t3.medium
       chapters: t3.medium
       opencovid: t3.small
+      wiki: t3.small
     web_secgroups:
       # Default
       default:
@@ -73,7 +75,12 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-openglam_prod_secgroup
+      wiki__prod:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
     web_subnet:
       # Default
       default: dmz
       # Specific (please maintain order)
+      wiki: private-one

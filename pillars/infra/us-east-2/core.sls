@@ -20,6 +20,7 @@ infra:
         opencovid__prod:        10.22.10.27
         ###_Private-One         10.22.11.0
         salt-prime__core:       10.22.11.11
+        wiki__prod:             10.22.11.13
         ###_Private-Two         10.22.12.0
       subnets:
         dmz:
