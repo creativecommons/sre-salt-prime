@@ -40,6 +40,20 @@
         tgt_loc: {{ LOC }}
 
 
+{{ sls }} orch.aws.secgroup_wiki:
+  salt.state:
+    - tgt: {{ pillar.location.salt_prime_id }}
+    - sls: orch.aws.secgroup_wiki
+    - saltenv: {{ saltenv }}
+    - kwarg:
+      pillar:
+        tgt_hst: {{ HST }}
+        tgt_pod: {{ POD }}
+        tgt_loc: {{ LOC }}
+    - require:
+      - salt: {{ sls }} orch.aws.common
+
+
 {{ sls }} orch.aws.ec2_instance_web:
   salt.state:
     - tgt: {{ pillar.location.salt_prime_id }}
@@ -53,12 +67,27 @@
         tgt_net: {{ NET }}
         kms_key_storage: {{ KMS_KEY_STORAGE }}
     - require:
-      - salt: {{ sls }} orch.aws.common
+      - salt: {{ sls }} orch.aws.secgroup_wiki
+
+
+{{ sls }} orch.aws.rds:
+  salt.state:
+    - tgt: {{ pillar.location.salt_prime_id }}
+    - sls: orch.aws.rds
+    - saltenv: {{ saltenv }}
+    - kwarg:
+      pillar:
+        tgt_hst: {{ HST }}
+        tgt_pod: {{ POD }}
+        tgt_loc: {{ LOC }}
+        tgt_net: {{ NET }}
+        kms_key_storage: {{ KMS_KEY_STORAGE }}
+    - require:
+      - salt: {{ sls }} orch.aws.ec2_instance_web
 
 
 # Phase Two: Bootstrap via SSH
 # (skipped if minion public key has been accepted and minion is already live)
-
 
 {{ sls }} ssh bootstrap:
   salt.state:
