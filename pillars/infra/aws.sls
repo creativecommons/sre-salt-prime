@@ -18,11 +18,6 @@ infra:
         cc:product: business-toolkit
         cc:purpose: wordpress-hosting
         cc:team: internal-tech
-      ccengine__prod:
-        cc:environment: production
-        cc:product: primary-website
-        cc:purpose: ccengine
-        cc:team: internal-tech
       index__prod:
         cc:environment: production
         cc:product: primary-website
@@ -37,11 +32,6 @@ infra:
         cc:environment: production
         cc:product: ccstatic
         cc:purpose: static-hosting
-        cc:team: internal-tech
-      cert__prod:
-        cc:environment: production
-        cc:product: certificate
-        cc:purpose: wordpress-hosting
         cc:team: internal-tech
       chapters__prod:
         cc:environment: production
@@ -58,19 +48,9 @@ infra:
         cc:product: infrastructure
         cc:purpose: security-group
         cc:team: internal-tech
-      dispatch__prod:
-        cc:environment: production
-        cc:product: primary-website
-        cc:purpose: dispatch-urls
-        cc:team: internal-tech
       licbuttons__prod:
         cc:environment: production
         cc:product: licensebuttons
-        cc:purpose: static-hosting
-        cc:team: internal-tech
-      misc__prod:
-        cc:environment: production
-        cc:product: primary-website
         cc:purpose: static-hosting
         cc:team: internal-tech
       opencovid__prod:
@@ -81,11 +61,6 @@ infra:
       openglam__prod:
         cc:environment: production
         cc:product: openglam
-        cc:purpose: wordpress-hosting
-        cc:team: internal-tech
-      podcast__prod:
-        cc:environment: production
-        cc:product: podcast-plays-well-with-others
         cc:purpose: wordpress-hosting
         cc:team: internal-tech
       redirects__core:
