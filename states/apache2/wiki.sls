@@ -7,7 +7,6 @@
 
 include:
   - apache2
-  - apache2.fcgid
 
 
 {{ sls }} wait for wiki:
@@ -42,8 +41,6 @@ include:
         SLS: {{ sls }}
     - require:
       - pkg: apache2 installed packages
-      - pkg: apache2.fcgid installed packages
-      - file: wiki.env CC wiki fcgi
     - watch_in:
       - service: apache2 service
 
