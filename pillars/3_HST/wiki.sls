@@ -14,5 +14,4 @@ mounts:
     pass: 2
 states:
   apache2.wiki: {{ sls }}
-  wiki: {{ sls }}
   mount: {{ sls }}
