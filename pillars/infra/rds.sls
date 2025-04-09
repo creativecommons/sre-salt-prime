@@ -8,6 +8,7 @@ include:
   - 5_HST__POD.index__prod.secrets
   - 5_HST__POD.index__stage.secrets
   - 5_HST__POD.opencovid__prod.secrets
+  - 5_HST__POD.wiki__prod.secrets
 
 
 infra:
@@ -63,6 +64,7 @@ infra:
       # Specific (please maintain order)
       index: db.t3.small
       chapters: db.t3.medium
+      wiki: db.t3.medium
     parameters:
       default:
         character_set_server: utf8mb4
@@ -104,6 +106,8 @@ infra:
         - mysql-from-opencovid_prod_secgroup
       openglam__prod:
         - mysql-from-openglam_prod_secgroup
+      wiki__prod:
+        - mysql-from-wiki_prod_secgroup
     storage:
       # Default
       default: 10
@@ -112,6 +116,7 @@ infra:
       chapters: 334
       opencovid: 214
       openglam: 214
+      wiki: 214
     rds_subnets:
       default:
         - private-one_core_subnet
