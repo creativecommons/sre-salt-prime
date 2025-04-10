@@ -83,4 +83,3 @@ infra:
       # Default
       default: dmz
       # Specific (please maintain order)
-      wiki: private-one
