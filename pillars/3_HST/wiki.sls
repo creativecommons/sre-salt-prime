@@ -1,6 +1,6 @@
 include:
-  - transifex.secrets
-
+  - mysql
+  - php
 
 wiki:
   # set the default here (may be overridden by subsequent sls)
