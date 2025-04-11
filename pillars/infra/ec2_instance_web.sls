@@ -12,6 +12,7 @@ infra:
       opencovid: vpc
       openglam: vpc
       redirects: vpc
+      wiki: vpc
     ebs_size:
       # Default/
       default: 10
@@ -79,6 +80,7 @@ infra:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
+        - web-all-wiki_prod_secgroup
     web_subnet:
       # Default
       default: dmz
