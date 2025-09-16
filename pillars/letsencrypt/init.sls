@@ -17,7 +17,7 @@ letsencrypt:
   version: "1.6.0"
   {%- elif grains.os == "Debian" and grains.osrelease|int == 11 %}
   {#- Debian 11 (Bullseye): only supports up to 4.2.0 
-  {#- refer to https://github.com/creativecommons/tech-support/issues/1361 #}
+     refer to https://github.com/creativecommons/tech-support/issues/1361 #}
   version: "4.2.0"
   {%- else %}
   version: "5.0.0"
