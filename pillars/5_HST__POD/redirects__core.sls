@@ -107,7 +107,7 @@ nginx:
       dst: creativecommons.pl
     - crt: redirects.creativecommons.org-0001
       src: slack-signup.creativecommons.org
-      dst: communityinviter.com/apps/creativecommons/cc
+      dst: creativecommons.zulipchat.com/login/
       ignore_request_uri: true
     - crt: redirects.creativecommons.org-0001
       src: support.creativecommons.org
