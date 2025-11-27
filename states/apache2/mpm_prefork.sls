@@ -5,13 +5,13 @@
 #   Instance     listed      real  Workers
 #   ---------  --------  --------  -------
 #   t3.nano     512 MiB   439 MiB       16
-#   t3.micro   1024 MiB   945 MiB       48
-#   t3.small   2048 MiB  1932 MiB      112
-#   t3.medium  4096 MiB  3873 MiB      224
+#   t3.micro   1024 MiB   945 MiB       32
+#   t3.small   2048 MiB  1932 MiB       80
+#   t3.medium  4096 MiB  3873 MiB      176
 #
 # To view real memory available, use the following command:
 #   sudo salt \* grains.item saltenv=${USER} mem_total
-{% set WORKERS = (((grains.mem_total - 256) / 256)|round * 16)|int -%}
+{% set WORKERS = (((grains.mem_total - 256) / 320)|round * 16)|int -%}
 
 # This should only match the first time Salt is run against the host
 {{ sls }} initial MaxRequestWorkers:
