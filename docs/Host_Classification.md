@@ -14,7 +14,6 @@ Examples:
 - `bastion__core__us-east-2`
 - `salt-prime__core__us-east-2`
 - `chapters__prod__us-east-2`
-- `chapters__stage__us-east-2`
 
 This host classification allows multiple levels of specificity to minimize the
 configuration required between similar hosts.
