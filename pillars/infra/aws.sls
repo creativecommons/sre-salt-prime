@@ -38,11 +38,6 @@ infra:
         cc:product: chapter-sites
         cc:purpose: wordpress-hosting
         cc:team: internal-tech
-      chapters__stage:
-        cc:environment: staging
-        cc:product: chapter-sites
-        cc:purpose: wordpress-hosting
-        cc:team: internal-tech
       core__secgroup:
         cc:environment: production
         cc:product: infrastructure

@@ -58,11 +58,6 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-chapters_prod_secgroup
-      chapters__stage:
-        - pingtrace-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
-        - web-all-chapters_stage_secgroup
       opencovid__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
