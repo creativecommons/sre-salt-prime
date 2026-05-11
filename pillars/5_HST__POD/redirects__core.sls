@@ -16,8 +16,6 @@ letsencrypt:
       - co.creativecommons.org
       - code.creativecommons.org
       - de.creativecommons.org
-      - donate.creativecommons.org
-      - e-donate.creativecommons.org
       - i.creativecommons.org
       - it.creativecommons.org
       - jp.creativecommons.org
@@ -65,13 +63,6 @@ nginx:
     - crt: redirects.creativecommons.org-0001
       src: de.creativecommons.org
       dst: de.creativecommons.net
-    - crt: redirects.creativecommons.org-0001
-      src: donate.creativecommons.org
-      dst: classy.org/give/313412/#!/donation/checkout
-    - crt: redirects.creativecommons.org-0001
-      src: e-donate.creativecommons.org
-      dst: 'classy.org/give/313412/#!/donation/checkout'
-      ignore_request_uri: true
     - crt: redirects.creativecommons.org-0001
       src: i.creativecommons.org
       dst: licensebuttons.net
