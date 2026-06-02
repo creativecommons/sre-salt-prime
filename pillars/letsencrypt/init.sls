@@ -17,5 +17,5 @@ letsencrypt:
      refer to https://github.com/creativecommons/tech-support/issues/1361 #}
   version: "4.2.0"
   {%- else %}
-  version: "5.3.1"
+  version: "5.6.0"
   {%- endif %}
