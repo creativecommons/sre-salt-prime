@@ -36,81 +36,81 @@ nginx:
   redirect_default: redirects.creativecommons.org
   redirects:
     # redirects.creativecommons.org
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: au-beta.creativecommons.org
       dst: au-beta.creativecommons.net
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: br.creativecommons.org
       dst: br.creativecommons.net
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: ca-beta.creativecommons.org
       dst: ca-beta.creativecommons.net
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: ca.creativecommons.org
       dst: ca.creativecommons.net
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: ccsearch.creativecommons.org
       dst: search.creativecommons.org
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: co.creativecommons.org
       dst: co.creativecommons.net
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: code.creativecommons.org
       dst: opensource.creativecommons.org
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: chapters.creativecommons.org
       dst: creativecommons.net
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: de.creativecommons.org
       dst: de.creativecommons.net
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: i.creativecommons.org
       dst: licensebuttons.net
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: it.creativecommons.org
       dst: creativecommons.it
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: jp.creativecommons.org
       dst: creativecommons.jp
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: ke-beta.creativecommons.org
       dst: ke-beta.creativecommons.net
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: newsearch.creativecommons.org
       dst: search.creativecommons.org
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: mx.creativecommons.org
       dst: mx.creativecommons.net
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: mx-beta.creativecommons.org
       dst: mx.creativecommons.net
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: nl-beta.creativecommons.org
       dst: nl-beta.creativecommons.net
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: nl.creativecommons.org
       dst: creativecommons.nl
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: oldsearch.creativecommons.org
       dst: search.creativecommons.org
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: pl.creativecommons.org
       dst: creativecommons.pl
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: slack-signup.creativecommons.org
       dst: creativecommons.zulipchat.com/login/
       ignore_request_uri: true
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: support.creativecommons.org
       dst: classy.org/give/313412/#!/donation/checkout
       ignore_request_uri: true
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: sotc.creativecommons.org
       dst: stateof.creativecommons.org
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: sv.creativecommons.org
       dst: sv.creativecommons.net
-    - crt: redirects.creativecommons.org-0001
+    - crt: redirects.creativecommons.org
       src: za.creativecommons.org
       dst: za.creativecommons.net
     #    api.creativecommons.engineering has custom configuration, see state
