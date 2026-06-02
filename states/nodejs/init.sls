@@ -6,15 +6,9 @@
 
 # Manual installation - nodesource/distributions/README.md
 # https://github.com/nodesource/distributions/blob/master/README.md#manual-installation
-{% if grains['oscodename'] == "stretch" -%}
-{% set VERSION = 11 -%}
-{% elif grains['oscodename'] == "bookworm" -%}
-{% set VERSION = 18 -%}
-{% else -%}
-{% set VERSION = 16 -%}
-{% endif -%}
-{%- set REPO_HOST = "https://deb.nodesource.com" %}
-{%- set OS = grains['oscodename'] %}
+{% set VERSION = 24 -%}
+{% set REPO_HOST = "https://deb.nodesource.com" -%}
+{% set OS = grains['oscodename'] -%}
 {{ sls }} Node.js Repository:
   pkgrepo.managed:
     - name: deb {{ REPO_HOST }}/node_{{ VERSION }}.x {{ OS }} main
