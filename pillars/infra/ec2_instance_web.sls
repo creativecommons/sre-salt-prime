@@ -5,9 +5,9 @@ infra:
       default: ABSENT
       # Specific (please maintain order)
       biztool: vpc
-      index: vpc
       ccstatic: vpc
       chapters: vpc
+      index: vpc
       licbuttons: vpc
       opencovid: vpc
       openglam: vpc
@@ -16,9 +16,9 @@ infra:
       # Default/
       default: 10
       # Specific (please maintain order)
-      index: 214
       ccstatic: 214
       chapters: 334
+      index: 214
       licbuttons: 214
       opencovid: 214
       openglam: 214
@@ -27,8 +27,9 @@ infra:
       default: t3.micro
       # Specific (please maintain order)
       bastion: t3.nano
-      index: t3.medium
       chapters: t3.medium
+      index__prod: r8a.medium
+      index__stage: t3.small
       opencovid: t3.small
     web_secgroups:
       # Default
@@ -43,6 +44,11 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-biztool_prod_secgroup
+      chapters__prod:
+        - pingtrace-all_core_secgroup
+        - ssh-from-salt-prime_core_secgroup
+        - ssh-from-bastion_core_secgroup
+        - web-all-chapters_prod_secgroup
       index__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
@@ -53,11 +59,6 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-index_stage_secgroup
-      chapters__prod:
-        - pingtrace-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
-        - web-all-chapters_prod_secgroup
       opencovid__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
