@@ -1,3 +1,4 @@
+{% import "apache2/jinja2.sls" as a2 with context -%}
 {% set POD = pillar.pod -%}
 {% set DOCROOT = pillar.wordpress.docroot -%}
 {% set GIT = "/var/www/git" -%}
@@ -6,6 +7,10 @@
 {% set THEMES = "{}/themes".format(WP_CONTENT) -%}
 {% set STAGE_USER = salt.pillar.get("apache2:stage_username", false) -%}
 {% set STAGE_PASS = salt.pillar.get("apache2:stage_password", false) -%}
+
+
+{{ a2.enable_mods(sls, ["proxy"]) }}
+{{ a2.enable_mods(sls, ["proxy_http"]) }}
 
 
 {% if POD.startswith("stage") -%}
