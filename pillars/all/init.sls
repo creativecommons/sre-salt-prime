@@ -1,5 +1,6 @@
 states:
   common: {{ sls }}
+  oom_notice: {{ sls }}
   postfix: {{ sls }}
   salt: {{ sls }}
   ssh: {{ sls }}
