@@ -16,7 +16,7 @@
  */
 
 if ( !defined('ABSPATH') ) {
-    define('ABSPATH', dirname(__FILE__) . '/');
+    define('ABSPATH', dirname(__FILE__) . '/wp/');
 }
 if ( isset ( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ) {
     $_SERVER['HTTPS']       = 'on';
