@@ -1,4 +1,5 @@
 include:
+  - .oom_reboot
   - .virtual
   - amazon.cloudwatch_agent
 
