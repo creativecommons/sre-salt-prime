@@ -1,7 +1,7 @@
 states:
   common: {{ sls }}
-  oom_notice: {{ sls }}
   postfix: {{ sls }}
+  reboot_notice: {{ sls }}
   salt: {{ sls }}
   ssh: {{ sls }}
   sudo: {{ sls }}
