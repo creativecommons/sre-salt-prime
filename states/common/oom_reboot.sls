@@ -8,7 +8,7 @@
 {{ sls }} kernel.panic:
   sysctl.present:
     - name: kernel.panic
-    - value: 15
+    - value: 10
 
 
 # https://sysctl-explorer.net/vm/panic_on_oom/
@@ -23,3 +23,15 @@
     - value: 1
     - require:
       - sysctl: {{ sls }} kernel.panic
+
+
+# https://sysctl-explorer.net/vm/oom_kill_allocating_task/
+# > If this is set to non-zero, the OOM killer simply kills the task that
+# > triggered the out-of-memory condition. This avoids the expensive tasklist
+# > scan.
+{{ sls }} vm.oom_kill_allocating_task:
+  sysctl.present:
+    - name: vm.oom_kill_allocating_task
+    - value: 1
+    - require:
+      - sysctl: {{ sls }} vm.panic_on_oom
