@@ -13,7 +13,7 @@ trap '_es=${?};
 _NOW="$(/usr/bin/date '+%s')"
 _UPTIME="$(/usr/bin/date --date="$(/usr/bin/uptime --since)" '+%s')"
 _UPTIME="$(( _NOW - _UPTIME))"
-(( _UPTIME > 82859 )) && exit
+(( _UPTIME > 86340 )) && exit
 
 _BOOTS="$(/usr/bin/awk '/BOOT_IMAGE/ {print $1" "$2" "$3}' /var/log/syslog \
     | /usr/bin/sort --unique)"
