@@ -48,11 +48,6 @@ infra:
         cc:product: licensebuttons
         cc:purpose: static-hosting
         cc:team: internal-tech
-      openglam__prod:
-        cc:environment: production
-        cc:product: openglam
-        cc:purpose: wordpress-hosting
-        cc:team: internal-tech
       redirects__core:
         cc:environment: production
         cc:product: web-redirects

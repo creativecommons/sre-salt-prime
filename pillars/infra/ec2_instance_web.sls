@@ -9,7 +9,6 @@ infra:
       chapters: vpc
       index: vpc
       licbuttons: vpc
-      openglam: vpc
       redirects: vpc
     ebs_size:
       # Default/
@@ -19,7 +18,6 @@ infra:
       chapters: 334
       index: 214
       licbuttons: 214
-      openglam: 214
     instance_type:
       # Default
       default: t3.micro
@@ -56,11 +54,6 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-index_stage_secgroup
-      openglam__prod:
-        - pingtrace-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
-        - web-all-openglam_prod_secgroup
     web_subnet:
       # Default
       default: dmz

@@ -1,6 +1,5 @@
 {% import_yaml "5_HST__POD/biztool__prod/secrets.yaml" as biztool__prod -%}
 {% import_yaml "5_HST__POD/chapters__prod/secrets.yaml" as chapters__prod -%}
-{% import_yaml "5_HST__POD/openglam__prod/secrets.yaml" as openglam__prod -%}
 
 
 include:
@@ -70,14 +69,12 @@ infra:
       # Specific (please maintain order)
       biztool__prod: {{ biztool__prod.mysql.server.root_password }}
       chapters__prod: {{ chapters__prod.mysql.server.root_password }}
-      openglam__prod: {{ openglam__prod.mysql.server.root_password }}
     primary_username:
       # Default
       default: root
       # Specific (please maintain order)
       biztool__prod: {{ biztool__prod.mysql.server.root_user }}
       chapters__prod: {{ chapters__prod.mysql.server.root_user }}
-      openglam__prod: {{ openglam__prod.mysql.server.root_user }}
     rds_secgroups:
       # Default
       default:
@@ -91,15 +88,12 @@ infra:
         - mysql-from-index_stage_secgroup
       chapters__prod:
         - mysql-from-chapters_prod_secgroup
-      openglam__prod:
-        - mysql-from-openglam_prod_secgroup
     storage:
       # Default
       default: 10
       # Specific (please maintain order)
       index: 334
       chapters: 334
-      openglam: 214
     rds_subnets:
       default:
         - private-one_core_subnet
