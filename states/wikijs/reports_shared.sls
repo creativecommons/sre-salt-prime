@@ -101,6 +101,7 @@ include:
     - target: /srv/wikijs/sre-wiki-js
     - user: wikijs
     - fetch_tags: False
+    - force_reset: True
     - identity: /srv/wikijs/.ssh/{{ pillar.wikijs.git_ssh_key }}
     - require:
       - git: {{ sls }} set git user.email
@@ -112,6 +113,7 @@ include:
     - target: /srv/wikijs/sre-report-to-wikijs
     - user: wikijs
     - fetch_tags: False
+    - force_reset: True
     - identity: /srv/wikijs/.ssh/{{ pillar.wikijs.git_ssh_key }}
     - require:
       - git: {{ sls }} set git user.email
