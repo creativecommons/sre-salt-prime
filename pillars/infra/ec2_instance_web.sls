@@ -9,7 +9,6 @@ infra:
       chapters: vpc
       index: vpc
       licbuttons: vpc
-      opencovid: vpc
       openglam: vpc
       redirects: vpc
     ebs_size:
@@ -20,7 +19,6 @@ infra:
       chapters: 334
       index: 214
       licbuttons: 214
-      opencovid: 214
       openglam: 214
     instance_type:
       # Default
@@ -30,7 +28,6 @@ infra:
       chapters: t3.medium
       index__prod: r8a.medium
       index__stage: t3.small
-      opencovid: t3.small
     web_secgroups:
       # Default
       default:
@@ -59,11 +56,6 @@ infra:
         - ssh-from-salt-prime_core_secgroup
         - ssh-from-bastion_core_secgroup
         - web-all-index_stage_secgroup
-      opencovid__prod:
-        - pingtrace-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
-        - web-all-opencovid_prod_secgroup
       openglam__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup
