@@ -6,7 +6,6 @@
 include:
   - 5_HST__POD.index__prod.secrets
   - 5_HST__POD.index__stage.secrets
-  - 5_HST__POD.opencovid__prod.secrets
 
 
 infra:
@@ -92,8 +91,6 @@ infra:
         - mysql-from-index_stage_secgroup
       chapters__prod:
         - mysql-from-chapters_prod_secgroup
-      opencovid__prod:
-        - mysql-from-opencovid_prod_secgroup
       openglam__prod:
         - mysql-from-openglam_prod_secgroup
     storage:
@@ -102,7 +99,6 @@ infra:
       # Specific (please maintain order)
       index: 334
       chapters: 334
-      opencovid: 214
       openglam: 214
     rds_subnets:
       default:
