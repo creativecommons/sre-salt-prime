@@ -16,8 +16,9 @@ linux:
   # 1. r8a.medium supports 314 workers per states/apache2/mpm_prefork.sls
   # 2. Assuming 8M per worker + PHP memory_lmit = 128M
   # 3. ( 8 + 128 ) * 314 = 42,704
-  # 4. Rounding 42,704 up to 64,000
-  swapsize: 64000
+  # 4. Rounding 42,704 up to 64,000M
+  # 5. states/swapfile/init.sls expects G
+  swapsize: 64
 mysql:
   # (also see 5_HST__POD.index__prod.secrets)
   server:
