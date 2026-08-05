@@ -4,7 +4,7 @@
 
 {{ sls }} create swapfile:
   cmd.run:
-    - name: dd if=/dev/zero of=/swapfile bs=1024 count={{ SWAPSIZE }}M
+    - name: fallocate -l {{ SWAPSIZE }}G /swapfile
     - unless:
       - test -f /swapfile
 
@@ -20,9 +20,9 @@
 
 {{ sls }} activate swapfile:
   cmd.run:
-    - name: mkswap /swapfile && swapon -a
+    - name: mkswap /swapfile && swapon /swapfile
     - unless:
-      - file /swapfile 2>&1 | grep -q 'Linux/i386 swap'
+      - swapon --show=NAME | grep -q '^/swapfile'
     - require:
       - file: {{ sls }} swapfile permissions
 
