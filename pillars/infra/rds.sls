@@ -1,4 +1,3 @@
-{% import_yaml "5_HST__POD/biztool__prod/secrets.yaml" as biztool__prod -%}
 {% import_yaml "5_HST__POD/chapters__prod/secrets.yaml" as chapters__prod -%}
 
 
@@ -67,21 +66,17 @@ infra:
       # Default
       default: '/@@/ INVALID - MUST SET NON-DEFAULT PASSWORD /@@/'
       # Specific (please maintain order)
-      biztool__prod: {{ biztool__prod.mysql.server.root_password }}
       chapters__prod: {{ chapters__prod.mysql.server.root_password }}
     primary_username:
       # Default
       default: root
       # Specific (please maintain order)
-      biztool__prod: {{ biztool__prod.mysql.server.root_user }}
       chapters__prod: {{ chapters__prod.mysql.server.root_user }}
     rds_secgroups:
       # Default
       default:
         - mysql-from-private_core_secgroup
       # Specific (please maintain order)
-      biztool__prod:
-        - mysql-from-biztool_prod_secgroup
       index__prod:
         - mysql-from-index_prod_secgroup
       index__stage:
