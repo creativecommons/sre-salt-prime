@@ -4,7 +4,6 @@ infra:
       # Default
       default: ABSENT
       # Specific (please maintain order)
-      biztool: vpc
       ccstatic: vpc
       chapters: vpc
       index: vpc
@@ -34,11 +33,6 @@ infra:
         - ssh-from-bastion_core_secgroup
         - web-all_core_secgroup
       # Specific (please maintain order)
-      biztool__prod:
-        - pingtrace-all_core_secgroup
-        - ssh-from-salt-prime_core_secgroup
-        - ssh-from-bastion_core_secgroup
-        - web-all-biztool_prod_secgroup
       chapters__prod:
         - pingtrace-all_core_secgroup
         - ssh-from-salt-prime_core_secgroup

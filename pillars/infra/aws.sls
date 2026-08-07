@@ -13,11 +13,6 @@ infra:
         cc:product: infrastructure
         cc:purpose: bastion
         cc:team: internal-tech
-      biztool__prod:
-        cc:environment: production
-        cc:product: business-toolkit
-        cc:purpose: wordpress-hosting
-        cc:team: internal-tech
       index__prod:
         cc:environment: production
         cc:product: primary-website

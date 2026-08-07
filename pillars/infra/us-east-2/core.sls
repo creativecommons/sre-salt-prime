@@ -10,7 +10,6 @@ infra:
         #_NAT_Gateway:          10.22.10.13
         chapters__prod:         10.22.10.14
         ccstatic__prod:         10.22.10.16
-        biztool__prod:          10.22.10.17
         redirects__core:        10.22.10.19
         index__stage:           10.22.10.20
         licbuttons__prod:       10.22.10.24
