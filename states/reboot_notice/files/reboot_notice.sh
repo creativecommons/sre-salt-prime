@@ -10,8 +10,8 @@ trap '_es=${?};
     echo "${0}: line ${_lo}: \"${_co}\" exited with a status of ${_es}";
     exit ${_es}' ERR
 
-_NOW="$(/usr/bin/date '+%s')"
-_UPTIME="$(/usr/bin/date --date="$(/usr/bin/uptime --since)" '+%s')"
+_NOW="$(/bin/date '+%s')"
+_UPTIME="$(/bin/date --date="$(/usr/bin/uptime --since)" '+%s')"
 _UPTIME="$(( _NOW - _UPTIME))"
 (( _UPTIME > 86340 )) && exit
 
