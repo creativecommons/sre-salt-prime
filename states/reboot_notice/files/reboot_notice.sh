@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 set -o errexit
 set -o errtrace
 set -o nounset
@@ -30,7 +30,7 @@ else
     _BODY="${_UPTIME}"
 fi
 _HOST="${HOSTNAME%%.*}"
-_FROM="From: ${USER}+${_HOST}@creativecommons.org"
+_FROM="From: root+${_HOST}@creativecommons.org"
 printf "To: root\n%s\n%s\n\n%s\n\n." "${_FROM}" "${_SUBJECT}" "${_BODY}" \
     | /usr/lib/sendmail -t
 # man sendmail excerpt:
