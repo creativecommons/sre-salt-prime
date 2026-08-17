@@ -27,6 +27,7 @@ php:
           post_max_size: 41M
           upload_max_filesize: 40M
 states:
+  apache2.mod_remoteip: {{ sls }}
   mount: {{ sls }}
   wordpress.apache2: {{ sls }}
   wordpress.index: {{ sls }}
