@@ -50,7 +50,7 @@ include:
     - source: salt://salt/files/salt.sources
     - mode: '0444'
     - require:
-      - file: {{ sls }} Salt project public key 
+      - file: {{ sls }} Salt project public key
       - file: {{ sls }} apt pin Salt version
       - pkg: {{ sls }} dependencies
     - require_in:
