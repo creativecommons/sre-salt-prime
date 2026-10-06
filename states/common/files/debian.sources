@@ -1,0 +1,15 @@
+# Managed by SaltStack: {{ SLS }}
+
+Types: deb
+URIs: http://cdn-aws.deb.debian.org/debian
+Suites: {{ CODENAME }} {{ CODENAME }}-updates
+Components: main contrib
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+Types: deb
+URIs: http://cdn-aws.deb.debian.org/debian-security
+Suites: {{ CODENAME }}-security
+Components: main contrib
+Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+# vim ft=deb822sources

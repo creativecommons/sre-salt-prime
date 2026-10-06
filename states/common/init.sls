@@ -1,4 +1,5 @@
 include:
+  - .debian
   - .virtual
   - amazon.cloudwatch_agent
 
