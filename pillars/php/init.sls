@@ -1,7 +1,11 @@
 # Configuration for php-formula
 #
 # https://cheatsheetseries.owasp.org/cheatsheets/PHP_Configuration_Cheat_Sheet.html
-{%- set php_versions = {"bookworm": "8.2", "bullseye": "7.4"} %}
+{%- set php_versions = {
+    "trixie": "8.4",
+    "bookworm": "8.2",
+    "bullseye": "7.4"
+} %}
 php:
   use_external_repo: False
   version: {{ php_versions[grains.oscodename] }}
@@ -82,7 +86,7 @@ php:
           expose_php: 'Off'
           max_execution_time: 30
           max_input_time: 60
-          memory_limit: 128M
+          memory_limit: -1
           error_reporting:
             - E_ALL
             - ~E_DEPRECATED
@@ -114,6 +118,28 @@ php:
           allow_url_fopen: 'On'
           allow_url_include: 'Off'
           default_socket_timeout: 60
+        Session:
+          session.save_handler: 'files'
+          session.use_strict_mode: 0
+          session.use_cookies: 1
+          session.use_only_cookies: 1
+          session.name: 'PHPSESSID'
+          session.auto_start: 0
+          session.cookie_lifetime: 0
+          session.cookie_path: '/'
+          session.serialize_handler: 'php'
+          session.gc_probability: 0
+          session.gc_divisor: 1000
+          session.gc_maxlifetime: 1440
+          session.bug_compat_42: 'Off'
+          session.bug_compat_warn: 'Off'
+          session.cache_limiter: 'nocache'
+          session.cache_expire: 180
+          session.use_trans_sid: 0
+          session.hash_function: 0
+          session.hash_bits_per_character: 5
+          url_rewriter.tags: '"a=href,area=href,frame=src,input=src,form=fakeentry"'
+          upload_progress.enabled: 'Off'
 {# Default disable_functions list for Debian libapache2-mod-php7.0 package:
  #          - pcntl_alarm
  #          - pcntl_exec
