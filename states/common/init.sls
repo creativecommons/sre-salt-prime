@@ -11,8 +11,8 @@ include:
       - dnsutils
       - htop
       - nvme-cli
+      - ripgrep
       - rsync
-      - silversearcher-ag
       - time
       - tree
 

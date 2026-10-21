@@ -10,7 +10,9 @@
 
 
 {{ sls }} remove legacy sources file:
-  file.absent:
+  file.managed:
     - name: /etc/apt/sources.list
+    # Debian wants an empty file here ¯\_(ツ)_/¯
+    - content:
     - require:
         - file: {{ sls }} sources file
