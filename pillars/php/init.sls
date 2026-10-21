@@ -86,7 +86,7 @@ php:
           expose_php: 'Off'
           max_execution_time: 30
           max_input_time: 60
-          memory_limit: 128M
+          memory_limit: -1
           error_reporting:
             - E_ALL
             - ~E_DEPRECATED
