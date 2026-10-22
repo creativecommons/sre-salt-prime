@@ -86,6 +86,10 @@ php:
           expose_php: 'Off'
           max_execution_time: 30
           max_input_time: 60
+          # Security
+          # TEMPORARY:
+          #  https://www.php.net/archive/2026.php#2026-10-21-5
+          #  https://security-tracker.debian.org/tracker/CVE-2026-109618
           memory_limit: -1
           error_reporting:
             - E_ALL
@@ -119,14 +123,23 @@ php:
           allow_url_include: 'Off'
           default_socket_timeout: 60
         Session:
+          # PHP: Securing Session INI Settings - Manual
+          # https://www.php.net/manual/en/session.security.ini.php
           session.save_handler: 'files'
-          session.use_strict_mode: 0
-          session.use_cookies: 1
-          session.use_only_cookies: 1
+          # Security
+          session.use_strict_mode: 'On'
+          session.use_cookies: 'On'
+          session.use_only_cookies: 'On'
           session.name: 'PHPSESSID'
-          session.auto_start: 0
+          session.auto_start: 'Off'
+          # Security
+          session.cookie_httponly: 'On'
           session.cookie_lifetime: 0
           session.cookie_path: '/'
+          # Security
+          session.cookie_samesite: 'Strict'
+          # Security
+          session.cookie_secure: 'On'
           session.serialize_handler: 'php'
           session.gc_probability: 0
           session.gc_divisor: 1000
@@ -135,10 +148,9 @@ php:
           session.bug_compat_warn: 'Off'
           session.cache_limiter: 'nocache'
           session.cache_expire: 180
-          session.use_trans_sid: 0
-          session.hash_function: 0
-          session.hash_bits_per_character: 5
+          session.use_trans_sid: 'Off'
           url_rewriter.tags: '"a=href,area=href,frame=src,input=src,form=fakeentry"'
+          # Security
           upload_progress.enabled: 'Off'
 {# Default disable_functions list for Debian libapache2-mod-php7.0 package:
  #          - pcntl_alarm
