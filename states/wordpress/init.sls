@@ -24,7 +24,7 @@ include:
   - php.curl
   - php.gd
   - php.intl
-  - php.mysqlnd
+  - php.mysql
   - php.xml
   - php.zip
   - php_cc.composer
