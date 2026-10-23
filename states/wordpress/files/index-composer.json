@@ -35,25 +35,25 @@
         },
         "name": "reyhoun/acf-menu-chooser",
         "type": "wordpress-plugin",
-        "version": "1.1"
+        "version": "1.1.0"
       },
       "type": "package"
     }
   ],
   "require": {
-    "composer/installers": "^2.2",
-    "creativecommons/vocabulary-theme": "1.13",
-    "johnpbloch/wordpress": "6.3.4",
-    "reyhoun/acf-menu-chooser": "1.1",
+    "composer/installers": "^2.3",
+    "creativecommons/vocabulary-theme": "2.11",
+    "johnpbloch/wordpress": "6.3.10",
+    "reyhoun/acf-menu-chooser": "1.1.0",
     "wpackagist-plugin/advanced-custom-fields": "6.2.1",
     "wpackagist-plugin/classic-editor": "1.6.3",
-    "wpackagist-plugin/google-analytics-for-wordpress": "8.19",
-    "wpackagist-plugin/redirection": "5.3.10",
-    "wpackagist-plugin/tablepress": "2.1.7",
-    "wpackagist-plugin/wordfence": "7.10.4",
-    "wpackagist-plugin/wordpress-importer": "0.8.1",
+    "wpackagist-plugin/google-analytics-for-wordpress": "8.27.0",
+    "wpackagist-plugin/redirection": "5.4.2",
+    "wpackagist-plugin/tablepress": "2.3.2",
+    "wpackagist-plugin/wordfence": "7.11.6",
+    "wpackagist-plugin/wordpress-importer": "0.8.2",
     "wpackagist-plugin/wordpress-seo": "21.2",
-    "wpackagist-theme/twentytwentythree": "1.2"
+    "wpackagist-theme/twentytwentythree": "1.4"
   },
   "require-dev": {
     "wpackagist-plugin/debug-bar": "1.1.4",
