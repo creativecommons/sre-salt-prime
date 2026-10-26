@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-# vim: set fileencoding=utf-8 :
-
 r"""Create markdown table of host information:
 
 sudo salt \* saltutil.sync_grains saltenv=${USER}
@@ -62,7 +60,9 @@ def format_columns(rows, sep=None, align=None):
 
 
 def main():
-    now = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+    now = datetime.datetime.now(datetime.timezone.utc).strftime(
+        "%Y-%m-%d %H:%M:%S UTC"
+    )
     data = yaml.safe_load(sys.stdin)
     print()
     align = ["l", "c", "l", "l", "l", "r"]
