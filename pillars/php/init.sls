@@ -86,11 +86,7 @@ php:
           expose_php: 'Off'
           max_execution_time: 30
           max_input_time: 60
-          # Security
-          # TEMPORARY:
-          #  https://www.php.net/archive/2026.php#2026-10-21-5
-          #  https://security-tracker.debian.org/tracker/CVE-2026-109618
-          memory_limit: -1
+          memory_limit: 128M
           error_reporting:
             - E_ALL
             - ~E_DEPRECATED
