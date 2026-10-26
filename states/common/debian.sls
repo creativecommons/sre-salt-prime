@@ -12,7 +12,9 @@
 {{ sls }} remove legacy sources file:
   file.managed:
     - name: /etc/apt/sources.list
-    # Debian wants an empty file here ¯\_(ツ)_/¯
-    - content:
+    - contents:
+        - '# Managed by SaltStack: common.debian'
+        - '#'
+        - '# See /etc/apt/sources.list.d/debian.source, etc.'
     - require:
         - file: {{ sls }} sources file
