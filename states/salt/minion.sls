@@ -2,6 +2,8 @@
 # server the salt packages should be upgraded manually (and then
 # minion_target_version pillar updated).
 
+{% set TARGET = pillar["salt"]["minion_target_version"] -%}
+
 
 {{ sls }} installed packages:
   pkg.installed:
@@ -10,6 +12,7 @@
 
 
 {% if not (salt.match.glob("salt-prime__*")) -%}
+
 
 {{ sls }} minion_upgraded_needed.sh script:
   file.managed:
@@ -27,17 +30,11 @@
     - follow_symlinks: False
 
 
-{% if grains['osmajorrelease'] < 10 -%}
-# Hardcode SaltStack version for Debian 9 (Stretch) :`(
-{% set target = "3004.2+ds-1" -%}
-{% else -%}
-{% set target = pillar["salt"]["minion_target_version"] -%}
-{% endif -%}
 {{ sls }} upgrade minion:
   cmd.run:
-    - name: nohup /usr/local/sbin/upgrade_minion.sh {{ target }}
+    - name: nohup /usr/local/sbin/upgrade_minion.sh {{ TARGET }}
     - bg: True
-    - onlyif: /usr/local/sbin/minion_upgraded_needed.sh {{ target }}
+    - onlyif: /usr/local/sbin/minion_upgraded_needed.sh {{ TARGET }}
     - require:
       - file: {{ sls }} minion_upgraded_needed.sh script
       - file: {{ sls }} upgrade_minion.sh script
