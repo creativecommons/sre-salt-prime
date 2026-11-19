@@ -2,9 +2,8 @@
 
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
-    http2 off;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
     server_name {{ CERT_NAME }};
     access_log {{ pillar.nginx.custom_log_dir }}/access_archive.log
         json_archive buffer=32k flush=2s;
